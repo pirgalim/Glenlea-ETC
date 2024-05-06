@@ -1,4 +1,10 @@
-#from pyscript import document
+import pyscript
+from pyscript import document
+
+
+#from js import document
+#from pyodide import create_proxy
+
 
 
 # currently rewriting Jupyter file
@@ -71,6 +77,8 @@ seeing_pixel = seeing_cond/plate_scale
 
 
 
+#def load_preset(event):
+
 
 def plot_light_curve_SB(event):
 
@@ -103,3 +111,19 @@ def plot_light_curve_SB(event):
     plt.legend()
     plt.grid(True)
     plt.show()
+
+
+def setup():
+    change_proxy = create_proxy(selectChange)
+
+
+
+
+
+def selectChange(event):
+    choice = document.getElementById("select").value
+    output_div = document.querySelector("#output")
+    output_div.innerText = choice
+    #pyscript.write(choice)
+
+
