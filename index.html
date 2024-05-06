@@ -1,4 +1,27 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <!-- meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
 
+        <!-- PyScript CSS-->
+        <link rel="stylesheeet" href="https://pyscript.net/releases/2024.4.1/core.css">
+        
+        <!-- This script tag bootstraps PyScript -->
+        <script type="module" src="https://pyscript.net/releases/2024.4.1/core.js"></script>
+    
+        <title>Glenlea ETC</title>
+    </head>
+    <body>
+
+        <!-- code goes here -->
+        <h1>Glenlea Exposure Time Calculator</h1>
+        <p>testing</p>
+
+        <button py-click="plot_light_curve_SB">Run Script</button>
+        <div id="output"></div>
+        <script type="py" src="./ETC.py" config="./pyscript.json"></script>
+        
+    </body>
 </html>
