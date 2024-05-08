@@ -11,7 +11,7 @@ This is a web-based Exposure Time Calculator (ETC) intended for deployment to th
 
 ### Local Usage
 
-To use the ETC without deployment, simply run ==main.py== through a terminal window.
+To use the ETC without deployment, simply run 'main.py' through a terminal window.
 
 In a browser enter the following URL:
 
