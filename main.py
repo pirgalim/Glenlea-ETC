@@ -1,12 +1,15 @@
 from flask import Flask
 from flask import render_template
 
-import test
+import services.test as test
 #import ETC
 
-import sys
-sys.path.insert(0, "./scripts")
-from scripts import ETC
+# import sys
+# sys.path.insert(0, "./scripts")
+# from services import ETC
+
+
+import services.ETC as ETC
 
 
 
@@ -51,11 +54,11 @@ def plot_png():
     # fig.savefig(buf, format="png")
     # data = base64.b64encode(buf.getbuffer()).decode("ascii")
     
-    data = ETC.plot_light_curve_SB
-    return render_template("main.html", img_data=data)
+    # data = ETC.plot_light_curve_SB
+    # return render_template("main.html", img_data=data)
     
-    #data = test.run()
-    #return render_template('main.html') + f"<img src='data:image/png;base64,{data}'/>"
+    data = test.run()
+    return render_template('main.html') + f"<img src='data:image/png;base64,{data}'/>"
 
 
 

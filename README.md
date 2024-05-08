@@ -9,6 +9,7 @@ This is a web-based Exposure Time Calculator (ETC) intended for deployment to th
 	SciPy
 	matplotlib
 
+##### Instructions
 To use the ETC without deployment, simply run *main.py* from a terminal window.
 
 In a browser enter the following URL:
