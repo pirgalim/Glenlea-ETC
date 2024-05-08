@@ -8,8 +8,13 @@ import numpy as np
 import math
 
 
+import base64
+from io import BytesIO
+from matplotlib.figure import Figure
 
-#from matplotlib.figure import Figure
+
+#from PIL import Image
+
 
 
 
@@ -74,7 +79,7 @@ seeing_pixel = seeing_cond/plate_scale
 #def load_preset(event):
 
 
-def plot_light_curve_SB():
+def OLD_plot_light_curve_SB():
 
     kB = scipy.constants.Boltzmann
     h = scipy.constants.Planck
@@ -107,4 +112,50 @@ def plot_light_curve_SB():
     plt.show()
     
     
+def plot_light_curve_SB():
+    
+    
+    kB = scipy.constants.Boltzmann
+    h = scipy.constants.Planck
+    c = scipy.constants.c
+    T = star_temp   # pass in function
+
+    wl = np.linspace(1 * 10**(-8), 5 * 10**(-6), 10000)
+    wlnm = wl * 10**9 
+
+    P = ((2*np.pi*h*c**2)/(wl**5))*(1/np.exp((h*c)/(wl*kB*T)-1))
+    
+    
+    fig = Figure()
+    ax = fig.subplots()
+    #ax.plot(plt.plot(wlnm, P, label='Stellar Black Body', color='y'))
+    
+    ax.figure(figsize=(8, 6))
+    ax.plot(wlnm, P, label='Stellar Black Body', color='y')
+    ax.fill_between(wlnm, P, color='yellow', alpha=0.3, label='Stellar emission')
+
+    ax.axvline(x=filter_low*10**9, color='r', linestyle='--', label='filter cut on')
+    ax.axvline(x=filter_high*10**9, color='b', linestyle='--', label='filter cut off')
+
+    ax.fill_betweenx(y=np.linspace(min(P), max(P) + 1*10**14), x1=filter_low*10**9, x2=filter_high*10**9, color='lightblue', alpha=0.4, label='Filter band pass')
+
+    # ax.title('Filtered Stellar Black Body Spectrum')
+    # ax.xlabel('Wavelengh (nm)')
+    # ax.ylabel('Power Density (W/m^3)')
+    # ax.xlim(0,2000)
+    # ax.ylim(0)
+
+    ax.legend()
+    ax.grid(True)
+    
+    
+    buf = BytesIO()
+    fig.savefig(buf, format="png")
+    
+    #data = base64.b64encode(buf.getvalue()).decode('utf-8')
+        
+    data = base64.b64encode(buf.getbuffer()).decode("ascii")
+    
+    #data = buf.getbuffer()
+    return data
     

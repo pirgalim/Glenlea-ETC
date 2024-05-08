@@ -2,6 +2,11 @@ from flask import Flask
 from flask import render_template
 
 import test
+#import ETC
+
+import sys
+sys.path.insert(0, "./scripts")
+from scripts import ETC
 
 
 
@@ -9,8 +14,8 @@ import base64
 from io import BytesIO
 from matplotlib.figure import Figure
 
-from flask import Response
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+#from flask import Response
+#from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 import numpy as np
 
@@ -39,13 +44,18 @@ def plot_png():
     
    
     
-    fig = Figure()
-    ax = fig.subplots()
-    ax.plot([1,2])
-    buf = BytesIO()
-    fig.savefig(buf, format="png")
-    data = base64.b64encode(buf.getbuffer()).decode("ascii")
-    return render_template('main.html') + f"<img src='data:image/png;base64,{data}'/>" + render_template('main.html')
+    # fig = Figure()
+    # ax = fig.subplots()
+    # ax.plot([1,2])
+    # buf = BytesIO()
+    # fig.savefig(buf, format="png")
+    # data = base64.b64encode(buf.getbuffer()).decode("ascii")
+    
+    data = ETC.plot_light_curve_SB
+    return render_template("main.html", img_data=data)
+    
+    #data = test.run()
+    #return render_template('main.html') + f"<img src='data:image/png;base64,{data}'/>"
 
 
 
