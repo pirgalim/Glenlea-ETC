@@ -2,11 +2,6 @@ import pyscript
 from pyscript import document
 
 
-#from js import document
-#from pyodide import create_proxy
-
-
-
 # currently rewriting Jupyter file
 import matplotlib.pyplot as plt
 import scipy.constants
@@ -17,7 +12,6 @@ import numpy as np
 import math
 
 
-# It would be smart to have several preset files, ex: ASI6200, then just fetch
 
 # sensor parameters, hard coded for now, will allow for user input later
 pixel_size = 9 * 10**(-6) # add comments later
@@ -111,19 +105,3 @@ def plot_light_curve_SB(event):
     plt.legend()
     plt.grid(True)
     plt.show()
-
-
-def setup():
-    change_proxy = create_proxy(selectChange)
-
-
-
-
-
-def selectChange(event):
-    choice = document.getElementById("select").value
-    output_div = document.querySelector("#output")
-    output_div.innerText = choice
-    #pyscript.write(choice)
-
-
