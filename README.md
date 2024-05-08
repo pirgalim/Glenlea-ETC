@@ -1,6 +1,4 @@
-This is a web-based Exposure Time Calculator (ETC) intended for deployment to the [Lockhart Planetarium](http://www.physics.umanitoba.ca/astro/?page_id=8) website. The current version only supports calculations for point sources, support for extended sources is to be added in the future. 
-
-This application was made in collaboration with GitHub user RJWeir. 
+This is a web-based Exposure Time Calculator (ETC) intended for deployment to the [Lockhart Planetarium](http://www.physics.umanitoba.ca/astro/?page_id=8) website. The current version only supports calculations for point sources, support for extended sources is to be added in the future. This application was made in collaboration with GitHub user RJWeir. 
 
 
 ##### Installation Requirements
@@ -21,7 +19,7 @@ config.json
 Run the following command to initialize a local server
 
 ```
-python3 -m http-server
+python3 -m http.server
 ```
 
 In a browser, enter the following URL
