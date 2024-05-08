@@ -1,7 +1,3 @@
-import pyscript
-from pyscript import document
-
-
 # currently rewriting Jupyter file
 import matplotlib.pyplot as plt
 import scipy.constants
@@ -10,6 +6,10 @@ import matplotlib.patches as patches
 import scipy
 import numpy as np
 import math
+
+
+
+#from matplotlib.figure import Figure
 
 
 
@@ -74,7 +74,7 @@ seeing_pixel = seeing_cond/plate_scale
 #def load_preset(event):
 
 
-def plot_light_curve_SB(event):
+def plot_light_curve_SB():
 
     kB = scipy.constants.Boltzmann
     h = scipy.constants.Planck
@@ -105,3 +105,6 @@ def plot_light_curve_SB(event):
     plt.legend()
     plt.grid(True)
     plt.show()
+    
+    
+    
