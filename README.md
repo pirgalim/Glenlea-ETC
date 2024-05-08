@@ -24,7 +24,7 @@ python3 -m http.server
 
 In a browser, enter the following URL
 ```
-http://localhost:8000
+http://localhost:8000/server
 ```
 This opens a local session of the ETC which will run as long as the previous command is active in the terminal.
 
