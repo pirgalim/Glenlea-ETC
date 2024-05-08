@@ -6,7 +6,6 @@ from pyscript import document
 #from pyodide import create_proxy
 
 
-
 # currently rewriting Jupyter file
 import matplotlib.pyplot as plt
 import scipy.constants
@@ -17,9 +16,35 @@ import numpy as np
 import math
 
 
-# It would be smart to have several preset files, ex: ASI6200, then just fetch
+#TODO: It would be smart to have several presets, ex: ASI6200, then just fetch
+
+
+class Camera:
+    
+    def __init__(self, pixel_size, Q_efficiency, read_noise, gain, sensor_offset, dark_noise, full_well, sensor_X, sensor_Y):
+        
+        # could I parse an array instead?
+        
+        self.pixel_size = pixel_size
+        self.Q_efficiency = Q_efficiency
+        self.read_noise = read_noise
+        self.gain = gain
+        self.sensor_offset = sensor_offset
+        self.dark_noise = dark_noise
+        self.full_well = full_well
+        self.sensor_X = sensor_X
+        self.sensor_Y = sensor_Y
+        self.sensor_width = sensor_X * pixel_size
+        self.sensor_height = sensor_Y * pixel_size
+
+    
+
+
+
+
 
 # sensor parameters, hard coded for now, will allow for user input later
+
 pixel_size = 9 * 10**(-6) # add comments later
 Q_efficiency = 0.5*0.95
 read_noise = 13
@@ -32,6 +57,7 @@ sensor_Y = 267
 
 sensor_width = sensor_X * pixel_size
 sensor_height = sensor_Y * pixel_size
+
 
 
 # observatory parameters, same thing
@@ -64,6 +90,8 @@ star_dia = 1.392 * 10**9*star_dia_solar
 
 # compute FOV
 
+# FOV_width = 206265 * sensor_width * (1/scope_focal)
+# FOV_height = 206265 * sensor_height * (1/scope_focal)
 FOV_width = 206265 * sensor_width * (1/scope_focal)
 FOV_height = 206265 * sensor_height * (1/scope_focal)
 FOV_area = FOV_width * FOV_height
@@ -113,17 +141,16 @@ def plot_light_curve_SB(event):
     plt.show()
 
 
-def setup():
-    change_proxy = create_proxy(selectChange)
 
 
 
 
 
-def selectChange(event):
-    choice = document.getElementById("select").value
-    output_div = document.querySelector("#output")
-    output_div.innerText = choice
-    #pyscript.write(choice)
+
+# def selectChange(event):
+#     choice = document.getElementById("select").value
+#     output_div = document.querySelector("#output")
+#     output_div.innerText = choice
+#     #pyscript.write(choice)
 
 
