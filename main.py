@@ -1,15 +1,9 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-
-# import matplotlib
-# import matplotlib.pyplot as plt 
+from flask import make_response
 
 import os
-
-
-
-# import services.test as test
 import services.ETC as ETC
 
 
@@ -19,13 +13,44 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def hello():
-    return render_template('index.html')
+def index():
+    
+    resp = make_response(render_template('index.html'))
+    
+    if os.path.exists("static/my_plot.png"):
+        os.remove("static/my_plot.png")
+        
+        return resp
+    else:
+        print("The file does not exist")
+
+    return resp
 
 
 
-@app.route("/get_plot", methods = ['GET', 'POST'])
+
+@app.route("/autofill",  methods = ['GET', 'POST'])
+def fill():
+    if request.method == "POST":
+        
+        data = request.form
+        
+        print("The data: ")
+        print(data)
+         
+        return render_template('index.html')
+    
+    else: 
+        render_template('index.html')
+
+
+
+
+
+
+@app.route("/plot", methods = ['GET', 'POST'])
 def get_plot():
+    
     if request.method == "POST":
         
         params = [request.form['sen_x'], request.form['sen_y'], request.form['px_size'], request.form['q_eff'], request.form['read_noise'],
@@ -39,8 +64,7 @@ def get_plot():
             print("The file does not exist")
         
         ETC.plot_light_curve_SB()
-        
-        
+
         
         return render_template('index.html', plot_url = "static/my_plot.png")
     
@@ -61,43 +85,6 @@ def get_plot():
         
 
     
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@app.route("/script")
-def dynamic_page():
-    
-    text = test.run()
-    
-    return text + 'ttt'
-
-
-
-@app.route("/figure")
-def plot_png():
-    
-    data = test.run()
-    return render_template('main.html') + f"<img src='data:image/png;base64,{data}'/>"
-
-
-
-
-
-
-
 
 
 @app.route("/hello")

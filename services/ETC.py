@@ -80,10 +80,7 @@ seeing_pixel = seeing_cond/plate_scale
 
 
 
-#def load_preset(event):
-
-
-def OLD_plot_light_curve_SB():
+def plot_light_curve_SB():
 
     kB = scipy.constants.Boltzmann
     h = scipy.constants.Planck
@@ -94,7 +91,6 @@ def OLD_plot_light_curve_SB():
     wlnm = wl * 10**9 
 
     P = ((2*np.pi*h*c**2)/(wl**5))*(1/np.exp((h*c)/(wl*kB*T)-1))
-
 
     plt.figure(figsize=(8, 6))
     plt.plot(wlnm, P, label='Stellar Black Body', color='y')
@@ -114,40 +110,4 @@ def OLD_plot_light_curve_SB():
     plt.legend()
     plt.grid(True)
     plt.show()
-    
-    
-def plot_light_curve_SB():
-       
-    
-    kB = scipy.constants.Boltzmann
-    h = scipy.constants.Planck
-    c = scipy.constants.c
-    T = star_temp   # pass in function
-
-    wl = np.linspace(1 * 10**(-8), 5 * 10**(-6), 10000)
-    wlnm = wl * 10**9 
-
-    P = ((2*np.pi*h*c**2)/(wl**5))*(1/np.exp((h*c)/(wl*kB*T)-1))
-
-
-    plt.figure(figsize=(8, 6))
-    plt.plot(wlnm, P, label='Stellar Black Body', color='y')
-    plt.fill_between(wlnm, P, color='yellow', alpha=0.3, label='Stellar emission')
-
-    plt.axvline(x=filter_low*10**9, color='r', linestyle='--', label='filter cut on')
-    plt.axvline(x=filter_high*10**9, color='b', linestyle='--', label='filter cut off')
-
-    plt.fill_betweenx(y=np.linspace(min(P), max(P) + 1*10**14), x1=filter_low*10**9, x2=filter_high*10**9, color='lightblue', alpha=0.4, label='Filter band pass')
-
-    plt.title('Filtered Stellar Black Body Spectrum')
-    plt.xlabel('Wavelengh (nm)')
-    plt.ylabel('Power Density (W/m^3)')
-    plt.xlim(0,2000)
-    plt.ylim(0)
-
-    plt.legend()
-    plt.grid(True)
     plt.savefig('static/my_plot.png')
-    
-    
-    

@@ -2,7 +2,7 @@ body {
   background-color: rgb(34, 34, 34);
 }
 
-div {
+section {
   background-color: rgb(70, 70, 70);
   margin: 25px 150px;
   padding: 5px 5px;
@@ -23,6 +23,7 @@ input {
   color: gray;
 }
 
+
 h1 {
   margin-top: 75px;
   margin-left: 150px;
@@ -31,7 +32,21 @@ h1 {
 
 }
 h2 {
+  /* margin-left: 25px;
+  margin-right: 25px; */
+  color: white;
+}
+
+label {
   margin-left: 25px;
   margin-right: 25px;
   color: white;
+}
+
+
+
+select {
+  margin-left: 25px;
+  margin-right: 25px;
+  color: black;
 }

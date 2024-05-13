@@ -15,27 +15,49 @@
 
     
 
+    
 
-    <div id="input">
 
-        <h2>Sensor Parameters:</h2>
+    <section id="input">
 
-        <form id="camera" action="/get_plot" method="POST">
 
-            Sensor X: <input type="number" name="sen_x" required/> Sensor Y: <input type="number" name="sen_y" required/><br>
-            Pixel size: <input type="number" name="px_size" required/> Quantum Efficiency: <input type="number" name="q_eff" required/><br>
-            Read Noise: <input type="number" name="read_noise" required/> Gain: <input type="number" name="gain" required/><br>
-            Sensor Offset: <input type="number" name="sen_offset" required/> Dark Noise: <input type="number" name="dark_noise" required/><br>
-            Full Well: <input type="number" name="full_well" required/><br>
+        <form id="autofill" name="autofill" action="/autofill" method="POST">
+
+            <label >Select Camera:</label>
             
+            <select id="camera_select">
+                <option value="custom">Custom</option>
+                <option value="asi6200">ASI6200MM</option>
+                <option value="asi533">ASI533MM</option>
+    
+                <input type="submit" value="Autofill"/>
+            </select>
+    
+        </form>
+       
+
+        <form id="data" action="/plot" method="POST">
+            
+            <div id="camera">
+
+                <h2>Sensor Parameters:</h2>
+
+                Sensor X: <input type="number" name="sen_x" value="" required/> Sensor Y: <input type="number" name="sen_y" required/><br>
+                Pixel size: <input type="number" name="px_size" required/> Quantum Efficiency: <input type="number" name="q_eff" required/><br>
+                Read Noise: <input type="number" name="read_noise" required/> Gain: <input type="number" name="gain" required/><br>
+                Sensor Offset: <input type="number" name="sen_offset" required/> Dark Noise: <input type="number" name="dark_noise" required/><br>
+                Full Well: <input type="number" name="full_well" required/><br>
+
+                <input type=button onclick="reset()" value="Reset">
+            </div>
         
 
 
 
 
         
-            <input type="submit" value="Calculate" />
-            <input type=button onclick="reset()" value="Reset">
+            <input type="submit" value="Calculate"/>
+            
         
         </form>
         
@@ -58,8 +80,14 @@
 
         
 
-    </div>
+       
 
+    </section>
+
+
+    <form id="clear_all" method = "BACK">
+        <input type="submit" value="CLEAR ALL">
+    </form>
     
 
 </body>
