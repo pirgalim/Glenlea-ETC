@@ -1,10 +1,37 @@
+body {
+  background-color: rgb(34, 34, 34);
+}
+
+div {
+  background-color: rgb(70, 70, 70);
+  margin: 25px 150px;
+  padding: 5px 5px;
+}
+
+form {
+  margin-left: 25px;
+  margin-right: 25px;
+  color: white;
+}
+input {
+  margin: 5px 5px;
+  padding: 10px 10px;
+
+  border: 2px solid gray;
+  border-radius: 10px;
+  text-align: center;
+  color: gray;
+}
+
 h1 {
-    color: blue;
-    font-family: verdana;
-    font-size: 300%;
-  }
-  p {
-    color: red;
-    font-family: courier;
-    font-size: 160%;
-  }
+  margin-top: 75px;
+  margin-left: 150px;
+  color: white;
+  /* font: helvetica; */
+
+}
+h2 {
+  margin-left: 25px;
+  margin-right: 25px;
+  color: white;
+}

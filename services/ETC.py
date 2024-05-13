@@ -8,9 +8,9 @@ import numpy as np
 import math
 
 
-import base64
-from io import BytesIO
-from matplotlib.figure import Figure
+# import base64
+# from io import BytesIO
+# from matplotlib.figure import Figure
 
 
 #from PIL import Image
@@ -113,7 +113,7 @@ def OLD_plot_light_curve_SB():
     
     
 def plot_light_curve_SB():
-    
+       
     
     kB = scipy.constants.Boltzmann
     h = scipy.constants.Planck
@@ -124,38 +124,26 @@ def plot_light_curve_SB():
     wlnm = wl * 10**9 
 
     P = ((2*np.pi*h*c**2)/(wl**5))*(1/np.exp((h*c)/(wl*kB*T)-1))
-    
-    
-    fig = Figure()
-    ax = fig.subplots()
-    #ax.plot(plt.plot(wlnm, P, label='Stellar Black Body', color='y'))
-    
-    ax.figure(figsize=(8, 6))
-    ax.plot(wlnm, P, label='Stellar Black Body', color='y')
-    ax.fill_between(wlnm, P, color='yellow', alpha=0.3, label='Stellar emission')
 
-    ax.axvline(x=filter_low*10**9, color='r', linestyle='--', label='filter cut on')
-    ax.axvline(x=filter_high*10**9, color='b', linestyle='--', label='filter cut off')
 
-    ax.fill_betweenx(y=np.linspace(min(P), max(P) + 1*10**14), x1=filter_low*10**9, x2=filter_high*10**9, color='lightblue', alpha=0.4, label='Filter band pass')
+    plt.figure(figsize=(8, 6))
+    plt.plot(wlnm, P, label='Stellar Black Body', color='y')
+    plt.fill_between(wlnm, P, color='yellow', alpha=0.3, label='Stellar emission')
 
-    # ax.title('Filtered Stellar Black Body Spectrum')
-    # ax.xlabel('Wavelengh (nm)')
-    # ax.ylabel('Power Density (W/m^3)')
-    # ax.xlim(0,2000)
-    # ax.ylim(0)
+    plt.axvline(x=filter_low*10**9, color='r', linestyle='--', label='filter cut on')
+    plt.axvline(x=filter_high*10**9, color='b', linestyle='--', label='filter cut off')
 
-    ax.legend()
-    ax.grid(True)
+    plt.fill_betweenx(y=np.linspace(min(P), max(P) + 1*10**14), x1=filter_low*10**9, x2=filter_high*10**9, color='lightblue', alpha=0.4, label='Filter band pass')
+
+    plt.title('Filtered Stellar Black Body Spectrum')
+    plt.xlabel('Wavelengh (nm)')
+    plt.ylabel('Power Density (W/m^3)')
+    plt.xlim(0,2000)
+    plt.ylim(0)
+
+    plt.legend()
+    plt.grid(True)
+    plt.savefig('static/my_plot.png')
     
     
-    buf = BytesIO()
-    fig.savefig(buf, format="png")
-    
-    #data = base64.b64encode(buf.getvalue()).decode('utf-8')
-        
-    data = base64.b64encode(buf.getbuffer()).decode("ascii")
-    
-    #data = buf.getbuffer()
-    return data
     

@@ -1,0 +1,59 @@
+<head>
+
+    <title>Glenlea ETC</title>
+
+    <meta charset="UTF-8">
+
+    <!-- CSS config -->
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/styles.css')}}">
+
+</head>
+
+<body>
+
+    <h1>Glenlea Exposure Time Calculator</h1>
+
+    
+
+
+    <div id="input">
+
+        <h2>Sensor Parameters:</h2>
+
+        <form id="camera" action="/get_plot" method="POST">
+
+            Sensor X: <input type="number" name="sen_x" required/> Sensor Y: <input type="number" name="sen_y" required/><br>
+            Pixel size: <input type="number" name="px_size" required/> Quantum Efficiency: <input type="number" name="q_eff" required/><br>
+            Read Noise: <input type="number" name="read_noise" required/> Gain: <input type="number" name="gain" required/><br>
+            Sensor Offset: <input type="number" name="sen_offset" required/> Dark Noise: <input type="number" name="dark_noise" required/><br>
+            Full Well: <input type="number" name="full_well" required/><br>
+            
+        
+
+
+
+
+        
+            <input type="submit" value="Calculate" />
+            <input type=button onclick="reset()" value="Reset">
+        
+        </form>
+        
+        
+        <script>
+        
+            function reset() {
+                document.getElementByID("camera").reset();
+            }
+        
+        </script>
+
+
+    </div>
+
+
+
+</body>
+
+
+
