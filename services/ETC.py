@@ -1,4 +1,8 @@
 # currently rewriting Jupyter file
+
+import matplotlib
+matplotlib.use('agg')
+
 import matplotlib.pyplot as plt
 import scipy.constants
 plt.style.use('seaborn-poster')

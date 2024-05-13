@@ -39,7 +39,15 @@
         
         </form>
         
+        <div id="plot">
+
+            {% if plot_url %}
+                <img src = {{plot_url}} alt = "Chart cannot be displayed">
+            {% endif %}
         
+        </div>
+
+
         <script>
         
             function reset() {
@@ -48,10 +56,11 @@
         
         </script>
 
+        
 
     </div>
 
-
+    
 
 </body>
 

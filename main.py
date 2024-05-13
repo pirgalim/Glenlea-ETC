@@ -5,37 +5,12 @@ from flask import request
 # import matplotlib
 # import matplotlib.pyplot as plt 
 
+import os
 
 
 
 # import services.test as test
-# import services.ETC as ETC
-
-
-
-
-
-# currently rewriting Jupyter file
-import matplotlib.pyplot as plt
-import scipy.constants
-plt.style.use('seaborn-poster')
-import matplotlib.patches as patches
-import scipy
-import numpy as np
-import math
-
-
-
-# import base64
-# from io import BytesIO
-# from matplotlib.figure import Figure
-
-#from flask import Response
-#from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-
-#import numpy as np
-
-
+import services.ETC as ETC
 
 
 
@@ -55,13 +30,19 @@ def get_plot():
         
         params = [request.form['sen_x'], request.form['sen_y'], request.form['px_size'], request.form['q_eff'], request.form['read_noise'],
                   request.form['gain'], request.form['dark_noise'], request.form['full_well']]
-    
-        
-        #ETC.plot_light_curve_SB()
+
         
         
+        if os.path.exists("static/my_plot.png"):
+            os.remove("static/my_plot.png")
+        else:
+            print("The file does not exist")
         
-        return render_template('index.html')
+        ETC.plot_light_curve_SB()
+        
+        
+        
+        return render_template('index.html', plot_url = "static/my_plot.png")
     
     else:
         return render_template('index.html')
