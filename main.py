@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    
+        
     resp = make_response(render_template('index.html'))
     
     if os.path.exists("static/my_plot.png"):
@@ -29,19 +29,19 @@ def index():
 
 
 
-@app.route("/autofill",  methods = ['GET', 'POST'])
-def fill():
-    if request.method == "POST":
+# @app.route("/autofill",  methods = ['GET', 'POST'])
+# def fill():
+#     if request.method == "POST":
         
-        data = request.form
+#         data = request.form
         
-        print("The data: ")
-        print(data)
+#         print("The data: ")
+#         print(data)
          
-        return render_template('index.html')
+#         return render_template('index.html')
     
-    else: 
-        render_template('index.html')
+#     else: 
+#         render_template('index.html')
 
 
 
@@ -50,11 +50,11 @@ def fill():
 
 @app.route("/plot", methods = ['GET', 'POST'])
 def get_plot():
-    
+        
     if request.method == "POST":
         
         params = [request.form['sen_x'], request.form['sen_y'], request.form['px_size'], request.form['q_eff'], request.form['read_noise'],
-                  request.form['gain'], request.form['dark_noise'], request.form['full_well']]
+                  request.form['gain'], request.form['sen_offset'], request.form['dark_noise'], request.form['full_well']]
 
         
         
@@ -63,26 +63,16 @@ def get_plot():
         else:
             print("The file does not exist")
         
+        
+        #camera = ETC.camera(params)
         ETC.plot_light_curve_SB()
+        #ETC.print_data(camera)
 
         
         return render_template('index.html', plot_url = "static/my_plot.png")
     
-    else:
-        return render_template('index.html')
-        
-        
-        
-        # sen_x = request.form['sen_x']
-        # sen_y = request.form['sen_y']
-        # px_size = request.form['px_size']
-        # q_eff = request.form['q_eff']
-        # read_noise = request.form['read_noise']
-        # gain = request.form['gain']
-        # sen_offset = request.form['sen_offset']
-        # dark_noise = request.form['dark_noise']
-        # full_well = request.form['full_well']
-        
+    else:   # this is temporary
+        return render_template('index.html')     
 
     
 

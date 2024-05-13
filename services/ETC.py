@@ -21,6 +21,23 @@ import math
 
 
 
+class camera:
+    
+    def __init__(self, params):
+        
+        self.pixel_size = params[0]
+        self.Q_efficiency = params[1]
+        self.read_noise = params[2]
+        self.gain = params[3]
+        self.sensor_offset = params[4]
+        self.dark_noise = params[5]
+        self.full_well = params[6]
+        self.sensor_X = params[7]
+        self.sensor_Y = params[8]
+    
+    
+
+
 
 # sensor parameters, hard coded for now, will allow for user input later
 pixel_size = 9 * 10**(-6) # add comments later
@@ -111,3 +128,7 @@ def plot_light_curve_SB():
     plt.grid(True)
     plt.show()
     plt.savefig('static/my_plot.png')
+    
+    
+def print_data(params):
+    print(params)

@@ -42,7 +42,7 @@
 
                 <h2>Sensor Parameters:</h2>
 
-                Sensor X: <input type="number" name="sen_x" value="" required/> Sensor Y: <input type="number" name="sen_y" required/><br>
+                Sensor X: <input type="number" name="sen_x" required/> Sensor Y: <input type="number" name="sen_y" required/><br>
                 Pixel size: <input type="number" name="px_size" required/> Quantum Efficiency: <input type="number" name="q_eff" required/><br>
                 Read Noise: <input type="number" name="read_noise" required/> Gain: <input type="number" name="gain" required/><br>
                 Sensor Offset: <input type="number" name="sen_offset" required/> Dark Noise: <input type="number" name="dark_noise" required/><br>
@@ -50,7 +50,19 @@
 
                 <input type=button onclick="reset()" value="Reset">
             </div>
-        
+
+
+            <div id="observatory">
+
+                <h2>Observatory Parameters:</h2>
+
+                Telescope Diameter: <input type="number" name="scope_dia" required/> Mirror Area: <input type="number" name="mirror_area" required/><br>
+                Telescope Focal: <input type="number" name="scope_focal" required/> Focal Ratio: <input type="number" name="f_ratio" required/><br>
+                Plate Scale: <input type="number" name="plate_scale" required/><br>
+
+                <input type=button onclick="reset()" value="Reset">
+            </div>
+
 
 
 
