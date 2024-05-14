@@ -36,19 +36,19 @@
         </form>
        
 
-        <form id="data" action="/plot" method="POST">
+        <form id="data" action="/" method="POST">
             
             <div id="camera">
 
                 <h2>Sensor Parameters:</h2>
 
-                Sensor X: <input type="number" name="sen_x" required/> Sensor Y: <input type="number" name="sen_y" required/><br>
-                Pixel size: <input type="number" name="px_size" required/> Quantum Efficiency: <input type="number" name="q_eff" required/><br>
-                Read Noise: <input type="number" name="read_noise" required/> Gain: <input type="number" name="gain" required/><br>
-                Sensor Offset: <input type="number" name="sen_offset" required/> Dark Noise: <input type="number" name="dark_noise" required/><br>
+                Sensor X: <input type="number" name="sen_x" required/> Sensor Y: <input type="number" name="sen_y" required/>
+                Pixel size: <input type="number" name="px_size" placeholder="e-6" required/><br>
+                Quantum Efficiency: <input type="number" name="q_eff" required/>Read Noise: <input type="number" name="read_noise" required/> 
+                Gain: <input type="number" name="gain" required/><br>
+                Sensor Offset: <input type="number" name="sen_offset" required/> Dark Noise: <input type="number" name="dark_noise" required/>
                 Full Well: <input type="number" name="full_well" required/><br>
 
-                <input type=button onclick="reset()" value="Reset">
             </div>
 
 
@@ -56,20 +56,42 @@
 
                 <h2>Observatory Parameters:</h2>
 
-                Telescope Diameter: <input type="number" name="scope_dia" required/> Mirror Area: <input type="number" name="mirror_area" required/><br>
-                Telescope Focal: <input type="number" name="scope_focal" required/> Focal Ratio: <input type="number" name="f_ratio" required/><br>
+                Telescope Diameter: <input type="number" name="scope_dia" required/>Telescope Focal: <input type="number" name="scope_focal" required/>
                 Plate Scale: <input type="number" name="plate_scale" required/><br>
 
-                <input type=button onclick="reset()" value="Reset">
             </div>
 
 
+            <div id="filters">
+
+                <h2>Filter Parameters:</h2>
+
+                Filter Low: <input type="number" name="filter_low" required/> Filter High: <input type="number" name="filter_high" required/>
+                Filter Zero: <input type="number" name="filter_zero" required/><br>
+
+            </div>
+
+            <div id="target">
+
+                <h2>Target Data:</h2>
+
+                Star Distance: <input type="number" name="star_dist" required/> Star Temperature: <input type="number" name="star_temp" required/>
+                Star Diameter: <input type="number" name="star_dia" required/><br>
+
+            </div>
+
+            <div id="sky">
+
+                <h2>Sky Parameters:</h2>
+
+                Sky Brightness: <input type="number" name="sky_bright" required/> Seeing Conditions: <input type="number" name="seeing_cond" required/>
+
+            </div>
 
 
-
-        
-            <input type="submit" value="Calculate"/>
-            
+            <br>
+            <input type="submit" value="Calculate"/><input type="reset" value="Reset">
+            <br>
         
         </form>
         
@@ -81,18 +103,6 @@
         
         </div>
 
-
-        <script>
-        
-            function reset() {
-                document.getElementByID("camera").reset();
-            }
-        
-        </script>
-
-        
-
-       
 
     </section>
 

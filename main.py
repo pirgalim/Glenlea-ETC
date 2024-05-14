@@ -29,7 +29,7 @@ def index():
 
 
 
-# @app.route("/autofill",  methods = ['GET', 'POST'])
+# @app.route("/from_template",  methods = ['GET', 'POST'])
 # def fill():
 #     if request.method == "POST":
         
@@ -48,7 +48,7 @@ def index():
 
 
 
-@app.route("/plot", methods = ['GET', 'POST'])
+@app.route("/", methods = ['GET', 'POST'])
 def get_plot():
         
     if request.method == "POST":
