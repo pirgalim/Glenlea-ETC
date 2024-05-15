@@ -20,81 +20,10 @@
     {% endblock %}
 
 
-    <!-- parameter input -->
-    <section id="input">
-
-        <form id="data" action="/" method="POST">
-            
-            <div id="camera">
-
-                <h2>Sensor Parameters:</h2>
-
-                <span>Sensor Dimensions:</span><input type="number" name="sen_x" placeholder="mm" required/><span>x</span><input type="number" name="sen_y" placeholder="mm" required/><br>
-                Pixel Size: <input type="number" name="px_size" placeholder="e-6" required/>
-                
-                Quantum Efficiency: <input type="number" name="q_eff" required/>
-                Read Noise: <input type="number" name="read_noise" required/><br>
-                Gain: <input type="number" name="gain" required/>
-                Sensor Offset: <input type="number" name="sen_offset" required/> 
-                Dark Noise: <input type="number" name="dark_noise" required/><br>
-                Full Well: <input type="number" name="full_well" required/><br>
-
-            </div>
-
-            <div id="observatory">
-
-                <h2>Observatory Parameters:</h2>
-
-                Telescope Diameter: <input type="number" name="scope_dia" required/>Telescope Focal: <input type="number" name="scope_focal" required/>
-                Plate Scale: <input type="number" name="plate_scale" required/><br>
-
-            </div>
-
-            <div id="filters">
-
-                <h2>Filter Parameters:</h2>
-
-                Filter Low: <input type="number" name="filter_low" required/> Filter High: <input type="number" name="filter_high" required/>
-                Filter Zero: <input type="number" name="filter_zero" required/><br>
-
-            </div>
-
-            <div id="target">
-
-                <h2>Target Data:</h2>
-
-                Star Distance: <input type="number" name="star_dist" required/> Star Temperature: <input type="number" name="star_temp" required/>
-                Star Diameter: <input type="number" name="star_dia" required/><br>
-
-            </div>
-
-            <div id="sky">
-
-                <h2>Sky Parameters:</h2>
-
-                Sky Brightness: <input type="number" name="sky_bright" required/> Seeing Conditions: <input type="number" name="seeing_cond" required/>
-
-            </div>
-
-            <br><input type="submit" value="Calculate"/><input type="reset" value="Reset"><br>
-        
-        </form>
-        
-        <div id="plot">
-
-            {% if plot_url %}
-                <img src = {{plot_url}} alt = "Chart cannot be displayed">
-            {% endif %}
-        
-        </div>
-
-    </section>
-
-
     <form id="clear_all" method = "BACK">
         <input type="submit" value="CLEAR ALL">
     </form>
-    
+
 
 </body>
 
