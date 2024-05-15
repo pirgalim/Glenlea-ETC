@@ -25,6 +25,9 @@ class camera:
     
     def __init__(self, params):
         
+        
+        # validate length of parameters first
+        
         self.pixel_size = params[0]
         self.Q_efficiency = params[1]
         self.read_noise = params[2]
@@ -34,6 +37,9 @@ class camera:
         self.full_well = params[6]
         self.sensor_X = params[7]
         self.sensor_Y = params[8]
+        
+        
+        
     
     
 

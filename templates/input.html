@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+{% block content %}
+
+    <div class="content-section">
+
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+
+            <fieldset class="form-group">
+
+                <legend>SENSOR PARAMETERS</legend>
+
+                <div class="form-group"> 
+                    {{ form.dim_x.label(class="form-control-label") }}
+                    {{ form.dim_x(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.dim_y.label(class="form-control-label") }}
+                    {{ form.dim_y(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.px_size.label(class="form-control-label") }}
+                    {{ form.px_size(class="form-control form-control-lg") }}
+                </div>
+
+
+                {{ form.dim_x.label(class="form-control-label") }}
+                {{ form.dim_x(class="form-control form-control-lg") }}
+                {{ form.dim_x.label(class="form-control-label") }}
+                {{ form.dim_x(class="form-control form-control-lg") }}
+
+
+
+            </fieldset>
+
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+
+        </form>
+
+    </div>
+
+{% endblock content %}

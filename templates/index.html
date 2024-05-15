@@ -15,26 +15,13 @@
 
     
 
-    
+    <!-- extend to 'input.html' -->
+    {% block content %}
+    {% endblock %}
 
 
+    <!-- parameter input -->
     <section id="input">
-
-
-        <form id="autofill" name="autofill" action="/autofill" method="POST">
-
-            <label >Select Camera:</label>
-            
-            <select id="camera_select">
-                <option value="custom">Custom</option>
-                <option value="asi6200">ASI6200MM</option>
-                <option value="asi533">ASI533MM</option>
-    
-                <input type="submit" value="Autofill"/>
-            </select>
-    
-        </form>
-       
 
         <form id="data" action="/" method="POST">
             
@@ -42,15 +29,17 @@
 
                 <h2>Sensor Parameters:</h2>
 
-                Sensor X: <input type="number" name="sen_x" required/> Sensor Y: <input type="number" name="sen_y" required/>
-                Pixel size: <input type="number" name="px_size" placeholder="e-6" required/><br>
-                Quantum Efficiency: <input type="number" name="q_eff" required/>Read Noise: <input type="number" name="read_noise" required/> 
-                Gain: <input type="number" name="gain" required/><br>
-                Sensor Offset: <input type="number" name="sen_offset" required/> Dark Noise: <input type="number" name="dark_noise" required/>
+                <span>Sensor Dimensions:</span><input type="number" name="sen_x" placeholder="mm" required/><span>x</span><input type="number" name="sen_y" placeholder="mm" required/><br>
+                Pixel Size: <input type="number" name="px_size" placeholder="e-6" required/>
+                
+                Quantum Efficiency: <input type="number" name="q_eff" required/>
+                Read Noise: <input type="number" name="read_noise" required/><br>
+                Gain: <input type="number" name="gain" required/>
+                Sensor Offset: <input type="number" name="sen_offset" required/> 
+                Dark Noise: <input type="number" name="dark_noise" required/><br>
                 Full Well: <input type="number" name="full_well" required/><br>
 
             </div>
-
 
             <div id="observatory">
 
@@ -60,7 +49,6 @@
                 Plate Scale: <input type="number" name="plate_scale" required/><br>
 
             </div>
-
 
             <div id="filters">
 
@@ -88,10 +76,7 @@
 
             </div>
 
-
-            <br>
-            <input type="submit" value="Calculate"/><input type="reset" value="Reset">
-            <br>
+            <br><input type="submit" value="Calculate"/><input type="reset" value="Reset"><br>
         
         </form>
         
@@ -102,7 +87,6 @@
             {% endif %}
         
         </div>
-
 
     </section>
 

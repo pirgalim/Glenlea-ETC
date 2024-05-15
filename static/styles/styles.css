@@ -18,7 +18,7 @@ input {
   padding: 10px 10px;
 
   border: 2px solid gray;
-  border-radius: 10px;
+  border-radius: 5px;
   text-align: center;
   color: gray;
 }
@@ -49,4 +49,12 @@ select {
   margin-left: 25px;
   margin-right: 25px;
   color: black;
+}
+
+span {
+  background-color: slategray;
+  margin: 5px 5px;
+  padding: 10px 20px;
+  border: 2px slategray;
+  border-radius: 5px;
 }

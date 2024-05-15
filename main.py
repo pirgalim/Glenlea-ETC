@@ -1,19 +1,28 @@
-from flask import Flask
-from flask import render_template
-from flask import request
-from flask import make_response
-
+from flask import Flask, render_template, request, make_response, url_for
 import os
 import services.ETC as ETC
 
 
+from forms import InputForm
+
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
 
 
 @app.route("/")
-def index():
+def index():   
+    form = InputForm()
+    return render_template('input.html', form=form)
+
+
+
+
+
+
+@app.route("/test")
+def test():
         
     resp = make_response(render_template('index.html'))
     
@@ -29,19 +38,7 @@ def index():
 
 
 
-# @app.route("/from_template",  methods = ['GET', 'POST'])
-# def fill():
-#     if request.method == "POST":
-        
-#         data = request.form
-        
-#         print("The data: ")
-#         print(data)
-         
-#         return render_template('index.html')
-    
-#     else: 
-#         render_template('index.html')
+
 
 
 
