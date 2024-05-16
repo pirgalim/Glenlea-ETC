@@ -25,22 +25,30 @@ def calculate():
     in_form = InputForm()
     select_form = SelectForm()
     
-    # if select_form.is_submitted():
+    if select_form.is_submitted():
+        
+        camera = request.form['camera']
+        print(camera)
+        
+        
+        # camera = request
+        
+        new_form = InputForm()
+        
+        
+        
+        return render_template('input.html', in_form=in_form, select_form=select_form)
+    
+    return render_template('input.html', in_form=in_form, select_form=select_form)
+
+
+    # if in_form.is_submitted():
         
     #     result = request.form
     #     print(result)
     #     return render_template('input.html', in_form=in_form, select_form=select_form)
     
     # return render_template('input.html', in_form=in_form, select_form=select_form)
-
-
-    if in_form.is_submitted():
-        
-        result = request.form
-        print(result)
-        return render_template('input.html', in_form=in_form, select_form=select_form)
-    
-    return render_template('input.html', in_form=in_form, select_form=select_form)
 
 
 
