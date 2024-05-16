@@ -5,7 +5,7 @@ matplotlib.use('agg')
 
 import matplotlib.pyplot as plt
 import scipy.constants
-plt.style.use('seaborn-poster')
+#plt.style.use('seaborn-poster')
 import matplotlib.patches as patches
 import scipy
 import numpy as np

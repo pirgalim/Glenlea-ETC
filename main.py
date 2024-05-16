@@ -37,7 +37,7 @@ def calculate():
         
         
         
-        return render_template('input.html', in_form=in_form, select_form=select_form)
+        return render_template('output.html', in_form=in_form, select_form=select_form)
     
     return render_template('input.html', in_form=in_form, select_form=select_form)
 
