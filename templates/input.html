@@ -4,67 +4,106 @@
     <div class="content-section">
 
 
-        <form method="POST" action="">
+        <div class="preset-selection">
 
-            {{ camera_form.csrf_token }}
 
-            {{ camera_form.camera.label }} {{ camera_form.camera }}
+            <form name="camera" method="POST" action="">
 
+                {{ camera_form.csrf_token }}
+                {{ camera_form.camera.label }} {{ camera_form.camera }}
+                <!--{{ camera_form.submit }}-->
+    
+            </form>
+    
+            <form name="telescope" method="POST" action="">
+
+                {{ telescope_form.csrf_token }}
+                {{ telescope_form.telescope.label }} {{ telescope_form.telescope }}
+                <!--{{ telescope_form.submit }}-->
+       
+            </form>
             
-            {{ camera_form.submit }}
-           
+
+        </div>
+
+
         
 
-        </form>
-
+        </div>
      
-        
-
-
-
         <form method="POST" action="">
             {{ in_form.hidden_tag() }}
 
                 
+                <div id="camera">
 
-                <span>Dimensions</span>{{ in_form.dim_x(class="form-control form-control-lg") }}<span>x</span>
-                {{ in_form.dim_y(class="form-control form-control-lg") }}<br>
+                    <span>Dimensions</span>{{ in_form.dim_x(class="form-control form-control-lg") }}<span>x</span>
+                    {{ in_form.dim_y(class="form-control form-control-lg") }}<br>
 
-                <span>{{ in_form.px_size.label(class="form-control-label") }}</span>
-                {{ in_form.px_size(class="form-control form-control-lg") }}<br>
-        
+                    <span>{{ in_form.px_size.label(class="form-control-label") }}</span>
+                    {{ in_form.px_size(class="form-control form-control-lg") }}<br>
+            
 
-                <span>{{ in_form.read_noise.label(class="form-control-label") }}</span>
-                {{ in_form.read_noise(class="form-control form-control-lg") }}<br>
+                    <span>{{ in_form.read_noise.label(class="form-control-label") }}</span>
+                    {{ in_form.read_noise(class="form-control form-control-lg") }}<br>
 
-                <span>{{ in_form.gain.label(class="form-control-label") }}</span>
-                {{ in_form.gain(class="form-control form-control-lg") }}<br>
+                    <span>{{ in_form.gain.label(class="form-control-label") }}</span>
+                    {{ in_form.gain(class="form-control form-control-lg") }}<br>
 
-                <span>{{ in_form.offset.label(class="form-control-label") }}</span>
-                {{ in_form.offset(class="form-control form-control-lg") }}<br>
+                    <span>{{ in_form.offset.label(class="form-control-label") }}</span>
+                    {{ in_form.offset(class="form-control form-control-lg") }}<br>
 
-                <span>{{ in_form.dark_noise.label(class="form-control-label") }}</span>
-                {{ in_form.dark_noise(class="form-control form-control-lg") }}<br>
+                    <span>{{ in_form.dark_noise.label(class="form-control-label") }}</span>
+                    {{ in_form.dark_noise(class="form-control form-control-lg") }}<br>
 
-                <span>{{ in_form.full_well.label(class="form-control-label") }}</span>
-                {{ in_form.full_well(class="form-control form-control-lg") }}<br>
-           
+                    <span>{{ in_form.full_well.label(class="form-control-label") }}</span>
+                    {{ in_form.full_well(class="form-control form-control-lg") }}<br>
+            
 
-                {% if selected_option != ''%}
-                    <script> 
-                        document.getElementById('dim_x').value = {{ preset[0] }};
-                        document.getElementById('dim_y').value = {{ preset[1] }};
-                        document.getElementById('px_size').value = {{ preset[2] }};
-                        document.getElementById('read_noise').value = {{ preset[3] }};
-                        document.getElementById('gain').value = {{ preset[4] }};
-                        document.getElementById('offset').value = {{ preset[5] }};
-                        document.getElementById('dark_noise').value = {{ preset[6] }};
-                        document.getElementById('full_well').value = {{ preset[7] }};
-                    </script>
-                {% endif %}
+                    {% if selected_option != ''%}
+                        <script> 
+                            document.getElementById('dim_x').value = {{ preset[0] }};
+                            document.getElementById('dim_y').value = {{ preset[1] }};
+                            document.getElementById('px_size').value = {{ preset[2] }};
+                            document.getElementById('read_noise').value = {{ preset[3] }};
+                            document.getElementById('gain').value = {{ preset[4] }};
+                            document.getElementById('offset').value = {{ preset[5] }};
+                            document.getElementById('dark_noise').value = {{ preset[6] }};
+                            document.getElementById('full_well').value = {{ preset[7] }};
+                        </script>
+                    {% endif %}
+            
+                </div>               
+
+
+                <div id="telescope">
+
+                    
+                    <span>{{ in_form.scope_dia.label(class="form-control-label") }}</span>
+                    {{ in_form.scope_dia(class="form-control form-control-lg") }}<br>
+
+                    <span>{{ in_form.scope_focal.label(class="form-control-label") }}</span>
+                    {{ in_form.scope_focal(class="form-control form-control-lg") }}<br>
+
+                    <span>{{ in_form.plate_scale.label(class="form-control-label") }}</span>
+                    {{ in_form.plate_scale(class="form-control form-control-lg") }}<br>
+            
+
+                    {% if telescope_option != ''%}
+                        <script> 
+                            document.getElementById('scope_dia').value = {{ preset[0] }};
+                            document.getElementById('scope_focal').value = {{ preset[1] }};
+                            document.getElementById('plate_scale').value = {{ preset[2] }};
+
+                        </script>
+                    {% endif %}
+
+                    
+            
+                </div>
+                
 
                 {{ in_form.submit(class="btn btn-outline-info") }}
-            
 
         </form>
 

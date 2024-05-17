@@ -24,6 +24,10 @@ def my_redirect():
 # class MyForm(Form):
 #     camera = SelectField('Select Camera:', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM')])
 
+selected_option = ''
+telescope_option = ''
+
+
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
@@ -33,12 +37,19 @@ def test():
     #camera_form = CameraSelectForm(request.form)
     camera_form = CameraSelectForm()
     preset = np.zeros(8)
-    selected_option = ''
+    # selected_option = ''
+    # telescope_option = ''
     
-    #if request.method == 'POST':
+    
+    global selected_option
+    global telescope_option
+    
+    
+    telescope_form = TelescopeSelectForm()
     
     if camera_form.submit.data and camera_form.validate():
         
+        #global selected_option
         selected_option = request.form['camera']
        
         print("Selected option:", selected_option)      
@@ -51,12 +62,29 @@ def test():
             
             
             
+    if telescope_form.submit.data and telescope_form.validate():
+        
+        #global telescope_option
+        telescope_option = request.form['telescope']
+       
+        print("Selected option:", telescope_option)      
+        
+        
+            
+            
+            
+            
     # need to somehow pull information from here
     if in_form.submit.data and in_form.validate():
             result = request.form
             print(result)
+            
+            
+    print("Cam option:", selected_option) 
+    print("Scope option:", telescope_option)     
                 
-    return render_template('input.html', camera_form=camera_form, in_form=in_form, preset=preset, selected_option=selected_option)
+    return render_template('input.html', camera_form=camera_form, telescope_form=telescope_form, 
+                           in_form=in_form, preset=preset, selected_option=selected_option, telescope_option=telescope_option)
 
 
 
@@ -82,19 +110,19 @@ def test():
 
 
 
-@app.route('/calculate', methods=['GET', 'POST'])
-def calculate():
+# @app.route('/calculate', methods=['GET', 'POST'])
+# def calculate():
     
-    in_form = InputForm()
-    select_form = SelectForm()
+#     in_form = InputForm()
+#     select_form = SelectForm()
     
-    if in_form.is_submitted():
+#     if in_form.is_submitted():
         
-        result = request.form
-        print(result)
-        return render_template('input.html', in_form=in_form, select_form=select_form)
+#         result = request.form
+#         print(result)
+#         return render_template('input.html', in_form=in_form, select_form=select_form)
     
-    return render_template('input.html', in_form=in_form, select_form=select_form)
+#     return render_template('input.html', in_form=in_form, select_form=select_form)
 
 
 

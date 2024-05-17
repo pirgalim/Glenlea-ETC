@@ -20,8 +20,7 @@ import math
 #from PIL import Image
 
 
-
-class camera:
+class Camera:
     
     def __init__(self, params):
         
@@ -38,8 +37,37 @@ class camera:
         self.sensor_X = params[7]
         self.sensor_Y = params[8]
         
+        self.sensor_width = sensor_X * pixel_size
+        self.sensor_height = sensor_Y * pixel_size
+
         
         
+class Telescope:
+    
+    def __init__(self, params):
+        
+        # validate
+        self.scope_dia = params[0]
+        self.scope_focal = params[1]
+        self.plate_scale = params[2]
+        
+        self.mirror_area = np.pi * (scope_dia/2) ** 2
+        self.f_ratio = scope_focal/scope_dia
+        
+        
+class Filter:
+    
+    def __init__(self, params):
+    
+        # validate
+        self.filter_low = params[0] * 10**(-9)  #TODO something else here, check with Ryan
+        self.filter_high = params[1]  * 10**(-9)
+        self.filter_zero = params[2]
+        
+        self.filter_low_freq = scipy.constants.c/filter_low
+        self.filter_high_freq = scipy.constants.c/filter_high
+        self.filter_freq_band = filter_low_freq - filter_high_freq
+    
     
     
 

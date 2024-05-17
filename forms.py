@@ -22,7 +22,10 @@ class InputForm(FlaskForm):
     full_well = StringField('Full Well', validators=[DataRequired()])
     
        
-    #observatory parameters
+    #telescope parameters
+    scope_dia = StringField('Diameter', validators=[DataRequired()])
+    scope_focal = StringField('Focal Length', validators=[DataRequired()])
+    plate_scale = StringField('Plate Scale', validators=[DataRequired()])
     
     # filter parameters
     
@@ -43,4 +46,10 @@ class CameraSelectForm(FlaskForm):
     
 
 class TelescopeSelectForm(FlaskForm):
-    telescope = SelectField('Select Camera:', choices=[('', 'Custom'), ('cdk350', 'PlaneWave CDK350')])
+    telescope = SelectField('Select Telescope:', choices=[('', 'Custom'), ('cdk350', 'PlaneWave CDK350')])
+    submit = SubmitField('Insert Template')
+    
+
+class FilterSelectForm(FlaskForm):
+    filter = SelectField('Select Filter:', choices=[('', 'Custom'), ('x', 'X')])
+    submit = SubmitField('Insert Template')
