@@ -7,6 +7,7 @@ from forms import InputForm, SelectForm
 # remove later
 from wtforms import Form, SelectField, SubmitField
 
+import numpy as np
 
 
 app = Flask(__name__)
@@ -21,7 +22,7 @@ def my_redirect():
 
 
 class MyForm(Form):
-    camera = SelectField('Dropdown', choices=[('', ''), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM')])
+    camera = SelectField('Select Camera:', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM')])
 
 
 @app.route('/test', methods=['GET', 'POST'])
@@ -30,18 +31,21 @@ def test():
     
     camera_form = MyForm(request.form)
     in_form = InputForm()
-    array = [1,2,3,4,5]
-    option_selected = False
+    array = np.zeros(8)
+    selected_option = ''
     
     if request.method == 'POST':
-        
-        option_selected = True
         
         selected_option = request.form['camera']
         # Process the selected option as needed
         print("Selected option:", selected_option)
         
-    return render_template('input.html', camera_form=camera_form, in_form=in_form, array=array, option_selected=option_selected)
+        if selected_option == 'asi6200mm':
+            array = [1,2,3,4,5]
+        if selected_option == 'asi2600mm':
+            array = [1,1,1,1,1]
+        
+    return render_template('input.html', camera_form=camera_form, in_form=in_form, array=array, selected_option=selected_option)
 
 
 
