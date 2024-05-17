@@ -60,18 +60,32 @@
                     {{ in_form.full_well(class="form-control form-control-lg") }}<br>
             
 
-                    {% if selected_option != ''%}
-                        <script> 
-                            document.getElementById('dim_x').value = {{ preset[0] }};
-                            document.getElementById('dim_y').value = {{ preset[1] }};
-                            document.getElementById('px_size').value = {{ preset[2] }};
-                            document.getElementById('read_noise').value = {{ preset[3] }};
-                            document.getElementById('gain').value = {{ preset[4] }};
-                            document.getElementById('offset').value = {{ preset[5] }};
-                            document.getElementById('dark_noise').value = {{ preset[6] }};
-                            document.getElementById('full_well').value = {{ preset[7] }};
-                        </script>
-                    {% endif %}
+                    
+                    <script> 
+
+                        document.getElementById('camera').addEventListener('change', function() {
+
+
+                            if(document.getElementById('camera').value == 'asi6200mm') {
+                                preset = [7,7,7,7,7,7,7,7]
+                            }
+                            else {
+                                preset = ['','','','','','','','']
+                            }
+
+                            document.getElementById('dim_x').value = preset[0];
+                            document.getElementById('dim_y').value = preset[1];
+                            document.getElementById('px_size').value = preset[2];
+                            document.getElementById('read_noise').value = preset[3];
+                            document.getElementById('gain').value = preset[4];
+                            document.getElementById('offset').value = preset[5];
+                            document.getElementById('dark_noise').value = preset[6];
+                            document.getElementById('full_well').value = preset[7];
+
+                        });
+
+                    </script>
+                    
             
                 </div>               
 

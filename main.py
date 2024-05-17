@@ -33,41 +33,47 @@ telescope_option = ''
 def test():
     
     in_form = InputForm()
+    
+    
+    # read in csv files, pass them as a 2D array [camera][params], [telescope][params], etc.
+    
+    
+    
       
-    #camera_form = CameraSelectForm(request.form)
-    camera_form = CameraSelectForm()
-    preset = np.zeros(8)
-    # selected_option = ''
-    # telescope_option = ''
+    # #camera_form = CameraSelectForm(request.form)
+    # camera_form = CameraSelectForm()
+    # preset = np.zeros(8)
+    # # selected_option = ''
+    # # telescope_option = ''
     
     
-    global selected_option
-    global telescope_option
+    # global selected_option
+    # global telescope_option
     
     
-    telescope_form = TelescopeSelectForm()
+    # telescope_form = TelescopeSelectForm()
     
-    if camera_form.submit.data and camera_form.validate():
+    # if camera_form.submit.data and camera_form.validate():
         
-        #global selected_option
-        selected_option = request.form['camera']
+    #     #global selected_option
+    #     selected_option = request.form['camera']
        
-        print("Selected option:", selected_option)      
+    #     print("Selected option:", selected_option)      
         
-        #check size of csv later - seems like it already does it?????
-        if selected_option == 'asi6200mm':
-            preset = [1,2,3,4,5,6,7,8]
-        if selected_option == 'asi2600mm':
-            preset = [1,1,1,1,1,1,1,1]  
+    #     #check size of csv later - seems like it already does it?????
+    #     if selected_option == 'asi6200mm':
+    #         preset = [1,2,3,4,5,6,7,8]
+    #     if selected_option == 'asi2600mm':
+    #         preset = [1,1,1,1,1,1,1,1]  
             
             
             
-    if telescope_form.submit.data and telescope_form.validate():
+    # if telescope_form.submit.data and telescope_form.validate():
         
-        #global telescope_option
-        telescope_option = request.form['telescope']
+    #     #global telescope_option
+    #     telescope_option = request.form['telescope']
        
-        print("Selected option:", telescope_option)      
+    #     print("Selected option:", telescope_option)      
         
         
             
