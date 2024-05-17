@@ -4,6 +4,11 @@ import services.ETC as ETC
 from forms import InputForm, SelectForm
 
 
+# remove later
+from wtforms import Form, SelectField
+
+
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
@@ -11,10 +16,22 @@ app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
 
 @app.route("/")
 def my_redirect():   
-    return redirect(url_for('calculate'))
-    
+    return redirect(url_for('test'))
     
 
+
+class MyForm(Form):
+    dropdown = SelectField('Dropdown', choices=[('option1', 'Option 1'), ('option2', 'Option 2')])
+
+
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+    form = MyForm(request.form)
+    if request.method == 'POST':
+        selected_option = request.form['dropdown']
+        # Process the selected option as needed
+        print("Selected option:", selected_option)
+    return render_template('test.html', form=form)
 
 
 
@@ -31,13 +48,16 @@ def calculate():
         print(camera)
         
         
+        
+        
+        
         # camera = request
         
         new_form = InputForm()
         
         
         
-        return render_template('output.html', in_form=in_form, select_form=select_form)
+        return render_template('input.html', in_form=in_form, select_form=select_form)
     
     return render_template('input.html', in_form=in_form, select_form=select_form)
 

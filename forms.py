@@ -21,6 +21,7 @@ class InputForm(FlaskForm):
     dark_noise = StringField('Dark Noise', validators=[DataRequired()])
     full_well = StringField('Full Well', validators=[DataRequired()])
     
+    #test = 17777
     
     
     

@@ -1,0 +1,23 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Example</title>
+</head>
+<body>
+    <form method="POST">
+        {{ form.csrf_token }}
+        {{ form.dropdown.label }} {{ form.dropdown }}
+        <input type="text" name="input_field" id="input_field" readonly>
+        <script>
+            document.getElementById('dropdown').addEventListener('change', function() {
+                var selectedOption = this.value;
+                document.getElementById('input_field').value = selectedOption;
+            });
+        </script>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
