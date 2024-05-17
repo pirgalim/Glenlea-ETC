@@ -5,7 +5,7 @@ from forms import InputForm, SelectForm
 
 
 # remove later
-from wtforms import Form, SelectField
+from wtforms import Form, SelectField, SubmitField
 
 
 
@@ -21,17 +21,48 @@ def my_redirect():
 
 
 class MyForm(Form):
-    dropdown = SelectField('Dropdown', choices=[('option1', 'Option 1'), ('option2', 'Option 2')])
+    camera = SelectField('Dropdown', choices=[('', ''), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM')])
 
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
-    form = MyForm(request.form)
+    
+    
+    camera_form = MyForm(request.form)
+    in_form = InputForm()
+    array = [1,2,3,4,5]
+    option_selected = False
+    
     if request.method == 'POST':
-        selected_option = request.form['dropdown']
+        
+        option_selected = True
+        
+        selected_option = request.form['camera']
         # Process the selected option as needed
         print("Selected option:", selected_option)
-    return render_template('test.html', form=form)
+        
+    return render_template('input.html', camera_form=camera_form, in_form=in_form, array=array, option_selected=option_selected)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

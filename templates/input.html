@@ -6,13 +6,28 @@
 
         <form method="POST" action="">
 
-            {{ select_form.csrf_token }}
+            {{ camera_form.csrf_token }}
 
-            {{ select_form.camera.label }} <br>
+            {{ camera_form.camera.label }} {{ camera_form.camera }}
 
-            {{ select_form.camera }}
+            <input type="text" name="input_field" id="input_field">
 
-            {{ select_form.submit() }}
+        <script>
+
+  
+            document.getElementById('camera').addEventListener('change', 
+            
+            function() {
+                var selectedOption = this.value;
+                document.getElementById('input_field').value = selectedOption;
+                
+
+
+            });
+        </script>
+        <button type="submit">Submit</button>
+
+
 
         </form>
 
@@ -26,10 +41,12 @@
         <form method="POST" action="">
             {{ in_form.hidden_tag() }}
 
+                
+
                 <span>Dimensions</span>{{ in_form.dim_x(class="form-control form-control-lg") }}<span>x</span>
                 {{ in_form.dim_y(class="form-control form-control-lg")}}<br>
 
-                <span>{{ in_form.px_size.label(class="form-control-label", placeholder="100000") }}</span>
+                <span>{{ in_form.px_size.label(class="form-control-label") }}</span>
                 {{ in_form.px_size(class="form-control form-control-lg") }}<br>
         
 
@@ -47,12 +64,19 @@
 
                 <span>{{ in_form.full_well.label(class="form-control-label") }}</span>
                 {{ in_form.full_well(class="form-control form-control-lg") }}<br>
+           
 
+                {% if option_selected %}
+                <div>
+                    <script> 
 
-                
-              
-
-
+                        document.getElementById('dim_x').value = {{ array[0] }};
+                        document.getElementById('dim_y').value = {{ array[1] }};
+                        document.getElementById('px_size').value = {{ array[2] }};
+                        
+                    </script>
+                </div>
+                {% endif %}
 
                 {{ in_form.submit(class="btn btn-outline-info") }}
             
