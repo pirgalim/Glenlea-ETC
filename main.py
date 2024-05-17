@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, make_response, url_for
 import os
 import services.ETC as ETC
-from forms import InputForm, SelectForm
+from forms import InputForm, CameraSelectForm, TelescopeSelectForm
 
 
 # remove later
@@ -21,42 +21,41 @@ def my_redirect():
     
 
 
-class MyForm(Form):
-    camera = SelectField('Select Camera:', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM')])
+# class MyForm(Form):
+#     camera = SelectField('Select Camera:', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM')])
 
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     
-    
     in_form = InputForm()
-    
-    camera_form = MyForm(request.form)
-    
-    
+      
+    #camera_form = CameraSelectForm(request.form)
+    camera_form = CameraSelectForm()
     preset = np.zeros(8)
     selected_option = ''
     
-    if request.method == 'POST':
+    #if request.method == 'POST':
+    
+    if camera_form.submit.data and camera_form.validate():
         
         selected_option = request.form['camera']
        
-        print("Selected option:", selected_option)
-        
-        
-        
+        print("Selected option:", selected_option)      
         
         #check size of csv later - seems like it already does it?????
         if selected_option == 'asi6200mm':
             preset = [1,2,3,4,5,6,7,8]
         if selected_option == 'asi2600mm':
-            preset = [1,1,1,1,1,1,1,1]
+            preset = [1,1,1,1,1,1,1,1]  
             
-    # if in_form.is_submitted():
-    #     result = request.form['in_form']
-    #     print(result)
-    #     return render_template('input.html', camera_form=camera_form, in_form=in_form, preset=preset, selected_option=selected_option)
-        
+            
+            
+    # need to somehow pull information from here
+    if in_form.submit.data and in_form.validate():
+            result = request.form
+            print(result)
+                
     return render_template('input.html', camera_form=camera_form, in_form=in_form, preset=preset, selected_option=selected_option)
 
 
