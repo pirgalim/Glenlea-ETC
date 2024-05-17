@@ -10,14 +10,15 @@
 
             {{ camera_form.camera.label }} {{ camera_form.camera }}
 
-            {{ camera_form.submit }}  
+            
+            {{ camera_form.submit }}
+           
+        
 
         </form>
 
-
-
-
-
+     
+        
 
 
 
@@ -27,7 +28,7 @@
                 
 
                 <span>Dimensions</span>{{ in_form.dim_x(class="form-control form-control-lg") }}<span>x</span>
-                {{ in_form.dim_y(class="form-control form-control-lg")}}<br>
+                {{ in_form.dim_y(class="form-control form-control-lg") }}<br>
 
                 <span>{{ in_form.px_size.label(class="form-control-label") }}</span>
                 {{ in_form.px_size(class="form-control form-control-lg") }}<br>

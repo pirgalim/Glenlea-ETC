@@ -39,7 +39,7 @@ class InputForm(FlaskForm):
 
 class CameraSelectForm(FlaskForm):
     camera = SelectField('Select Camera:', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM')])
-    submit = SubmitField('Insert')
+    submit = SubmitField('Insert Template')
     
 
 class TelescopeSelectForm(FlaskForm):
