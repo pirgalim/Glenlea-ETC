@@ -9,25 +9,9 @@
             {{ camera_form.csrf_token }}
 
             {{ camera_form.camera.label }} {{ camera_form.camera }}
-
-            <input type="text" name="input_field" id="input_field">
-
-        <script>
-
-  
-            document.getElementById('camera').addEventListener('change', 
-            
-            function() {
-                var selectedOption = this.value;
-                document.getElementById('input_field').value = selectedOption;
-                
-
-
-            });
-        </script>
-        <button type="submit">Submit</button>
-
-
+ 
+            <button type="submit" id="preset_button">Insert</button> 
+   
 
         </form>
 
@@ -67,15 +51,16 @@
            
 
                 {% if selected_option != ''%}
-                <div>
                     <script> 
-
-                        document.getElementById('dim_x').value = {{ array[0] }};
-                        document.getElementById('dim_y').value = {{ array[1] }};
-                        document.getElementById('px_size').value = {{ array[2] }};
-                        
+                        document.getElementById('dim_x').value = {{ preset[0] }};
+                        document.getElementById('dim_y').value = {{ preset[1] }};
+                        document.getElementById('px_size').value = {{ preset[2] }};
+                        document.getElementById('read_noise').value = {{ preset[3] }};
+                        document.getElementById('gain').value = {{ preset[4] }};
+                        document.getElementById('offset').value = {{ preset[5] }};
+                        document.getElementById('dark_noise').value = {{ preset[6] }};
+                        document.getElementById('full_well').value = {{ preset[7] }};
                     </script>
-                </div>
                 {% endif %}
 
                 {{ in_form.submit(class="btn btn-outline-info") }}

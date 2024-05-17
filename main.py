@@ -29,23 +29,35 @@ class MyForm(Form):
 def test():
     
     
-    camera_form = MyForm(request.form)
     in_form = InputForm()
-    array = np.zeros(8)
+    
+    camera_form = MyForm(request.form)
+    
+    
+    preset = np.zeros(8)
     selected_option = ''
     
     if request.method == 'POST':
         
         selected_option = request.form['camera']
-        # Process the selected option as needed
+       
         print("Selected option:", selected_option)
         
-        if selected_option == 'asi6200mm':
-            array = [1,2,3,4,5]
-        if selected_option == 'asi2600mm':
-            array = [1,1,1,1,1]
         
-    return render_template('input.html', camera_form=camera_form, in_form=in_form, array=array, selected_option=selected_option)
+        
+        
+        #check size of csv later - seems like it already does it?????
+        if selected_option == 'asi6200mm':
+            preset = [1,2,3,4,5,6,7,8]
+        if selected_option == 'asi2600mm':
+            preset = [1,1,1,1,1,1,1,1]
+            
+    # if in_form.is_submitted():
+    #     result = request.form['in_form']
+    #     print(result)
+    #     return render_template('input.html', camera_form=camera_form, in_form=in_form, preset=preset, selected_option=selected_option)
+        
+    return render_template('input.html', camera_form=camera_form, in_form=in_form, preset=preset, selected_option=selected_option)
 
 
 
@@ -77,33 +89,13 @@ def calculate():
     in_form = InputForm()
     select_form = SelectForm()
     
-    if select_form.is_submitted():
+    if in_form.is_submitted():
         
-        camera = request.form['camera']
-        print(camera)
-        
-        
-        
-        
-        
-        # camera = request
-        
-        new_form = InputForm()
-        
-        
-        
+        result = request.form
+        print(result)
         return render_template('input.html', in_form=in_form, select_form=select_form)
     
     return render_template('input.html', in_form=in_form, select_form=select_form)
-
-
-    # if in_form.is_submitted():
-        
-    #     result = request.form
-    #     print(result)
-    #     return render_template('input.html', in_form=in_form, select_form=select_form)
-    
-    # return render_template('input.html', in_form=in_form, select_form=select_form)
 
 
 
