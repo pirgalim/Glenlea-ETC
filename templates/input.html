@@ -36,29 +36,21 @@
 
                 <h2>Camera Parameters</h2>
 
-                <span>Dimensions</span>{{ in_form.dim_x(class="form-control form-control-lg") }}<span>x</span>
-                {{ in_form.dim_y(class="form-control form-control-lg") }}
+                <span>Dimensions</span>{{ in_form.dim_x(class="form-control form-control-lg") }}<span>x</span>{{ in_form.dim_y(class="form-control form-control-lg") }}
 
-                <span>{{ in_form.px_size.label(class="form-control-label") }}</span>
-                {{ in_form.px_size(class="form-control form-control-lg") }} <br>
+                <span>{{ in_form.px_size.label }}</span>{{ in_form.px_size(class="form-control form-control-lg") }} <br>
         
-                <span>{{ in_form.q_efficiency.label(class="form-control-label") }}</span>
-                {{ in_form.q_efficiency(class="form-control form-control-lg") }}
+                <span>{{ in_form.q_efficiency.label(class="form-control-label") }}</span>{{ in_form.q_efficiency(class="form-control form-control-lg") }}
 
-                <span>{{ in_form.read_noise.label(class="form-control-label") }}</span>
-                {{ in_form.read_noise(class="form-control form-control-lg") }}
+                <span>{{ in_form.read_noise.label(class="form-control-label") }}</span>{{ in_form.read_noise(class="form-control form-control-lg") }}
 
-                <span>{{ in_form.gain.label(class="form-control-label") }}</span>
-                {{ in_form.gain(class="form-control form-control-lg") }} <br>
+                <span>{{ in_form.gain.label(class="form-control-label") }}</span>{{ in_form.gain(class="form-control form-control-lg") }} <br>
 
-                <span>{{ in_form.offset.label(class="form-control-label") }}</span>
-                {{ in_form.offset(class="form-control form-control-lg") }}
+                <span>{{ in_form.offset.label(class="form-control-label") }}</span>{{ in_form.offset(class="form-control form-control-lg") }}
 
-                <span>{{ in_form.dark_noise.label(class="form-control-label") }}</span>
-                {{ in_form.dark_noise(class="form-control form-control-lg") }}
+                <span>{{ in_form.dark_noise.label(class="form-control-label") }}</span>{{ in_form.dark_noise(class="form-control form-control-lg") }}
 
-                <span>{{ in_form.full_well.label(class="form-control-label") }}</span>
-                {{ in_form.full_well(class="form-control form-control-lg") }}<br>
+                <span>{{ in_form.full_well.label(class="form-control-label") }}</span>{{ in_form.full_well(class="form-control form-control-lg") }}<br>
         
 
                 <script> 
@@ -104,14 +96,11 @@
                 <h2>Telescope Parameters</h2>
 
                 
-                <span>{{ in_form.scope_dia.label(class="form-control-label") }}</span>
-                {{ in_form.scope_dia(class="form-control form-control-lg") }}<br>
+                <span>{{ in_form.scope_dia.label(class="form-control-label") }}</span>{{ in_form.scope_dia(class="form-control form-control-lg") }}<br>
 
-                <span>{{ in_form.scope_focal.label(class="form-control-label") }}</span>
-                {{ in_form.scope_focal(class="form-control form-control-lg") }}<br>
+                <span>{{ in_form.scope_focal.label(class="form-control-label") }}</span>{{ in_form.scope_focal(class="form-control form-control-lg") }}<br>
 
-                <span>{{ in_form.plate_scale.label(class="form-control-label") }}</span>
-                {{ in_form.plate_scale(class="form-control form-control-lg") }}<br>
+                <span>{{ in_form.plate_scale.label(class="form-control-label") }}</span>{{ in_form.plate_scale(class="form-control form-control-lg") }}<br>
         
 
                 <script> 
