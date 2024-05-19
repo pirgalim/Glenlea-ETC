@@ -33,47 +33,45 @@ telescope_option = ''
 def test():
     
     in_form = InputForm()
+    camera_select = CameraSelectForm()
+    telescope_select = TelescopeSelectForm()
     
     
-    # read in csv files, pass them as a 2D array [camera][params], [telescope][params], etc.
+    # read in csv files, pass them as tuples ('type', [name], [params])
     
     
     
-      
-    # #camera_form = CameraSelectForm(request.form)
-    # camera_form = CameraSelectForm()
-    # preset = np.zeros(8)
-    # # selected_option = ''
-    # # telescope_option = ''
     
     
-    # global selected_option
-    # global telescope_option
+    
+    camera_csv = open("./static/presets/camera_presets.csv", "+r")
     
     
-    # telescope_form = TelescopeSelectForm()
+    camera_presets = []
     
-    # if camera_form.submit.data and camera_form.validate():
+    
+    for line in camera_csv:
         
-    #     #global selected_option
-    #     selected_option = request.form['camera']
-       
-    #     print("Selected option:", selected_option)      
+        line = line.strip().split(":")
+        name = line[0]
+        values = line[1].split(',')
         
-    #     #check size of csv later - seems like it already does it?????
-    #     if selected_option == 'asi6200mm':
-    #         preset = [1,2,3,4,5,6,7,8]
-    #     if selected_option == 'asi2600mm':
-    #         preset = [1,1,1,1,1,1,1,1]  
-            
-            
-            
-    # if telescope_form.submit.data and telescope_form.validate():
+        if( len(values) == InputForm.camera_fields ):
+                       
+            camera_presets.append( (name, values) )
+    
+    print(camera_presets)
         
-    #     #global telescope_option
-    #     telescope_option = request.form['telescope']
-       
-    #     print("Selected option:", telescope_option)      
+
+        
+    
+
+    
+    
+    
+    
+    
+    #camera_presets = [('asi6200mm', [400,267,9,0.475,13,0.92,50,0.03,60000])]
         
         
             
@@ -85,12 +83,10 @@ def test():
             result = request.form
             print(result)
             
-            
-    print("Cam option:", selected_option) 
-    print("Scope option:", telescope_option)     
+              
                 
-    return render_template('input.html', camera_form=camera_form, telescope_form=telescope_form, 
-                           in_form=in_form, preset=preset, selected_option=selected_option, telescope_option=telescope_option)
+    return render_template('input.html',  in_form=in_form, camera_select=camera_select, telescope_select=telescope_select,
+                           camera_presets=camera_presets, selected_option=selected_option, telescope_option=telescope_option)
 
 
 

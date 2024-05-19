@@ -9,17 +9,17 @@
 
             <form name="camera" method="POST" action="">
 
-                {{ camera_form.csrf_token }}
-                {{ camera_form.camera.label }} {{ camera_form.camera }}
-                <!--{{ camera_form.submit }}-->
+                {{ camera_select.csrf_token }}
+                {{ camera_select.camera.label }} {{ camera_select.camera }}
+                <!--{{ camera_select.submit }}-->
     
             </form>
     
             <form name="telescope" method="POST" action="">
 
-                {{ telescope_form.csrf_token }}
-                {{ telescope_form.telescope.label }} {{ telescope_form.telescope }}
-                <!--{{ telescope_form.submit }}-->
+                {{ telescope_select.csrf_token }}
+                {{ telescope_select.telescope.label }} {{ telescope_select.telescope }}
+                <!--{{ telescope_select.submit }}-->
        
             </form>
             
@@ -65,13 +65,20 @@
 
                         document.getElementById('camera').addEventListener('change', function() {
 
+                            var camera_presets = {{ camera_presets|tojson }};
 
-                            if(document.getElementById('camera').value == 'asi6200mm') {
-                                preset = [7,7,7,7,7,7,7,7]
+                            preset = ['','','','','','','','']
+
+                            for( let i = 0; i < camera_presets.length; i++ ) {
+
+                                if( camera_presets[i][0] == document.getElementById('camera').value ) {
+
+                                    preset = camera_presets[i][1];
+                                }
                             }
-                            else {
-                                preset = ['','','','','','','','']
-                            }
+
+                            
+
 
                             document.getElementById('dim_x').value = preset[0];
                             document.getElementById('dim_y').value = preset[1];

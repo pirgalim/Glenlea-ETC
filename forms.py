@@ -11,6 +11,10 @@ from wtforms.validators import DataRequired, Length
 
 class InputForm(FlaskForm):
     
+    camera_fields = 9
+    telescope_fields = 3
+    
+    
     # camera parameters 
     dim_x = StringField('X-dimension', validators=[DataRequired()])
     dim_y = StringField('Y-dimension', validators=[DataRequired()])
