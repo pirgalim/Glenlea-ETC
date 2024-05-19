@@ -64,22 +64,24 @@
                 <script> 
                     document.getElementById('camera').addEventListener('change', function() {
 
-                        var camera_presets = {{ camera_presets|tojson }};
+                        var presets = {{ camera_presets|tojson }};
+                        var size = presets[0][1].length;
 
                         // I should check if there is actaully anything here first
-                        preset = [camera_presets[0][0].length]
+                        var preset = [size]
 
-                        for(let i = 0; i < preset.length; i++) {
+                        for(let i = 0; i < size; i++) {
                             preset[i] = '';
                         }
 
-                        for( let i = 0; i < camera_presets.length; i++ ) {
-
-                            if( camera_presets[i][0] == document.getElementById('camera').value ) {
-
-                                preset = camera_presets[i][1];
+                        // match the selection with a preset
+                        for( let i = 0; i < presets.length; i++ ) {
+                            if( presets[i][0] == document.getElementById('camera').value ) {
+                                preset = presets[i][1];
                             }
                         }
+                       
+            
 
                         document.getElementById('dim_x').value = preset[0];
                         document.getElementById('dim_y').value = preset[1];
@@ -116,18 +118,18 @@
                     document.getElementById('telescope').addEventListener('change', function() {
 
                         var presets = {{ telescope_presets|tojson }};
+                        var size = presets[0][1].length;
 
                         // I should check if there is actaully anything here first
-                        preset = [presets[0][0].length]
+                        var preset = [size]
 
-                        for(let i = 0; i < preset.length; i++) {
+                        for(let i = 0; i < size; i++) {
                             preset[i] = '';
                         }
 
+                        // match the selection with a preset
                         for( let i = 0; i < presets.length; i++ ) {
-
                             if( presets[i][0] == document.getElementById('telescope').value ) {
-
                                 preset = presets[i][1];
                             }
                         }
