@@ -36,19 +36,16 @@ def test():
     camera_select = CameraSelectForm()
     telescope_select = TelescopeSelectForm()
     
-    
-    # read in csv files, pass them as tuples ('type', [name], [params])
-    
-    
-    
-    
-    
-    
+       
+       
+    #--- read camera preset data ---#
     camera_csv = open("./static/presets/camera_presets.csv", "+r")
-    
-    
     camera_presets = []
     
+    #skip the instructions
+    camera_csv.readline()
+    camera_csv.readline()
+    camera_csv.readline()
     
     for line in camera_csv:
         
@@ -57,10 +54,20 @@ def test():
         values = line[1].split(',')
         
         if( len(values) == InputForm.camera_fields ):
-                       
             camera_presets.append( (name, values) )
     
-    #print(camera_presets)
+    camera_csv.close()
+    
+    
+    
+    
+    #--- read telescope preset data ---#
+    
+    
+    
+    
+    
+    
         
       
     # need to somehow pull information from here

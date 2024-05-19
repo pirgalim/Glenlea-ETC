@@ -1,3 +1,6 @@
+*** MUST UPDATE 'forms.py' IN ORDER TO BE ABLE TO SELECT THE OPTION(S) ***
+*** CAMERA NAME: X, Y, PIXEL SIZE, QUANTUM EFFICIENCY, READ NOISE, GAIN, OFFSET, DARK NOISE, FULL WELL (NO SPACES BETWEEN COMMAS) ***
+-------------------------------------------------------------------------------------------------------------------------------------
 asi6200mm:400,267,9,0.475,13,0.92,50,0.03,60000
 asi2600mm:1,1,1,1,1,1,1,1,1
-asi533mm:
+asi533mm:7,7,7,7,7,7,7,7,7

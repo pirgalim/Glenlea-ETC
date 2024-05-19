@@ -6,11 +6,15 @@ section {
   background-color: rgb(70, 70, 70);
   margin: 25px 150px;
   padding: 5px 5px;
+  border: 2px slategray;
+  border-radius: 5px;
 }
 
 form {
-  margin-left: 25px;
-  margin-right: 25px;
+  /* margin-left: 25px;
+  margin-right: 25px; */
+
+  /* display: table; */
   color: white;
 }
 input {
@@ -32,8 +36,8 @@ h1 {
 
 }
 h2 {
-  /* margin-left: 25px;
-  margin-right: 25px; */
+  margin-left: 25px;
+  margin-right: 25px;
   color: white;
 }
 
