@@ -60,24 +60,9 @@ def test():
                        
             camera_presets.append( (name, values) )
     
-    print(camera_presets)
+    #print(camera_presets)
         
-
-        
-    
-
-    
-    
-    
-    
-    
-    #camera_presets = [('asi6200mm', [400,267,9,0.475,13,0.92,50,0.03,60000])]
-        
-        
-            
-            
-            
-            
+      
     # need to somehow pull information from here
     if in_form.submit.data and in_form.validate():
             result = request.form

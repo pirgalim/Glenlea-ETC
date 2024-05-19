@@ -43,6 +43,8 @@
                     <span>{{ in_form.px_size.label(class="form-control-label") }}</span>
                     {{ in_form.px_size(class="form-control form-control-lg") }}<br>
             
+                    <span>{{ in_form.q_efficiency.label(class="form-control-label") }}</span>
+                    {{ in_form.q_efficiency(class="form-control form-control-lg") }}<br>
 
                     <span>{{ in_form.read_noise.label(class="form-control-label") }}</span>
                     {{ in_form.read_noise(class="form-control form-control-lg") }}<br>
@@ -60,14 +62,17 @@
                     {{ in_form.full_well(class="form-control form-control-lg") }}<br>
             
 
-                    
                     <script> 
-
                         document.getElementById('camera').addEventListener('change', function() {
 
                             var camera_presets = {{ camera_presets|tojson }};
 
-                            preset = ['','','','','','','','']
+                            // I should check if there is actaully anything here first
+                            preset = [camera_presets[0][0].length]
+
+                            for(let i = 0; i < camera_presets[0][0].length; i++) {
+                                preset[i] = '';
+                            }
 
                             for( let i = 0; i < camera_presets.length; i++ ) {
 
@@ -77,20 +82,16 @@
                                 }
                             }
 
-                            
-
-
                             document.getElementById('dim_x').value = preset[0];
                             document.getElementById('dim_y').value = preset[1];
                             document.getElementById('px_size').value = preset[2];
-                            document.getElementById('read_noise').value = preset[3];
-                            document.getElementById('gain').value = preset[4];
-                            document.getElementById('offset').value = preset[5];
-                            document.getElementById('dark_noise').value = preset[6];
-                            document.getElementById('full_well').value = preset[7];
-
+                            document.getElementById('q_efficiency').value = preset[3];
+                            document.getElementById('read_noise').value = preset[4];
+                            document.getElementById('gain').value = preset[5];
+                            document.getElementById('offset').value = preset[6];
+                            document.getElementById('dark_noise').value = preset[7];
+                            document.getElementById('full_well').value = preset[8];
                         });
-
                     </script>
                     
             
@@ -110,21 +111,39 @@
                     {{ in_form.plate_scale(class="form-control form-control-lg") }}<br>
             
 
-                    {% if telescope_option != ''%}
-                        <script> 
-                            document.getElementById('scope_dia').value = {{ preset[0] }};
-                            document.getElementById('scope_focal').value = {{ preset[1] }};
-                            document.getElementById('plate_scale').value = {{ preset[2] }};
+                    <script> 
+                        document.getElementById('telescope').addEventListener('change', function() {
 
-                        </script>
-                    {% endif %}
+                            //var camera_presets = {{ camera_presets|tojson }};
+
+                            // I should check if there is actaully anything here first
+                            preset = [3]
+
+                            for(let i = 0; i < 3; i++) {
+                                preset[i] = '77';
+                            }
+
+                            //for( let i = 0; i < camera_presets.length; i++ ) {
+
+                                //if( camera_presets[i][0] == document.getElementById('telescope').value ) {
+
+                                    //preset = camera_presets[i][1];
+                                //}
+                            //}
+
+                            document.getElementById('scope_dia').value = preset[0];
+                            document.getElementById('scope_focal').value = preset[1];
+                            document.getElementById('plate_scale').value = preset[2];
+                            
+                        });
+                    </script>
 
                     
             
                 </div>
                 
-
-                {{ in_form.submit(class="btn btn-outline-info") }}
+                
+                {{ in_form.submit(class="btn btn-outline-info") }} <button type=reset>Reset</button>
 
         </form>
 

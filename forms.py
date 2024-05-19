@@ -19,6 +19,7 @@ class InputForm(FlaskForm):
     dim_x = StringField('X-dimension', validators=[DataRequired()])
     dim_y = StringField('Y-dimension', validators=[DataRequired()])
     px_size = StringField('Pixel Size', validators=[DataRequired()])
+    q_efficiency = StringField('Quantum Efficiency', validators=[DataRequired()])
     read_noise = StringField('Read Noise', validators=[DataRequired()])
     gain = StringField('Gain', validators=[DataRequired()])
     offset = StringField('Offset', validators=[DataRequired()])
