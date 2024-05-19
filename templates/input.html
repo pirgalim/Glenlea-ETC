@@ -69,7 +69,7 @@
                         // I should check if there is actaully anything here first
                         preset = [camera_presets[0][0].length]
 
-                        for(let i = 0; i < camera_presets[0][0].length; i++) {
+                        for(let i = 0; i < preset.length; i++) {
                             preset[i] = '';
                         }
 
@@ -115,22 +115,22 @@
                 <script> 
                     document.getElementById('telescope').addEventListener('change', function() {
 
-                        //var camera_presets = {{ camera_presets|tojson }};
+                        var presets = {{ telescope_presets|tojson }};
 
                         // I should check if there is actaully anything here first
-                        preset = [3]
+                        preset = [presets[0][0].length]
 
-                        for(let i = 0; i < 3; i++) {
-                            preset[i] = '77';
+                        for(let i = 0; i < preset.length; i++) {
+                            preset[i] = '';
                         }
 
-                        //for( let i = 0; i < camera_presets.length; i++ ) {
+                        for( let i = 0; i < presets.length; i++ ) {
 
-                            //if( camera_presets[i][0] == document.getElementById('telescope').value ) {
+                            if( presets[i][0] == document.getElementById('telescope').value ) {
 
-                                //preset = camera_presets[i][1];
-                            //}
-                        //}
+                                preset = presets[i][1];
+                            }
+                        }
 
                         document.getElementById('scope_dia').value = preset[0];
                         document.getElementById('scope_focal').value = preset[1];

@@ -61,6 +61,29 @@ def test():
     
     
     
+     #--- read camera preset data ---#
+    telescope_csv = open("./static/presets/telescope_presets.csv", "+r")
+    telescope_presets = []
+    
+    #skip the instructions
+    telescope_csv.readline()
+    telescope_csv.readline()
+    telescope_csv.readline()
+    
+    for line in telescope_csv:
+        
+        line = line.strip().split(":")
+        name = line[0]
+        values = line[1].split(',')
+        
+        if( len(values) == InputForm.telescope_fields ):
+            telescope_presets.append( (name, values) )
+    
+    telescope_csv.close()
+    
+    
+    
+    
     #--- read telescope preset data ---#
     
     
@@ -78,7 +101,7 @@ def test():
               
                 
     return render_template('input.html',  in_form=in_form, camera_select=camera_select, telescope_select=telescope_select,
-                           camera_presets=camera_presets, selected_option=selected_option, telescope_option=telescope_option)
+                           camera_presets=camera_presets, telescope_presets=telescope_presets)
 
 
 

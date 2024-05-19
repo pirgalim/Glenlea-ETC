@@ -51,7 +51,7 @@ class CameraSelectForm(FlaskForm):
     
 
 class TelescopeSelectForm(FlaskForm):
-    telescope = SelectField('Select Telescope:', choices=[('', 'Custom'), ('cdk350', 'PlaneWave CDK350')])
+    telescope = SelectField('Select Telescope:', choices=[('', 'Custom'), ('cdk350', 'PlaneWave CDK350'), ('c8', 'Celestron C8')])
     submit = SubmitField('Insert Template')
     
 
