@@ -12,12 +12,24 @@ import numpy as np
 import math
 
 
+
 # import base64
 # from io import BytesIO
 # from matplotlib.figure import Figure
 
 
 #from PIL import Image
+
+
+class Calculator:
+    
+    def __init__(self, camera, telescope):
+        
+        self.camera = camera
+        self.telescope = telescope
+        
+    def __str__(self):
+        return str(self.camera)
 
 
 class Camera:
@@ -39,6 +51,11 @@ class Camera:
         
         self.sensor_width = sensor_X * pixel_size
         self.sensor_height = sensor_Y * pixel_size
+        
+    def __str__(self):
+        
+        return "testing..."
+
 
         
         

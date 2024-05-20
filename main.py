@@ -6,7 +6,6 @@ from forms import InputForm, CameraSelectForm, TelescopeSelectForm
 
 # remove later
 from wtforms import Form, SelectField, SubmitField
-
 import numpy as np
 
 
@@ -20,12 +19,6 @@ def my_redirect():
     return redirect(url_for('test'))
     
 
-
-# class MyForm(Form):
-#     camera = SelectField('Select Camera:', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM')])
-
-selected_option = ''
-telescope_option = ''
 
 
 
@@ -61,7 +54,7 @@ def test():
     
     
     
-     #--- read camera preset data ---#
+     #--- read telescope preset data ---#
     telescope_csv = open("./static/presets/telescope_presets.csv", "+r")
     telescope_presets = []
     
@@ -81,36 +74,52 @@ def test():
     
     telescope_csv.close()
     
+
+    
+    #--- read ... preset data ---#
     
     
     
-    #--- read telescope preset data ---#
     
     
-    
-    
-    # default as False, if valid becomes true
-    valid = True
     
         
-      
-    # need to somehow pull information from here
+    #--- fetch input data ---#
+    
+    
+    # Used for input validation
+    valid = True
+    
+    # detect if form has been submitted
     if in_form.submit.data:
             
+        # check for valid input fields
         if in_form.validate():
+        
+            # retrieve form data
+            data = request.form
             
-
-            result = request.form
-            #print(result)
-            loadInput(result)
+            # create parameter tuple to be sent to the calculator script
+            params = loadInput(data)
             
+            
+            #create instances of the calculator script classes
+            cam = ETC.Camera(params[0])
+            scope = ETC.Telescope(params[1])
+            
+            # create instance of calcualtor class
+            etc = ETC.Calculator(cam, scope)
+            
+            print(str(etc))
+            
+            
+        # An error message will be displayed in the HTML
         else: valid = False
             
         
-    
-    print(valid)
-   
 
+    
+    # returns HTML to be displayed
     return render_template('input.html', valid=valid, in_form=in_form, camera_select=camera_select, telescope_select=telescope_select,
                            camera_presets=camera_presets, telescope_presets=telescope_presets)
 
@@ -118,34 +127,26 @@ def test():
 
 
 
-def loadInput(result: dict) -> ETC:
+def loadInput(data: dict) -> tuple:
 
-
-
-
-
-
-    # camera data
 
     camera_params = list()
     telescope_params = list()
     
     field = 0
-    
     c_fields = InputForm.camera_fields
     t_fields = InputForm.telescope_fields
     
     
-    for key in result:
+    for key in data:
         
-        
-        # skip field = 0, this is the 'csrf_token' key
+        # skip first key, this is the 'csrf_token' and is not used for calculation
         
         if field > 0 and field <= c_fields:
-            camera_params.append( float(result[key]) )
+            camera_params.append( float(data[key]) )
             
         elif field > c_fields and field <= c_fields + t_fields:
-            telescope_params.append( float(result[key]) )
+            telescope_params.append( float(data[key]) )
             
         field +=1
         
@@ -153,19 +154,9 @@ def loadInput(result: dict) -> ETC:
     print(camera_params)
     print(telescope_params)
 
+    
+    return (camera_params, telescope_params)
 
-
-    #camera_params = [r['sensor_x'], r['sensor_y'], r['px_size']]
-
-
-    #[float(param) for param in camera_params]
-
-    #list(np.float_(camera_params))
-
-
-    print(camera_params[0]/7)
-
-    #etc_camera = ETC.Camera(camera_params)
 
     
 
