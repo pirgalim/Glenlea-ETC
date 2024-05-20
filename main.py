@@ -35,7 +35,7 @@ def test():
     camera_csv = open("./static/presets/camera_presets.csv", "+r")
     camera_presets = []
     
-    #skip the instructions
+    # skip the instructions
     camera_csv.readline()
     camera_csv.readline()
     camera_csv.readline()
@@ -58,7 +58,7 @@ def test():
     telescope_csv = open("./static/presets/telescope_presets.csv", "+r")
     telescope_presets = []
     
-    #skip the instructions
+    # skip the instructions
     telescope_csv.readline()
     telescope_csv.readline()
     telescope_csv.readline()
@@ -113,6 +113,20 @@ def test():
             print(str(etc))
             
             
+            if os.path.exists("static/my_plot.png"):
+                os.remove("static/my_plot.png")
+            else:
+                print("The file does not exist")
+
+
+            #camera = ETC.camera(params)
+            ETC.plot_light_curve_SB()
+            #ETC.print_data(camera)
+
+            return render_template('input.html', valid=valid, in_form=in_form, camera_select=camera_select, telescope_select=telescope_select,
+                           camera_presets=camera_presets, telescope_presets=telescope_presets, plot_url = "static/my_plot.png")
+            
+            
         # An error message will be displayed in the HTML
         else: valid = False
             
@@ -158,7 +172,31 @@ def loadInput(data: dict) -> tuple:
     return (camera_params, telescope_params)
 
 
+
+
+
+
+@app.route("/plot", methods = ['GET', 'POST'])
+def get_plot():
+
     
+
+        
+
+    if os.path.exists("static/my_plot.png"):
+        os.remove("static/my_plot.png")
+    else:
+        print("The file does not exist")
+
+
+    #camera = ETC.camera(params)
+    ETC.plot_light_curve_SB()
+    #ETC.print_data(camera)
+
+
+    return render_template('index.html', plot_url = "static/my_plot.png")
+
+
 
 
 

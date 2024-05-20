@@ -4,6 +4,16 @@
     <div class="content-section">
 
 
+        {% if plot_url != NULL %}
+        <section>
+            <img src={{plot_url}} style="left-margin:25px;">
+        </section>
+        {% endif %}
+
+
+
+
+
         <section class="preset-selection">
 
             <h2>Load Presets</h2>
@@ -149,6 +159,9 @@
             
                 
         </form>
+
+       
+        
 
     </div>
 
