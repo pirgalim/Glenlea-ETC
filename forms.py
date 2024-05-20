@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, FloatField
+from wtforms import FloatField, SubmitField, SelectField, FloatField
 from wtforms.validators import DataRequired, Length
 
 
@@ -16,21 +16,21 @@ class InputForm(FlaskForm):
     
     
     # camera parameters 
-    sensor_x = StringField('X-dimension', validators=[DataRequired()])
-    sensor_y = StringField('Y-dimension', validators=[DataRequired()])
+    sensor_x = FloatField('X-dimension', validators=[DataRequired()])
+    sensor_y = FloatField('Y-dimension', validators=[DataRequired()])
     px_size = FloatField('Pixel Size', validators=[DataRequired()])
-    q_efficiency = StringField('Quantum Efficiency', validators=[DataRequired()])
-    read_noise = StringField('Read Noise', validators=[DataRequired()])
-    gain = StringField('Gain', validators=[DataRequired()])
-    offset = StringField('Offset', validators=[DataRequired()])
-    dark_noise = StringField('Dark Noise', validators=[DataRequired()])
-    full_well = StringField('Full Well', validators=[DataRequired()])
+    q_efficiency = FloatField('Quantum Efficiency', validators=[DataRequired()])
+    read_noise = FloatField('Read Noise', validators=[DataRequired()])
+    gain = FloatField('Gain', validators=[DataRequired()])
+    offset = FloatField('Offset', validators=[DataRequired()])
+    dark_noise = FloatField('Dark Noise', validators=[DataRequired()])
+    full_well = FloatField('Full Well', validators=[DataRequired()])
     
        
     #telescope parameters
-    scope_dia = StringField('Diameter', validators=[DataRequired()])
-    scope_focal = StringField('Focal Length', validators=[DataRequired()])
-    plate_scale = StringField('Plate Scale', validators=[DataRequired()])
+    scope_dia = FloatField('Diameter', validators=[DataRequired()])
+    scope_focal = FloatField('Focal Length', validators=[DataRequired()])
+    plate_scale = FloatField('Plate Scale', validators=[DataRequired()])
     
     # filter parameters
     

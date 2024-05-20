@@ -89,19 +89,29 @@ def test():
     
     
     
-    
+    # default as False, if valid becomes true
+    valid = True
     
         
       
     # need to somehow pull information from here
-    if in_form.submit.data and in_form.validate():
+    if in_form.submit.data:
             
+        if in_form.validate():
+            
+
             result = request.form
             #print(result)
             loadInput(result)
-  
-    #TODO handle valid tag
-    return render_template('input.html', valid=True, in_form=in_form, camera_select=camera_select, telescope_select=telescope_select,
+            
+        else: valid = False
+            
+        
+    
+    print(valid)
+   
+
+    return render_template('input.html', valid=valid, in_form=in_form, camera_select=camera_select, telescope_select=telescope_select,
                            camera_presets=camera_presets, telescope_presets=telescope_presets)
 
 
