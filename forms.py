@@ -16,8 +16,8 @@ class InputForm(FlaskForm):
     
     
     # camera parameters 
-    sensor_x = FloatField('X-dimension', validators=[DataRequired()])
-    sensor_y = FloatField('Y-dimension', validators=[DataRequired()])
+    sensor_x = FloatField('Sensor X', validators=[DataRequired()])
+    sensor_y = FloatField('Sensor Y', validators=[DataRequired()])
     px_size = FloatField('Pixel Size', validators=[DataRequired()])
     q_efficiency = FloatField('Quantum Efficiency', validators=[DataRequired()])
     read_noise = FloatField('Read Noise', validators=[DataRequired()])
@@ -46,15 +46,12 @@ class InputForm(FlaskForm):
 
 
 class CameraSelectForm(FlaskForm):
-    camera = SelectField('Select Camera:', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM'), ('asi533mm', 'ASI533MM')])
-    submit = SubmitField('Insert Template')
+    camera = SelectField('Select Camera', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM'), ('asi533mm', 'ASI533MM')])
     
 
 class TelescopeSelectForm(FlaskForm):
-    telescope = SelectField('Select Telescope:', choices=[('', 'Custom'), ('cdk350', 'PlaneWave CDK350'), ('c8', 'Celestron C8')])
-    submit = SubmitField('Insert Template')
+    telescope = SelectField('Select Telescope', choices=[('', 'Custom'), ('cdk350', 'PlaneWave CDK350'), ('c8', 'Celestron C8')])
     
 
 class FilterSelectForm(FlaskForm):
     filter = SelectField('Select Filter:', choices=[('', 'Custom'), ('x', 'X')])
-    submit = SubmitField('Insert Template')

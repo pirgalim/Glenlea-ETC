@@ -14,15 +14,15 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
 
 
-@app.route("/")
-def my_redirect():   
-    return redirect(url_for('test'))
+# @app.route("/")
+# def my_redirect():   
+#     return redirect(url_for('/'))
     
 
 
 
 
-@app.route('/test', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def test():
     
     in_form = InputForm()

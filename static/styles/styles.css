@@ -1,5 +1,6 @@
 body {
   background-color: rgb(34, 34, 34);
+  font-family: helvetica;
 }
 
 section {
@@ -21,18 +22,7 @@ form {
   /* background-color: red;
   border: 2px green; */
 }
-input {
-  
-  margin: 10px 0px;
-  padding: 10px 0px 10px 0px;
- 
-  border: 2px solid white;
-  border-bottom-right-radius: 5px;
-  border-top-right-radius: 5px;
-  /* border-radius: 5px; */
-  text-align: center;
-  color: black;
-}
+
 
 
 h1 {
@@ -48,18 +38,7 @@ h2 {
   color: white;
 }
 
-label {
-  margin-left: 25px;
-  margin-right: 5px;
 
-  padding: 10px 10px;
-
-  background-color: slategray;
-  border-radius: 5px;
-  border: 2px slategray;
-
-  color: white;
-}
 
 
 
@@ -72,21 +51,86 @@ select {
 span {
 
   /* align-self: middle; */
+
+  /* width: 0px; */
+
+  display: block; 
+  width: 100px;  
+  height: 10px;  
+  display: inline-block; 
+  
+  
+
   background-color: slategray;
   margin: 5px 0px 0px 25px;
-  padding: 10px 20px;
+  padding: 10px 50px;
   border: 2px slategray;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
 }
 
-[type="autofill"] {
 
-  margin: 5px 0px;
-  padding: 10px 0px 10px 0px;
- 
-  border: 2px solid white;
+
+label:not([type]) {
+  margin: 5px 0px 0px 25px;
+  padding: 10px 10px;
+  width: 150px;  
+  height: 20px;
+  display: inline-block;
+
+  text-align: center;
+  background-color: slategray;
+  border: 2px slategray;
   border-radius: 5px;
-  color: green;
+  color: white;
+}
+label[type="autofill"] {
+  
+  margin: 10px 0px 10px 25px;
+  padding: 10px 10px;
+  width: 160px;  
+  height: 20px;
+  display: inline-block;
 
+  text-align: center;
+  /* font-size: large; */
+
+  
+  background-color: slategray;
+  border: 2px slategray;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  color: white;
+}
+
+input {
+  margin: 10px 0px;
+  width: 120px;
+  height: 40px;
+  border: 2px solid white;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+
+  text-align: center;
+
+  color: black;
+}
+input[type="submit"] {
+  
+  margin: 5px 0px 0px 25px;
+  padding: 10px 10px;
+  text-align: center;
+  background-color: darkorange;
+  border: 2px orange;
+  border-radius: 5px;
+  color: white;
+  font-size: large;
+}
+
+select {
+
+  /* width: 150px;  
+  height: 200px; */
+  padding: 100px 100px;
+  /* display: inline-block; */
 }

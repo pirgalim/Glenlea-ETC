@@ -8,6 +8,12 @@
         <section>
             <img src={{plot_url}} style="left-margin:25px;">
         </section>
+
+        <section>
+            <form id="clear_all" method = "GET", action="">
+                <input type="submit" value="CLEAR ALL">
+            </form>
+        </section>
         {% endif %}
 
 
@@ -24,8 +30,6 @@
                 {{ camera_select.camera.label }} {{ camera_select.camera }}
     
             </form>
-
-            <br>
 
             <form name="telescope" method="POST" action="">
 
@@ -57,21 +61,16 @@
 
                 <h2>Camera Parameters</h2>
 
-                <span>Dimensions</span>{{ in_form.sensor_x(class="form-control form-control-lg") }}<span>x</span>{{ in_form.sensor_y(class="form-control form-control-lg") }}
-
-                <label>{{ in_form.px_size.label }}</label>{{ in_form.px_size(type="autofill") }} <br>
+                {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x }} {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y }}
+                {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size }}<br>
         
-                <span>{{ in_form.q_efficiency.label(class="form-control-label") }}</span>{{ in_form.q_efficiency(class="form-control form-control-lg") }}
+                {{ in_form.q_efficiency.label(type="autofill") }}{{ in_form.q_efficiency }}
+                {{ in_form.read_noise.label(type="autofill") }}{{ in_form.read_noise }}
+                {{ in_form.gain.label(type="autofill") }}{{ in_form.gain }}<br>
 
-                <span>{{ in_form.read_noise.label(class="form-control-label") }}</span>{{ in_form.read_noise(class="form-control form-control-lg") }}
-
-                <span>{{ in_form.gain.label(class="form-control-label") }}</span>{{ in_form.gain(class="form-control form-control-lg") }} <br>
-
-                <span>{{ in_form.offset.label(class="form-control-label") }}</span>{{ in_form.offset(class="form-control form-control-lg") }}
-
-                <span>{{ in_form.dark_noise.label(class="form-control-label") }}</span>{{ in_form.dark_noise(class="form-control form-control-lg") }}
-
-                <span>{{ in_form.full_well.label(class="form-control-label") }}</span>{{ in_form.full_well(class="form-control form-control-lg") }}<br>
+                {{ in_form.offset.label(type="autofill") }}{{ in_form.offset }}
+                {{ in_form.dark_noise.label(type="autofill") }}{{ in_form.dark_noise }}
+                {{ in_form.full_well.label(type="autofill") }}{{ in_form.full_well }}<br>
         
 
                 <script> 
@@ -94,8 +93,7 @@
                             }
                         }
                        
-            
-
+                        // autofill the values
                         document.getElementById('sensor_x').value = preset[0];
                         document.getElementById('sensor_y').value = preset[1];
                         document.getElementById('px_size').value = preset[2];
@@ -106,6 +104,7 @@
                         document.getElementById('dark_noise').value = preset[7];
                         document.getElementById('full_well').value = preset[8];
                     });
+
                 </script>
                 
         
@@ -117,11 +116,9 @@
                 <h2>Telescope Parameters</h2>
 
                 
-                <span>{{ in_form.scope_dia.label(class="form-control-label") }}</span>{{ in_form.scope_dia(class="form-control form-control-lg") }}<br>
-
-                <span>{{ in_form.scope_focal.label(class="form-control-label") }}</span>{{ in_form.scope_focal(class="form-control form-control-lg") }}<br>
-
-                <span>{{ in_form.plate_scale.label(class="form-control-label") }}</span>{{ in_form.plate_scale(class="form-control form-control-lg") }}<br>
+                {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia }}
+                {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal }}
+                {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale }}<br>
         
 
                 <script> 
