@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, IntegerField
+from wtforms import StringField, SubmitField, SelectField, FloatField
 from wtforms.validators import DataRequired, Length
 
 
@@ -16,9 +16,9 @@ class InputForm(FlaskForm):
     
     
     # camera parameters 
-    dim_x = StringField('X-dimension', validators=[DataRequired()])
-    dim_y = StringField('Y-dimension', validators=[DataRequired()])
-    px_size = StringField('Pixel Size', validators=[DataRequired()])
+    sensor_x = StringField('X-dimension', validators=[DataRequired()])
+    sensor_y = StringField('Y-dimension', validators=[DataRequired()])
+    px_size = FloatField('Pixel Size', validators=[DataRequired()])
     q_efficiency = StringField('Quantum Efficiency', validators=[DataRequired()])
     read_noise = StringField('Read Noise', validators=[DataRequired()])
     gain = StringField('Gain', validators=[DataRequired()])

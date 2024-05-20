@@ -14,7 +14,9 @@
                 {{ camera_select.camera.label }} {{ camera_select.camera }}
     
             </form>
-    
+
+            <br>
+
             <form name="telescope" method="POST" action="">
 
                 {{ telescope_select.csrf_token }}
@@ -26,19 +28,28 @@
         </section>
 
         
-
         
-        <form method="POST" action="">
-            {{ in_form.hidden_tag() }}
 
+        <!--{% if not valid %}
+
+            <section style="background-color:red;">
+                <h3 style="margin-left: 25px;">Input is invalid</h3>
+            </section>
+            
+        {% endif %}-->
+
+
+        <form method="POST" action="">
+        
+            {{ in_form.hidden_tag() }}
                 
             <section id="camera">
 
                 <h2>Camera Parameters</h2>
 
-                <span>Dimensions</span>{{ in_form.dim_x(class="form-control form-control-lg") }}<span>x</span>{{ in_form.dim_y(class="form-control form-control-lg") }}
+                <span>Dimensions</span>{{ in_form.sensor_x(class="form-control form-control-lg") }}<span>x</span>{{ in_form.sensor_y(class="form-control form-control-lg") }}
 
-                <span>{{ in_form.px_size.label }}</span>{{ in_form.px_size(class="form-control form-control-lg") }} <br>
+                <label>{{ in_form.px_size.label }}</label>{{ in_form.px_size(type="autofill") }} <br>
         
                 <span>{{ in_form.q_efficiency.label(class="form-control-label") }}</span>{{ in_form.q_efficiency(class="form-control form-control-lg") }}
 
@@ -75,8 +86,8 @@
                        
             
 
-                        document.getElementById('dim_x').value = preset[0];
-                        document.getElementById('dim_y').value = preset[1];
+                        document.getElementById('sensor_x').value = preset[0];
+                        document.getElementById('sensor_y').value = preset[1];
                         document.getElementById('px_size').value = preset[2];
                         document.getElementById('q_efficiency').value = preset[3];
                         document.getElementById('read_noise').value = preset[4];

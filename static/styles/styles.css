@@ -3,9 +3,10 @@ body {
 }
 
 section {
+
   background-color: rgb(70, 70, 70);
   margin: 25px 150px;
-  padding: 5px 5px;
+  padding: 10px 5px;
   border: 2px slategray;
   border-radius: 5px;
 }
@@ -16,13 +17,16 @@ form {
 
   /* display: table; */
   color: white;
+  /* margin: 25px 150px; */
+  /* background-color: red;
+  border: 2px green; */
 }
 input {
   
-  margin: 5px 0px;
-  padding: 13px 0px 11px 0px;
+  margin: 10px 0px;
+  padding: 10px 0px 10px 0px;
  
-  border: 2px gray;
+  border: 2px solid white;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
   /* border-radius: 5px; */
@@ -46,7 +50,14 @@ h2 {
 
 label {
   margin-left: 25px;
-  margin-right: 25px;
+  margin-right: 5px;
+
+  padding: 10px 10px;
+
+  background-color: slategray;
+  border-radius: 5px;
+  border: 2px slategray;
+
   color: white;
 }
 
@@ -59,10 +70,23 @@ select {
 }
 
 span {
+
+  /* align-self: middle; */
   background-color: slategray;
   margin: 5px 0px 0px 25px;
   padding: 10px 20px;
   border: 2px slategray;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
+}
+
+[type="autofill"] {
+
+  margin: 5px 0px;
+  padding: 10px 0px 10px 0px;
+ 
+  border: 2px solid white;
+  border-radius: 5px;
+  color: green;
+
 }

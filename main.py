@@ -95,142 +95,69 @@ def test():
       
     # need to somehow pull information from here
     if in_form.submit.data and in_form.validate():
-            result = request.form
-            print(result)
             
-              
-                
-    return render_template('input.html',  in_form=in_form, camera_select=camera_select, telescope_select=telescope_select,
+            result = request.form
+            #print(result)
+            loadInput(result)
+  
+    #TODO handle valid tag
+    return render_template('input.html', valid=True, in_form=in_form, camera_select=camera_select, telescope_select=telescope_select,
                            camera_presets=camera_presets, telescope_presets=telescope_presets)
 
 
 
 
 
+def loadInput(result: dict) -> ETC:
 
 
 
 
 
 
+    # camera data
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# @app.route('/calculate', methods=['GET', 'POST'])
-# def calculate():
+    camera_params = list()
+    telescope_params = list()
     
-#     in_form = InputForm()
-#     select_form = SelectForm()
+    field = 0
     
-#     if in_form.is_submitted():
-        
-#         result = request.form
-#         print(result)
-#         return render_template('input.html', in_form=in_form, select_form=select_form)
+    c_fields = InputForm.camera_fields
+    t_fields = InputForm.telescope_fields
     
-#     return render_template('input.html', in_form=in_form, select_form=select_form)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# @app.route("/test")
-# def test():
-        
-#     resp = make_response(render_template('index.html'))
     
-#     if os.path.exists("static/my_plot.png"):
-#         os.remove("static/my_plot.png")
-        
-#         return resp
-#     else:
-#         print("The file does not exist")
-
-#     return resp
-
-
-
-
-
-
-
-
-
-
-
-# @app.route("/", methods = ['GET', 'POST'])
-# def get_plot():
-        
-#     if request.method == "POST":
-        
-#         params = [request.form['sen_x'], request.form['sen_y'], request.form['px_size'], request.form['q_eff'], request.form['read_noise'],
-#                   request.form['gain'], request.form['sen_offset'], request.form['dark_noise'], request.form['full_well']]
-
+    for key in result:
         
         
-#         if os.path.exists("static/my_plot.png"):
-#             os.remove("static/my_plot.png")
-#         else:
-#             print("The file does not exist")
+        # skip field = 0, this is the 'csrf_token' key
         
+        if field > 0 and field <= c_fields:
+            camera_params.append( float(result[key]) )
+            
+        elif field > c_fields and field <= c_fields + t_fields:
+            telescope_params.append( float(result[key]) )
+            
+        field +=1
         
-#         #camera = ETC.camera(params)
-#         ETC.plot_light_curve_SB()
-#         #ETC.print_data(camera)
-
-        
-#         return render_template('index.html', plot_url = "static/my_plot.png")
     
-#     else:   # this is temporary
-#         return render_template('index.html')     
+    print(camera_params)
+    print(telescope_params)
+
+
+
+    #camera_params = [r['sensor_x'], r['sensor_y'], r['px_size']]
+
+
+    #[float(param) for param in camera_params]
+
+    #list(np.float_(camera_params))
+
+
+    print(camera_params[0]/7)
+
+    #etc_camera = ETC.Camera(camera_params)
 
     
-
-
-# @app.route("/hello")
-# def run():
-#     return render_template('main.html')
 
 
 
