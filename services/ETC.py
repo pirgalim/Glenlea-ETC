@@ -177,7 +177,7 @@ def plot_light_curve_SB():
 
     plt.legend()
     plt.grid(True)
-    plt.show()
+    #plt.show()
     plt.savefig('static/my_plot.png')
     
     

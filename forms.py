@@ -13,6 +13,7 @@ class InputForm(FlaskForm):
     
     camera_fields = 9
     telescope_fields = 3
+    filter_fields = 3
     
     
     # camera parameters 
@@ -33,6 +34,10 @@ class InputForm(FlaskForm):
     plate_scale = FloatField('Plate Scale', validators=[DataRequired()])
     
     # filter parameters
+    filter_low = FloatField('Filter Low', validators=[DataRequired()])
+    filter_high = FloatField('Filter High', validators=[DataRequired()])
+    filter_zero = FloatField('Filter Zero', validators=[DataRequired()])
+    
     
     # target parameters
     
@@ -54,4 +59,4 @@ class TelescopeSelectForm(FlaskForm):
     
 
 class FilterSelectForm(FlaskForm):
-    filter = SelectField('Select Filter:', choices=[('', 'Custom'), ('x', 'X')])
+    filter = SelectField('Select Filter:', choices=[('', 'Custom'), ('test', 'Test')])

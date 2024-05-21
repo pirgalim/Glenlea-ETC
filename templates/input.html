@@ -4,11 +4,13 @@
     <div class="content-section">
 
 
+        <!-- display plot -->
         {% if plot_url != NULL %}
         <section>
             <img src={{plot_url}} style="left-margin:25px;">
         </section>
 
+        <!-- reset button -->
         <section>
             <form id="clear_all" method = "GET", action="">
                 <input type="submit" value="CLEAR ALL">
@@ -17,39 +19,33 @@
         {% endif %}
 
 
-
-
-
         <section class="preset-selection">
 
             <h2>Load Presets</h2>
 
             <form name="camera" method="POST" action="">
-
                 {{ camera_select.csrf_token }}
                 {{ camera_select.camera.label }} {{ camera_select.camera }}
-    
             </form>
 
             <form name="telescope" method="POST" action="">
-
                 {{ telescope_select.csrf_token }}
                 {{ telescope_select.telescope.label }} {{ telescope_select.telescope }}
-       
             </form>
-            
+
+            <form name="filter" method="POST" action="">
+                {{ filter_select.csrf_token }}
+                {{ filter_select.filter.label }} {{ filter_select.filter }}
+            </form>
 
         </section>
 
-        
-        
 
+        <!-- input validation error message -->
         {% if not valid %}
-
             <section style="background-color:maroon;">
                 <h3 style="margin-left:25px; color:white;">Parameter(s) Invalid - Must Be Numeric</h3>
             </section>
-            
         {% endif %}
 
 
@@ -72,7 +68,6 @@
                 {{ in_form.dark_noise.label(type="autofill") }}{{ in_form.dark_noise }}
                 {{ in_form.full_well.label(type="autofill") }}{{ in_form.full_well }}<br>
         
-
                 <script> 
                     document.getElementById('camera').addEventListener('change', function() {
 
@@ -82,15 +77,11 @@
                         // I should check if there is actaully anything here first
                         var preset = [size]
 
-                        for(let i = 0; i < size; i++) {
-                            preset[i] = '';
-                        }
+                        for(let i = 0; i < size; i++) { preset[i] = ''; }
 
                         // match the selection with a preset
                         for( let i = 0; i < presets.length; i++ ) {
-                            if( presets[i][0] == document.getElementById('camera').value ) {
-                                preset = presets[i][1];
-                            }
+                            if( presets[i][0] == document.getElementById('camera').value ) { preset = presets[i][1]; }
                         }
                        
                         // autofill the values
@@ -104,22 +95,18 @@
                         document.getElementById('dark_noise').value = preset[7];
                         document.getElementById('full_well').value = preset[8];
                     });
-
                 </script>
-                
-        
+
             </section>               
 
 
             <section id="telescope">
 
                 <h2>Telescope Parameters</h2>
-
                 
                 {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia }}
                 {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal }}
                 {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale }}<br>
-        
 
                 <script> 
                     document.getElementById('telescope').addEventListener('change', function() {
@@ -130,39 +117,71 @@
                         // I should check if there is actaully anything here first
                         var preset = [size]
 
-                        for(let i = 0; i < size; i++) {
-                            preset[i] = '';
-                        }
+                        for(let i = 0; i < size; i++) { preset[i] = ''; }
 
                         // match the selection with a preset
                         for( let i = 0; i < presets.length; i++ ) {
-                            if( presets[i][0] == document.getElementById('telescope').value ) {
-                                preset = presets[i][1];
-                            }
+                            if( presets[i][0] == document.getElementById('telescope').value ) { preset = presets[i][1]; }
                         }
 
                         document.getElementById('scope_dia').value = preset[0];
                         document.getElementById('scope_focal').value = preset[1];
                         document.getElementById('plate_scale').value = preset[2];
-                        
                     });
                 </script>
 
             </section>
-            
+
+
+
+            <section id="filter">
+
+                <h2>Filter Parameters</h2>
+                
+                {{ in_form.filter_low.label(type="autofill") }}{{ in_form.filter_low }}
+                {{ in_form.filter_high.label(type="autofill") }}{{ in_form.filter_high }}
+                {{ in_form.filter_zero.label(type="autofill") }}{{ in_form.filter_zero }}<br>
+
+                <script> 
+                    document.getElementById('filter').addEventListener('change', function() {
+
+                        var presets = {{ filter_presets|tojson }};
+                        var size = presets[0][1].length;
+
+                        // I should check if there is actaully anything here first
+                        var preset = [size]
+
+                        for(let i = 0; i < size; i++) { preset[i] = ''; }
+
+                        // match the selection with a preset
+                        for( let i = 0; i < presets.length; i++ ) {
+                            if( presets[i][0] == document.getElementById('filter').value ) { preset = presets[i][1]; }
+                        }
+
+                        document.getElementById('filter_low').value = preset[0];
+                        document.getElementById('filter_high').value = preset[1];
+                        document.getElementById('filter_zero').value = preset[2];
+                    });
+                </script>
+
+            </section>
+
+
+
+
+
+
+
+
+
+
+            <!-- submit form -->
             <section id="submission">
                 {{ in_form.submit(class="btn btn-outline-info") }} 
           </section>
             
-                
-        </form>
-
-       
-        
+        </form>        
 
     </div>
-
-
-    
 
 {% endblock content %}
