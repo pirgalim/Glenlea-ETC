@@ -15,6 +15,7 @@ class InputForm(FlaskForm):
     telescope_fields = 3
     filter_fields = 3
     target_fields = 3
+    conditions_fields = 1
     
     
     # camera parameters 
@@ -66,7 +67,7 @@ class TelescopeSelectForm(FlaskForm):
     
 
 class FilterSelectForm(FlaskForm):
-    filter = SelectField('Select Filter', choices=[('', 'Custom'), ('test', 'Test')])
+    filter = SelectField('Select Filter', choices=[('', 'Custom'), ('test', 'Test'), ('test2', 'Test2')])
     
 
 class TargetSelectForm(FlaskForm):

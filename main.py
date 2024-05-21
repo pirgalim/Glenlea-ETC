@@ -25,6 +25,16 @@ app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
 @app.route('/', methods=['GET', 'POST'])
 def test():
     
+    
+    #TODO remove file after generating
+    
+    if os.path.exists("static/my_plot.png"):
+                os.remove("static/my_plot.png")
+    else:
+        print("The file does not exist")
+    
+    
+    
     in_form = InputForm()
     camera_select = CameraSelectForm()
     telescope_select = TelescopeSelectForm()
@@ -68,24 +78,27 @@ def test():
             params = loadInput(data)
             
             
-            #create instances of the calculator script classes
-            cam = ETC.Camera(params[0])
-            scope = ETC.Telescope(params[1])
+            # #create instances of the calculator script classes
+            # cam = ETC.Camera(params[0])
+            # scope = ETC.Telescope(params[1])
             
             # create instance of calcualtor class
-            etc = ETC.Calculator(cam, scope)
+            # etc = ETC.Calculator(cam, scope)
             
-            print(str(etc))
+            # print(str(etc))
             
             
-            if os.path.exists("static/my_plot.png"):
-                os.remove("static/my_plot.png")
-            else:
-                print("The file does not exist")
+            
+            #......
+            etc = ETC.Calculator(params)
+            etc.plot_light_curve_SB()
+            
+            
+            
 
 
             #camera = ETC.camera(params)
-            ETC.plot_light_curve_SB()
+            #ETC.plot_light_curve_SB()
             #ETC.print_data(camera)
 
             return render_template('input.html', valid=valid, in_form=in_form, 
@@ -219,30 +232,52 @@ def loadInput(data: dict) -> tuple:
 
     camera_params = list()
     telescope_params = list()
+    filter_params = list()
+    target_params = list()
+    conditions_params = list()
+    
+    
+    
     
     field = 0
-    c_fields = InputForm.camera_fields
-    t_fields = InputForm.telescope_fields
+    cam_fields = InputForm.camera_fields
+    tel_fields = InputForm.telescope_fields
+    fil_fields = InputForm.filter_fields
+    tar_fields = InputForm.target_fields
+    con_fields = InputForm.conditions_fields
     
     
     for key in data:
         
         # skip first key, this is the 'csrf_token' and is not used for calculation
         
-        if field > 0 and field <= c_fields:
+        if field > 0 and field <= cam_fields:
             camera_params.append( float(data[key]) )
             
-        elif field > c_fields and field <= c_fields + t_fields:
+        elif field > cam_fields and field <= (cam_fields + tel_fields):
             telescope_params.append( float(data[key]) )
+            
+        elif field > (cam_fields + tel_fields) and field <= (cam_fields + tel_fields + fil_fields):
+            filter_params.append( float(data[key]) )
+            
+        elif field > (cam_fields + tel_fields + fil_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields):
+            target_params.append( float(data[key]) )
+            
+        elif field > (cam_fields + tel_fields + fil_fields + tar_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields):
+            conditions_params.append( float(data[key]) )
+            
             
         field +=1
         
     
     print(camera_params)
     print(telescope_params)
+    print(filter_params)
+    print(target_params)
+    print(conditions_params)
 
     
-    return (camera_params, telescope_params)
+    return (camera_params, telescope_params, filter_params, target_params, conditions_params)
 
 
 
