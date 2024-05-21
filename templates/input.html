@@ -38,6 +38,16 @@
                 {{ filter_select.filter.label }} {{ filter_select.filter }}
             </form>
 
+            <form name="target" method="POST" action="">
+                {{ target_select.csrf_token }}
+                {{ target_select.target.label }} {{ target_select.target }}
+            </form>
+
+            <form name="conditions" method="POST" action="">
+                {{ conditions_select.csrf_token }}
+                {{ conditions_select.conditions.label }} {{ conditions_select.conditions }}
+            </form>
+
         </section>
 
 
@@ -133,7 +143,6 @@
             </section>
 
 
-
             <section id="filter">
 
                 <h2>Filter Parameters</h2>
@@ -167,10 +176,54 @@
             </section>
 
 
+            <section id="target">
+
+                <h2>Target Parameters</h2>
+                
+                {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist }}
+                {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp }}
+                {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar }}<br>
+
+                <script> 
+                    document.getElementById('target').addEventListener('change', function() {
+
+                        var presets = {{ target_presets|tojson }};
+                        var size = presets[0][1].length;
+
+                        // I should check if there is actaully anything here first
+                        var preset = [size]
+
+                        for(let i = 0; i < size; i++) { preset[i] = ''; }
+
+                        // match the selection with a preset
+                        for( let i = 0; i < presets.length; i++ ) {
+                            if( presets[i][0] == document.getElementById('target').value ) { preset = presets[i][1]; }
+                        }
+
+                        document.getElementById('star_dist').value = preset[0];
+                        document.getElementById('star_temp').value = preset[1];
+                        document.getElementById('star_dia_solar').value = preset[2];
+                    });
+                </script>
+
+            </section>
 
 
+            <section id="conditions">
 
+                <h2>Conditions</h2>
+                
+                {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing }}<br>
 
+                <script> 
+                    document.getElementById('conditions').addEventListener('change', function() {
+
+                        var selectedOption = this.value;
+                    document.getElementById('seeing').value = selectedOption;
+                    });
+                </script>
+
+            </section>
 
 
 

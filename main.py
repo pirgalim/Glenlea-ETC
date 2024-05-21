@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, make_response, url_for
 import os
 import services.ETC as ETC
-from forms import InputForm, CameraSelectForm, TelescopeSelectForm, FilterSelectForm
+from forms import InputForm, CameraSelectForm, TelescopeSelectForm, FilterSelectForm, TargetSelectForm, ConditionsSelectForm
 
 
 # remove later
@@ -30,62 +30,20 @@ def test():
     telescope_select = TelescopeSelectForm()
     filter_select = FilterSelectForm()
     
-       
-       
-    # #--- read camera preset data ---#
-    # camera_csv = open("./static/presets/camera_presets.csv", "+r")
-    # camera_presets = []
+    target_select = TargetSelectForm()
+    conditions_select = ConditionsSelectForm()
     
-    # # skip the instructions
-    # camera_csv.readline()
-    # camera_csv.readline()
-    # camera_csv.readline()
-    
-    # for line in camera_csv:
-        
-    #     line = line.strip().split(":")
-    #     name = line[0]
-    #     values = line[1].split(',')
-        
-    #     if( len(values) == InputForm.camera_fields ):
-    #         camera_presets.append( (name, values) )
-    
-    # camera_csv.close()
+   
     
     
-    
-    
-    #  #--- read telescope preset data ---#
-    # telescope_csv = open("./static/presets/telescope_presets.csv", "+r")
-    # telescope_presets = []
-    
-    # # skip the instructions
-    # telescope_csv.readline()
-    # telescope_csv.readline()
-    # telescope_csv.readline()
-    
-    # for line in telescope_csv:
-        
-    #     line = line.strip().split(":")
-    #     name = line[0]
-    #     values = line[1].split(',')
-        
-    #     if( len(values) == InputForm.telescope_fields ):
-    #         telescope_presets.append( (name, values) )
-    
-    # telescope_csv.close()
-    
-
-    
-    # #--- read ... preset data ---#
-    
-    
+    # #--- read preset data ---#
     presets = readPresets()
     
     #TODO: just pass presets[i] below instead
     camera_presets = presets[0]
     telescope_presets = presets[1]
     filter_presets = presets[2]
+    target_presets = presets[3]
     
     
     
@@ -131,8 +89,8 @@ def test():
             #ETC.print_data(camera)
 
             return render_template('input.html', valid=valid, in_form=in_form, 
-                                   camera_select=camera_select, telescope_select=telescope_select, filter_select=filter_select,
-                                    camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets,
+                                   camera_select=camera_select, telescope_select=telescope_select, filter_select=filter_select, target_select=target_select, conditions_select=conditions_select,
+                                    camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
                                     plot_url="static/my_plot.png")
             
             
@@ -144,8 +102,8 @@ def test():
     
     # returns HTML to be displayed
     return render_template('input.html', valid=valid, in_form=in_form, 
-                           camera_select=camera_select, telescope_select=telescope_select, filter_select=filter_select,
-                           camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets)
+                           camera_select=camera_select, telescope_select=telescope_select, filter_select=filter_select, target_select=target_select, conditions_select=conditions_select,
+                           camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets)
 
 
 
@@ -174,7 +132,7 @@ def readPresets() -> tuple:
     camera_csv.close()
     
     
-     #--- read telescope preset data ---#
+    #--- read telescope preset data ---#
     telescope_csv = open("./static/presets/telescope_presets.csv", "+r")
     telescope_presets = []
     
@@ -201,7 +159,7 @@ def readPresets() -> tuple:
     #--- read ... preset data ---#
     
     
-     #--- read filter preset data ---#
+    #--- read filter preset data ---#
     filter_csv = open("./static/presets/filter_presets.csv", "+r")
     filter_presets = []
     
@@ -222,11 +180,29 @@ def readPresets() -> tuple:
     filter_csv.close()
     
     
+    #--- read target preset data ---#
+    target_csv = open("./static/presets/target_presets.csv", "+r")
+    target_presets = []
     
+    # skip the instructions
+    target_csv.readline()
+    target_csv.readline()
+    target_csv.readline()
+    
+    for line in target_csv:
+        
+        line = line.strip().split(":")
+        name = line[0]
+        values = line[1].split(',')
+        
+        if( len(values) == InputForm.target_fields ):
+            target_presets.append( (name, values) )
+    
+    target_csv.close()    
     
 
 
-    return (camera_presets, telescope_presets, filter_presets)
+    return (camera_presets, telescope_presets, filter_presets, target_presets)
 
 
 
