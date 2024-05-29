@@ -2,29 +2,16 @@ body {
   background-color: rgb(34, 34, 34);
   font-family: helvetica;
 }
-
 section {
-
   background-color: rgb(70, 70, 70);
   margin: 25px 200px;
   padding: 10px 5px;
   border: 2px slategray;
   border-radius: 5px;
 }
-
 form {
-  /* margin-left: 25px;
-  margin-right: 25px; */
-
-  /* display: table; */
   color: white;
-  /* margin: 25px 150px; */
-  /* background-color: red;
-  border: 2px green; */
-  
 }
-
-
 
 h1 {
   margin-top: 75px;
@@ -38,7 +25,11 @@ h2 {
   margin-right: 25px;
   color: white;
 }
-
+p {
+  margin-left: 25px;
+  margin-right: 25px;
+  color: white;
+}
 
 
 

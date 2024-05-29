@@ -1,10 +1,17 @@
 {% block content1 %}
 
-<h1>test</h1>
+<h1>Calculation Results</h1>
+
+
+<section>
+    <p> The field of view area is {{fov}} </p>
+    <p> The sensor reports {{counts}} counts per second from the star </p>
+</section>
+
 
 <!-- display plot -->
-{% if plot_url != NULL %}
 <section>
+    <h2></h2>
     <img src={{plot_url}} style="left-margin:25px;">
 </section>
 
@@ -13,11 +20,8 @@
     <form id="clear_all" method = "GET", action="">
         <input type="submit" value="CLEAR ALL">
     </form>
-
-
-
 </section>
-{% endif %}
+
 {% endblock content1 %}
 
 {% include "input.html" %}

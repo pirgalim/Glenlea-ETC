@@ -34,15 +34,16 @@ class Calculator:
         
         
         #--- camera parameters ---#
-        self.pixel_size = camera[0] * 10**(-6)
-        self.Q_efficiency = camera[1]
-        self.read_noise = camera[2]
-        self.gain = camera[3]
-        self.sensor_offset = camera[4]
-        self.dark_noise = camera[5]
-        self.full_well = camera[6]
-        self.sensor_X = camera[7]
-        self.sensor_Y = camera[8]
+        self.sensor_X = camera[0]
+        self.sensor_Y = camera[1]
+        self.pixel_size = camera[2] * 10**(-6)
+        self.Q_efficiency = camera[3]
+        self.read_noise = camera[4]
+        self.gain = camera[5]
+        self.sensor_offset = camera[6]
+        self.dark_noise = camera[7]
+        self.full_well = camera[8]
+        
         
         self.sensor_width = self.sensor_X * self.pixel_size
         self.sensor_height = self.sensor_Y * self.pixel_size
@@ -102,7 +103,7 @@ class Calculator:
     
     
     #function computing the integral of a function f using the trapezoidal rule, taking in the function and a step size.
-    def computeIntegral(f, stepSize):
+    def computeIntegral(self, f, stepSize):
         return (stepSize/2)*(f[0]+f[-1]+2*np.sum(f[1:-1]))
     
 
@@ -121,10 +122,12 @@ class Calculator:
         
         #calculate the integrand under the Stefan-Boltzmann (SB) law, divided by the photon energies for total number of photons
         PB = ((2*np.pi*h*c**2)/(wlB**5))*(1/(np.exp((h*c)/(wlB*kB*T))-1))*(1/(p_Energy)) #coarse function values, 100 segments
+        
+        
                 
         counts_per_second = self.computeIntegral(PB,stepWidth) * (4*np.pi*((self.star_dia/2)**2))/(4*np.pi*self.star_dist_m**2)*self.mirror_area*self.Q_efficiency/self.gain #electrons per second from the star on the sensor in photons/m^2
 
-        return 'The sensor reports' + math.trunc(counts_per_second) + 'counts per second from the star.'
+        return (math.trunc(counts_per_second))
 
     
         
