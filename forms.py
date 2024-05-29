@@ -19,8 +19,8 @@ class InputForm(FlaskForm):
     
     
     # camera parameters 
-    sensor_x = FloatField('Sensor X', validators=[DataRequired()])
-    sensor_y = FloatField('Sensor Y', validators=[DataRequired()])
+    sensor_x = FloatField('Sensor Length', validators=[DataRequired()])
+    sensor_y = FloatField('Sensor Width', validators=[DataRequired()])
     px_size = FloatField('Pixel Size', validators=[DataRequired()])
     q_efficiency = FloatField('Quantum Efficiency', validators=[DataRequired()])
     read_noise = FloatField('Read Noise', validators=[DataRequired()])
