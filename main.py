@@ -4,27 +4,15 @@ import services.ETC as ETC
 from forms import InputForm, SelectForm
 
 
-# remove later
-from wtforms import Form, SelectField, SubmitField
-import numpy as np
 
-
+# Flask setup
 app = Flask(__name__)
-
 app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
-
-
-# @app.route("/")
-# def my_redirect():   
-#     return redirect(url_for('/'))
-    
-
 
 
 
 @app.route('/', methods=['GET', 'POST'])
 def calculator():
-    
     
     #TODO remove file after generating
     
@@ -34,12 +22,10 @@ def calculator():
         print("The file does not exist")
     
     
-    
     # create forms
     in_form = InputForm()
     select_form = SelectForm()
   
-    
     
     #--- read preset data ---#
     presets = readPresets()
@@ -51,7 +37,7 @@ def calculator():
     
     
     #--- fetch input data ---#
-    
+
     # Used for input validation
     valid = True
     
@@ -66,17 +52,22 @@ def calculator():
             
             # create parameter tuple to be sent to the calculator script
             params = loadInput(data)
+            
+            if(params is None):
+                return render_template("error.html")
+            
+            else:
                         
-            # create instances of the calculator script classes
-            etc = ETC.Calculator(params)
-            etc.plot_light_curve_SB()
-            
-            
+                # create instances of the calculator script classes
+                etc = ETC.Calculator(params)
+                etc.plot_light_curve_SB()
+                
+                
 
-            return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
-                                    camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
-                                    plot_url="static/my_plot.png")
-            
+                return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
+                                        camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
+                                        plot_url="static/my_plot.png")
+                
             
         # An error message will be displayed in the HTML
         else: valid = False
@@ -135,8 +126,6 @@ def readPresets() -> tuple:
     
     telescope_csv.close()
     
-
-
     
     #--- read filter preset data ---#
     filter_csv = open("./static/presets/filter_presets.csv", "+r")
@@ -186,24 +175,15 @@ def readPresets() -> tuple:
 
 
 
-
-
-
-
-
-
 def loadInput(data: dict) -> tuple:
 
 
-    camera_params = list()
-    telescope_params = list()
-    filter_params = list()
-    target_params = list()
-    conditions_params = list()
-    
-    
-    
-    
+    camera_params = []
+    telescope_params = []
+    filter_params = []
+    target_params = []
+    conditions_params = []
+        
     field = 0
     cam_fields = InputForm.camera_fields
     tel_fields = InputForm.telescope_fields
@@ -212,64 +192,36 @@ def loadInput(data: dict) -> tuple:
     con_fields = InputForm.conditions_fields
     
     
-    for key in data:
+    try:
+    
+        for key in data:
+            
+            # skip first key, this is the 'csrf_token' and is not used for calculation
+            
+            if field > 0 and field <= cam_fields:
+                camera_params.append( float(data[key]) )
+                
+            elif field > cam_fields and field <= (cam_fields + tel_fields):
+                telescope_params.append( float(data[key]) )
+                
+            elif field > (cam_fields + tel_fields) and field <= (cam_fields + tel_fields + fil_fields):
+                filter_params.append( float(data[key]) )
+                
+            elif field > (cam_fields + tel_fields + fil_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields):
+                target_params.append( float(data[key]) )
+                
+            elif field > (cam_fields + tel_fields + fil_fields + tar_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields):
+                conditions_params.append( float(data[key]) )
+                
+            field +=1
+            
+        return (camera_params, telescope_params, filter_params, target_params, conditions_params)
+
+    except:
+        print("oops")
+        return None
+   
         
-        # skip first key, this is the 'csrf_token' and is not used for calculation
-        
-        if field > 0 and field <= cam_fields:
-            camera_params.append( float(data[key]) )
-            
-        elif field > cam_fields and field <= (cam_fields + tel_fields):
-            telescope_params.append( float(data[key]) )
-            
-        elif field > (cam_fields + tel_fields) and field <= (cam_fields + tel_fields + fil_fields):
-            filter_params.append( float(data[key]) )
-            
-        elif field > (cam_fields + tel_fields + fil_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields):
-            target_params.append( float(data[key]) )
-            
-        elif field > (cam_fields + tel_fields + fil_fields + tar_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields):
-            conditions_params.append( float(data[key]) )
-            
-        field +=1
-    
-    
-    print(camera_params)
-    print(telescope_params)
-    print(filter_params)
-    print(target_params)
-    print(conditions_params)
-
-    
-    return (camera_params, telescope_params, filter_params, target_params, conditions_params)
-
-
-
-
-
-
-# @app.route("/plot", methods = ['GET', 'POST'])
-# def get_plot():
-
-    
-
-        
-
-#     if os.path.exists("static/my_plot.png"):
-#         os.remove("static/my_plot.png")
-#     else:
-#         print("The file does not exist")
-
-
-#     #camera = ETC.camera(params)
-#     ETC.plot_light_curve_SB()
-#     #ETC.print_data(camera)
-
-
-#     return render_template('index.html', plot_url = "static/my_plot.png")
-
-
-
 
 
 
