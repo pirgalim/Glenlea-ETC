@@ -67,8 +67,8 @@ def calculator():
                 #print( etc.countsPerSecond() )
                 
                 
-
-                return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
+                #return(render_template('output.html', plot_url="static/my_plot.png"))
+                return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
                                         camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
                                         plot_url="static/my_plot.png")
                 

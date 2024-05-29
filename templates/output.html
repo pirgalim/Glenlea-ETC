@@ -1,6 +1,23 @@
-{% extends "index.html" %}
 {% block content1 %}
 
 <h1>test</h1>
 
+<!-- display plot -->
+{% if plot_url != NULL %}
+<section>
+    <img src={{plot_url}} style="left-margin:25px;">
+</section>
+
+<!-- reset button -->
+<section>
+    <form id="clear_all" method = "GET", action="">
+        <input type="submit" value="CLEAR ALL">
+    </form>
+
+
+
+</section>
+{% endif %}
 {% endblock content1 %}
+
+{% include "input.html" %}
