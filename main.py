@@ -76,7 +76,8 @@ def calculator():
                 print(ref_SNR)
                 
                 desired_SNR = 250
-                exposure =  etc.calculateReqTime(desired_SNR, ref_SNR, 1)
+                exposure = "{:.5f}".format(etc.calculateReqTime(desired_SNR, ref_SNR, 1))
+                
                 
                 
                 #return(render_template('output.html', plot_url="static/my_plot.png"))
