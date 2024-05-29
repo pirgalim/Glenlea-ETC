@@ -31,7 +31,7 @@ class InputForm(FlaskForm):
     # filter parameters
     filter_low = FloatField('Filter Low', validators=[DataRequired()])
     filter_high = FloatField('Filter High', validators=[DataRequired()])
-    filter_zero = FloatField('Filter Zero', validators=[DataRequired()])
+    filter_zero = FloatField('Zero Point Flux', validators=[DataRequired()])
     
     # target parameters
     star_dist = FloatField('Distance', validators=[DataRequired()])

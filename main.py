@@ -16,8 +16,13 @@ def calculator():
     
     #TODO remove file after generating
     
-    if os.path.exists("static/my_plot.png"):
-                os.remove("static/my_plot.png")
+    if os.path.exists("static/plot_light_curve_SB.png"):
+                os.remove("static/plot_light_curve_SB.png")
+    else:
+        print("The file does not exist")
+        
+    if os.path.exists("static/spread_counts.png"):
+                os.remove("static/spread_counts.png")
     else:
         print("The file does not exist")
     
@@ -61,7 +66,7 @@ def calculator():
                 # create instances of the calculator script classes
                 etc = ETC.Calculator(params)
                 etc.plot_light_curve_SB()
-                etc.aperture()
+                peak, minimum = etc.aperture()
                                 
                 fov = int( etc.computeFOV() )            
                 counts = etc.countsPerSecond()
@@ -71,7 +76,7 @@ def calculator():
                 return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
                                         camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
                                         SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",
-                                        fov=fov, counts=counts)
+                                        fov=fov, counts=counts, peak=peak, minimum=minimum)
                 
             
         # An error message will be displayed in the HTML

@@ -124,18 +124,13 @@ class Calculator:
         
         counts_per_second = self.computeIntegral(pB,stepWidth) * (4*np.pi*((self.star_dia/2)**2))/(4*np.pi*self.star_dist_m**2)*self.mirror_area*self.Q_efficiency/self.gain #electrons per second from the star on the sensor in photons/m^2
 
-
-        #return 996636
-        return (math.trunc(counts_per_second))
+        return math.trunc(counts_per_second)
 
     
         
     def plot_light_curve_SB(self):
 
-        # kB = scipy.constants.Boltzmann
-        # h = scipy.constants.Planck
-        # c = scipy.constants.c
-        T = self.star_temp   # pass in function
+        T = self.star_temp  
 
         wl = np.linspace(1 * 10**(-8), 5 * 10**(-6), 10000)
         wlnm = wl * 10**9 
@@ -257,4 +252,6 @@ class Calculator:
         plt.ylim(0,y)
         plt.gca().set_aspect('equal')
         plt.savefig('static/spread_counts.png')
+        
+        return ( int(np.max(final_sensor_array)), int(np.min(final_sensor_array)) )  
                 
