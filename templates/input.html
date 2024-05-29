@@ -66,13 +66,17 @@
         
             {{ in_form.hidden_tag() }}
 
-
+            <!-- security tag? -->
              
             
                 
             <section id="camera">
 
-                <h2>Camera Parameters</h2>
+                <h2>Camera Parameters</h2> 
+                
+                <div class="tooltip">info 
+                    <span class="tooltiptext">Text goes here</span>
+                </div><br>
 
                 {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x }} {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y }}
                 {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size }}<br>

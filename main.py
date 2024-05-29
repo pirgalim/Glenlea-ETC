@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, make_response, url_for
 import os
 import services.ETC as ETC
-from forms import InputForm, SelectForm, CameraSelectForm, TelescopeSelectForm, FilterSelectForm, TargetSelectForm, ConditionsSelectForm
+from forms import InputForm, SelectForm
 
 
 # remove later
@@ -23,7 +23,7 @@ app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
 
 
 @app.route('/', methods=['GET', 'POST'])
-def test():
+def calculator():
     
     
     #TODO remove file after generating
@@ -41,21 +41,16 @@ def test():
   
     
     
-    # #--- read preset data ---#
+    #--- read preset data ---#
     presets = readPresets()
     
-    #TODO: just pass presets[i] below instead
     camera_presets = presets[0]
     telescope_presets = presets[1]
     filter_presets = presets[2]
     target_presets = presets[3]
     
     
-    
-    
-        
     #--- fetch input data ---#
-    
     
     # Used for input validation
     valid = True
@@ -79,7 +74,7 @@ def test():
             
 
             return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
-                                    camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
+                                    camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
                                     plot_url="static/my_plot.png")
             
             
@@ -253,25 +248,25 @@ def loadInput(data: dict) -> tuple:
 
 
 
-@app.route("/plot", methods = ['GET', 'POST'])
-def get_plot():
+# @app.route("/plot", methods = ['GET', 'POST'])
+# def get_plot():
 
     
 
         
 
-    if os.path.exists("static/my_plot.png"):
-        os.remove("static/my_plot.png")
-    else:
-        print("The file does not exist")
+#     if os.path.exists("static/my_plot.png"):
+#         os.remove("static/my_plot.png")
+#     else:
+#         print("The file does not exist")
 
 
-    #camera = ETC.camera(params)
-    ETC.plot_light_curve_SB()
-    #ETC.print_data(camera)
+#     #camera = ETC.camera(params)
+#     ETC.plot_light_curve_SB()
+#     #ETC.print_data(camera)
 
 
-    return render_template('index.html', plot_url = "static/my_plot.png")
+#     return render_template('index.html', plot_url = "static/my_plot.png")
 
 
 
