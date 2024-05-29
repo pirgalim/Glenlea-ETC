@@ -86,10 +86,9 @@ class Calculator:
         
         
         
-
         
-        
-
+    #-------------------- Calculation functions --------------------#
+    
 
     def computeFOV(self):
         #===================== COMPUTE FOV (arcseconds) =====================
@@ -111,7 +110,7 @@ class Calculator:
         
         T = self.star_temp
         
-         #define wavelengths by dividing the bandpass range into 1000 equal parts
+        #define wavelengths by dividing the bandpass range into 1000 equal parts
         wlB = np.linspace(self.filter_low,self.filter_high,1000)
         
         #define the step width as the distance between adjacent wavelength values
@@ -121,18 +120,15 @@ class Calculator:
         p_Energy = h*c/wlB
         
         #calculate the integrand under the Stefan-Boltzmann (SB) law, divided by the photon energies for total number of photons
-        PB = ((2*np.pi*h*c**2)/(wlB**5))*(1/(np.exp((h*c)/(wlB*kB*T))-1))*(1/(p_Energy)) #coarse function values, 100 segments
+        pB = ((2*np.pi*h*c**2)/(wlB**5))*(1/(np.exp((h*c)/(wlB*kB*T))-1))*(1/(p_Energy)) #coarse function values, 100 segments
         
-        
-                
-        counts_per_second = self.computeIntegral(PB,stepWidth) * (4*np.pi*((self.star_dia/2)**2))/(4*np.pi*self.star_dist_m**2)*self.mirror_area*self.Q_efficiency/self.gain #electrons per second from the star on the sensor in photons/m^2
+        counts_per_second = self.computeIntegral(pB,stepWidth) * (4*np.pi*((self.star_dia/2)**2))/(4*np.pi*self.star_dist_m**2)*self.mirror_area*self.Q_efficiency/self.gain #electrons per second from the star on the sensor in photons/m^2
 
+
+        #return 996636
         return (math.trunc(counts_per_second))
 
     
-        
-        
-        
         
     def plot_light_curve_SB(self):
 
@@ -163,23 +159,102 @@ class Calculator:
         plt.legend()
         plt.grid(True)
 
-        plt.savefig('static/my_plot.png')
+        plt.savefig('static/plot_light_curve_SB.png')
         
         
         
         
-
-
-
-    #def spreadCounts():
         
+    #-------------------- Functions for SNR --------------------#
     
-        
-        
-        
     
-            
+     #SPREAD COUNTS OVER A 2D GAUSSIAN
+    #Takes in sensor dimensions, total counts to spread, and fwhm (seeing condition)
+    def spreadCounts(self, sensorX, sensorY, totalCounts, fwhm, exposureTime, fullWell):
+        sigma = fwhm/(2*np.sqrt(2*np.log(2)))
+        signalValues = np.zeros([sensorY,sensorX])
+        centerX = sensorY/2
+        centerY = sensorX/2
+
+        for x in range(sensorY):
+            for y in range(sensorX):
+                signalValues[x,y] = (1/(2*np.pi*sigma**2))*np.exp((-((x-centerX)**2+(y-centerY)**2))/(2*sigma**2))
+
+        signalValues = signalValues*(totalCounts/signalValues.sum())*exposureTime
+        return signalValues
+
+
+    #GENERATE CCD NOISE
+    #Takes in sensor parameters and generates signal noise based on exposure time
+    def generateNoise(self, sensorX, sensorY, darkCurrent, readNoise, offset, exposureTime):
+        noiseValues = np.zeros([sensorY,sensorX])
+        
+        for x in range(sensorY):
+            for y in range(sensorX):
+                noiseValues[x,y] = np.random.normal(0,readNoise) + np.random.normal(0,darkCurrent)*exposureTime + offset
+
+        return noiseValues
+    
+    
+    
+    #GENERATE SKY BACKGROUND EMISSION
+    #Takes in sensor, telescope, sky and filter parameters and generates sky background signal based on exposure time and bortle scale
+    def generateBG(self, sensorX, sensorY, skyMag, zeroFlux, mirrorArea, sensorGain, filterLow, filterHigh, sensorQE, freqPass, exposureTime):
+
+        skyBG = np.zeros([sensorY,sensorX])
+        skyFlux = zeroFlux*10**(-0.4*skyMag)*10**(-26)*(freqPass)*mirrorArea
+        skyCounts = skyFlux/(scipy.constants.h*scipy.constants.c/(self.filter_low+((filterHigh-filterLow)/2)))*sensorQE*exposureTime/sensorGain #counts from the sky per second
+        
+        for x in range(sensorY):
+            for y in range(sensorX):
+                skyBG[x,y] = skyCounts
+
+        return skyBG
+    
+
+    #CHECK FOR OVERFULL PIXELS
+    #Takes in signal, bg noise and sensor noise and checks if any pixels exceed full well. Assumes perfect blooming correction of the sensor
+    def overfullCheck(self, arrayTest, fullWell):
+        for x in range(len(arrayTest)):
+            for y in range(len(arrayTest[0])):
+                if arrayTest[x,y] > fullWell:
+                    arrayTest[x,y] = fullWell
+
+        return arrayTest 
+    
+
+
+    #COMPUTE SIGNAL, NOISE, BACKGROUND ARRAYS FOR TEST IMAGE (1s):
+    def aperture(self):
+        
+        x = int(self.sensor_X)
+        y = int(self.sensor_Y)
+        counts = self.countsPerSecond()
+        
+        test_exposure = 1 
+        signal_values = self.spreadCounts(x,y,counts,self.seeing_pixel,test_exposure,self.full_well)
+        noise_values= self.generateNoise(x,y,self.dark_noise,self.read_noise,self.sensor_offset,test_exposure)
+        bg_values = self.generateBG(x,y,self.sky_bright,self.filter_zero,self.mirror_area,self.gain,self.filter_low,self.filter_high,self.Q_efficiency,self.filter_freq_band,test_exposure)
+        final_sensor_array = self.overfullCheck(signal_values+noise_values+bg_values,self.full_well)
         
         
-    def __str__(self):
-        return str(self)
+        
+        #GENERATE APERTURE FOR MEASURING SNR
+        aperture_rad = self.seeing_pixel*0.67
+        aperture_center = (x/2,y/2)
+        aperture_num_pixels = np.pi*aperture_rad**2
+        
+        aperture_circle = patches.Circle(aperture_center,radius=aperture_rad, edgecolor = 'red', facecolor = 'none', linewidth = 1)
+        plt.figure(figsize=(8, 6))
+        plt.text(aperture_center[0]+8,aperture_center[1]+8, 'Measurement Aperture', verticalalignment='center',color='red')
+        plt.imshow(final_sensor_array, cmap='gray', interpolation='nearest',vmin = 0)
+        plt.gca().add_patch(aperture_circle)
+        plt.colorbar(label='Counts')
+        plt.title('Spread of Counts over Sensor')
+        plt.xlabel('Number of pixels (X)')
+        plt.ylabel('Number of pixels (Y)')
+        plt.xlim(0,x)
+        plt.ylim(0,y)
+        plt.gca().set_aspect('equal')
+        plt.savefig('static/spread_counts.png')
+                

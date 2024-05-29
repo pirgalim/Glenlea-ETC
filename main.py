@@ -61,8 +61,8 @@ def calculator():
                 # create instances of the calculator script classes
                 etc = ETC.Calculator(params)
                 etc.plot_light_curve_SB()
-                
-                
+                etc.aperture()
+                                
                 fov = int( etc.computeFOV() )            
                 counts = etc.countsPerSecond()
                 
@@ -70,7 +70,8 @@ def calculator():
                 #return(render_template('output.html', plot_url="static/my_plot.png"))
                 return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
                                         camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
-                                        plot_url="static/my_plot.png", fov=fov, counts=counts)
+                                        SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",
+                                        fov=fov, counts=counts)
                 
             
         # An error message will be displayed in the HTML
