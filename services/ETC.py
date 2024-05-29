@@ -1,11 +1,10 @@
 # currently rewriting Jupyter file
 
 import matplotlib
-matplotlib.use('agg')
+matplotlib.use('agg')   #TODO very important for Flask
 
 import matplotlib.pyplot as plt
 import scipy.constants
-#plt.style.use('seaborn-poster')
 import matplotlib.patches as patches
 import scipy
 import numpy as np
@@ -13,12 +12,12 @@ import math
 
 
 
-# import base64
-# from io import BytesIO
-# from matplotlib.figure import Figure
+# constants
+kB = scipy.constants.Boltzmann
+h = scipy.constants.Planck
+c = scipy.constants.c
 
 
-#from PIL import Image
 
 
 class Calculator:
@@ -34,15 +33,8 @@ class Calculator:
         conditions = params[4]
         
         
-        print(camera)
-        print(telescope)
-        print(filter)
-        print(target)
-        print(conditions)
-        
-        
         #--- camera parameters ---#
-        self.pixel_size = camera[0]
+        self.pixel_size = camera[0] * 10**(-6)
         self.Q_efficiency = camera[1]
         self.read_noise = camera[2]
         self.gain = camera[3]
@@ -85,32 +77,65 @@ class Calculator:
         
         
         #--- conditions ---#
-        self.sky_bright = 20.87  #TODO add this to form?
+        self.sky_bright = 21.75  #TODO add this to form?
         self.seeing_cond = conditions[0]
         self.seeing_pixel = self.seeing_cond/self.plate_scale
         
         
         
-        #--- compute FOV ---#
-        self.FOV_width = 206265 * self.sensor_width * (1/self.scope_focal)
-        self.FOV_height = 206265 * self.sensor_height * (1/self.scope_focal)
-        self.FOV_area = self.FOV_width * self.FOV_height
         
         
-        
-        
-        
-        
-        self.wlB = np.linspace(self.filter_low,self.filter_high,1000)
 
+        
+        
+
+
+    def computeFOV(self):
+        #===================== COMPUTE FOV (arcseconds) =====================
+        #Using Focal length, pixel size and sensor dimensions
+        
+        FOV_width = 206265 * self.sensor_width * (1/self.scope_focal)
+        FOV_height = 206265 * self.sensor_height * (1/self.scope_focal)
+        FOV_area = FOV_width * FOV_height
+        
+        return FOV_area
+    
+    
+    #function computing the integral of a function f using the trapezoidal rule, taking in the function and a step size.
+    def computeIntegral(f, stepSize):
+        return (stepSize/2)*(f[0]+f[-1]+2*np.sum(f[1:-1]))
+    
+
+    def countsPerSecond(self):
+        
+        T = self.star_temp
+        
+         #define wavelengths by dividing the bandpass range into 1000 equal parts
+        wlB = np.linspace(self.filter_low,self.filter_high,1000)
+        
+        #define the step width as the distance between adjacent wavelength values
+        stepWidth = (wlB[1]-wlB[0]) #distance from 1 point to the next = step size
+        
+        #Calculate the photon energies at every wavelength
+        p_Energy = h*c/wlB
+        
+        #calculate the integrand under the Stefan-Boltzmann (SB) law, divided by the photon energies for total number of photons
+        PB = ((2*np.pi*h*c**2)/(wlB**5))*(1/(np.exp((h*c)/(wlB*kB*T))-1))*(1/(p_Energy)) #coarse function values, 100 segments
+                
+        counts_per_second = self.computeIntegral(PB,stepWidth) * (4*np.pi*((self.star_dia/2)**2))/(4*np.pi*self.star_dist_m**2)*self.mirror_area*self.Q_efficiency/self.gain #electrons per second from the star on the sensor in photons/m^2
+
+        return 'The sensor reports' + math.trunc(counts_per_second) + 'counts per second from the star.'
+
+    
+        
         
         
         
     def plot_light_curve_SB(self):
 
-        kB = scipy.constants.Boltzmann
-        h = scipy.constants.Planck
-        c = scipy.constants.c
+        # kB = scipy.constants.Boltzmann
+        # h = scipy.constants.Planck
+        # c = scipy.constants.c
         T = self.star_temp   # pass in function
 
         wl = np.linspace(1 * 10**(-8), 5 * 10**(-6), 10000)
@@ -132,10 +157,9 @@ class Calculator:
         plt.ylabel('Power Density (W/m^3)')
         plt.xlim(0,2000)
         plt.ylim(0)
-
         plt.legend()
         plt.grid(True)
-        #plt.show()
+
         plt.savefig('static/my_plot.png')
         
         

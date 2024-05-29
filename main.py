@@ -63,6 +63,10 @@ def calculator():
                 etc.plot_light_curve_SB()
                 
                 
+                print( etc.computeFOV() )
+                #print( etc.countsPerSecond() )
+                
+                
 
                 return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
                                         camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
