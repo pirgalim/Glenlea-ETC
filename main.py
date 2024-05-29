@@ -72,11 +72,18 @@ def calculator():
                 counts = etc.countsPerSecond()
                 
                 
+                ref_SNR = etc.SNR_ref()
+                print(ref_SNR)
+                
+                desired_SNR = 250
+                exposure =  etc.calculateReqTime(desired_SNR, ref_SNR, 1)
+                
+                
                 #return(render_template('output.html', plot_url="static/my_plot.png"))
                 return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
                                         camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
                                         SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",
-                                        fov=fov, counts=counts, peak=peak, minimum=minimum)
+                                        fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure)
                 
             
         # An error message will be displayed in the HTML

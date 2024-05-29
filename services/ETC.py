@@ -18,6 +18,10 @@ h = scipy.constants.Planck
 c = scipy.constants.c
 
 
+# global variables
+
+apertureNumPixels = 0
+bgValues = 0
 
 
 class Calculator:
@@ -34,8 +38,8 @@ class Calculator:
         
         
         #--- camera parameters ---#
-        self.sensor_X = camera[0]
-        self.sensor_Y = camera[1]
+        self.sensor_X = int(camera[0])
+        self.sensor_Y = int(camera[1])
         self.pixel_size = camera[2] * 10**(-6)
         self.Q_efficiency = camera[3]
         self.read_noise = camera[4]
@@ -120,9 +124,9 @@ class Calculator:
         p_Energy = h*c/wlB
         
         #calculate the integrand under the Stefan-Boltzmann (SB) law, divided by the photon energies for total number of photons
-        pB = ((2*np.pi*h*c**2)/(wlB**5))*(1/(np.exp((h*c)/(wlB*kB*T))-1))*(1/(p_Energy)) #coarse function values, 100 segments
+        PB = ((2*np.pi*h*c**2)/(wlB**5))*(1/(np.exp((h*c)/(wlB*kB*T))-1))*(1/(p_Energy)) #coarse function values, 100 segments
         
-        counts_per_second = self.computeIntegral(pB,stepWidth) * (4*np.pi*((self.star_dia/2)**2))/(4*np.pi*self.star_dist_m**2)*self.mirror_area*self.Q_efficiency/self.gain #electrons per second from the star on the sensor in photons/m^2
+        counts_per_second = self.computeIntegral(PB,stepWidth) * (4*np.pi*((self.star_dia/2)**2))/(4*np.pi*self.star_dist_m**2)*self.mirror_area*self.Q_efficiency/self.gain #electrons per second from the star on the sensor in photons/m^2
 
         return math.trunc(counts_per_second)
 
@@ -232,12 +236,19 @@ class Calculator:
         bg_values = self.generateBG(x,y,self.sky_bright,self.filter_zero,self.mirror_area,self.gain,self.filter_low,self.filter_high,self.Q_efficiency,self.filter_freq_band,test_exposure)
         final_sensor_array = self.overfullCheck(signal_values+noise_values+bg_values,self.full_well)
         
+        global bgValues
+        bgValues = bg_values
+        
+        
         
         
         #GENERATE APERTURE FOR MEASURING SNR
         aperture_rad = self.seeing_pixel*0.67
         aperture_center = (x/2,y/2)
         aperture_num_pixels = np.pi*aperture_rad**2
+        
+        global apertureNumPixels
+        apertureNumPixels = aperture_num_pixels
         
         aperture_circle = patches.Circle(aperture_center,radius=aperture_rad, edgecolor = 'red', facecolor = 'none', linewidth = 1)
         plt.figure(figsize=(8, 6))
@@ -255,3 +266,51 @@ class Calculator:
         
         return ( int(np.max(final_sensor_array)), int(np.min(final_sensor_array)) )  
                 
+
+
+    
+    
+    
+    def computeSNR(self, exposureTime):
+        
+        signalCountsPerSec = self.countsPerSecond()
+        return (signalCountsPerSec*exposureTime)/(np.sqrt(signalCountsPerSec*exposureTime+apertureNumPixels*(exposureTime*self.generateBG(self.sensor_X,self.sensor_Y,self.sky_bright,self.filter_zero,self.mirror_area,self.gain,self.filter_low,self.filter_high,self.Q_efficiency,self.filter_freq_band,exposureTime)[0][0]+self.read_noise**2+exposureTime*self.dark_noise)))
+    
+    
+    def SNR_ref(self):
+        
+        counts_per_second = self.countsPerSecond()
+        test_exposure = 1
+        
+        return (counts_per_second*test_exposure)/(np.sqrt(counts_per_second*test_exposure+apertureNumPixels*(test_exposure*bgValues[0][0]+self.read_noise**2+test_exposure*self.dark_noise)))
+    
+    
+    
+    #CHECK FOG LIMIT AND CALCULATE EXPOSURE TIME
+    #If a star is too dim or the sky too bright, SNR will plateau. This code checks to see if the desired SNR is above this limit. Assumes maximum exposure time of 300 hours.
+    #If Desired SNR is above the fog limit, a lower SNR must be input or better conditions observed.
+    #This function iterates over SNR calculations until the desired SNR is achieved within a tolerance, default Tolerance = 1
+    
+    def calculateReqTime(self, desiredSNR, snrRef, expRef, tolerance = 1, maxTime = 1080000):
+    
+        maxSNR = self.computeSNR(maxTime)
+        currentSNR = snrRef
+
+        if desiredSNR>maxSNR:
+            return "SNR not achievable"
+
+
+        else:
+            while np.abs(desiredSNR-currentSNR)>tolerance:
+                currentTime = expRef*(desiredSNR/currentSNR)**2
+                currentSNR = self.computeSNR(currentTime)
+                expRef = currentTime
+                print("SNR is now: ",currentSNR)
+                
+
+
+            print("The calculated exposure time is: ")
+            return currentTime
+            
+        
+  
