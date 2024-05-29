@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, make_response, url_for
 import os
 import services.ETC as ETC
-from forms import InputForm, CameraSelectForm, TelescopeSelectForm, FilterSelectForm, TargetSelectForm, ConditionsSelectForm
+from forms import InputForm, SelectForm, CameraSelectForm, TelescopeSelectForm, FilterSelectForm, TargetSelectForm, ConditionsSelectForm
 
 
 # remove later
@@ -35,15 +35,10 @@ def test():
     
     
     
+    # create forms
     in_form = InputForm()
-    camera_select = CameraSelectForm()
-    telescope_select = TelescopeSelectForm()
-    filter_select = FilterSelectForm()
-    
-    target_select = TargetSelectForm()
-    conditions_select = ConditionsSelectForm()
-    
-   
+    select_form = SelectForm()
+  
     
     
     # #--- read preset data ---#
@@ -76,33 +71,14 @@ def test():
             
             # create parameter tuple to be sent to the calculator script
             params = loadInput(data)
-            
-            
-            # #create instances of the calculator script classes
-            # cam = ETC.Camera(params[0])
-            # scope = ETC.Telescope(params[1])
-            
-            # create instance of calcualtor class
-            # etc = ETC.Calculator(cam, scope)
-            
-            # print(str(etc))
-            
-            
-            
-            #......
+                        
+            # create instances of the calculator script classes
             etc = ETC.Calculator(params)
             etc.plot_light_curve_SB()
             
             
-            
 
-
-            #camera = ETC.camera(params)
-            #ETC.plot_light_curve_SB()
-            #ETC.print_data(camera)
-
-            return render_template('input.html', valid=valid, in_form=in_form, 
-                                   camera_select=camera_select, telescope_select=telescope_select, filter_select=filter_select, target_select=target_select, conditions_select=conditions_select,
+            return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
                                     camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
                                     plot_url="static/my_plot.png")
             
@@ -114,8 +90,7 @@ def test():
 
     
     # returns HTML to be displayed
-    return render_template('input.html', valid=valid, in_form=in_form, 
-                           camera_select=camera_select, telescope_select=telescope_select, filter_select=filter_select, target_select=target_select, conditions_select=conditions_select,
+    return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets)
 
 
@@ -166,11 +141,7 @@ def readPresets() -> tuple:
     telescope_csv.close()
     
 
-    
-    
-    
-    #--- read ... preset data ---#
-    
+
     
     #--- read filter preset data ---#
     filter_csv = open("./static/presets/filter_presets.csv", "+r")
@@ -213,7 +184,6 @@ def readPresets() -> tuple:
     
     target_csv.close()    
     
-
 
     return (camera_presets, telescope_presets, filter_presets, target_presets)
 
@@ -266,9 +236,8 @@ def loadInput(data: dict) -> tuple:
         elif field > (cam_fields + tel_fields + fil_fields + tar_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields):
             conditions_params.append( float(data[key]) )
             
-            
         field +=1
-        
+    
     
     print(camera_params)
     print(telescope_params)

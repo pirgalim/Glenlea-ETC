@@ -27,28 +27,28 @@
             <h2>Load Presets</h2>
 
             <form name="camera" method="POST" action="">
-                {{ camera_select.csrf_token }}
-                {{ camera_select.camera.label }} {{ camera_select.camera }}
+                {{ select_form.csrf_token }}
+                {{ select_form.camera.label }} {{ select_form.camera }}
             </form>
 
             <form name="telescope" method="POST" action="">
-                {{ telescope_select.csrf_token }}
-                {{ telescope_select.telescope.label }} {{ telescope_select.telescope }}
+                {{ select_form.csrf_token }}
+                {{ select_form.telescope.label }} {{ select_form.telescope }}
             </form>
 
             <form name="filter" method="POST" action="">
-                {{ filter_select.csrf_token }}
-                {{ filter_select.filter.label }} {{ filter_select.filter }}
+                {{ select_form.csrf_token }}
+                {{ select_form.filter.label }} {{ select_form.filter }}
             </form>
 
             <form name="target" method="POST" action="">
-                {{ target_select.csrf_token }}
-                {{ target_select.target.label }} {{ target_select.target }}
+                {{ select_form.csrf_token }}
+                {{ select_form.target.label }} {{ select_form.target }}
             </form>
 
             <form name="conditions" method="POST" action="">
-                {{ conditions_select.csrf_token }}
-                {{ conditions_select.conditions.label }} {{ conditions_select.conditions }}
+                {{ select_form.csrf_token }}
+                {{ select_form.conditions.label }} {{ select_form.conditions }}
             </form>
 
         </section>
