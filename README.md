@@ -5,20 +5,13 @@ This is a web-based Exposure Time Calculator (ETC) intended for deployment to th
 
 	Python 3.11.5 or higher
 	Flask
+	WTForms
 	NumPy
 	SciPy
 	matplotlib
 
 ##### Instructions
-To use the ETC without deployment, simply run *main.py* from a terminal window.
-
-In a browser enter the following URL:
-
-```
-http://140.193.206.54:3000
-```
-
-This opens a public session of the ETC which is accessible to any device on the local network, as long as the program is running.
+To use the ETC without deployment, simply run *main.py* from a terminal window and click the localhost link provided.
 
 ### Website
 This feature will be supported in a future release. 

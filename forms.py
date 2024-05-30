@@ -11,6 +11,7 @@ class InputForm(FlaskForm):
     filter_fields = 3
     target_fields = 3
     conditions_fields = 1
+    snr_fields = 1
     
     # camera parameters 
     sensor_x = FloatField('Sensor Length', validators=[DataRequired()])
@@ -40,6 +41,9 @@ class InputForm(FlaskForm):
     
     # weather conditions
     seeing = FloatField('Conditions', validators=[DataRequired()])
+    
+    # desired signal to noise ratio
+    desired_snr = FloatField('Desired SNR', validators=[DataRequired()])
     
     # submit data
     submit = SubmitField('Calculate')

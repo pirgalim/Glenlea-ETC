@@ -232,9 +232,17 @@
                     document.getElementById('conditions').addEventListener('change', function() {
 
                         var selectedOption = this.value;
-                    document.getElementById('seeing').value = selectedOption;
+                        document.getElementById('seeing').value = selectedOption;
                     });
                 </script>
+
+            </section>
+
+
+            <section id="snr">
+
+                <h2>Signal to Noise</h2>
+                {{ in_form.desired_snr.label(type="autofill") }}{{ in_form.desired_snr }}<br>
 
             </section>
 

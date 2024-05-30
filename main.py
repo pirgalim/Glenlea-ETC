@@ -75,7 +75,10 @@ def calculator():
                 ref_SNR = etc.SNR_ref()
                 print(ref_SNR)
                 
-                desired_SNR = 250
+                
+                #TODO change this later, could be dangerous
+                desired_SNR = params[5]
+                
                 exposure = "{:.5f}".format(etc.calculateReqTime(desired_SNR, ref_SNR, 1))
                 
                 
@@ -208,36 +211,36 @@ def loadInput(data: dict) -> tuple:
     fil_fields = InputForm.filter_fields
     tar_fields = InputForm.target_fields
     con_fields = InputForm.conditions_fields
+    snr_fields = InputForm.snr_fields
     
     
-    try:
     
-        for key in data:
+    
+    for key in data:
+        
+        # skip first key, this is the 'csrf_token' and is not used for calculation
+        
+        if field > 0 and field <= cam_fields:
+            camera_params.append( float(data[key]) )
             
-            # skip first key, this is the 'csrf_token' and is not used for calculation
+        elif field > cam_fields and field <= (cam_fields + tel_fields):
+            telescope_params.append( float(data[key]) )
             
-            if field > 0 and field <= cam_fields:
-                camera_params.append( float(data[key]) )
-                
-            elif field > cam_fields and field <= (cam_fields + tel_fields):
-                telescope_params.append( float(data[key]) )
-                
-            elif field > (cam_fields + tel_fields) and field <= (cam_fields + tel_fields + fil_fields):
-                filter_params.append( float(data[key]) )
-                
-            elif field > (cam_fields + tel_fields + fil_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields):
-                target_params.append( float(data[key]) )
-                
-            elif field > (cam_fields + tel_fields + fil_fields + tar_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields):
-                conditions_params.append( float(data[key]) )
-                
-            field +=1
+        elif field > (cam_fields + tel_fields) and field <= (cam_fields + tel_fields + fil_fields):
+            filter_params.append( float(data[key]) )
             
-        return (camera_params, telescope_params, filter_params, target_params, conditions_params)
-
-    except:
-        print("oops")
-        return None
+        elif field > (cam_fields + tel_fields + fil_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields):
+            target_params.append( float(data[key]) )
+            
+        elif field > (cam_fields + tel_fields + fil_fields + tar_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields):
+            conditions_params.append( float(data[key]) )
+        
+        elif field > (cam_fields + tel_fields + fil_fields + tar_fields+ con_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields + snr_fields):
+            snr_param = float(data[key])
+            
+        field +=1
+        
+    return (camera_params, telescope_params, filter_params, target_params, conditions_params, snr_param)
    
         
 
