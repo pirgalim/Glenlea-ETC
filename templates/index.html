@@ -1,0 +1,41 @@
+<head>
+
+    <title>Glenlea ETC</title>
+
+    <meta charset="UTF-8">
+
+    <!-- CSS config -->
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/styles.css')}}">
+
+</head>
+
+<body>
+
+    <h1>Glenlea Exposure Time Calculator</h1>
+  
+
+    <!-- extend to 'input.html' -->
+    {% block content %}
+    {% endblock %}
+
+
+    
+
+
+    <section>
+        <form id="clear_all" method = "GET", action="">
+            <input type="submit" value="CLEAR ALL">
+        </form>
+    </section>
+
+
+
+    <!-- extend to 'output.html' -->
+    {% block content1 %}
+    {% endblock %}
+
+
+</body>
+
+
+
