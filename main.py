@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, make_response, url_for
 import os
 import services.ETC as ETC
+import services.scrape_sqm as sqm
 from forms import InputForm, SelectForm
 
 
@@ -40,6 +41,9 @@ def calculator():
     filter_presets = presets[2]
     target_presets = presets[3]
     
+    #--- retrieve current GAO SQM value ---#
+    gao_sqm = sqm.get_sqm()
+    print(gao_sqm)
     
     #--- fetch input data ---#
 
@@ -76,16 +80,20 @@ def calculator():
                 print(ref_SNR)
                 
                 
+                
+                print(params)
+                
                 #TODO change this later, could be dangerous
                 desired_SNR = params[5]
                 
-                exposure = "{:.5f}".format(etc.calculateReqTime(desired_SNR, ref_SNR, 1))
+                exposure = etc.calculateReqTime(desired_SNR, ref_SNR, 1)
                 
                 
                 
                 #return(render_template('output.html', plot_url="static/my_plot.png"))
                 return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
-                                        camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
+                                        camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets, 
+                                        gao_sqm=gao_sqm,
                                         SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",
                                         fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure)
                 
@@ -98,7 +106,8 @@ def calculator():
     
     # returns HTML to be displayed
     return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
-                           camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets)
+                           camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
+                           gao_sqm=gao_sqm)
 
 
 
@@ -197,6 +206,16 @@ def readPresets() -> tuple:
 
 
 def loadInput(data: dict) -> tuple:
+    """_summary_
+    
+    load from input form???
+
+    Args:
+        data (dict): _description_
+
+    Returns:
+        tuple: _description_
+    """
 
 
     camera_params = []
@@ -248,4 +267,5 @@ def loadInput(data: dict) -> tuple:
 
 
 if __name__ == '__main__':
+
     app.run(host='0.0.0.0', port=3000)

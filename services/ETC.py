@@ -82,8 +82,8 @@ class Calculator:
         
         
         #--- conditions ---#
-        self.sky_bright = 21.75  #TODO add this to form?
         self.seeing_cond = conditions[0]
+        self.sky_bright = conditions[1]
         self.seeing_pixel = self.seeing_cond/self.plate_scale
         
         

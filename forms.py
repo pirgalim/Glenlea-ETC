@@ -1,6 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import FloatField, SubmitField, SelectField, FloatField
-from wtforms.validators import DataRequired, Length
+from wtforms import FloatField, StringField, SubmitField, SelectField, FloatField
+from wtforms.validators import DataRequired, Length, ValidationError, InputRequired
+
+
+def validate_sqm(form, field):
+        if not (field.data).isnumeric():
+            raise ValidationError('Must be numeric')
+
 
 
 class InputForm(FlaskForm):
@@ -10,7 +16,7 @@ class InputForm(FlaskForm):
     telescope_fields = 3
     filter_fields = 3
     target_fields = 3
-    conditions_fields = 1
+    conditions_fields = 2
     snr_fields = 1
     
     # camera parameters 
@@ -41,12 +47,19 @@ class InputForm(FlaskForm):
     
     # weather conditions
     seeing = FloatField('Conditions', validators=[DataRequired()])
+    sqm = StringField('Sky Quality', validators=[InputRequired(), validate_sqm])
     
     # desired signal to noise ratio
     desired_snr = FloatField('Desired SNR', validators=[DataRequired()])
     
     # submit data
     submit = SubmitField('Calculate')
+    
+    
+    
+    
+    
+    
 
 
 class SelectForm(FlaskForm):
@@ -55,3 +68,4 @@ class SelectForm(FlaskForm):
     filter = SelectField('Select Filter', choices=[('', 'Custom'), ('test', 'Test - narrower'), ('test2', 'Test - wider')])
     target = SelectField('Select Target', choices=[('', 'Custom'), ('test', 'Test')])
     conditions = SelectField('Select Conditions', choices=[('', 'Custom'), ('1', '1 (Poor)'), ('2', '2'), ('3', '3 (Average)'), ('4', '4'), ('5', '5 (Excellent)')])
+    sky_bright = SelectField('Select Target', choices=[('', 'Custom'), ('goa', 'Current Glenlea Conditions')])

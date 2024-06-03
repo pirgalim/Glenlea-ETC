@@ -5,3 +5,4 @@ services/.DS_Store
 services/__pycache__/ETC.cpython-311.pyc
 __pycache__/forms.cpython-311.pyc
 old.html
+services/__pycache__/scrape_sqm.cpython-311.pyc

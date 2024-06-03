@@ -52,16 +52,36 @@
                 {{ select_form.csrf_token }}
                 {{ select_form.conditions.label }} {{ select_form.conditions }}
             </form>
-
+            
         </section>
 
 
         <!-- input validation error message -->
         {% if not valid %}
             <section style="background-color:maroon;">
-                <h3 style="margin-left:25px; color:white;">Parameter(s) Invalid - Must Be Numeric</h3>
+                <h3 style="margin-left:25px; color:white;">Parameter(s) Invalid - See Below</h3>
             </section>
         {% endif %}
+
+
+
+        <!--div class="form-group">
+            {{ in_form.sqm.label(id="label1") }}
+            {% if in_form.sqm.errors %}
+            {{ in_form.sqm(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in in_form.sqm.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+        {{ in_form.sqm(class="form-control", placeholder="Enter Your Phone Number" )}}
+        {% endif %}
+           
+        </div-->
+
+
+
 
 
         <form method="POST" action="">
@@ -226,7 +246,12 @@
 
                 <h2>Conditions</h2>
                 
-                {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing }}<br>
+                {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing }}
+                {{ in_form.sqm.label(type="autofill") }}{{ in_form.sqm }}
+
+                <!--button onclick="fillSQR()">Current GAO Data</button-->
+                
+                <input type="radio" id="sky_bright">Fill from GAO<br>
 
                 <script> 
                     document.getElementById('conditions').addEventListener('change', function() {
@@ -235,6 +260,23 @@
                         document.getElementById('seeing').value = selectedOption;
                     });
                 </script>
+
+                <script> 
+                    document.getElementById('sky_bright').addEventListener('change', function() {
+
+                        var option = {{ gao_sqm|tojson }}
+                        document.getElementById('sqm').value = option;
+                    });
+                </script>
+
+
+                
+
+                <!--script>
+                    function fillSQR() {
+                        document.getElementById('sqm').value = 1111;
+                    }
+                </script-->
 
             </section>
 
