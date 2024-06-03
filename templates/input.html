@@ -59,7 +59,7 @@
         <!-- input validation error message -->
         {% if not valid %}
             <section style="background-color:maroon;">
-                <h3 style="margin-left:25px; color:white;">Parameter(s) Invalid - See Below</h3>
+                <h3 style="margin-left:25px; color:white;">Parameter(s) Invalid - Must Be Numeric (0 - 100,000)</h3>
             </section>
         {% endif %}
 
@@ -100,8 +100,30 @@
                     <span class="tooltiptext">Text goes here</span>
                 </div><br-->
 
-                {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(placeholder="pixels") }} {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y(placeholder="pixels") }}
-                {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size }}<br>
+            
+                {% if in_form.sensor_x.errors %}
+                    {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x }} 
+                {% endif %}
+
+                {% if in_form.sensor_y.errors %}
+                    {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y }}
+                {% endif %}
+
+                
+                
+                
+
+                {% if in_form.px_size.errors %}
+                    {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size(style="border-color: red;") }}<br>
+                {% else %}
+                    {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size }}<br>
+                {% endif %}
+
+
         
                 {{ in_form.q_efficiency.label(type="autofill") }}{{ in_form.q_efficiency }}
                 {{ in_form.read_noise.label(type="autofill") }}{{ in_form.read_noise }}
@@ -245,26 +267,24 @@
             <section id="conditions">
 
                 <h2>Conditions</h2>
+
+                
                 
                 {% if in_form.seeing.errors %}
                     {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing(style="border-color: red;") }}
-                    {% for error in in_form.seeing.errors %}
-                        <span type="error" >{{ error }}</span>
-                    {% endfor %}
                 {% else %}
                     {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing }}
                 {% endif %}
 
                 {% if in_form.sqm.errors %}
                     {{ in_form.sqm.label(type="autofill") }}{{ in_form.sqm(style="border-color: red;") }}
-                    {% for error in in_form.sqm.errors %}
-                        <span type="error" >{{ error }}</span>
-                    {% endfor %}
                 {% else %}
                     {{ in_form.sqm.label(type="autofill") }}{{ in_form.sqm }}
                 {% endif %}
-                                
+
+                                  
                 <input type="radio" id="sky_bright">Fill from GAO<br>
+           
 
                 <script> 
                     document.getElementById('conditions').addEventListener('change', function() {
