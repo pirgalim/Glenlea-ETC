@@ -6,6 +6,24 @@ from wtforms.validators import DataRequired, Length, ValidationError, InputRequi
 def validate_sqm(form, field):
         if not (field.data).isnumeric():
             raise ValidationError('Must be numeric')
+        
+
+def validate(form, field):
+    
+    try:       
+        if float(field.data) < 0:
+            raise ValidationError('Must be greater than 0')
+        elif float(field.data) > 100000:
+            raise ValidationError('Must be less than 100,000')
+        
+    except:
+        if field.data[0] == "-":
+            raise ValidationError('Must be positive')
+        else:
+            raise ValidationError('Must be numeric')
+    
+    
+    
 
 
 
@@ -47,7 +65,7 @@ class InputForm(FlaskForm):
     
     # weather conditions
     seeing = FloatField('Conditions', validators=[DataRequired()])
-    sqm = StringField('Sky Quality', validators=[InputRequired(), validate_sqm])
+    sqm = StringField('Sky Quality', validators=[InputRequired(), validate])
     
     # desired signal to noise ratio
     desired_snr = FloatField('Desired SNR', validators=[DataRequired()])

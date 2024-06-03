@@ -48,25 +48,22 @@ option {
 
 span {
 
-  /* align-self: middle; */
-
-  /* width: 0px; */
-
-  display: block; 
+  /* display: block; 
   width: 100px;  
   height: 10px;  
   display: inline-block; 
-  
-  
-
   background-color: slategray;
   margin: 5px 0px 0px 25px;
   padding: 10px 50px;
   border: 2px slategray;
   border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
-}
+  border-top-left-radius: 5px;  */
 
+  padding: 10px 50px;
+}
+span[type=error] { 
+  color: red;
+}
 
 
 label:not([type]) {
@@ -180,3 +177,4 @@ input[type=radio] {
   height: 20px;  
   margin-left: 50px;
 }
+
