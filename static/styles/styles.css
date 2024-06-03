@@ -59,10 +59,10 @@ span {
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;  */
 
-  padding: 10px 50px;
+  padding: 10px 20px;
 }
 span[type=error] { 
-  color: red;
+  color: white;
 }
 
 

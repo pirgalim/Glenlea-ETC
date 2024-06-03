@@ -246,24 +246,24 @@
 
                 <h2>Conditions</h2>
                 
-                {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing }}  
+                {% if in_form.seeing.errors %}
+                    {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing(style="border-color: red;") }}
+                    {% for error in in_form.seeing.errors %}
+                        <span type="error" >{{ error }}</span>
+                    {% endfor %}
+                {% else %}
+                    {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing }}
+                {% endif %}
 
                 {% if in_form.sqm.errors %}
                     {{ in_form.sqm.label(type="autofill") }}{{ in_form.sqm(style="border-color: red;") }}
-    
-                        {% for error in in_form.sqm.errors %}
-                            <span type="error" >{{ error }}</span>
-                        {% endfor %}
-                        
+                    {% for error in in_form.sqm.errors %}
+                        <span type="error" >{{ error }}</span>
+                    {% endfor %}
                 {% else %}
                     {{ in_form.sqm.label(type="autofill") }}{{ in_form.sqm }}
                 {% endif %}
-                    
-               
-
-
-                <!--button onclick="fillSQR()">Current GAO Data</button-->
-                
+                                
                 <input type="radio" id="sky_bright">Fill from GAO<br>
 
                 <script> 
@@ -281,9 +281,6 @@
                         document.getElementById('sqm').value = option;
                     });
                 </script>
-
-
-            
 
             </section>
 

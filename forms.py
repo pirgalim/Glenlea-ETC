@@ -1,30 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import FloatField, StringField, SubmitField, SelectField, FloatField
-from wtforms.validators import DataRequired, Length, ValidationError, InputRequired
-
-
-def validate_sqm(form, field):
-        if not (field.data).isnumeric():
-            raise ValidationError('Must be numeric')
-        
-
-def validate(form, field):
-    
-    try:       
-        if float(field.data) < 0:
-            raise ValidationError('Must be greater than 0')
-        elif float(field.data) > 100000:
-            raise ValidationError('Must be less than 100,000')
-        
-    except:
-        if field.data[0] == "-":
-            raise ValidationError('Must be positive')
-        else:
-            raise ValidationError('Must be numeric')
-    
-    
-    
-
+from wtforms.validators import DataRequired, NumberRange, ValidationError, InputRequired
 
 
 class InputForm(FlaskForm):
@@ -38,37 +14,37 @@ class InputForm(FlaskForm):
     snr_fields = 1
     
     # camera parameters 
-    sensor_x = FloatField('Sensor Length', validators=[DataRequired()])
-    sensor_y = FloatField('Sensor Width', validators=[DataRequired()])
-    px_size = FloatField('Pixel Size', validators=[DataRequired()])
-    q_efficiency = FloatField('Quantum Efficiency', validators=[DataRequired()])
-    read_noise = FloatField('Read Noise', validators=[DataRequired()])
-    gain = FloatField('Gain', validators=[DataRequired()])
-    offset = FloatField('Offset', validators=[DataRequired()])
-    dark_noise = FloatField('Dark Noise', validators=[DataRequired()])
-    full_well = FloatField('Full Well', validators=[DataRequired()])
+    sensor_x = FloatField('Sensor Length', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    sensor_y = FloatField('Sensor Width', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    px_size = FloatField('Pixel Size', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    q_efficiency = FloatField('Quantum Efficiency', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    read_noise = FloatField('Read Noise', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    gain = FloatField('Gain', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    offset = FloatField('Offset', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    dark_noise = FloatField('Dark Noise', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    full_well = FloatField('Full Well', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     #telescope parameters
-    scope_dia = FloatField('Diameter', validators=[DataRequired()])
-    scope_focal = FloatField('Focal Length', validators=[DataRequired()])
-    plate_scale = FloatField('Plate Scale', validators=[DataRequired()])
+    scope_dia = FloatField('Diameter', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    scope_focal = FloatField('Focal Length', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    plate_scale = FloatField('Plate Scale', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     # filter parameters
-    filter_low = FloatField('Filter Low', validators=[DataRequired()])
-    filter_high = FloatField('Filter High', validators=[DataRequired()])
-    filter_zero = FloatField('Zero Point Flux', validators=[DataRequired()])
+    filter_low = FloatField('Filter Low', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    filter_high = FloatField('Filter High', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    filter_zero = FloatField('Zero Point Flux', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     # target parameters
-    star_dist = FloatField('Distance', validators=[DataRequired()])
-    star_temp = FloatField('Temperature', validators=[DataRequired()])
-    star_dia_solar = FloatField('Solar Diameter', validators=[DataRequired()])
+    star_dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    star_dia_solar = FloatField('Solar Diameter', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     # weather conditions
-    seeing = FloatField('Conditions', validators=[DataRequired()])
-    sqm = StringField('Sky Quality', validators=[InputRequired(), validate])
+    seeing = FloatField('Conditions', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    sqm = FloatField('Sky Quality', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     # desired signal to noise ratio
-    desired_snr = FloatField('Desired SNR', validators=[DataRequired()])
+    desired_snr = FloatField('Desired SNR', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     # submit data
     submit = SubmitField('Calculate')
