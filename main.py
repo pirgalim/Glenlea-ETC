@@ -31,24 +31,23 @@ def calculator():
     # create forms
     in_form = InputForm()
     select_form = SelectForm()
+    
+    # Used for input validation message
+    valid = True
   
-    
-    #--- read preset data ---#
+  
+    #read preset data
     presets = readPresets()
-    
     camera_presets = presets[0]
     telescope_presets = presets[1]
     filter_presets = presets[2]
     target_presets = presets[3]
     
-    #--- retrieve current GAO SQM value ---#
-    gao_sqm = sqm.get_sqm()
-    print(gao_sqm)
+    # retrieve current GAO SQM value
+    gao_sqm = sqm.get_sqm()    
+    
     
     #--- fetch input data ---#
-
-    # Used for input validation
-    valid = True
     
     # detect if form has been submitted
     if in_form.submit.data:
@@ -81,14 +80,12 @@ def calculator():
                 
                 
                 
-                print(params)
+                print("in route:", params)
                 
                 #TODO change this later, could be dangerous
-                desired_SNR = params[5]
+                desired_SNR = params[5][0]
                 
                 exposure = etc.calculateReqTime(desired_SNR, ref_SNR, 1)
-                
-                
                 
                 #return(render_template('output.html', plot_url="static/my_plot.png"))
                 return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
@@ -211,20 +208,13 @@ def loadInput(input: dict) -> list:
     load from input form???
 
     Args:
-        data (dict): _description_
+        input (dict): _description_
 
     Returns:
-        tuple: _description_
+        list: _description_
     """
-
-
-    camera_params = []
-    telescope_params = []
-    filter_params = []
-    target_params = []
-    conditions_params = []
-        
-    field = 0
+    
+    # get lengths of form fields
     cam_fields = InputForm.camera_fields
     tel_fields = InputForm.telescope_fields
     fil_fields = InputForm.filter_fields
@@ -232,66 +222,31 @@ def loadInput(input: dict) -> list:
     con_fields = InputForm.conditions_fields
     snr_fields = InputForm.snr_fields
     
-    
-    #fields = [ [cam_fields], [tel_fields], [fil_fields], [tar_fields], [con_fields],[snr_fields] ]
-    
+    # organize lengths for use in loop below
     fields = [cam_fields, tel_fields, fil_fields, tar_fields, con_fields, snr_fields]
     
-    params = [ [], [], [], [], [], [] ]
+    # list of parameters to be returned
+    params = [[]]*len(fields)
     
-    
-    
-    
-    # read to list
+    # list to hold dict values
     data = []
     
+    # read dict to data list
     for val in input.values():
         
         # ignore non-data parameters
         if val != input["csrf_token"] and  val != input["submit"]:
             data.append( float(val) )
-               
-               
+    
     # populate params list          
     for i in range( len(fields) ):
-                
+        
         params[i] = data[:fields[i]]
         data = data[fields[i]:]
         print("params: ", params[i])
     
-    
     return params
-    
-    
-    # for key in data:
-        
-    #     # skip first key, this is the 'csrf_token' and is not used for calculation
-        
-    #     if field > 0 and field <= cam_fields:
-    #         camera_params.append( float(data[key]) )
-            
-    #     elif field > cam_fields and field <= (cam_fields + tel_fields):
-    #         telescope_params.append( float(data[key]) )
-            
-    #     elif field > (cam_fields + tel_fields) and field <= (cam_fields + tel_fields + fil_fields):
-    #         filter_params.append( float(data[key]) )
-            
-    #     elif field > (cam_fields + tel_fields + fil_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields):
-    #         target_params.append( float(data[key]) )
-            
-    #     elif field > (cam_fields + tel_fields + fil_fields + tar_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields):
-    #         conditions_params.append( float(data[key]) )
-        
-    #     elif field > (cam_fields + tel_fields + fil_fields + tar_fields+ con_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields + snr_fields):
-    #         snr_param = float(data[key])
-            
-    #     field +=1
-        
-    # return (camera_params, telescope_params, filter_params, target_params, conditions_params, snr_param)
-   
-        
-
-
+  
 
 
 if __name__ == '__main__':
