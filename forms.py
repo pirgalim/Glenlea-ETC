@@ -1,17 +1,24 @@
 from flask_wtf import FlaskForm
-from wtforms import FloatField, StringField, SubmitField, SelectField, FloatField
-from wtforms.validators import DataRequired, NumberRange, ValidationError, InputRequired
+from wtforms import FloatField, SubmitField, SelectField, FloatField
+from wtforms.validators import NumberRange, InputRequired
 
 
 class InputForm(FlaskForm):
     
-    # input field count
-    camera_fields = 9
-    telescope_fields = 3
-    filter_fields = 3
-    target_fields = 3
-    conditions_fields = 2
-    snr_fields = 1
+    # # input field count
+    # camera_fields = 9
+    # telescope_fields = 3
+    # filter_fields = 3
+    # target_fields = 3
+    # conditions_fields = 2
+    # snr_fields = 1
+    
+    
+    fields = { "camera": 9, "telescope": 3, "filter": 3, "target": 3, "conditions": 2, "snr": 1 }
+    total_fields = sum(fields.values())
+    
+    # total field count
+    #total_fields = camera_fields + telescope_fields + filter_fields + target_fields + conditions_fields + snr_fields
     
     # camera parameters 
     sensor_x = FloatField('Sensor Length', validators=[InputRequired(), NumberRange(min=0, max=100000)])
@@ -48,11 +55,6 @@ class InputForm(FlaskForm):
     
     # submit data
     submit = SubmitField('Calculate')
-    
-    
-    
-    
-    
     
 
 

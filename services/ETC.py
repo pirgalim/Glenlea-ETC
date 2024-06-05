@@ -30,23 +30,75 @@ class Calculator:
         
         #TODO verify all parameters first
         
-        camera = params[0]
-        telescope = params[1]
-        filter = params[2]
-        target = params[3]
-        conditions = params[4]
+        # camera = params[0]
+        # telescope = params[1]
+        # filter = params[2]
+        # target = params[3]
+        # conditions = params[4]
+        
+        
+        # #--- camera parameters ---#
+        # self.sensor_X = int(camera[0])
+        # self.sensor_Y = int(camera[1])
+        # self.pixel_size = camera[2] * 10**(-6)
+        # self.Q_efficiency = camera[3]
+        # self.read_noise = camera[4]
+        # self.gain = camera[5]
+        # self.sensor_offset = camera[6]
+        # self.dark_noise = camera[7]
+        # self.full_well = camera[8]
+        
+        
+        # self.sensor_width = self.sensor_X * self.pixel_size
+        # self.sensor_height = self.sensor_Y * self.pixel_size
+        
+        
+        # #--- telescope parameters ---#
+        # self.scope_dia = telescope[0]
+        # self.scope_focal = telescope[1]
+        # self.plate_scale = telescope[2]
+        
+        # self.mirror_area = np.pi * (self.scope_dia/2) ** 2
+        # self.f_ratio = self.scope_focal/self.scope_dia
+        
+        
+        # #--- filter parameters ---#
+        # self.filter_low = filter[0] * 10**(-9)  #TODO something else here, check with Ryan
+        # self.filter_high = filter[1]  * 10**(-9)
+        # self.filter_zero = filter[2]
+        
+        # self.filter_low_freq = scipy.constants.c/self.filter_low
+        # self.filter_high_freq = scipy.constants.c/self.filter_high
+        # self.filter_freq_band = self.filter_low_freq - self.filter_high_freq
+        
+        
+        # #--- target parameters
+        # self.star_dist = target[0]
+        # self.star_temp = target[1]
+        # self.star_dia_solar = target[2]
+        
+        # self.star_dist_m = self.star_dist * 9.461 * 10**15
+        # self.star_dia = 1.392 * 10**9*self.star_dia_solar
+        
+        
+        # #--- conditions ---#
+        # self.seeing_cond = conditions[0]
+        # self.sky_bright = conditions[1]
+        # self.seeing_pixel = self.seeing_cond/self.plate_scale
+        
+   
         
         
         #--- camera parameters ---#
-        self.sensor_X = int(camera[0])
-        self.sensor_Y = int(camera[1])
-        self.pixel_size = camera[2] * 10**(-6)
-        self.Q_efficiency = camera[3]
-        self.read_noise = camera[4]
-        self.gain = camera[5]
-        self.sensor_offset = camera[6]
-        self.dark_noise = camera[7]
-        self.full_well = camera[8]
+        self.sensor_X = int(params[0])
+        self.sensor_Y = int(params[1])
+        self.pixel_size = params[2] * 10**(-6)
+        self.Q_efficiency = params[3]
+        self.read_noise = params[4]
+        self.gain = params[5]
+        self.sensor_offset = params[6]
+        self.dark_noise = params[7]
+        self.full_well = params[8]
         
         
         self.sensor_width = self.sensor_X * self.pixel_size
@@ -54,18 +106,18 @@ class Calculator:
         
         
         #--- telescope parameters ---#
-        self.scope_dia = telescope[0]
-        self.scope_focal = telescope[1]
-        self.plate_scale = telescope[2]
+        self.scope_dia = params[9]
+        self.scope_focal = params[10]
+        self.plate_scale = params[11]
         
         self.mirror_area = np.pi * (self.scope_dia/2) ** 2
         self.f_ratio = self.scope_focal/self.scope_dia
         
         
         #--- filter parameters ---#
-        self.filter_low = filter[0] * 10**(-9)  #TODO something else here, check with Ryan
-        self.filter_high = filter[1]  * 10**(-9)
-        self.filter_zero = filter[2]
+        self.filter_low = params[12] * 10**(-9)  #TODO something else here, check with Ryan
+        self.filter_high = params[13]  * 10**(-9)
+        self.filter_zero = params[14]
         
         self.filter_low_freq = scipy.constants.c/self.filter_low
         self.filter_high_freq = scipy.constants.c/self.filter_high
@@ -73,17 +125,17 @@ class Calculator:
         
         
         #--- target parameters
-        self.star_dist = target[0]
-        self.star_temp = target[1]
-        self.star_dia_solar = target[2]
+        self.star_dist = params[15]
+        self.star_temp = params[16]
+        self.star_dia_solar = params[17]
         
         self.star_dist_m = self.star_dist * 9.461 * 10**15
         self.star_dia = 1.392 * 10**9*self.star_dia_solar
         
         
         #--- conditions ---#
-        self.seeing_cond = conditions[0]
-        self.sky_bright = conditions[1]
+        self.seeing_cond = params[18]
+        self.sky_bright = params[19]
         self.seeing_pixel = self.seeing_cond/self.plate_scale
         
         

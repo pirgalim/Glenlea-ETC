@@ -1,15 +1,13 @@
-from flask import Flask, render_template, request, redirect, make_response, url_for
+from flask import Flask, render_template, request
 import os
 import services.ETC as ETC
 import services.scrape_sqm as sqm
 from forms import InputForm, SelectForm
 
 
-
 # Flask setup
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
-
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -36,13 +34,18 @@ def calculator():
     valid = True
   
     #read preset data
-    presets = readPresets()
+    #presets = readPresets()
     
     #TODO add validation
-    camera_presets = presets[0]
-    telescope_presets = presets[1]
-    filter_presets = presets[2]
-    target_presets = presets[3]
+    camera_presets = readPresets("camera")
+    telescope_presets = readPresets("telescope")
+    filter_presets = readPresets("filter")
+    target_presets = readPresets("target")
+    
+    # camera_presets = presets[0]
+    # telescope_presets = presets[1]
+    # filter_presets = presets[2]
+    # target_presets = presets[3]
     
     # retrieve current GAO SQM value
     gao_sqm = sqm.get_sqm()    
@@ -62,6 +65,9 @@ def calculator():
             # create parameter tuple to be sent to the calculator script
             params = loadInput(data)
             
+            print(params)
+            
+            # validate number of parameters
             if(params is None):
                 return render_template("error.html")
             
@@ -79,12 +85,12 @@ def calculator():
                 ref_SNR = etc.SNR_ref()
 
                 #TODO change this later, could be dangerous
-                desired_SNR = params[5][0]
+                desired_SNR = params[-1]
                 exposure = etc.calculateReqTime(desired_SNR, ref_SNR, 1)
                 
                 #return(render_template('output.html', plot_url="static/my_plot.png"))
                 return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
-                                        camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets, 
+                                        camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets, 
                                         gao_sqm=gao_sqm,
                                         SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",
                                         fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure)
@@ -99,127 +105,142 @@ def calculator():
 
 
 
-def readPresets() -> tuple:
-    """_summary_
+def readPresets(file_name) -> list:
+    
+    
+    file = "./static/presets/" + file_name + "_presets.csv"
+    
+    try:
+    
+        csv = open(file, "+r")
+        presets = []
+        
+        # skip the instructions
+        csv.readline()
+        csv.readline()
+        csv.readline()
+        
+        for line in csv:
+            
+            line = line.strip().split(":")
+            name = line[0]
+            values = line[1].split(',')
+            
+            # template validation
+            if( len(values) == InputForm.fields[file_name] ):
+                presets.append( (name, values) )
+        
+        csv.close()
+        
+        return presets
+    
+    except:
+        return None
 
-    Returns:
-        tuple: _description_
-    """
 
-    #--- read camera preset data ---#
-    camera_csv = open("./static/presets/camera_presets.csv", "+r")
-    camera_presets = []
+
+
+
+
+
+# def readPresets() -> tuple:
+#     """_summary_
+
+#     Returns:
+#         tuple: _description_
+#     """
+
+#     #--- read camera preset data ---#
+#     camera_csv = open("./static/presets/camera_presets.csv", "+r")
+#     camera_presets = []
     
-    # skip the instructions
-    camera_csv.readline()
-    camera_csv.readline()
-    camera_csv.readline()
+#     # skip the instructions
+#     camera_csv.readline()
+#     camera_csv.readline()
+#     camera_csv.readline()
     
-    for line in camera_csv:
+#     for line in camera_csv:
         
-        line = line.strip().split(":")
-        name = line[0]
-        values = line[1].split(',')
+#         line = line.strip().split(":")
+#         name = line[0]
+#         values = line[1].split(',')
         
-        if( len(values) == InputForm.camera_fields ):
-            camera_presets.append( (name, values) )
+#         if( len(values) == InputForm.camera_fields ):
+#             camera_presets.append( (name, values) )
     
-    camera_csv.close()
+#     camera_csv.close()
     
     
-    #--- read telescope preset data ---#
-    telescope_csv = open("./static/presets/telescope_presets.csv", "+r")
-    telescope_presets = []
+#     #--- read telescope preset data ---#
+#     telescope_csv = open("./static/presets/telescope_presets.csv", "+r")
+#     telescope_presets = []
     
-    # skip the instructions
-    telescope_csv.readline()
-    telescope_csv.readline()
-    telescope_csv.readline()
+#     # skip the instructions
+#     telescope_csv.readline()
+#     telescope_csv.readline()
+#     telescope_csv.readline()
     
-    for line in telescope_csv:
+#     for line in telescope_csv:
         
-        line = line.strip().split(":")
-        name = line[0]
-        values = line[1].split(',')
+#         line = line.strip().split(":")
+#         name = line[0]
+#         values = line[1].split(',')
         
-        if( len(values) == InputForm.telescope_fields ):
-            telescope_presets.append( (name, values) )
+#         if( len(values) == InputForm.telescope_fields ):
+#             telescope_presets.append( (name, values) )
     
-    telescope_csv.close()
+#     telescope_csv.close()
     
     
-    #--- read filter preset data ---#
-    filter_csv = open("./static/presets/filter_presets.csv", "+r")
-    filter_presets = []
+#     #--- read filter preset data ---#
+#     filter_csv = open("./static/presets/filter_presets.csv", "+r")
+#     filter_presets = []
     
-    # skip the instructions
-    filter_csv.readline()
-    filter_csv.readline()
-    filter_csv.readline()
+#     # skip the instructions
+#     filter_csv.readline()
+#     filter_csv.readline()
+#     filter_csv.readline()
     
-    for line in filter_csv:
+#     for line in filter_csv:
         
-        line = line.strip().split(":")
-        name = line[0]
-        values = line[1].split(',')
+#         line = line.strip().split(":")
+#         name = line[0]
+#         values = line[1].split(',')
         
-        if( len(values) == InputForm.filter_fields ):
-            filter_presets.append( (name, values) )
+#         if( len(values) == InputForm.filter_fields ):
+#             filter_presets.append( (name, values) )
     
-    filter_csv.close()
+#     filter_csv.close()
     
     
-    #--- read target preset data ---#
-    target_csv = open("./static/presets/target_presets.csv", "+r")
-    target_presets = []
+#     #--- read target preset data ---#
+#     target_csv = open("./static/presets/target_presets.csv", "+r")
+#     target_presets = []
     
-    # skip the instructions
-    target_csv.readline()
-    target_csv.readline()
-    target_csv.readline()
+#     # skip the instructions
+#     target_csv.readline()
+#     target_csv.readline()
+#     target_csv.readline()
     
-    for line in target_csv:
+#     for line in target_csv:
         
-        line = line.strip().split(":")
-        name = line[0]
-        values = line[1].split(',')
+#         line = line.strip().split(":")
+#         name = line[0]
+#         values = line[1].split(',')
         
-        if( len(values) == InputForm.target_fields ):
-            target_presets.append( (name, values) )
+#         if( len(values) == InputForm.target_fields ):
+#             target_presets.append( (name, values) )
     
-    target_csv.close()    
+#     target_csv.close()    
     
-    return (camera_presets, telescope_presets, filter_presets, target_presets)
+#     return (camera_presets, telescope_presets, filter_presets, target_presets)
+
 
 
 
 def loadInput(input: dict) -> list:
-    """_summary_
     
-    load from input form???
-
-    Args:
-        input (dict): _description_
-
-    Returns:
-        list: _description_
-    """
-    
-    # get lengths of form fields
-    cam_fields = InputForm.camera_fields
-    tel_fields = InputForm.telescope_fields
-    fil_fields = InputForm.filter_fields
-    tar_fields = InputForm.target_fields
-    con_fields = InputForm.conditions_fields
-    snr_fields = InputForm.snr_fields
-    
-    # organize lengths for use in loop below
-    fields = [cam_fields, tel_fields, fil_fields, tar_fields, con_fields, snr_fields]
-    
-    # list of parameters to be returned
-    params = [[]]*len(fields)
-    
-    # list to hold dict values
+    # data list
     data = []
     
     # read dict to data list
@@ -228,15 +249,62 @@ def loadInput(input: dict) -> list:
         # ignore non-data parameters
         if val != input["csrf_token"] and  val != input["submit"]:
             data.append( float(val) )
+
+    # validate length of data list
+    if len(data) != InputForm.total_fields:
+        return None
     
-    # populate params list          
-    for i in range( len(fields) ):
+    return data
+    
+    
+
+
+
+# def loadInput(input: dict) -> list:
+#     """_summary_
+    
+#     load from input form???
+
+#     Args:
+#         input (dict): _description_
+
+#     Returns:
+#         list: _description_
+#     """
+    
+#     # get lengths of form fields
+#     cam_fields = InputForm.camera_fields
+#     tel_fields = InputForm.telescope_fields
+#     fil_fields = InputForm.filter_fields
+#     tar_fields = InputForm.target_fields
+#     con_fields = InputForm.conditions_fields
+#     snr_fields = InputForm.snr_fields
+    
+#     # organize lengths for use in loop below
+#     fields = [cam_fields, tel_fields, fil_fields, tar_fields, con_fields, snr_fields]
+         
+    
+#     # list of parameters to be returned
+#     params = [[]]*len(fields)
+    
+#     # list to hold dict values
+#     data = []
+    
+#     # read dict to data list
+#     for val in input.values():
         
-        params[i] = data[:fields[i]]
-        data = data[fields[i]:]
-        print("params: ", params[i])
+#         # ignore non-data parameters
+#         if val != input["csrf_token"] and  val != input["submit"]:
+#             data.append( float(val) )
     
-    return params
+#     # populate params list          
+#     for i in range( len(fields) ):
+        
+#         params[i] = data[:fields[i]]
+#         data = data[fields[i]:]
+#         print("params: ", params[i])
+    
+#     return params
   
 
 
