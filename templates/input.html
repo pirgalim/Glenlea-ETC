@@ -1,29 +1,10 @@
 {% extends "index.html" %}
 {% block content %}
 
-
+    <!-- main -->
     <div class="content-section">
 
-        
-        
-        <!-- display plot 
-        {% if plot_url != NULL %}
-        <section>
-            <img src={{plot_url}} style="left-margin:25px;">
-        </section>
-
-        reset button 
-        <section>
-            <form id="clear_all" method = "GET", action="">
-                <input type="submit" value="CLEAR ALL">
-            </form>
-
-       
-       
-        </section>
-        {% endif %} -->
-
-
+        <!-- preset menu -->
         <section class="preset-selection">
 
             <h2>Load Presets</h2>
@@ -55,52 +36,24 @@
             
         </section>
 
-
         <!-- input validation error message -->
         {% if not valid %}
             <section style="background-color:maroon;">
-                <h3 style="margin-left:25px; color:white;">Parameter(s) Invalid - Must Be Numeric (0 - 100,000)</h3>
+                <h3 style="margin-left:25px; color:white;">Invalid Parameter(s) Below - Must Be Numeric (0 - 100,000)</h3>
             </section>
         {% endif %}
 
-
-
-        <!--div class="form-group">
-            {{ in_form.sqm.label(id="label1") }}
-            {% if in_form.sqm.errors %}
-            {{ in_form.sqm(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-                {% for error in in_form.sqm.errors %}
-                    <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-        {% else %}
-        {{ in_form.sqm(class="form-control", placeholder="Enter Your Phone Number" )}}
-        {% endif %}
-           
-        </div-->
-
-
-
-
-
+        <!-- main form -->
         <form method="POST" action="">
         
+            <!-- security tag? -->
             {{ in_form.hidden_tag() }}
 
-            <!-- security tag? -->
-             
-            
-                
+            <!-- camera section -->
             <section id="camera">
 
                 <h2>Camera Parameters</h2> 
-                
-                <!--div class="tooltip">info 
-                    <span class="tooltiptext">Text goes here</span>
-                </div><br-->
-
-            
+                            
                 {% if in_form.sensor_x.errors %}
                     {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(style="border-color: red;") }}
                 {% else %}
@@ -113,25 +66,51 @@
                     {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y }}
                 {% endif %}
 
-                
-                
-                
-
                 {% if in_form.px_size.errors %}
-                    {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size(style="border-color: red;") }}<br>
+                    {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size(style="border-color: red;") }}
                 {% else %}
-                    {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size }}<br>
+                    {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size }}
                 {% endif %}
 
-
+                <br>
         
-                {{ in_form.q_efficiency.label(type="autofill") }}{{ in_form.q_efficiency }}
-                {{ in_form.read_noise.label(type="autofill") }}{{ in_form.read_noise }}
-                {{ in_form.gain.label(type="autofill") }}{{ in_form.gain }}<br>
+                {% if in_form.q_efficiency.errors %}
+                    {{ in_form.q_efficiency.label(type="autofill") }}{{ in_form.q_efficiency(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.q_efficiency.label(type="autofill") }}{{ in_form.q_efficiency }}
+                {% endif %}
 
-                {{ in_form.offset.label(type="autofill") }}{{ in_form.offset }}
-                {{ in_form.dark_noise.label(type="autofill") }}{{ in_form.dark_noise }}
-                {{ in_form.full_well.label(type="autofill") }}{{ in_form.full_well }}<br>
+                {% if in_form.read_noise.errors %}
+                    {{ in_form.read_noise.label(type="autofill") }}{{ in_form.read_noise(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.read_noise.label(type="autofill") }}{{ in_form.read_noise }}
+                {% endif %}
+
+                {% if in_form.gain.errors %}
+                    {{ in_form.gain.label(type="autofill") }}{{ in_form.gain(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.gain.label(type="autofill") }}{{ in_form.gain }}
+                {% endif %}
+                
+                <br>
+
+                {% if in_form.offset.errors %}
+                    {{ in_form.offset.label(type="autofill") }}{{ in_form.offset(style="border-color: red;")}}
+                {% else %}
+                    {{ in_form.offset.label(type="autofill") }}{{ in_form.offset }}
+                {% endif %}
+
+                {% if in_form.dark_noise.errors %}
+                    {{ in_form.dark_noise.label(type="autofill") }}{{ in_form.dark_noise(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.dark_noise.label(type="autofill") }}{{ in_form.dark_noise }}
+                {% endif %}
+
+                {% if in_form.full_well.errors %}
+                    {{ in_form.full_well.label(type="autofill") }}{{ in_form.full_well(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.full_well.label(type="autofill") }}{{ in_form.full_well }}
+                {% endif %}
         
                 <script> 
                     document.getElementById('camera').addEventListener('change', function() {
@@ -162,16 +141,30 @@
                     });
                 </script>
 
-            </section>               
+            </section>
 
-
+            <!-- telescope section -->
             <section id="telescope">
 
                 <h2>Telescope Parameters</h2>
-                
-                {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia }}
-                {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal }}
-                {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale }}<br>
+
+                {% if in_form.scope_dia.errors %}
+                    {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia }}
+                {% endif %}
+
+                {% if in_form.scope_focal.errors %}
+                    {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal }}
+                {% endif %}
+
+                {% if in_form.plate_scale.errors %}
+                    {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale }}
+                {% endif %}
 
                 <script> 
                     document.getElementById('telescope').addEventListener('change', function() {
@@ -197,15 +190,29 @@
 
             </section>
 
-
+            <!-- filter section -->
             <section id="filter">
 
                 <h2>Filter Parameters</h2>
-                
-                {{ in_form.filter_low.label(type="autofill") }}{{ in_form.filter_low }}
-                {{ in_form.filter_high.label(type="autofill") }}{{ in_form.filter_high }}
-                {{ in_form.filter_zero.label(type="autofill") }}{{ in_form.filter_zero }}<br>
 
+                {% if in_form.filter_low.errors %}
+                    {{ in_form.filter_low.label(type="autofill") }}{{ in_form.filter_low(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.filter_low.label(type="autofill") }}{{ in_form.filter_low }}
+                {% endif %}
+
+                {% if in_form.filter_high.errors %}
+                    {{ in_form.filter_high.label(type="autofill") }}{{ in_form.filter_high(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.filter_high.label(type="autofill") }}{{ in_form.filter_high }}
+                {% endif %}
+
+                {% if in_form.filter_zero.errors %}
+                    {{ in_form.filter_zero.label(type="autofill") }}{{ in_form.filter_zero(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.filter_zero.label(type="autofill") }}{{ in_form.filter_zero }}
+                {% endif %}
+                
                 <script> 
                     document.getElementById('filter').addEventListener('change', function() {
 
@@ -230,14 +237,28 @@
 
             </section>
 
-
+            <!-- target section -->
             <section id="target">
 
                 <h2>Target Parameters</h2>
-                
-                {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist }}
-                {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp }}
-                {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar }}<br>
+
+                 {% if in_form.star_dist.errors %}
+                    {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist }}
+                {% endif %}
+
+                {% if in_form.star_temp.errors %}
+                    {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp }}
+                {% endif %}
+
+                {% if in_form.star_dia_solar.errors %}
+                    {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar }}
+                {% endif %}
 
                 <script> 
                     document.getElementById('target').addEventListener('change', function() {
@@ -263,13 +284,11 @@
 
             </section>
 
-
+            <!-- conditions section -->
             <section id="conditions">
 
                 <h2>Conditions</h2>
 
-                
-                
                 {% if in_form.seeing.errors %}
                     {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing(style="border-color: red;") }}
                 {% else %}
@@ -281,11 +300,10 @@
                 {% else %}
                     {{ in_form.sqm.label(type="autofill") }}{{ in_form.sqm }}
                 {% endif %}
-
-                                  
+        
+                <!-- GAO autofill button -->
                 <input type="radio" id="sky_bright">Fill from GAO<br>
            
-
                 <script> 
                     document.getElementById('conditions').addEventListener('change', function() {
 
@@ -304,16 +322,18 @@
 
             </section>
 
-
+            <!-- SNR section -->
             <section id="snr">
 
                 <h2>Signal to Noise</h2>
-                {{ in_form.desired_snr.label(type="autofill") }}{{ in_form.desired_snr }}<br>
+
+                {% if in_form.desired_snr.errors %}
+                    {{ in_form.desired_snr.label(type="autofill") }}{{ in_form.desired_snr(style="border-color: red;") }}
+                {% else %}
+                    {{ in_form.desired_snr.label(type="autofill") }}{{ in_form.desired_snr }}
+                {% endif %}
 
             </section>
-
-
-
 
             <!-- submit form -->
             <section id="submission">
