@@ -32,32 +32,18 @@ form {
 
 select {
 
-  padding: 0;
-
   -webkit-appearance: none;  /* for webkit (safari, chrome) compatibility */
   -moz-appearance: none; /* for firefox compatibility */
   appearance: none;
-
   
+  margin-left: 2rem;
+  width: 15rem;
+  height: 2.5rem;
+  text-align-last: center;
 
-  /* display: inline-block; 
-  margin-left:1rem;
-  width:20rem;
-  height:0rem !important;;
-  color: black; */
 }
-option {
-  color:black;
-}
-.dropdown-content {
-  padding: 0;
-  display: inline-block; 
-  margin-left:1rem;
-  width:200rem;
-  height:0.2rem !important;;
-  color: black;
-  background-color: green;
-}
+
+
 
 span {
   margin: 0 0 0 25px;
@@ -124,13 +110,7 @@ input[type="submit"] {
   font-size: large;
 }
 
-select {
 
-  /* width: 150px;  
-  height: 200px; */
-  padding: 100px 100px;
-  /* display: inline-block; */
-}
 
 
 
