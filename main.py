@@ -205,7 +205,7 @@ def readPresets() -> tuple:
 
 
 
-def loadInput(data: dict) -> tuple:
+def loadInput(input: dict) -> list:
     """_summary_
     
     load from input form???
@@ -233,33 +233,61 @@ def loadInput(data: dict) -> tuple:
     snr_fields = InputForm.snr_fields
     
     
+    #fields = [ [cam_fields], [tel_fields], [fil_fields], [tar_fields], [con_fields],[snr_fields] ]
+    
+    fields = [cam_fields, tel_fields, fil_fields, tar_fields, con_fields, snr_fields]
+    
+    params = [ [], [], [], [], [], [] ]
     
     
-    for key in data:
+    
+    
+    # read to list
+    data = []
+    
+    for val in input.values():
         
-        # skip first key, this is the 'csrf_token' and is not used for calculation
+        # ignore non-data parameters
+        if val != input["csrf_token"] and  val != input["submit"]:
+            data.append( float(val) )
+               
+               
+    # populate params list          
+    for i in range( len(fields) ):
+                
+        params[i] = data[:fields[i]]
+        data = data[fields[i]:]
+        print("params: ", params[i])
+    
+    
+    return params
+    
+    
+    # for key in data:
         
-        if field > 0 and field <= cam_fields:
-            camera_params.append( float(data[key]) )
-            
-        elif field > cam_fields and field <= (cam_fields + tel_fields):
-            telescope_params.append( float(data[key]) )
-            
-        elif field > (cam_fields + tel_fields) and field <= (cam_fields + tel_fields + fil_fields):
-            filter_params.append( float(data[key]) )
-            
-        elif field > (cam_fields + tel_fields + fil_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields):
-            target_params.append( float(data[key]) )
-            
-        elif field > (cam_fields + tel_fields + fil_fields + tar_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields):
-            conditions_params.append( float(data[key]) )
+    #     # skip first key, this is the 'csrf_token' and is not used for calculation
         
-        elif field > (cam_fields + tel_fields + fil_fields + tar_fields+ con_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields + snr_fields):
-            snr_param = float(data[key])
+    #     if field > 0 and field <= cam_fields:
+    #         camera_params.append( float(data[key]) )
             
-        field +=1
+    #     elif field > cam_fields and field <= (cam_fields + tel_fields):
+    #         telescope_params.append( float(data[key]) )
+            
+    #     elif field > (cam_fields + tel_fields) and field <= (cam_fields + tel_fields + fil_fields):
+    #         filter_params.append( float(data[key]) )
+            
+    #     elif field > (cam_fields + tel_fields + fil_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields):
+    #         target_params.append( float(data[key]) )
+            
+    #     elif field > (cam_fields + tel_fields + fil_fields + tar_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields):
+    #         conditions_params.append( float(data[key]) )
         
-    return (camera_params, telescope_params, filter_params, target_params, conditions_params, snr_param)
+    #     elif field > (cam_fields + tel_fields + fil_fields + tar_fields+ con_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields + snr_fields):
+    #         snr_param = float(data[key])
+            
+    #     field +=1
+        
+    # return (camera_params, telescope_params, filter_params, target_params, conditions_params, snr_param)
    
         
 
