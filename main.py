@@ -35,9 +35,10 @@ def calculator():
     # Used for input validation message
     valid = True
   
-  
     #read preset data
     presets = readPresets()
+    
+    #TODO add validation
     camera_presets = presets[0]
     telescope_presets = presets[1]
     filter_presets = presets[2]
@@ -65,26 +66,20 @@ def calculator():
                 return render_template("error.html")
             
             else:
-                        
                 # create instances of the calculator script classes
                 etc = ETC.Calculator(params)
                 etc.plot_light_curve_SB()
-                peak, minimum = etc.aperture()
-                                
+                
+                # output values displayed in HTML
+                peak, minimum = etc.aperture()    
                 fov = int( etc.computeFOV() )            
                 counts = etc.countsPerSecond()
                 
-                
+                #TODO 
                 ref_SNR = etc.SNR_ref()
-                print(ref_SNR)
-                
-                
-                
-                print("in route:", params)
-                
+
                 #TODO change this later, could be dangerous
                 desired_SNR = params[5][0]
-                
                 exposure = etc.calculateReqTime(desired_SNR, ref_SNR, 1)
                 
                 #return(render_template('output.html', plot_url="static/my_plot.png"))
@@ -94,13 +89,9 @@ def calculator():
                                         SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",
                                         fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure)
                 
-            
         # An error message will be displayed in the HTML
         else: valid = False
-            
-        
-
-    
+                
     # returns HTML to be displayed
     return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
@@ -108,9 +99,12 @@ def calculator():
 
 
 
-
-
 def readPresets() -> tuple:
+    """_summary_
+
+    Returns:
+        tuple: _description_
+    """
 
     #--- read camera preset data ---#
     camera_csv = open("./static/presets/camera_presets.csv", "+r")
@@ -195,10 +189,7 @@ def readPresets() -> tuple:
     
     target_csv.close()    
     
-
     return (camera_presets, telescope_presets, filter_presets, target_presets)
-
-
 
 
 

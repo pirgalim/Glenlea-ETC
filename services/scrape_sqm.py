@@ -20,4 +20,12 @@ if content != []:
 
 
 def get_sqm() -> float:
+    """
+    
+    Retrieves sky quality meter (sqm) reading from GAO at http://astro.physics.umanitoba.ca/sqm/
+
+    Returns:
+        float: most recent sqm value from GAO 
+        error: -1 if unable to fetch data
+    """
     return sqm
