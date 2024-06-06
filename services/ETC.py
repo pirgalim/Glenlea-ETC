@@ -1,25 +1,24 @@
-# currently rewriting Jupyter file
-
 import matplotlib
-matplotlib.use('agg')   #TODO very important for Flask
+matplotlib.use('agg')   #very important for Flask, matplot does not work otherwise
 
 import matplotlib.pyplot as plt
-import scipy.constants
 import matplotlib.patches as patches
-import scipy
+
+import scipy.constants
+
+#import scipy
 import numpy as np
 import math
 
 
 
 # constants
-kB = scipy.constants.Boltzmann
-h = scipy.constants.Planck
-c = scipy.constants.c
+KB = scipy.constants.Boltzmann
+H = scipy.constants.Planck
+C = scipy.constants.c
 
 
 # global variables
-
 apertureNumPixels = 0
 bgValues = 0
 
@@ -30,8 +29,8 @@ class Calculator:
                
         
         #--- camera parameters ---#
-        self.sensor_X = int(params[0])
-        self.sensor_Y = int(params[1])
+        self.sensor_X = int(params[0])  # cast to int for simpler calculation
+        self.sensor_Y = int(params[1])  # ...
         self.pixel_size = params[2] * 10**(-6)
         self.Q_efficiency = params[3]
         self.read_noise = params[4]
@@ -39,7 +38,6 @@ class Calculator:
         self.sensor_offset = params[6]
         self.dark_noise = params[7]
         self.full_well = params[8]
-        
         
         self.sensor_width = self.sensor_X * self.pixel_size
         self.sensor_height = self.sensor_Y * self.pixel_size
@@ -59,8 +57,8 @@ class Calculator:
         self.filter_high = params[13]  * 10**(-9)
         self.filter_zero = params[14]
         
-        self.filter_low_freq = scipy.constants.c/self.filter_low
-        self.filter_high_freq = scipy.constants.c/self.filter_high
+        self.filter_low_freq = C/self.filter_low
+        self.filter_high_freq = C/self.filter_high
         self.filter_freq_band = self.filter_low_freq - self.filter_high_freq
         
         
@@ -79,30 +77,51 @@ class Calculator:
         self.seeing_pixel = self.seeing_cond/self.plate_scale
         
         
+        #--- signal to noise ---#
+        self.snr = params[20]
         
-        
-        
+    
         
     #-------------------- Calculation functions --------------------#
-    
 
-    def computeFOV(self):
-        #===================== COMPUTE FOV (arcseconds) =====================
-        #Using Focal length, pixel size and sensor dimensions
+    def computeFOV(self) -> float:
+        """
+        Compute FOV using focal length, pixel size and sensor dimensions
+
+        Returns:
+            float: FOV area in arcseconds
+        """
         
-        FOV_width = 206265 * self.sensor_width * (1/self.scope_focal)
+        # 206265 is the radian to arcsecond conversion factor
+        FOV_width = 206265 * self.sensor_width * (1/self.scope_focal) 
         FOV_height = 206265 * self.sensor_height * (1/self.scope_focal)
-        FOV_area = FOV_width * FOV_height
-        
-        return FOV_area
+
+        return FOV_width * FOV_height
     
     
     #function computing the integral of a function f using the trapezoidal rule, taking in the function and a step size.
-    def computeIntegral(self, f, stepSize):
-        return (stepSize/2)*(f[0]+f[-1]+2*np.sum(f[1:-1]))
+    def computeIntegral(self, f, stepSize: float) -> float:
+        """
+        Computes the integral of a function using the trapezoidal rule
+
+        Args:
+            f (function): integrand
+            stepSize (float): distance from one point to the next
+
+        Returns:
+            float: resulting integral
+        """
+        return (stepSize/2) * ( f[0] + f[-1] + 2*np.sum(f[1:-1]) )    
+    
     
 
-    def countsPerSecond(self):
+    def countsPerSecond(self) -> float:
+        """
+        Calculate counts per second...
+
+        Returns:
+            float: expected counts per second
+        """
         
         T = self.star_temp
         
@@ -110,13 +129,13 @@ class Calculator:
         wlB = np.linspace(self.filter_low,self.filter_high,1000)
         
         #define the step width as the distance between adjacent wavelength values
-        stepWidth = (wlB[1]-wlB[0]) #distance from 1 point to the next = step size
+        stepWidth = (wlB[1]-wlB[0]) # distance from 1 point to the next = step size
         
         #Calculate the photon energies at every wavelength
-        p_Energy = h*c/wlB
+        p_Energy = H*C/wlB
         
         #calculate the integrand under the Stefan-Boltzmann (SB) law, divided by the photon energies for total number of photons
-        PB = ((2*np.pi*h*c**2)/(wlB**5))*(1/(np.exp((h*c)/(wlB*kB*T))-1))*(1/(p_Energy)) #coarse function values, 100 segments
+        PB = ((2*np.pi*H*C**2)/(wlB**5))*(1/(np.exp((H*C)/(wlB*KB*T))-1))*(1/(p_Energy)) #coarse function values, 100 segments
         
         counts_per_second = self.computeIntegral(PB,stepWidth) * (4*np.pi*((self.star_dia/2)**2))/(4*np.pi*self.star_dist_m**2)*self.mirror_area*self.Q_efficiency/self.gain #electrons per second from the star on the sensor in photons/m^2
 
@@ -125,13 +144,18 @@ class Calculator:
     
         
     def plot_light_curve_SB(self):
+        """
+            Generate light curve plot for a point source
+            
+            Saves a figure in the local directory './static'
+        """
 
         T = self.star_temp  
 
         wl = np.linspace(1 * 10**(-8), 5 * 10**(-6), 10000)
         wlnm = wl * 10**9 
 
-        P = ((2*np.pi*h*c**2)/(wl**5))*(1/np.exp((h*c)/(wl*kB*T)-1))
+        P = ((2*np.pi*H*C**2)/(wl**5))*(1/np.exp((H*C)/(wl*KB*T)-1))
 
         plt.figure(figsize=(8, 6))
         plt.plot(wlnm, P, label='Stellar Black Body', color='y')
@@ -161,7 +185,7 @@ class Calculator:
     
      #SPREAD COUNTS OVER A 2D GAUSSIAN
     #Takes in sensor dimensions, total counts to spread, and fwhm (seeing condition)
-    def spreadCounts(self, sensorX, sensorY, totalCounts, fwhm, exposureTime, fullWell):
+    def spreadCounts(self, sensorX, sensorY, totalCounts, fwhm, exposureTime):
         sigma = fwhm/(2*np.sqrt(2*np.log(2)))
         signalValues = np.zeros([sensorY,sensorX])
         centerX = sensorY/2
@@ -194,7 +218,7 @@ class Calculator:
 
         skyBG = np.zeros([sensorY,sensorX])
         skyFlux = zeroFlux*10**(-0.4*skyMag)*10**(-26)*(freqPass)*mirrorArea
-        skyCounts = skyFlux/(scipy.constants.h*scipy.constants.c/(self.filter_low+((filterHigh-filterLow)/2)))*sensorQE*exposureTime/sensorGain #counts from the sky per second
+        skyCounts = skyFlux/(H*C/(self.filter_low+((filterHigh-filterLow)/2)))*sensorQE*exposureTime/sensorGain #counts from the sky per second
         
         for x in range(sensorY):
             for y in range(sensorX):
@@ -223,7 +247,7 @@ class Calculator:
         counts = self.countsPerSecond()
         
         test_exposure = 1 
-        signal_values = self.spreadCounts(x,y,counts,self.seeing_pixel,test_exposure,self.full_well)
+        signal_values = self.spreadCounts(x,y,counts,self.seeing_pixel,test_exposure)
         noise_values= self.generateNoise(x,y,self.dark_noise,self.read_noise,self.sensor_offset,test_exposure)
         bg_values = self.generateBG(x,y,self.sky_bright,self.filter_zero,self.mirror_area,self.gain,self.filter_low,self.filter_high,self.Q_efficiency,self.filter_freq_band,test_exposure)
         final_sensor_array = self.overfullCheck(signal_values+noise_values+bg_values,self.full_well)
@@ -283,7 +307,10 @@ class Calculator:
     #If Desired SNR is above the fog limit, a lower SNR must be input or better conditions observed.
     #This function iterates over SNR calculations until the desired SNR is achieved within a tolerance, default Tolerance = 1
     
-    def calculateReqTime(self, desiredSNR, snrRef, expRef, tolerance = 1, maxTime = 1080000):
+    def calculateReqTime(self, expRef, tolerance = 1, maxTime = 1080000):
+    
+        desiredSNR = self.snr
+        snrRef = self.SNR_ref()
     
         maxSNR = self.computeSNR(maxTime)
         currentSNR = snrRef

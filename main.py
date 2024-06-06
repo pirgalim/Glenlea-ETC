@@ -70,15 +70,9 @@ def calculator():
                 peak, minimum = etc.aperture()    
                 fov = int( etc.computeFOV() )            
                 counts = etc.countsPerSecond()
-                
-                #TODO 
-                ref_SNR = etc.SNR_ref()
+                exposure = etc.calculateReqTime(1) #TODO what is the 1???
 
-                #TODO change this later, could be dangerous
-                desired_SNR = params[-1]
-                exposure = etc.calculateReqTime(desired_SNR, ref_SNR, 1)
-                
-                #return(render_template('output.html', plot_url="static/my_plot.png"))
+                # render output template
                 return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
                                         camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets, 
                                         gao_sqm=gao_sqm,
@@ -88,7 +82,7 @@ def calculator():
         # An error message will be displayed in the HTML
         else: valid = False
                 
-    # returns HTML to be displayed
+    # render HTML to be displayed
     return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
                            gao_sqm=gao_sqm)
