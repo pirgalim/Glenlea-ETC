@@ -32,20 +32,12 @@ def calculator():
     
     # Used for input validation message
     valid = True
-  
-    #read preset data
-    #presets = readPresets()
-    
-    #TODO add validation
+      
+    #load presets from templates
     camera_presets = readPresets("camera")
     telescope_presets = readPresets("telescope")
     filter_presets = readPresets("filter")
     target_presets = readPresets("target")
-    
-    # camera_presets = presets[0]
-    # telescope_presets = presets[1]
-    # filter_presets = presets[2]
-    # target_presets = presets[3]
     
     # retrieve current GAO SQM value
     gao_sqm = sqm.get_sqm()    
@@ -63,10 +55,8 @@ def calculator():
             data = request.form
             
             # create parameter tuple to be sent to the calculator script
-            params = loadInput(data)
-            
-            print(params)
-            
+            params = readInput(data)
+                        
             # validate number of parameters
             if(params is None):
                 return render_template("error.html", message="There is a problem with the number of parameters being passed from the form to the script.")
@@ -105,7 +95,17 @@ def calculator():
 
 
 
-def readPresets(file_name) -> list:
+def readPresets(file_name: str) -> list:
+    """    
+    Read data from template csv files
+    
+    Args:
+        file_name (str): name of parameter category (i.e. 'camera', 'telescope', etc.)
+
+    Returns:
+        list: parameters from template
+        None: error reading template
+    """
     
     try:
         csv = open("./static/presets/" + file_name + "_presets.csv", "+r")
@@ -116,13 +116,14 @@ def readPresets(file_name) -> list:
         csv.readline()
         csv.readline()
         
+        # iterate through lines in file
         for line in csv:
             
             line = line.strip().split(":")
             name = line[0]
             values = line[1].split(',')
             
-            # template validation
+            # validate parameter count 
             if( len(values) == InputForm.fields[file_name] ):
                 presets.append( (name, values) )
         
@@ -133,7 +134,17 @@ def readPresets(file_name) -> list:
 
 
 
-def loadInput(input: dict) -> list:
+def readInput(input: dict) -> list:
+    """
+    Copies dictionary data into a list while omitting 'csrf_token' and 'submit' keys
+
+    Args:
+        input (dict): dictionary of data to be copied
+
+    Returns:
+        list: data from dictionary
+        None: length of parameters does not match what is expected
+    """
     
     # data list
     data = []

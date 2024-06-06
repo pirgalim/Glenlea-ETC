@@ -26,6 +26,6 @@ def get_sqm() -> float:
 
     Returns:
         float: most recent sqm value from GAO 
-        error: -1 if unable to fetch data
+        -1: unable to fetch data
     """
     return sqm

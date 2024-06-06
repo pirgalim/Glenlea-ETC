@@ -116,7 +116,13 @@ input[type="submit"] {
   color: white;
   font-size: large;
 }
-
+input[type=radio] { 
+  display: inline-block; 
+  width: 20px;  
+  height: 20px;  
+  margin-left: 50px;
+  margin-right: 10px;
+}
 
 
 
@@ -160,12 +166,7 @@ input[type="submit"] {
 
 
 
-input[type=radio] { 
-  display: inline-block; 
-  width: 20px;  
-  height: 20px;  
-  margin-left: 50px;
-}
+
 
 
 
