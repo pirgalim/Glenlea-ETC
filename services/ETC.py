@@ -25,6 +25,16 @@ bgValues = 0
 
 class Calculator:
     
+    def validate(self):
+        
+        if self.filter_high < self.filter_low:
+            
+            return "Low filter pass cannot be greater than high filter pass"
+        
+        else: return None
+    
+    
+    
     def __init__(self, params):
                
         
@@ -186,6 +196,7 @@ class Calculator:
      #SPREAD COUNTS OVER A 2D GAUSSIAN
     #Takes in sensor dimensions, total counts to spread, and fwhm (seeing condition)
     def spreadCounts(self, sensorX, sensorY, totalCounts, fwhm, exposureTime):
+        
         sigma = fwhm/(2*np.sqrt(2*np.log(2)))
         signalValues = np.zeros([sensorY,sensorX])
         centerX = sensorY/2

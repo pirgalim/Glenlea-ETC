@@ -2,6 +2,7 @@ body {
   background-color: rgb(34, 34, 34);
   font-family: helvetica;
 }
+
 section {
   background-color: rgb(70, 70, 70);
   /* margin: 25px 200px; */
@@ -76,6 +77,8 @@ label:not([type]) {
 }
 label[type="autofill"] {
   
+  vertical-align: middle;
+
   margin: 10px 0px 10px 25px;
   padding: 10px 10px;
   width: 160px;  
@@ -95,6 +98,8 @@ label[type="autofill"] {
 
 input {
   /* margin: 10px 0px; */
+  vertical-align: middle;
+  
   width: 120px;
   height: 40px;
   border: 2px solid white;
@@ -117,15 +122,15 @@ input[type="submit"] {
   font-size: large;
 }
 input[type=radio] { 
-  display: inline-block; 
+
+  vertical-align: middle;
+
+  /* display: inline-block;  */
   width: 20px;  
   height: 20px;  
   margin-left: 50px;
   margin-right: 10px;
 }
-
-
-
 
 
 .tooltip {

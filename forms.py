@@ -3,6 +3,11 @@ from wtforms import FloatField, SubmitField, SelectField, FloatField
 from wtforms.validators import NumberRange, InputRequired
 
 
+def validate_filters():
+    
+    pass 
+
+
 class InputForm(FlaskForm):
     
     # # input field count

@@ -17,14 +17,9 @@ def calculator():
     
     if os.path.exists("static/plot_light_curve_SB.png"):
                 os.remove("static/plot_light_curve_SB.png")
-    else:
-        print("The file does not exist")
-        
+
     if os.path.exists("static/spread_counts.png"):
                 os.remove("static/spread_counts.png")
-    else:
-        print("The file does not exist")
-    
     
     # create forms
     in_form = InputForm()
@@ -41,9 +36,6 @@ def calculator():
     
     # retrieve current GAO SQM value
     gao_sqm = sqm.get_sqm()    
-    
-    
-    #--- fetch input data ---#
     
     # detect if form has been submitted
     if in_form.submit.data:
@@ -64,20 +56,33 @@ def calculator():
             else:
                 # create instances of the calculator script classes
                 etc = ETC.Calculator(params)
-                etc.plot_light_curve_SB()
                 
-                # output values displayed in HTML
-                peak, minimum = etc.aperture()    
-                fov = int( etc.computeFOV() )            
-                counts = etc.countsPerSecond()
-                exposure = etc.calculateReqTime(1) #TODO what is the 1???
+                error = etc.validate()
+                
+                # validate some parameters                
+                if error == None:
+                
+                    # plot... TODO
+                    etc.plot_light_curve_SB()
+                    
+                    # output values displayed in HTML
+                    peak, minimum = etc.aperture()    
+                    fov = int( etc.computeFOV() )            
+                    counts = etc.countsPerSecond()
+                    exposure = etc.calculateReqTime(1) #TODO what is the 1???
 
-                # render output template
-                return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
-                                        camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets, 
-                                        gao_sqm=gao_sqm,
-                                        SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",
-                                        fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure)
+                    # render output template
+                    return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
+                                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets, 
+                                            gao_sqm=gao_sqm,
+                                            SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",
+                                            fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure, error=None)
+                
+                else: 
+                    # display error in HTML
+                    return render_template('input.html', valid=False, in_form=in_form, select_form=select_form,
+                           camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
+                           gao_sqm=gao_sqm, error=error)
                 
         # An error message will be displayed in the HTML
         else: valid = False
@@ -85,7 +90,7 @@ def calculator():
     # render HTML to be displayed
     return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
-                           gao_sqm=gao_sqm)
+                           gao_sqm=gao_sqm, error="Invalid Parameter(s) Below - Must Be Numeric (0 - 100,000)")
 
 
 

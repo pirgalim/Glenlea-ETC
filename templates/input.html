@@ -39,7 +39,7 @@
         <!-- input validation error message -->
         {% if not valid %}
             <section style="background-color:maroon;">
-                <h3 style="margin-left:25px; color:white;">Invalid Parameter(s) Below - Must Be Numeric (0 - 100,000)</h3>
+                <h3 style="margin-left:25px; color:white;"> {{ error }} </h3>
             </section>
         {% endif %}
 
@@ -118,7 +118,7 @@
                         var presets = {{ camera_presets|tojson }};
                         var size = presets[0][1].length;
 
-                        // I should check if there is actaully anything here first
+                        // I should check if there is actually anything here first
                         var preset = [size]
 
                         for(let i = 0; i < size; i++) { preset[i] = ''; }
@@ -172,7 +172,7 @@
                         var presets = {{ telescope_presets|tojson }};
                         var size = presets[0][1].length;
 
-                        // I should check if there is actaully anything here first
+                        // I should check if there is actually anything here first
                         var preset = [size]
 
                         for(let i = 0; i < size; i++) { preset[i] = ''; }
@@ -195,13 +195,13 @@
 
                 <h2>Filter Parameters</h2>
 
-                {% if in_form.filter_low.errors %}
+                {% if in_form.filter_low.errors or error == "Low filter pass cannot be greater than high filter pass"%}
                     {{ in_form.filter_low.label(type="autofill") }}{{ in_form.filter_low(style="border-color: red;") }}
                 {% else %}
                     {{ in_form.filter_low.label(type="autofill") }}{{ in_form.filter_low }}
                 {% endif %}
 
-                {% if in_form.filter_high.errors %}
+                {% if in_form.filter_high.errors or error == "Low filter pass cannot be greater than high filter pass" %}
                     {{ in_form.filter_high.label(type="autofill") }}{{ in_form.filter_high(style="border-color: red;") }}
                 {% else %}
                     {{ in_form.filter_high.label(type="autofill") }}{{ in_form.filter_high }}
@@ -219,7 +219,7 @@
                         var presets = {{ filter_presets|tojson }};
                         var size = presets[0][1].length;
 
-                        // I should check if there is actaully anything here first
+                        // I should check if there is actually anything here first
                         var preset = [size]
 
                         for(let i = 0; i < size; i++) { preset[i] = ''; }
@@ -266,7 +266,7 @@
                         var presets = {{ target_presets|tojson }};
                         var size = presets[0][1].length;
 
-                        // I should check if there is actaully anything here first
+                        // I should check if there is actually anything here first
                         var preset = [size]
 
                         for(let i = 0; i < size; i++) { preset[i] = ''; }
