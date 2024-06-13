@@ -76,7 +76,7 @@ span[type=error] {
 
 
 label:not([type]) {
-  margin: 0.5rem 0 0 2rem;
+  margin: 0.75rem 0 0 2rem;
   padding: 10px 10px;
   width: 150px;  
   height: 20px;
