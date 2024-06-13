@@ -2,18 +2,30 @@ body {
   background-color: rgb(34, 34, 34);
   font-family: helvetica;
 }
+div {
+  margin: auto;
+}
 
 section {
   background-color: rgb(70, 70, 70);
   /* margin: 25px 200px; */
-  margin: 1rem 12rem;
+  /* margin: 1rem 12rem; */
+
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+
   padding: 10px 5px;
   border: 2px slategray;
-  border-radius: 5px;
+  border-radius: 10px;  
 }
 h1 {
   margin-top: 3rem;
-  margin-left: 12rem;
+  /* margin-left: 12rem; */
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
   color: white;
 }
 h2 {
@@ -27,6 +39,7 @@ p {
 }
 
 form {
+  margin: 0;
   color: white;
 }
 
@@ -35,7 +48,7 @@ select {
   -webkit-appearance: none;  /* for webkit (safari, chrome) compatibility */
   -moz-appearance: none; /* for firefox compatibility */
   appearance: none;
-  
+
   margin-left: 2rem;
   width: 15rem;
   height: 2.5rem;
@@ -78,7 +91,6 @@ label:not([type]) {
 label[type="autofill"] {
   
   vertical-align: middle;
-
   margin: 10px 0px 10px 25px;
   padding: 10px 10px;
   width: 160px;  
@@ -112,7 +124,7 @@ input {
 }
 input[type="submit"] {
   
-  margin: 5px 0px 0px 25px;
+  margin: 5px 0px 5px 25px;
   padding: 10px 10px;
   text-align: center;
   background-color: darkorange;
@@ -176,16 +188,22 @@ input[type=radio] {
 
 
 
-@media only screen and (max-device-width: 0px){
+@media only screen and (max-device-width: 600px){
 
 
   section {
     background-color: rgb(70, 70, 70);
     /* margin: 25px 200px; */
-    margin: 1rem 12rem;
+    /* margin: 1rem 12rem; */
+  
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+  
     padding: 10px 5px;
     border: 2px slategray;
-    border-radius: 5px;
+    border-radius: 10px;  
   }
 
 
