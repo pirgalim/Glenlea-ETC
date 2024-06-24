@@ -4,6 +4,8 @@ import services.ETC as ETC
 import services.scrape_sqm as sqm
 from forms import InputForm, SelectForm
 
+import pyckles
+
 
 # Flask setup
 app = Flask(__name__)
@@ -12,6 +14,10 @@ app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
 
 @app.route('/', methods=['GET', 'POST'])
 def calculator():
+    
+    
+    #pickles
+    pickles()
     
     #TODO remove file after generating
     
@@ -32,7 +38,12 @@ def calculator():
     camera_presets = readPresets("camera")
     telescope_presets = readPresets("telescope")
     filter_presets = readPresets("filter")
-    target_presets = readPresets("target")
+    # target_presets = readPresets("target")
+    
+    target_presets = pickles()
+    
+    print(camera_presets)
+    print(target_presets)
     
     # retrieve current GAO SQM value
     gao_sqm = sqm.get_sqm()    
@@ -161,6 +172,24 @@ def readInput(input: dict) -> list:
     
     return data
     
+    
+    
+def pickles(): 
+    
+    file = open("./static/presets/pickles.csv")
+    presets = []
+    
+    for line in file:    
+        csvs = line.strip().split(",")
+        
+        
+        presets.append( (csvs[0], [csvs[2]]) )
+        
+    file.close()
+    return presets
+        
+    
+
 
 
 if __name__ == '__main__':
