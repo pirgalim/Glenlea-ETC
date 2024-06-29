@@ -42,6 +42,10 @@ form {
   margin: 0;
   color: white;
 }
+.button {
+  display:inline-block;
+  vertical-align: middle;
+}
 
 select {
 
@@ -89,6 +93,8 @@ label:not([type]) {
   color: white;
 }
 label[type="autofill"] {
+
+  white-space:nowrap;
   
   vertical-align: middle;
   margin: 10px 0px 10px 25px;
@@ -109,6 +115,9 @@ label[type="autofill"] {
 }
 
 input {
+
+  white-space:nowrap;
+
   /* margin: 10px 0px; */
   vertical-align: middle;
   
@@ -122,8 +131,10 @@ input {
 
   color: black;
 }
-input[type="submit"] {
+input[type="submit"], button {
   
+  vertical-align: middle;
+  display: inline-block;
   margin: 5px 0px 5px 25px;
   padding: 10px 10px;
   text-align: center;

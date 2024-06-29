@@ -21,9 +21,27 @@
 
 
     <section>
-        <form id="clear_all" method = "GET", action="">
-            <input type="submit" value="CLEAR ALL">
+        <input type="submit" onclick="prepare()" value="Download">
+
+        <script>
+            function prepare() {
+                for (i = 0; i < document.styleSheets.length; i++) {
+                    void(document.styleSheets.item(i).disabled=true);
+                }
+                setTimeout(() => {  window.print(); }, 500);               
+
+                setTimeout(() => {  
+                    for (i = 0; i < document.styleSheets.length; i++) {
+                        void(document.styleSheets.item(i).disabled=false);
+                    }
+                 }, 500)
+            }
+        </script>
+
+        <form class="button" id="clear_all" method = "GET", action="">
+            <input type="submit" value="Reset">
         </form>
+
     </section>
     
 
