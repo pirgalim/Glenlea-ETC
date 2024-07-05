@@ -1,5 +1,5 @@
 import matplotlib
-matplotlib.use('agg')   #very important for Flask, matplot does not work otherwise
+matplotlib.use('agg')   # very important for Flask, matplot does not work otherwise
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches

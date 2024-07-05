@@ -51,31 +51,78 @@
             <!-- security tag? -->
             {{ in_form.hidden_tag() }}
 
+
+            <div class="form-container">
+
+                <div class="form-group">
+                    {% if in_form.sensor_x.errors %}
+                        {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(style="border-color: red;") }}
+                     {% else %}
+                         {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x }} 
+                     {% endif %}
+                </div>
+    
+                <div class="form-group">
+                    {% if in_form.sensor_y.errors %}
+                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y }}
+                    {% endif %}
+                </div>
+    
+                <div class="form-group">
+                    {% if in_form.sensor_y.errors %}
+                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y }}
+                    {% endif %}
+                </div>
+
+            </div>
+
+            
+
             <!-- camera section -->
             <section id="camera">
 
                 <h2>Camera Parameters</h2> 
-                            
-                {% if in_form.sensor_x.errors %}
-                    {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(style="border-color: red;") }}
-                {% else %}
-                    {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x }} 
-                {% endif %}
 
-                {% if in_form.sensor_y.errors %}
-                    {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y(style="border-color: red;") }}
-                {% else %}
-                    {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y }}
-                {% endif %}
+                <br>
 
+                <div class="form-group">
+                    {% if in_form.sensor_x.errors %}
+                        {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(style="border-color: red;") }}
+                     {% else %}
+                         {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x }} 
+                     {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {% if in_form.sensor_y.errors %}
+                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {% if in_form.sensor_y.errors %}
+                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y }}
+                    {% endif %}
+                </div>
+
+                
+            
+               
+            
                 {% if in_form.px_size.errors %}
                     {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size(style="border-color: red;") }}
                 {% else %}
                     {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size }}
                 {% endif %}
-
-                <br>
-        
+                        
                 {% if in_form.q_efficiency.errors %}
                     {{ in_form.q_efficiency.label(type="autofill") }}{{ in_form.q_efficiency(style="border-color: red;") }}
                 {% else %}
@@ -94,8 +141,6 @@
                     {{ in_form.gain.label(type="autofill") }}{{ in_form.gain }}
                 {% endif %}
                 
-                <br>
-
                 {% if in_form.offset.errors %}
                     {{ in_form.offset.label(type="autofill") }}{{ in_form.offset(style="border-color: red;")}}
                 {% else %}
@@ -146,27 +191,41 @@
             </section>
 
             <!-- telescope section -->
-            <section id="telescope">
+            <section id="telescope" class="form-container">
 
-                <h2>Telescope Parameters</h2>
+                <div style="width: 100%;">
+                    <h2>Telescope Parameters</h2>
+                </div>
 
-                {% if in_form.scope_dia.errors %}
-                    {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia(style="border-color: red;") }}
-                {% else %}
-                    {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia }}
-                {% endif %}
+                <div class="form-group">
+                    {% if in_form.scope_dia.errors %}
+                        {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia }}
+                    {% endif %}
+                </div>
 
-                {% if in_form.scope_focal.errors %}
-                    {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal(style="border-color: red;") }}
-                {% else %}
-                    {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal }}
-                {% endif %}
+                <div class="form-group">
+                    {% if in_form.scope_focal.errors %}
+                        {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal }}
+                    {% endif %}
+                </div>
 
-                {% if in_form.plate_scale.errors %}
-                    {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale(style="border-color: red;") }}
-                {% else %}
-                    {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale }}
-                {% endif %}
+                <div class="form-group">
+                    {% if in_form.plate_scale.errors %}
+                        {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale }}
+                    {% endif %}
+                </div>
+
+                
+
+                
+
+               
 
                 <script> 
                     document.getElementById('telescope').addEventListener('change', function() {
