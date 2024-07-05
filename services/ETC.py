@@ -11,6 +11,9 @@ import numpy as np
 import math
 
 
+import pyckles
+
+
 
 # constants
 KB = scipy.constants.Boltzmann
@@ -76,14 +79,15 @@ class Calculator:
         self.star_dist = params[15]
         self.star_temp = params[16]
         self.star_dia_solar = params[17]
+        self.pickle = params[18]
         
         self.star_dist_m = self.star_dist * 9.461 * 10**15
         self.star_dia = 1.392 * 10**9*self.star_dia_solar
         
         
         #--- conditions ---#
-        self.seeing_cond = params[18]
-        self.sky_bright = params[19]
+        self.seeing_cond = params[18+1]
+        self.sky_bright = params[19+1]
         self.seeing_pixel = self.seeing_cond/self.plate_scale
         
         
@@ -162,28 +166,64 @@ class Calculator:
 
         T = self.star_temp  
 
-        wl = np.linspace(1 * 10**(-8), 5 * 10**(-6), 10000)
-        wlnm = wl * 10**9 
+        # wl = np.linspace(1 * 10**(-8), 5 * 10**(-6), 10000)
+        # wlnm = wl * 10**9 
 
-        P = ((2*np.pi*H*C**2)/(wl**5))*(1/np.exp((H*C)/(wl*KB*T)-1))
+        # P = ((2*np.pi*H*C**2)/(wl**5))*(1/np.exp((H*C)/(wl*KB*T)-1))
+
+        # plt.figure(figsize=(8, 6))
+        # plt.plot(wlnm, P, label='Stellar Black Body', color='y')
+        # plt.fill_between(wlnm, P, color='yellow', alpha=0.3, label='Stellar emission')
+
+        # plt.axvline(x=self.filter_low*10**9, color='r', linestyle='--', label='filter cut on')
+        # plt.axvline(x=self.filter_high*10**9, color='b', linestyle='--', label='filter cut off')
+
+        # plt.fill_betweenx(y=np.linspace(min(P), max(P) + 1*10**14), x1=self.filter_low*10**9, x2=self.filter_high*10**9, color='lightblue', alpha=0.4, label='Filter band pass')
+
+        # plt.title('Filtered Stellar Black Body Spectrum')
+        # plt.xlabel('Wavelengh (nm)')
+        # plt.ylabel('Power Density (W/m^3)')
+        # plt.xlim(0,2000)
+        # plt.ylim(0)
+        # plt.legend()
+        # plt.grid(True)
+        
+        spec_lib = pyckles.SpectralLibrary("pickles")
+
+        try:
+            spectra = spec_lib[self.pickle].data
+            wlnm = spectra["wavelength"]/10  # A to nm
+            P = spectra["flux"]
+            
+        except: 
+            wl = np.linspace(1 * 10**(-8), 5 * 10**(-6), 10000)
+            wlnm = wl * 10**9 
+            P = ((2*np.pi*H*C**2)/(wl**5))*(1/np.exp((H*C)/(wl*KB*T)-1))
+
+        p_max = np.max(P)
+        wl_max = np.max(wlnm)
 
         plt.figure(figsize=(8, 6))
-        plt.plot(wlnm, P, label='Stellar Black Body', color='y')
-        plt.fill_between(wlnm, P, color='yellow', alpha=0.3, label='Stellar emission')
+        plt.plot(wlnm, P,label='Stellar Spectrum',color='y')
+
+        plt.fill_between(wlnm, P, color = 'yellow', alpha = 0.3,label = 'Stellar emission')
 
         plt.axvline(x=self.filter_low*10**9, color='r', linestyle='--', label='filter cut on')
         plt.axvline(x=self.filter_high*10**9, color='b', linestyle='--', label='filter cut off')
 
-        plt.fill_betweenx(y=np.linspace(min(P), max(P) + 1*10**14), x1=self.filter_low*10**9, x2=self.filter_high*10**9, color='lightblue', alpha=0.4, label='Filter band pass')
+        plt.fill_betweenx(y=np.linspace(min(P), max(P)+1*10**14), x1=self.filter_low*10**9, x2=self.filter_high*10**9, color='lightblue', alpha=0.4, label='filter band pass')
 
-        plt.title('Filtered Stellar Black Body Spectrum')
-        plt.xlabel('Wavelengh (nm)')
-        plt.ylabel('Power Density (W/m^3)')
-        plt.xlim(0,2000)
-        plt.ylim(0)
+        plt.title('Filtered Stellar Spectrum')
+        plt.xlabel('Wavelength (nm)')
+        plt.ylabel('Power Density (W/m^2)')
+        plt.xlim(0,wl_max * 1.1)
+        plt.ylim(0,p_max * 1.1)
+
         plt.legend()
         plt.grid(True)
-
+        plt.show()
+        
+    
         plt.savefig('static/plot_light_curve_SB.png')
         
         

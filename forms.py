@@ -1,19 +1,32 @@
 from flask_wtf import FlaskForm
-from wtforms import FloatField, SubmitField, SelectField, FloatField
+from wtforms import FloatField, SubmitField, SelectField, StringField
 from wtforms.validators import NumberRange, InputRequired
 
+import pyckles
+import numpy as np
 
 
 def pickles(): 
     
-    file = open("./static/presets/pickles.csv")
+    # file = open("./static/presets/pickles.csv")
     presets = [('', 'Custom')]
     
-    for line in file:    
-        csvs = line.strip().split(",")
-        presets.append( (csvs[0], csvs[1]) )
+    # for line in file:    
+    #     csvs = line.strip().split(",")
+    #     presets.append( (csvs[0], csvs[1]) )
         
-    file.close()
+    # file.close()
+    
+    spec_lib = pyckles.SpectralLibrary("pickles")
+    preset = np.asarray(spec_lib.available_spectra)
+    
+    
+    for val in preset:
+        presets.append( (val, val) )
+    
+    presets 
+    
+    
     return presets
 
 
@@ -33,7 +46,7 @@ class InputForm(FlaskForm):
     # snr_fields = 1
     
     
-    fields = { "camera": 9, "telescope": 3, "filter": 3, "target": 3, "conditions": 2, "snr": 1 }
+    fields = { "camera": 9, "telescope": 3, "filter": 3, "target": 4, "conditions": 2, "snr": 1 }
     total_fields = sum(fields.values())
     
     # total field count
@@ -64,6 +77,10 @@ class InputForm(FlaskForm):
     star_dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     star_dia_solar = FloatField('Solar Diameter', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    
+    pickle = StringField('Source')
+    
+    
     
     # weather conditions
     seeing = FloatField('Conditions', validators=[InputRequired(), NumberRange(min=0, max=100000)])

@@ -309,6 +309,15 @@
                     {% endif %}
                 </div>
 
+                <div class="input-group">
+                    {% if in_form.pickle.errors %}
+                        {{ in_form.type.label(type="autofill", style="background-color:gray;") }}{{ in_form.pickle(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.pickle.label(type="autofill", style="background-color:gray;" ) }}{{ in_form.pickle(readonly=true) }}
+                    {% endif %}
+                </div>
+
+
                 <script> 
                     document.getElementById('target').addEventListener('change', function() {
 
@@ -326,6 +335,11 @@
                         }
 
                         document.getElementById('star_temp').value = preset[0];
+
+                        var e = document.getElementById('target');
+                        var text = e.options[e.selectedIndex].text;
+
+                        document.getElementById('pickle').value = text;
 
                         //document.getElementById('star_dist').value = preset[0];
                         //document.getElementById('star_temp').value = preset[1];

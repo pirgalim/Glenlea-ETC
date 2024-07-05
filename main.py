@@ -54,6 +54,11 @@ def calculator():
             # retrieve form data
             data = request.form
             
+            
+            #TODO testing
+            print(data)
+            
+            
             # create parameter tuple to be sent to the calculator script
             params = readInput(data)
                         
@@ -164,10 +169,14 @@ def readInput(input: dict) -> list:
         
         # ignore non-data parameters
         if val != input["csrf_token"] and  val != input["submit"]:
-            data.append( float(val) )
+
+            try:
+                data.append( float(val) )
+            except:
+                data.append(val)
 
     # validate length of data list
-    if len(data) != InputForm.total_fields:
+    if len(data) != InputForm.total_fields: #TODO update this
         return None
     
     return data
@@ -183,7 +192,7 @@ def pickles():
         csvs = line.strip().split(",")
         
         
-        presets.append( (csvs[0], [csvs[2]]) )
+        presets.append( (csvs[1], [csvs[2]]) )
         
     file.close()
     return presets
