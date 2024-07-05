@@ -11,17 +11,15 @@ div {
   vertical-align: middle;
 }
 
-.form-group {
+.input-group {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.form-container {
+.input-container {
   display: flex;
   flex-wrap: wrap;
-
   align-items: flex-start;
-  gap: 15px; /* Space between form groups */
 }
 
 
@@ -47,6 +45,7 @@ h1 {
 h2 {
   margin-left: 2rem;
   color: white;
+  width: 100%;
 }
 p {
   margin-left: 25px;
@@ -164,6 +163,7 @@ input[type="submit"], button {
   color: white;
   font-size: large;
 }
+
 input[type=radio] { 
 
   vertical-align: middle;
