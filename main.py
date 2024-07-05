@@ -41,10 +41,7 @@ def calculator():
     # target_presets = readPresets("target")
     
     target_presets = pickles()
-    
-    print(camera_presets)
-    print(target_presets)
-    
+        
     # retrieve current GAO SQM value
     gao_sqm = sqm.get_sqm()    
     
@@ -81,7 +78,10 @@ def calculator():
                     fov = int( etc.computeFOV() )            
                     counts = etc.countsPerSecond()
                     exposure = etc.calculateReqTime(1) #TODO what is the 1???
-
+                    
+                    # use this for file output
+                    print(params)
+                    
                     # render output template
                     return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
                                             camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets, 

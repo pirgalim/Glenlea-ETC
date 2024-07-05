@@ -1,14 +1,23 @@
 body {
   background-color: rgb(34, 34, 34);
   font-family: helvetica;
+  color: white;
 }
-div {
-  /* margin: auto; */
-  /* display: inline-flex; */
 
-  /* white-space:nowrap; */
+section {
+  /* display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start; */
 
-  vertical-align: middle;
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  padding: 10px 5px;
+
+  background-color: rgb(70, 70, 70);
+  border: 2px slategray;
+  border-radius: 10px; 
 }
 
 .input-group {
@@ -22,41 +31,29 @@ div {
   align-items: flex-start;
 }
 
-
-section {
-  
-  background-color: rgb(70, 70, 70);
-  margin-top: 1rem;
-  margin-left: auto;
-  margin-right: auto;
-  width: 65%;
-  padding: 10px 5px;
-  border: 2px slategray;
-  border-radius: 10px;  
+img {
+  width:100%;
 }
+
+
 h1 {
-  margin-top: 3rem;
-  /* margin-left: 12rem; */
-  margin-left: auto;
-  margin-right: auto;
-  width: 65%;
-  color: white;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  text-align: center;
 }
 h2 {
   margin-left: 2rem;
-  color: white;
   width: 100%;
 }
 p {
   margin-left: 25px;
   margin-right: 25px;
-  color: white;
 }
 
-form {
+/* form {
   margin: 0;
-  color: white;
-}
+} */
 .button {
   display:inline-block;
   vertical-align: middle;
@@ -68,7 +65,6 @@ select {
   -moz-appearance: none; /* for firefox compatibility */
   appearance: none;
 
-  margin-left: 2rem;
   width: 15rem;
   height: 2.5rem;
   text-align-last: center;
@@ -83,36 +79,22 @@ select {
 }
 
 
-
-
-span {
-  margin: 0 0 0 25px;
-  padding: 10px 0;
-}
-span[type=error] { 
-  color: white;
-}
-
-
 label:not([type]) {
-  margin: 0.75rem 0 0 2rem;
+  margin: 10px 0px 10px 25px;
   padding: 10px 10px;
   width: 150px;  
   height: 20px;
   display: inline-block;
 
   text-align: center;
-  background-color: slategray;
-  border: 2px slategray;
+  background-color: gray;
+  border: 2px;
   border-radius: 5px;
-  color: white;
+  
 }
 label[type="autofill"] {
 
   white-space:nowrap;
-
-  
-  
   vertical-align: middle;
   margin: 10px 0px 10px 25px;
   padding: 10px 10px;
@@ -125,10 +107,10 @@ label[type="autofill"] {
 
   
   background-color: slategray;
-  border: 2px slategray;
+  border: 2px;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
-  color: white;
+  
 }
 
 input {
@@ -148,7 +130,7 @@ input {
 
   text-align: center;
 
-  color: black;
+  /* color: white; */
 }
 input[type="submit"], button {
   
@@ -157,10 +139,12 @@ input[type="submit"], button {
   margin: 5px 0px 5px 25px;
   padding: 10px 10px;
   text-align: center;
-  background-color: darkorange;
-  border: 2px orange;
-  border-radius: 5px;
+
   color: white;
+  background-color: gray;
+  border: 2px;
+  border-radius: 5px;
+  
   font-size: large;
 }
 
@@ -174,6 +158,14 @@ input[type=radio] {
   margin-left: 50px;
   margin-right: 10px;
 }
+
+
+
+form {
+  margin: 0;
+}
+
+
 
 
 .tooltip {

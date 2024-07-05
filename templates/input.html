@@ -5,34 +5,44 @@
     <div class="content-section">
 
         <!-- preset menu -->
-        <section class="preset-selection">
+        <section id="preset-selection" class="input-container">
 
             <h2>Load Presets</h2>
 
-            <form name="camera" method="POST" action="">
-                {{ select_form.csrf_token }}
-                {{ select_form.camera.label }} {{ select_form.camera }}
-            </form>
+            <div class="input-group">
+                <form name="camera" method="POST" action="">
+                    {{ select_form.csrf_token }}
+                    {{ select_form.camera.label }} {{ select_form.camera }}
+                </form>
+            </div>
 
-            <form name="telescope" method="POST" action="">
-                {{ select_form.csrf_token }}
-                {{ select_form.telescope.label }} {{ select_form.telescope }}
-            </form>
+            <div class="input-group">
+                <form name="telescope" method="POST" action="">
+                    {{ select_form.csrf_token }}
+                    {{ select_form.telescope.label }} {{ select_form.telescope }}
+                </form>
+            </div>
 
-            <form name="filter" method="POST" action="">
-                {{ select_form.csrf_token }}
-                {{ select_form.filter.label }} {{ select_form.filter }}
-            </form>
+            <div class="input-group">
+                <form name="filter" method="POST" action="">
+                    {{ select_form.csrf_token }}
+                    {{ select_form.filter.label }} {{ select_form.filter }}
+                </form>
+            </div>
 
-            <form name="target" method="POST" action="">
-                {{ select_form.csrf_token }}
-                {{ select_form.target.label }} {{ select_form.target }}
-            </form>
+            <div class="input-group">
+                <form name="target" method="POST" action="">
+                    {{ select_form.csrf_token }}
+                    {{ select_form.target.label }} {{ select_form.target }}
+                </form>
+            </div>
 
-            <form name="conditions" method="POST" action="">
-                {{ select_form.csrf_token }}
-                {{ select_form.conditions.label }} {{ select_form.conditions }}
-            </form>
+            <div class="input-group">
+                <form name="conditions" method="POST" action="">
+                    {{ select_form.csrf_token }}
+                    {{ select_form.conditions.label }} {{ select_form.conditions }}
+                </form>
+            </div>
 
         </section>
 
@@ -62,14 +72,6 @@
                      {% else %}
                          {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x }} 
                      {% endif %}
-                </div>
-
-                <div class="input-group">
-                    {% if in_form.sensor_y.errors %}
-                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y }}
-                    {% endif %}
                 </div>
 
                 <div class="input-group">
@@ -398,7 +400,7 @@
 
             <!-- submit form -->
             <section id="submission">
-                {{ in_form.submit(class="btn btn-outline-info") }} 
+                {{ in_form.submit(class="btn btn-outline-info", style="background-color: teal") }} 
           </section>
           
             
