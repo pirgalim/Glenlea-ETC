@@ -4,6 +4,13 @@
     <!-- main -->
     <div class="content-section">
 
+        <!-- preset menu -->
+        <section id="preset-selection" class="input-container">
+
+            <h2>Load Presets</h2>            
+
+        </section>
+
         <!-- input validation error message -->
         {% if not valid %}
             <section style="background-color:maroon;">
@@ -20,13 +27,12 @@
             <!-- camera section -->
             <section name="camera" class="input-container">
 
-                
                 <h2>Camera Parameters</h2> 
             
                 <div class="input-group">
                     <form name="camera" method="POST" action="">
                         {{ select_form.csrf_token }}
-                        {{ select_form.camera.label }} {{ select_form.camera }}
+                        {{ select_form.camera.label }}{{ select_form.camera }}
                     </form>
                 </div>
 
@@ -138,14 +144,16 @@
             <!-- telescope section -->
             <section name="telescope" class="input-container">
 
+                
                 <h2>Telescope Parameters</h2>
 
                 <div class="input-group">
                     <form name="telescope" method="POST" action="">
                         {{ select_form.csrf_token }}
-                        {{ select_form.telescope.label }} {{ select_form.telescope }}
+                        {{ select_form.telescope.label }}{{ select_form.telescope }}
                     </form>
                 </div>
+
 
                 <div class="input-group">
                     {% if in_form.scope_dia.errors %}
@@ -203,7 +211,7 @@
                 <div class="input-group">
                     <form id="filter" method="POST" action="">
                         {{ select_form.csrf_token }}
-                        {{ select_form.filter.label }} {{ select_form.filter }}
+                        {{ select_form.filter.label }}{{ select_form.filter }}
                     </form>
                 </div>
 
@@ -263,7 +271,7 @@
                 <div class="input-group">
                     <form name="target" method="POST" action="">
                         {{ select_form.csrf_token }}
-                        {{ select_form.target.label }} {{ select_form.target }}
+                        {{ select_form.target.label }}{{ select_form.target }}
                     </form>
                 </div>
 
@@ -340,7 +348,7 @@
                 <div class="input-group">
                     <form name="conditions" method="POST" action="">
                         {{ select_form.csrf_token }}
-                        {{ select_form.conditions.label }} {{ select_form.conditions }}
+                        {{ select_form.conditions.label }}{{ select_form.conditions }}
                     </form>
                 </div>
 
