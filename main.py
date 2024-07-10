@@ -88,7 +88,7 @@ def calculator():
                     print(params)
                     
                     # render output template
-                    return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
+                    return render_template('output_v2.html', valid=valid, in_form=in_form, select_form=select_form,
                                             camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets, 
                                             gao_sqm=gao_sqm,
                                             SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",

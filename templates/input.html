@@ -4,48 +4,6 @@
     <!-- main -->
     <div class="content-section">
 
-        <!-- preset menu -->
-        <section id="preset-selection" class="input-container">
-
-            <h2>Load Presets</h2>
-
-            <div class="input-group">
-                <form name="camera" method="POST" action="">
-                    {{ select_form.csrf_token }}
-                    {{ select_form.camera.label }} {{ select_form.camera }}
-                </form>
-            </div>
-
-            <div class="input-group">
-                <form name="telescope" method="POST" action="">
-                    {{ select_form.csrf_token }}
-                    {{ select_form.telescope.label }} {{ select_form.telescope }}
-                </form>
-            </div>
-
-            <div class="input-group">
-                <form name="filter" method="POST" action="">
-                    {{ select_form.csrf_token }}
-                    {{ select_form.filter.label }} {{ select_form.filter }}
-                </form>
-            </div>
-
-            <div class="input-group">
-                <form name="target" method="POST" action="">
-                    {{ select_form.csrf_token }}
-                    {{ select_form.target.label }} {{ select_form.target }}
-                </form>
-            </div>
-
-            <div class="input-group">
-                <form name="conditions" method="POST" action="">
-                    {{ select_form.csrf_token }}
-                    {{ select_form.conditions.label }} {{ select_form.conditions }}
-                </form>
-            </div>
-
-        </section>
-
         <!-- input validation error message -->
         {% if not valid %}
             <section style="background-color:maroon;">
@@ -60,11 +18,17 @@
             {{ in_form.hidden_tag() }}           
 
             <!-- camera section -->
-            <section id="camera" class="input-container">
+            <section name="camera" class="input-container">
 
                 
                 <h2>Camera Parameters</h2> 
             
+                <div class="input-group">
+                    <form name="camera" method="POST" action="">
+                        {{ select_form.csrf_token }}
+                        {{ select_form.camera.label }} {{ select_form.camera }}
+                    </form>
+                </div>
 
                 <div class="input-group">
                     {% if in_form.sensor_x.errors %}
@@ -172,10 +136,15 @@
             </section>
 
             <!-- telescope section -->
-            <section id="telescope" class="input-container">
+            <section name="telescope" class="input-container">
 
-                <div style="width: 100%;">
-                    <h2>Telescope Parameters</h2>
+                <h2>Telescope Parameters</h2>
+
+                <div class="input-group">
+                    <form name="telescope" method="POST" action="">
+                        {{ select_form.csrf_token }}
+                        {{ select_form.telescope.label }} {{ select_form.telescope }}
+                    </form>
                 </div>
 
                 <div class="input-group">
@@ -227,10 +196,16 @@
             </section>
 
             <!-- filter section -->
-            <section id="filter" class="input-container">
+            <section name="filter" class="input-container">
 
                 <h2>Filter Parameters</h2>
 
+                <div class="input-group">
+                    <form id="filter" method="POST" action="">
+                        {{ select_form.csrf_token }}
+                        {{ select_form.filter.label }} {{ select_form.filter }}
+                    </form>
+                </div>
 
                 <div class="input-group"> 
                     {% if in_form.filter_low.errors or error == "Low filter pass cannot be greater than high filter pass"%}
@@ -281,9 +256,16 @@
             </section>
 
             <!-- target section -->
-            <section id="target" class="input-container">
+            <section name="target" class="input-container">
 
                 <h2>Target Parameters</h2>
+
+                <div class="input-group">
+                    <form name="target" method="POST" action="">
+                        {{ select_form.csrf_token }}
+                        {{ select_form.target.label }} {{ select_form.target }}
+                    </form>
+                </div>
 
                 <div class="input-group">
                     {% if in_form.star_dist.errors %}
@@ -351,9 +333,16 @@
             </section>
 
             <!-- conditions section -->
-            <section id="conditions" class="input-container">
+            <section name="conditions" class="input-container">
 
                 <h2>Conditions</h2>
+
+                <div class="input-group">
+                    <form name="conditions" method="POST" action="">
+                        {{ select_form.csrf_token }}
+                        {{ select_form.conditions.label }} {{ select_form.conditions }}
+                    </form>
+                </div>
 
                 <div class="input-group">
                     {% if in_form.seeing.errors %}
@@ -396,7 +385,7 @@
             </section>
 
             <!-- SNR section -->
-            <section id="snr" class="input-container">
+            <section name="snr" class="input-container">
 
                 <h2>Signal to Noise</h2>
 
