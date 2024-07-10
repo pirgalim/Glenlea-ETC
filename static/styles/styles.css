@@ -71,7 +71,7 @@ h1 {
 }
 h2 {
   margin-left: 2rem;
-  /* width: 100%; */
+  width: 300px;
 }
 p {
   margin-left: 25px;
@@ -92,16 +92,23 @@ select {
   -moz-appearance: none; /* for firefox compatibility */
   appearance: none;
 
-  width: 15rem;
+  
+
+  width: 300px;
   height: 2.5rem;
   text-align-last: center;
   /* border-radius: 5px; */
 
-  border: 2px solid white;
-  border-bottom-left-radius: 0;
+
+  /* change */
+  margin-left: 25px;
+
+  background-color: lightgray;
+  border: 2px solid lightgray;
+  /* border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   border-bottom-right-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-right-radius: 5px; */
 
    /* Arrow */
    /* appearance: none; */
