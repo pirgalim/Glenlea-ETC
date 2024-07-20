@@ -18,15 +18,14 @@ section {
 .input-group {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  /* margin: 10px 0px 10px 25px;   */
+  text-align: center;
   margin: 12.5px;
 
 }
 .select-group {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
   width: 100%;
   margin: 12.5px;
 }
@@ -34,15 +33,24 @@ section {
   min-width: 300px;
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  /* align-items: flex-start; */
   justify-content:center;
   padding: 12.5px;
 }
+
 .spacer {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
   width: 300px;
+  margin-left: 12.5px;
+  margin-right: 12.5px;
+}
+.spacer-break {
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  width: 100%;
   margin-left: 12.5px;
   margin-right: 12.5px;
 }
@@ -78,8 +86,10 @@ h1 {
   text-align: center;
 }
 h2 {
-  margin-left: 2rem;
+  /* margin-left: 2rem; */
+  text-align: center;
   width: 300px;
+  height: 2.5rem;
 }
 p {
   margin-left: 25px;

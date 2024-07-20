@@ -21,7 +21,11 @@
             <!-- camera section -->
             <section name="camera" class="input-container">
 
-                <h2 style="width:100%;">Camera Parameters</h2> 
+                <!--h2 style="width:100%;">Camera Parameters</h2--> 
+
+                <h2 class="input-group">Camera Parameters</h2> 
+
+                <!--div class="spacer"></div><div class="spacer"></div><div class="spacer" style="width:100%;"></div-->
         
                 <div class="input-group">
                     <form name="camera" method="POST" action="">
@@ -29,7 +33,7 @@
                     </form>
                 </div>
 
-                <div class="spacer"></div><div class="spacer"></div><div class="spacer" style="width:100%;"></div>
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
 
                 <div class="input-group">
                     {% if in_form.sensor_x.errors %}
