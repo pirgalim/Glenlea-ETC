@@ -17,20 +17,19 @@
             <!-- security tag? -->
             {{ in_form.hidden_tag() }}           
 
+            
             <!-- camera section -->
             <section name="camera" class="input-container">
 
                 <h2 style="width:100%;">Camera Parameters</h2> 
-            
-                <div class="select-group">
-                    
+        
+                <div class="input-group">
                     <form name="camera" method="POST" action="">
                         {{ select_form.csrf_token }}{{ select_form.camera }}
                     </form>
                 </div>
 
-
-
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer" style="width:100%;"></div>
 
                 <div class="input-group">
                     {% if in_form.sensor_x.errors %}
@@ -105,6 +104,8 @@
                     {% endif %}
                  </div>
 
+                 <div class="spacer">
+
 
                 <script> 
                     document.getElementById('camera').addEventListener('change', function() {
@@ -140,16 +141,14 @@
             <!-- telescope section -->
             <section name="telescope" class="input-container">
 
-                
-                
 
-                <div class="select-group">
-                    <h2>Telescope Parameters</h2>
-                    <form class="select-group" name="telescope" method="POST" action="">
-                        {{ select_form.csrf_token }}
-                        {{ select_form.telescope.label }}{{ select_form.telescope }}
-                    </form>
-                </div>
+                <h2 style="width:300px;">Telescope Parameters</h2>                    
+                <form class="input-group" name="telescope" method="POST" action="">
+                    {{ select_form.csrf_token }}{{ select_form.telescope }}
+                </form>
+
+                <div style="width:300px;" class="input-group"></div>
+
 
 
                 <div class="input-group">
