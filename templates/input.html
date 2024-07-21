@@ -30,33 +30,21 @@
 
                 <div class="block">
                     <div class="tooltip">ⓘ
-                        <span class="tooltiptext">
-                            Length (pixels) of the camera sensor, interchangeable with width.
-                            2.1.2 Sensor Width
-                            Width (pixels) of the camera sensor, interchangeable with length.
-                            2.1.3 Pixel Size
-                            The size (μm) of an individual pixel of the camera sensor.
-                            2.1.4 Quantum Efficiency
-                            The efficiency (%) of the camera sensor...
-                            2.1.5 Read Noise
-                            Read noise (electrons) is the measurement...
-                            2.1.6 Gain
-                            Gain (electrons/ADU) is the level...
-                            2.1.7 Offset
-                            Offset (units) is the...
-                            2.1.8 Dark Noise
-                            Dark Noise (units) is the..
-                        </span>
+                        <span class="tooltiptext">test</span>
                     </div>
                 </div>
+
+                <div class="myDIV">Hover over me.</div>
+                
                 
                 <!--div class="spacer"></div--><div class="spacer"></div><div class="spacer-break"></div>
 
                 <div class="block">
                     {% if in_form.sensor_x.errors %}
-                    {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(style="border-color: red;") }}
+                    {{ in_form.sensor_x.label(type="autofill", class="myDiv") }}{{ in_form.sensor_x(style="border-color: red;") }}
                      {% else %}
-                         {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x }} 
+                         {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(class="myDiv") }}
+                         <div class="hide">I am shown when someone hovers over the div above.</div>
                      {% endif %}
                 </div>
 
@@ -288,20 +276,25 @@
 
             </section>
 
+       
+
+
+
             <!-- target section -->
             <section name="target" class="container">
 
-                
                 <h2 class="block">Target Parameters</h2> 
-        
+
                 <div class="block">
                     <form name="target" method="POST" action="">
                         {{ select_form.csrf_token }}{{ select_form.target }}
                     </form>
                 </div>
-
-                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
-
+                
+                <div class="block">
+                    <button class="tab" onclick="Tab(event, 'target-point')" id="defaultOpen">Point Source</button>
+                    <button class="tab" onclick="Tab(event, 'target-extended')" id="defaultClose">Extended Source</button> 
+                </div><div class="spacer"></div><div class="spacer-break"></div>
 
                 <div class="block">
                     {% if in_form.star_dist.errors %}
@@ -333,42 +326,45 @@
                     {% else %}
                         {{ in_form.pickle.label(type="autofill", style="background-color:gray;" ) }}{{ in_form.pickle(readonly=true) }}
                     {% endif %}
-                </div>
-
-                <div class="spacer"></div><div class="spacer"></div>
-
+                </div><div class="spacer"></div><div class="spacer"></div>
 
                 <script> 
                     document.getElementById('target').addEventListener('change', function() {
 
                         var presets = {{ target_presets|tojson }};
                         var size = presets[0][1].length;
-
-                        // I should check if there is actually anything here first
                         var preset = [size]
 
+                        // blank by default
                         for(let i = 0; i < size; i++) { preset[i] = ''; }
 
                         // match the selection with a preset
                         for( let i = 0; i < presets.length; i++ ) {
                             if( presets[i][0] == document.getElementById('target').value ) { preset = presets[i][1]; }
                         }
-
+                        // autofill
                         document.getElementById('star_temp').value = preset[0];
 
+                        // display source name
                         var e = document.getElementById('target');
                         var text = e.options[e.selectedIndex].text;
-
                         document.getElementById('pickle').value = text;
-
-                        //document.getElementById('star_dist').value = preset[0];
-                        //document.getElementById('star_temp').value = preset[1];
-                        //document.getElementById('star_dia_solar').value = preset[2];
                     });
+
+
+                    function Tab(e, name) {
+                        var tab;
+
+                        tab = document.getElementById("defaultOpen");
+                        tab.focus();
+                    }
+
+
+
                 </script>
-
-
             </section>
+
+            
 
             <!-- conditions section -->
             <section name="conditions" class="container">

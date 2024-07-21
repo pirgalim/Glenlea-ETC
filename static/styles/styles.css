@@ -13,6 +13,9 @@ section {
 
   background-color: rgb(70, 70, 70);
   border-radius: 10px; 
+
+  padding: 12.5px;
+  max-width: 1000px;
 }
 
 .block {
@@ -49,6 +52,19 @@ section {
   margin-right: 12.5px;
 }
 
+.tab {
+  height: 2.5rem;
+  padding: 10px 10px;
+  text-align: center;
+  margin: 0;
+  font-size: large;
+}
+.tab:active {     
+  background-color:yellow;    
+}
+.tab:focus {     
+  background-color:red;    
+}
 
 
 img {
@@ -91,9 +107,9 @@ p {
   margin-right: 25px;
 }
 
-.button {
+/* .button {
   display:inline-block;
-}
+} */
 
 select {
 
@@ -104,6 +120,8 @@ select {
   width: 300px;
   height: 2.5rem;
   text-align-last: center;
+
+  font-size: medium;
 
   /* change */
   /* margin-left: 25px;
@@ -168,10 +186,13 @@ input {
   border: 2px solid white;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
+
+  font-size: medium;
 }
-input[type="submit"], button {
+
+
+/* input[type="submit"], button {
   
-  /* vertical-align: middle; */
   display: inline-block;
   margin: 5px 0px 5px 25px;
   padding: 10px 10px;
@@ -183,7 +204,7 @@ input[type="submit"], button {
   border-radius: 5px;
   
   font-size: large;
-}
+} */
 
 input[type=radio] { 
 
@@ -233,7 +254,14 @@ form {
 }
 
 
+.hide {
+  display: none;
+}
 
+.myDIV:hover + .hide {
+  display: block;
+  color: red;
+}
 
 
 

@@ -42,7 +42,7 @@ def calculator():
     target_presets = pickles()
         
     # retrieve current GAO SQM value
-    gao_sqm = sqm.get_sqm()    
+    gao_sqm = sqm.get_sqm()   
     
     # detect if form has been submitted
     if in_form.submit.data:
