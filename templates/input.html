@@ -19,15 +19,11 @@
 
             
             <!-- camera section -->
-            <section name="camera" class="input-container">
+            <section name="camera" class="container">
 
-                <!--h2 style="width:100%;">Camera Parameters</h2--> 
-
-                <h2 class="input-group">Camera Parameters</h2> 
-
-                <!--div class="spacer"></div><div class="spacer"></div><div class="spacer" style="width:100%;"></div-->
+                <h2 class="block">Camera Parameters</h2> 
         
-                <div class="input-group">
+                <div class="block">
                     <form name="camera" method="POST" action="">
                         {{ select_form.csrf_token }}{{ select_form.camera }}
                     </form>
@@ -35,7 +31,7 @@
 
                 <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
 
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.sensor_x.errors %}
                         {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(style="border-color: red;") }}
                      {% else %}
@@ -43,7 +39,7 @@
                      {% endif %}
                 </div>
 
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.sensor_y.errors %}
                         {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y(style="border-color: red;") }}
                     {% else %}
@@ -51,7 +47,7 @@
                     {% endif %}
                 </div>
         
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.px_size.errors %}
                         {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size(style="border-color: red;") }}
                     {% else %}
@@ -59,7 +55,7 @@
                     {% endif %}
                 </div>         
                     
-                <div class="input-group"> 
+                <div class="block"> 
                     {% if in_form.q_efficiency.errors %}
                         {{ in_form.q_efficiency.label(type="autofill") }}{{ in_form.q_efficiency(style="border-color: red;") }}
                     {% else %}
@@ -67,7 +63,7 @@
                     {% endif %}
                 </div>
                  
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.read_noise.errors %}
                         {{ in_form.read_noise.label(type="autofill") }}{{ in_form.read_noise(style="border-color: red;") }}
                     {% else %}
@@ -75,7 +71,7 @@
                     {% endif %}
                 </div>
 
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.gain.errors %}
                         {{ in_form.gain.label(type="autofill") }}{{ in_form.gain(style="border-color: red;") }}
                     {% else %}
@@ -83,7 +79,7 @@
                     {% endif %}
                 </div>
 
-                <div class="input-group">
+                <div class="block">
                     
                     {% if in_form.offset.errors %}
                         {{ in_form.offset.label(type="autofill") }}{{ in_form.offset(style="border-color: red;")}}
@@ -92,7 +88,7 @@
                     {% endif %}
                 </div>  
 
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.dark_noise.errors %}
                         {{ in_form.dark_noise.label(type="autofill") }}{{ in_form.dark_noise(style="border-color: red;") }}
                     {% else %}
@@ -100,7 +96,7 @@
                     {% endif %}
                 </div>
 
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.full_well.errors %}
                         {{ in_form.full_well.label(type="autofill") }}{{ in_form.full_well(style="border-color: red;") }}
                     {% else %}
@@ -108,7 +104,7 @@
                     {% endif %}
                  </div>
 
-                 <div class="spacer">
+                 <div class="spacer"></div>
 
 
                 <script> 
@@ -143,19 +139,20 @@
             </section>
 
             <!-- telescope section -->
-            <section name="telescope" class="input-container">
+            <section name="telescope" class="container">
+
+                <h2 class="block">Telescope Parameters</h2> 
+        
+                <div class="block">
+                    <form name="telescope" method="POST" action="">
+                        {{ select_form.csrf_token }}{{ select_form.telescope }}
+                    </form>
+                </div>
+
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
 
 
-                <h2 style="width:300px;">Telescope Parameters</h2>                    
-                <form class="input-group" name="telescope" method="POST" action="">
-                    {{ select_form.csrf_token }}{{ select_form.telescope }}
-                </form>
-
-                <div style="width:300px;" class="input-group"></div>
-
-
-
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.scope_dia.errors %}
                         {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia(style="border-color: red;") }}
                     {% else %}
@@ -163,7 +160,7 @@
                     {% endif %}
                 </div>
 
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.scope_focal.errors %}
                         {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal(style="border-color: red;") }}
                     {% else %}
@@ -171,13 +168,17 @@
                     {% endif %}
                 </div>
 
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.plate_scale.errors %}
                         {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale(style="border-color: red;") }}
                     {% else %}
                         {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale }}
                     {% endif %}
                 </div>
+
+
+                <div class="spacer"></div>
+
 
                 <script> 
                     document.getElementById('telescope').addEventListener('change', function() {
@@ -204,19 +205,19 @@
             </section>
 
             <!-- filter section -->
-            <section name="filter" class="input-container">
+            <section name="filter" class="container">
 
-                
-
-                <div class="select-group">
-                    <h2>Filter Parameters</h2>
-                    <form id="filter" method="POST" action="">
-                        {{ select_form.csrf_token }}
-                        {{ select_form.filter.label }}{{ select_form.filter }}
+                <h2 class="block">Filter Parameters</h2> 
+        
+                <div class="block">
+                    <form name="filter" method="POST" action="">
+                        {{ select_form.csrf_token }}{{ select_form.filter }}
                     </form>
                 </div>
 
-                <div class="input-group"> 
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
+
+                <div class="block"> 
                     {% if in_form.filter_low.errors or error == "Low filter pass cannot be greater than high filter pass"%}
                         {{ in_form.filter_low.label(type="autofill") }}{{ in_form.filter_low(style="border-color: red;") }}
                     {% else %}
@@ -224,7 +225,7 @@
                     {% endif %}
                 </div>
 
-                <div class="input-group"> 
+                <div class="block"> 
                     {% if in_form.filter_high.errors or error == "Low filter pass cannot be greater than high filter pass" %}
                         {{ in_form.filter_high.label(type="autofill") }}{{ in_form.filter_high(style="border-color: red;") }}
                     {% else %}
@@ -232,13 +233,15 @@
                     {% endif %}
                 </div>
 
-                <div class="input-group"> 
+                <div class="block"> 
                     {% if in_form.filter_zero.errors %}
                         {{ in_form.filter_zero.label(type="autofill") }}{{ in_form.filter_zero(style="border-color: red;") }}
                     {% else %}
                         {{ in_form.filter_zero.label(type="autofill") }}{{ in_form.filter_zero }}
                     {% endif %}
                 </div>
+
+                <div class="spacer"></div>
                 
                 <script> 
                     document.getElementById('filter').addEventListener('change', function() {
@@ -265,19 +268,21 @@
             </section>
 
             <!-- target section -->
-            <section name="target" class="input-container">
+            <section name="target" class="container">
 
                 
-
-                <div class="select-group">
-                    <h2>Target Parameters</h2>
+                <h2 class="block">Target Parameters</h2> 
+        
+                <div class="block">
                     <form name="target" method="POST" action="">
-                        {{ select_form.csrf_token }}
-                        {{ select_form.target.label }}{{ select_form.target }}
+                        {{ select_form.csrf_token }}{{ select_form.target }}
                     </form>
                 </div>
 
-                <div class="input-group">
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
+
+
+                <div class="block">
                     {% if in_form.star_dist.errors %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
                     {% else %}
@@ -285,7 +290,7 @@
                     {% endif %}
                 </div>
 
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.star_temp.errors %}
                         {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp(style="border-color: red;") }}
                     {% else %}
@@ -293,7 +298,7 @@
                     {% endif %}
                 </div>
 
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.star_dia_solar.errors %}
                         {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar(style="border-color: red;") }}
                     {% else %}
@@ -301,13 +306,15 @@
                     {% endif %}
                 </div>
 
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.pickle.errors %}
                         {{ in_form.type.label(type="autofill", style="background-color:gray;") }}{{ in_form.pickle(style="border-color: red;") }}
                     {% else %}
                         {{ in_form.pickle.label(type="autofill", style="background-color:gray;" ) }}{{ in_form.pickle(readonly=true) }}
                     {% endif %}
                 </div>
+
+                <div class="spacer"></div><div class="spacer"></div>
 
 
                 <script> 
@@ -343,19 +350,19 @@
             </section>
 
             <!-- conditions section -->
-            <section name="conditions" class="input-container">
+            <section name="conditions" class="container">
 
-                
-
-                <div class="select-group">
-                    <h2>Conditions</h2>
+                <h2 class="block">Condition Parameters</h2> 
+        
+                <div class="block">
                     <form name="conditions" method="POST" action="">
-                        {{ select_form.csrf_token }}
-                        {{ select_form.conditions.label }}{{ select_form.conditions }}
+                        {{ select_form.csrf_token }}{{ select_form.conditions }}
                     </form>
                 </div>
 
-                <div class="input-group">
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
+
+                <div class="block">
                     {% if in_form.seeing.errors %}
                         {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing(style="border-color: red;") }}
                     {% else %}
@@ -364,7 +371,7 @@
                 </div>
 
 
-                <div class="input-group">
+                <div class="block">
                     {% if in_form.sqm.errors %}
                         {{ in_form.sqm.label(type="autofill") }}{{ in_form.sqm(style="border-color: red;") }}
                     {% else %}
@@ -372,10 +379,11 @@
                     {% endif %}
                 </div>
         
-                <div class="input-group">
+                <div class="block">
                     <!-- GAO autofill button -->
                     <input type="radio" id="sky_bright">Fill from GAO<br>
                 </div>
+                <div class="spacer"></div>
            
                 <script> 
                     document.getElementById('conditions').addEventListener('change', function() {
@@ -396,11 +404,13 @@
             </section>
 
             <!-- SNR section -->
-            <section name="snr" class="input-container">
+            <section name="snr" class="container">
 
-                <h2>Signal to Noise</h2>
+                <h2>Signal to Noise</h2><div class="spacer"></div><div class="spacer"></div>
 
-                <div class="input-group">
+                
+
+                <div class="block">
 
                     {% if in_form.desired_snr.errors %}
                         {{ in_form.desired_snr.label(type="autofill") }}{{ in_form.desired_snr(style="border-color: red;") }}
@@ -408,12 +418,12 @@
                         {{ in_form.desired_snr.label(type="autofill") }}{{ in_form.desired_snr }}
                     {% endif %}
 
-                </div>
+                </div><div class="spacer"></div><div class="spacer"></div>
 
             </section>
 
             <!-- submit form -->
-            <section id="submission">
+            <section id="submission" class="container">
                 {{ in_form.submit(class="btn btn-outline-info", style="background-color: teal") }} 
           </section>
           

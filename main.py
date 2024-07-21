@@ -30,7 +30,6 @@ def calculator():
     # create forms
     in_form = InputForm()
     select_form = SelectForm()
-    
     # Used for input validation message
     valid = True
       
