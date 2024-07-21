@@ -17,7 +17,6 @@
             <!-- security tag? -->
             {{ in_form.hidden_tag() }}           
 
-            
             <!-- camera section -->
             <section name="camera" class="container">
 
@@ -29,11 +28,33 @@
                     </form>
                 </div>
 
-                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
+                <div class="block">
+                    <div class="tooltip">ⓘ
+                        <span class="tooltiptext">
+                            Length (pixels) of the camera sensor, interchangeable with width.
+                            2.1.2 Sensor Width
+                            Width (pixels) of the camera sensor, interchangeable with length.
+                            2.1.3 Pixel Size
+                            The size (μm) of an individual pixel of the camera sensor.
+                            2.1.4 Quantum Efficiency
+                            The efficiency (%) of the camera sensor...
+                            2.1.5 Read Noise
+                            Read noise (electrons) is the measurement...
+                            2.1.6 Gain
+                            Gain (electrons/ADU) is the level...
+                            2.1.7 Offset
+                            Offset (units) is the...
+                            2.1.8 Dark Noise
+                            Dark Noise (units) is the..
+                        </span>
+                    </div>
+                </div>
+                
+                <!--div class="spacer"></div--><div class="spacer"></div><div class="spacer-break"></div>
 
                 <div class="block">
                     {% if in_form.sensor_x.errors %}
-                        {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(style="border-color: red;") }}
+                    {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(style="border-color: red;") }}
                      {% else %}
                          {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x }} 
                      {% endif %}
