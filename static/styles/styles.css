@@ -104,6 +104,9 @@ button {
   
   font-size: large;
 } 
+button:hover {
+  opacity: 90%;
+}
 
 
 button.tablinks {
@@ -129,7 +132,14 @@ button.tablinks {
   background-color: #ccc;
   text-align: center;
   justify-content: center;
-  background-color: rgb(0,57,107);
+  background-color: darkgoldenrod;
+  /* background-color: rgb(0,163,224); */
+
+  /* background-color: rgb(242,169,0); */
+  /* color: rgb(79,44,29); */
+
+  /* background-color: rgb(10,132,255); */
+  
 }
 
 img {
@@ -231,7 +241,16 @@ label[type="autofill"] {
   height: 20px;
   display: inline-block;
 
+  /* background-color: rgb(35,95,160); */
+  /* background-color: rgb(56,94,157); */
+  /* background-color: rgb(242,169,0); */
+  /* color: rgb(79,44,29); */
+  /* background-color: rgb(56,94,157); */
+  /* background-color: rgb(50,80,140); */
+
   background-color: slategray;
+
+
   border: 2px;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
@@ -244,8 +263,8 @@ input {
   width: 120px;
   height: 40px;
   text-align: center;
-
-  border: 2px solid white;
+  background-color: whitesmoke;
+  border: 2px solid whitesmoke;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
 
@@ -266,6 +285,11 @@ input[type="submit"], button {
   border-radius: 5px;
   
   font-size: large;
+}
+
+
+input[type="submit"]:hover {
+  opacity: 90%;
 }
 
 input[type=radio] { 

@@ -15,7 +15,8 @@
         <form id="input-form" method="POST" action="">
         
             <!-- security tag? -->
-            {{ in_form.hidden_tag() }}           
+            {{ in_form.hidden_tag() }}
+            {{ in_form.csrf_token}}          
 
             <!-- camera section -->
             <section name="camera" class="container">
@@ -23,14 +24,11 @@
                 <h2 class="block">Camera Parameters</h2> 
         
                 <div class="block">
-                    <form name="camera" method="POST" action="">
+                    <!--form name="camera" method="POST" action=""-->
                         {{ select_form.csrf_token }}{{ select_form.camera }}
-                    </form>
+                    <!--/form-->
                 </div>
 
-   
-                
-                
                 <!--div class="spacer"></div--><div class="spacer"></div><div class="spacer-break"></div>
 
                 <div class="block">
@@ -146,9 +144,9 @@
                 <h2 class="block">Telescope Parameters</h2> 
         
                 <div class="block">
-                    <form name="telescope" method="POST" action="">
+                    <!--form name="telescope" method="POST" action=""-->
                         {{ select_form.csrf_token }}{{ select_form.telescope }}
-                    </form>
+                    <!--/form-->
                 </div>
 
                 <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
@@ -212,9 +210,9 @@
                 <h2 class="block">Filter Parameters</h2> 
         
                 <div class="block">
-                    <form name="filter" method="POST" action="">
+                    <!--form name="filter" method="POST" action=""-->
                         {{ select_form.csrf_token }}{{ select_form.filter }}
-                    </form>
+                    <!--/form-->
                 </div>
 
                 <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
@@ -272,8 +270,8 @@
 
             <div class="tab">
                     <div class="block" style="margin:0;">
-                        <button class="tablinks" onclick="Tab(event, 'target-point')" id="defaultOpen">Point Source</button>
-                        <button class="tablinks" onclick="Tab(event, 'target-extended')" id="defaultClose">Extended Source</button> 
+                        <button class="tablinks" type="button" onclick="Tab(event, 'target-point')" id="defaultOpen" style="border-top-left-radius:5px;">Point Source</button>
+                        <button class="tablinks" type="button" onclick="Tab(event, 'target-extended')" id="defaultClose" style="border-top-right-radius:5px;">Extended Source</button> 
                     </div>
                     <div class="spacer"></div><div class="spacer"></div>
             </div>
@@ -284,9 +282,9 @@
                 <h2 class="block">Target Parameters</h2> 
 
                 <div class="block">
-                    <form name="target" method="POST" action="">
+                    <!--form name="target" method="POST" action=""-->
                         {{ select_form.csrf_token }}{{ select_form.target }}
-                    </form>
+                    <!--/form-->
                 </div>
 
                 <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
@@ -354,15 +352,15 @@
                 <h2 class="block">Target Parameters</h2> 
 
                 <div class="block">
-                    <form name="target" method="POST" action="">
+                    <!--form name="target" method="POST" action=""-->
                         {{ select_form.csrf_token }}{{ select_form.target }}
-                    </form>
+                    <!--/form-->
                 </div>
                 
                 
                 <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
 
-                <div class="block">
+                <!--div class="block">
                     {% if in_form.star_dist.errors %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
                     {% else %}
@@ -405,12 +403,11 @@
                         // autofill
                         document.getElementById('star_temp').value = preset[0];
                     });
-                </script>
+                </script-->
             </section>
 
 
             <script>
-                document.getElementById("defaultOpen").click();
                 function Tab(e, name) {
                     var i, tabcontent, tablinks;
                     tabcontent = document.getElementsByClassName("tabcontent");
@@ -436,9 +433,9 @@
                 <h2 class="block">Condition Parameters</h2> 
         
                 <div class="block">
-                    <form name="conditions" method="POST" action="">
+                    <!--form name="conditions" method="POST" action=""-->
                         {{ select_form.csrf_token }}{{ select_form.conditions }}
-                    </form>
+                    <!--/form-->
                 </div>
 
                 <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
@@ -505,8 +502,8 @@
 
             <!-- submit form -->
             <section id="submission" class="container">
-                {{ in_form.submit(class="btn btn-outline-info", style="background-color: teal") }} 
-          </section>
+                {{ in_form.submit(style="background-color: teal") }} 
+            </section>
           
             
         </form>        
