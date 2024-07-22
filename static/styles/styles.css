@@ -1,7 +1,7 @@
 body {
   background-color: rgb(35, 35, 35);
   font-family: helvetica;
-  color: white;
+  color: whitesmoke;
 }
 
 section {
@@ -16,7 +16,57 @@ section {
 
   padding: 12.5px;
   max-width: 1000px;
+
+  animation: fadeEffect 1s;
 }
+
+
+
+.collapsible {
+ 
+  /* color: lightgray; */
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 300px;
+  height: 40px;
+  justify-content: center;
+  /* align-items: center; */
+  margin: 12.5px;
+
+  /* font-size: x-large; */
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.col-content {
+  margin-left: 25px;
+  margin-right: 25px;
+
+  width: 100%;
+  border-radius: 5px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  align-items: center;
+
+  color: white;
+  background-color: #555;
+  /* display: flex; */
+}
+p {
+  padding: 0 25px;
+}
+
+
+
+
 
 
 
@@ -77,7 +127,8 @@ section {
   flex-wrap: wrap;
   justify-content:center;
   padding: 12.5px;
-  animation: fadeEffect 1s;
+  vertical-align: middle;
+  /* animation: fadeEffect 1s; */
 }
 /* Fade in tabs */
 @-webkit-keyframes fadeEffect {
@@ -97,7 +148,7 @@ button {
   padding: 10px 10px;
   text-align: center;
 
-  color: white;
+  color: whitesmoke;
   background-color: gray;
   border: 2px;
   border-radius: 5px;
@@ -177,10 +228,12 @@ h2 {
   width: 300px;
   height: 2.5rem;
 }
-p {
-  margin-left: 25px;
-  margin-right: 25px;
-}
+/* p {
+  margin-left: 12.5px;
+  margin-right: 12.5px;
+  padding: 12.5px;
+  margin-bottom: 25px;
+} */
 
 /* .button {
   display:inline-block;
@@ -192,8 +245,8 @@ select {
   -moz-appearance: none; /* for firefox compatibility */
   appearance: none;
 
-  width: 300px;
-  height: 2.5rem;
+  width: 250px;
+  height: 40px;
   text-align-last: center;
 
   font-size: small;
@@ -202,8 +255,8 @@ select {
   /* margin-left: 25px;
   margin-bottom: 10px; */
 
-  background-color: white;
-  border: 2px solid white;
+  background-color: lightgray;
+  border: 2px solid lightgray;
   /* color: white; */
 
    /* Arrow */
@@ -212,6 +265,10 @@ select {
    background-repeat: no-repeat;
    background-position: right 0.7rem top 50%;
    background-size: 0.65rem auto;
+}
+select:hover {
+  background-color: darkgray;
+  border-color: darkgray;
 }
 
 
@@ -279,7 +336,7 @@ input[type="submit"], button {
   padding: 10px 10px;
   text-align: center;
 
-  color: white;
+  color: whitesmoke;
   background-color: gray;
   border: 2px;
   border-radius: 5px;

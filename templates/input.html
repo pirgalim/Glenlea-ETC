@@ -11,6 +11,13 @@
             </section>
         {% endif %}
 
+
+
+       
+
+
+
+
         <!-- main form -->
         <form id="input-form" method="POST" action="">
         
@@ -29,7 +36,22 @@
                     <!--/form-->
                 </div>
 
-                <!--div class="spacer"></div--><div class="spacer"></div><div class="spacer-break"></div>
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        Select a preset from the menu or enter custom values<br><br>
+                        Sensor Length (pixels) - dimension of the camera sensor, interchangeable with sensor width<br>
+                        Sensor Width (pixels) - dimension of the camera sensor, interchangeable with sensor length<br> 
+                        Pixel Size (μm) -  size of an individual pixel of the camera sensor<br>
+                        Quantum Efficiency (%)  -  efficiency of the camera sensor<br>
+                        Read Noise (electrons) - measurement... <br>
+                        Gain (electrons/ADU) - level... <br>
+                        Offset (units) - ... <br>
+                        Dark Noise (units) - ... <br>
+                    </p>
+                </div>
+
+                <div class="spacer-break"></div>
 
                 <div class="block">
                     {% if in_form.sensor_x.errors %}
@@ -102,9 +124,17 @@
                     {% else %}
                         {{ in_form.full_well.label(type="autofill") }}{{ in_form.full_well }}
                     {% endif %}
-                 </div>
+                </div>
 
-                 <div class="spacer"></div>
+                <div class="spacer"></div>
+
+                <div class="spacer-break"></div>
+
+
+                
+
+
+                
 
 
                 <script> 
@@ -178,7 +208,6 @@
 
 
                 <div class="spacer"></div>
-
 
                 <script> 
                     document.getElementById('telescope').addEventListener('change', function() {
@@ -506,6 +535,25 @@
                 {{ in_form.submit(style="background-color: teal") }} 
             </section>
           
+
+
+
+            <script>
+                var coll = document.getElementsByClassName("collapsible");
+                var i;
+                
+                for (i = 0; i < coll.length; i++) {
+                  coll[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.maxHeight){
+                      content.style.maxHeight = null;
+                    } else {
+                      content.style.maxHeight = content.scrollHeight + "px";
+                    } 
+                  });
+                }
+            </script>
             
         </form>        
 
