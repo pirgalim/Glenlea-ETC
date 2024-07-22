@@ -28,13 +28,7 @@
                     </form>
                 </div>
 
-                <div class="block">
-                    <div class="tooltip">ⓘ
-                        <span class="tooltiptext">test</span>
-                    </div>
-                </div>
-
-                <div class="myDIV">Hover over me.</div>
+   
                 
                 
                 <!--div class="spacer"></div--><div class="spacer"></div><div class="spacer-break"></div>
@@ -43,8 +37,7 @@
                     {% if in_form.sensor_x.errors %}
                     {{ in_form.sensor_x.label(type="autofill", class="myDiv") }}{{ in_form.sensor_x(style="border-color: red;") }}
                      {% else %}
-                         {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(class="myDiv") }}
-                         <div class="hide">I am shown when someone hovers over the div above.</div>
+                         {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x }}
                      {% endif %}
                 </div>
 
@@ -276,12 +269,17 @@
 
             </section>
 
-       
 
+            <div class="tab">
+                    <div class="block" style="margin:0;">
+                        <button class="tablinks" onclick="Tab(event, 'target-point')" id="defaultOpen">Point Source</button>
+                        <button class="tablinks" onclick="Tab(event, 'target-extended')" id="defaultClose">Extended Source</button> 
+                    </div>
+                    <div class="spacer"></div><div class="spacer"></div>
+            </div>
 
-
-            <!-- target section -->
-            <section name="target" class="container">
+            <!-- target-point section -->
+            <section id="target-point" class="tabcontent">
 
                 <h2 class="block">Target Parameters</h2> 
 
@@ -290,12 +288,9 @@
                         {{ select_form.csrf_token }}{{ select_form.target }}
                     </form>
                 </div>
-                
-                <div class="block">
-                    <button class="tab" onclick="Tab(event, 'target-point')" id="defaultOpen">Point Source</button>
-                    <button class="tab" onclick="Tab(event, 'target-extended')" id="defaultClose">Extended Source</button> 
-                </div><div class="spacer"></div><div class="spacer-break"></div>
 
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
+                
                 <div class="block">
                     {% if in_form.star_dist.errors %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
@@ -350,20 +345,89 @@
                         var text = e.options[e.selectedIndex].text;
                         document.getElementById('pickle').value = text;
                     });
-
-
-                    function Tab(e, name) {
-                        var tab;
-
-                        tab = document.getElementById("defaultOpen");
-                        tab.focus();
-                    }
-
-
-
                 </script>
             </section>
 
+            <!-- target-extended section -->
+            <section id="target-extended" class="tabcontent">
+
+                <h2 class="block">Target Parameters</h2> 
+
+                <div class="block">
+                    <form name="target" method="POST" action="">
+                        {{ select_form.csrf_token }}{{ select_form.target }}
+                    </form>
+                </div>
+                
+                
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
+
+                <div class="block">
+                    {% if in_form.star_dist.errors %}
+                        {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist }}
+                    {% endif %}
+                </div>
+
+                <div class="block">
+                    {% if in_form.star_temp.errors %}
+                        {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp }}
+                    {% endif %}
+                </div>
+
+                <div class="block">
+                    {% if in_form.star_dia_solar.errors %}
+                        {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar }}
+                    {% endif %}
+                </div>
+
+                <div class="spacer"></div>
+
+                <script> 
+                    document.getElementById('target').addEventListener('change', function() {
+
+                        var presets = {{ target_presets|tojson }};
+                        var size = presets[0][1].length;
+                        var preset = [size]
+
+                        // blank by default
+                        for(let i = 0; i < size; i++) { preset[i] = ''; }
+
+                        // match the selection with a preset
+                        for( let i = 0; i < presets.length; i++ ) {
+                            if( presets[i][0] == document.getElementById('target').value ) { preset = presets[i][1]; }
+                        }
+                        // autofill
+                        document.getElementById('star_temp').value = preset[0];
+                    });
+                </script>
+            </section>
+
+
+            <script>
+                document.getElementById("defaultOpen").click();
+                function Tab(e, name) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(name).style.display = "flex";
+                    e.currentTarget.className += " active";
+                }
+
+                document.getElementById("defaultOpen").click();
+                
+            </script>
             
 
             <!-- conditions section -->
