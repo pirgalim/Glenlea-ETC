@@ -128,15 +128,6 @@
 
                 <div class="spacer"></div>
 
-                <div class="spacer-break"></div>
-
-
-                
-
-
-                
-
-
                 <script> 
                     document.getElementById('camera').addEventListener('change', function() {
 
@@ -182,18 +173,11 @@
                 <button type="button" class="collapsible">ⓘ info</button>
                 <div class="col-content">
                     <p>
-                        Select a preset from the menu or enter custom values<br><br>
-                        <b>Sensor Length (pixels)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
-                        <b>Sensor Width (pixels)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
-                        <b>Pixel Size (μm)</b> -  size of an individual pixel of the camera sensor<br>
-                        <b>Quantum Efficiency (%)</b>  -  efficiency of the camera sensor<br>
-                        <b>Read Noise (electrons)</b> - measurement... <br>
-                        <b>Gain (electrons/ADU)</b> - level... <br>
-                        <b>Offset (units)</b> - ... <br>
-                        <b>Dark Noise (units)</b> - ... <br>
+                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
+                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
+                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
                     </p>
                 </div>
-
                 <div class="spacer-break"></div>
 
 
@@ -258,8 +242,15 @@
                         {{ select_form.csrf_token }}{{ select_form.filter }}
                     <!--/form-->
                 </div>
-
-                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
+                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
+                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
+                    </p>
+                </div>
+                <div class="spacer-break"></div>
 
                 <div class="block"> 
                     {% if in_form.filter_low.errors or error == "Low filter pass cannot be greater than high filter pass"%}
@@ -331,16 +322,23 @@
                         {{ select_form.csrf_token }}{{ select_form.target }}
                     <!--/form-->
                 </div>
-
-                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
+                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
+                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
+                    </p>
+                </div>
+                <div class="spacer-break"></div>
                 
-                <div class="block">
+                <!--div class="block">
                     {% if in_form.star_dist.errors %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
                     {% else %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist }}
                     {% endif %}
-                </div>
+                </div-->
 
                 <div class="block">
                     {% if in_form.star_temp.errors %}
@@ -401,11 +399,22 @@
                         {{ select_form.csrf_token }}{{ select_form.target }}
 
                 </div-->
-                
-                
-                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
 
-                <!--div class="block">
+                <div class="spacer"></div>
+
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
+                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
+                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
+                    </p>
+                </div>
+
+                <div class="spacer-break"></div>
+                
+
+                <div class="block">
                     {% if in_form.star_dist.errors %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
                     {% else %}
@@ -413,7 +422,7 @@
                     {% endif %}
                 </div>
 
-                <div class="block">
+                <!--div class="block">
                     {% if in_form.star_temp.errors %}
                         {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp(style="border-color: red;") }}
                     {% else %}
@@ -465,6 +474,39 @@
                     }
                     document.getElementById(name).style.display = "flex";
                     e.currentTarget.className += " active";
+
+
+
+                    if(name == "target-point") {
+
+                        
+
+                        // readonly
+                        document.getElementById("star_dist").value = "x";
+                        document.getElementById('star_dist').readOnly = true;
+
+                        // reset
+                        document.getElementById("star_dist").value = "";
+                        document.getElementById('star_dist').readOnly = false;
+                        document.getElementById("star_temp").value = "";
+                        document.getElementById('star_temp').readOnly = false;
+                        document.getElementById("star_dia_solar").value = "";
+                        document.getElementById('star_dia_solar').readOnly = false;
+                    }
+                    else {
+
+                        //readonly
+                        document.getElementById("star_dist").value = "";
+                        document.getElementById('star_dist').readOnly = true;
+                        document.getElementById("star_temp").value = "";
+                        document.getElementById('star_temp').readOnly = true;
+                        document.getElementById("star_dia_solar").value = "";
+                        document.getElementById('star_dia_solar').readOnly = true;
+
+                        // reset
+                        document.getElementById("star_dist").value = "";
+                        document.getElementById('star_dist').readOnly = false;
+                    }
                 }
 
                 document.getElementById("defaultOpen").click();
@@ -482,8 +524,15 @@
                         {{ select_form.csrf_token }}{{ select_form.conditions }}
                     <!--/form-->
                 </div>
-
-                <div class="spacer"></div><div class="spacer"></div><div class="spacer-break"></div>
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
+                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
+                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
+                    </p>
+                </div>
+                <div class="spacer-break"></div>
 
                 <div class="block">
                     {% if in_form.seeing.errors %}
@@ -529,7 +578,17 @@
             <!-- SNR section -->
             <section name="snr" class="container">
 
-                <h2>Signal to Noise</h2><div class="spacer"></div><div class="spacer"></div>
+                <h2 class="block">Signal to Noise</h2><div class="spacer"></div>
+
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
+                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
+                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
+                    </p>
+                </div>
+                <div class="spacer-break"></div>
 
                 
 
