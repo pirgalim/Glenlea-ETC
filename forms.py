@@ -36,15 +36,7 @@ def validate_filters():
 
 
 class InputForm(FlaskForm):
-    
-    # # input field count
-    # camera_fields = 9
-    # telescope_fields = 3
-    # filter_fields = 3
-    # target_fields = 3
-    # conditions_fields = 2
-    # snr_fields = 1
-    
+       
     
     fields = { "camera": 9, "telescope": 3, "filter": 3, "target": 4, "conditions": 2, "snr": 1 }
     total_fields = sum(fields.values())
@@ -73,12 +65,16 @@ class InputForm(FlaskForm):
     filter_high = FloatField('Filter High', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     filter_zero = FloatField('Zero Point Flux', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
-    # target parameters
+    # point source parameters
     star_dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     star_dia_solar = FloatField('Solar Diameter', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    
     pickle = StringField('Source')
+    
+    # extended source parameters
+    
+    
+   
     
     
     
