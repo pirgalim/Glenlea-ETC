@@ -13,6 +13,8 @@ import math
 
 import pyckles
 
+from spextra import SpecLibrary, Spextrum 
+
 
 
 # constants
@@ -80,7 +82,7 @@ class Calculator:
         self.star_dist = params["star_dist"]
         self.star_temp = params["star_temp"]
         self.star_dia_solar = 10000
-        self.pickle = params["point_src"]
+        self.spectra = params["point_src"]
         
         self.star_dist_m = self.star_dist * 9.461 * 10**15
         self.star_dia = 1.392 * 10**9*self.star_dia_solar
@@ -247,12 +249,32 @@ class Calculator:
         # plt.legend()
         # plt.grid(True)
         
-        spec_lib = pyckles.SpectralLibrary("pickles")
+        
+        
+        
+        
+        
+        
+        
+        # spec_lib = pyckles.SpectralLibrary("pickles")
 
         try:
-            spectra = spec_lib[self.pickle].data
-            wlnm = spectra["wavelength"]/10  # A to nm
-            P = spectra["flux"]
+            # spectra = spec_lib[self.pickle].data
+            # wlnm = spectra["wavelength"]/10  # A to nm
+            # P = spectra["flux"]
+            
+            lib = "pickles"
+            spectra = self.spectra
+
+            # NEEDS TO BE FORMATTED AS "[library]/[spectra]"
+            retrieve = lib + "/" + spectra
+            sp = Spextrum(retrieve)         
+            
+            wlA = np.array( sp.waveset )
+            flux = np.array( sp(wlA, flux_unit="PHOTLAM") )
+            
+            wlnm = wlA
+            P = flux
             
         except: 
             wl = np.linspace(1 * 10**(-8), 5 * 10**(-6), 10000)

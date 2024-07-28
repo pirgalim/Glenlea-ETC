@@ -5,8 +5,10 @@ from wtforms.validators import NumberRange, InputRequired
 import pyckles
 import numpy as np
 
+from spextra import SpecLibrary, Spextrum
 
-def pickles(): 
+
+def picklesOLD(): 
     
     # file = open("./static/presets/pickles.csv")
     presets = [('', 'Custom')]
@@ -28,6 +30,28 @@ def pickles():
     
     
     return presets
+
+
+
+def pickles():
+    
+    presets = [('', 'Custom')]
+    
+    lib = SpecLibrary("pickles")
+    contents = list(lib)
+    
+    
+    for val in contents:
+        presets.append( (val, val) )
+    
+    
+    return presets
+    
+    
+    
+
+
+
 
 
 def validate_filters():

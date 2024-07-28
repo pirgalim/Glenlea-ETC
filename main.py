@@ -4,8 +4,6 @@ import services.ETC as ETC
 import services.scrape_sqm as sqm
 from forms import InputForm, SelectForm
 
-import pyckles
-
 
 # Flask setup
 app = Flask(__name__)
