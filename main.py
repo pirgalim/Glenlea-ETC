@@ -55,11 +55,15 @@ def calculator():
             
             
             #TODO testing
-            print(data)
+            # print(data)
+            
+            params = process_input(data)
+            
+            
             
             
             # create parameter tuple to be sent to the calculator script
-            params = readInput(data)
+            # params = readInput(data)
                         
             # validate number of parameters
             if(params is None):
@@ -84,7 +88,7 @@ def calculator():
                     exposure = etc.calculateReqTime(1) #TODO what is the 1???
                     
                     # use this for file output
-                    print(params)
+                    # print(params) 
                     
                     # render output template
                     return render_template('output_v2.html', valid=valid, in_form=in_form, select_form=select_form,
@@ -160,6 +164,9 @@ def readInput(input: dict) -> list:
         None: length of parameters does not match what is expected
     """
     
+    
+    # print(input)
+    
     # data list
     data = []
     
@@ -181,6 +188,40 @@ def readInput(input: dict) -> list:
     return data
     
     
+    
+def process_input(input: dict) -> dict:
+    
+    print(len(input))
+    
+    params = {}
+    
+    for key in input:
+        
+        if key != "csrf_token" and key != "submit":
+            
+            try:
+               
+                params[key] = float( input[key] )
+                
+                
+            except:
+                params[key] = input[key]
+            
+            print(key, params[key])
+            
+    
+    print(params)
+    
+    return params
+    
+        
+    
+    
+    
+    
+    
+
+
     
 def pickles(): 
     

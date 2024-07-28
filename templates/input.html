@@ -319,7 +319,7 @@
 
                 <div class="block">
                     <!--form name="target" method="POST" action=""-->
-                        {{ select_form.csrf_token }}{{ select_form.target }}
+                        {{ select_form.csrf_token }}{{ select_form.point_src }}
                     <!--/form-->
                 </div>
                 <button type="button" class="collapsible">ⓘ info</button>
@@ -332,38 +332,23 @@
                 </div>
                 <div class="spacer-break"></div>
                 
-                <!--div class="block">
+                <div class="block">
                     {% if in_form.star_dist.errors %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
                     {% else %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist }}
                     {% endif %}
-                </div-->
-
-                <div class="block">
-                    {% if in_form.star_temp.errors %}
-                        {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp }}
-                    {% endif %}
                 </div>
 
                 <div class="block">
-                    {% if in_form.star_dia_solar.errors %}
-                        {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar(style="border-color: red;") }}
+                    {% if in_form.star_lum.errors %}
+                        {{ in_form.star_lum.label(type="autofill") }}{{ in_form.star_lum(style="border-color: red;") }}
                     {% else %}
-                        {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar }}
+                        {{ in_form.star_lum.label(type="autofill") }}{{ in_form.star_lum }}
                     {% endif %}
                 </div>
 
-                <div class="block">
-                    {% if in_form.pickle.errors %}
-                        {{ in_form.type.label(type="autofill", style="background-color:gray;") }}{{ in_form.pickle(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.pickle.label(type="autofill", style="background-color:gray;" ) }}{{ in_form.pickle(readonly=true) }}
-                    {% endif %}
-                </div><div class="spacer"></div><div class="spacer"></div>
-
+                
                 <script> 
                     document.getElementById('target').addEventListener('change', function() {
 
@@ -379,7 +364,7 @@
                             if( presets[i][0] == document.getElementById('target').value ) { preset = presets[i][1]; }
                         }
                         // autofill
-                        document.getElementById('star_temp').value = preset[0];
+                        document.getElementById('star_lum').value = preset[0];
 
                         // display source name
                         var e = document.getElementById('target');
@@ -414,29 +399,22 @@
                 <div class="spacer-break"></div>
                 
 
-                <div class="block">
+                <!-- div class="block">
                     {% if in_form.star_dist.errors %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
                     {% else %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist }}
                     {% endif %}
-                </div>
+                </div -->
 
                 <!--div class="block">
-                    {% if in_form.star_temp.errors %}
-                        {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp(style="border-color: red;") }}
+                    {% if in_form.star_lum.errors %}
+                        {{ in_form.star_lum.label(type="autofill") }}{{ in_form.star_lum(style="border-color: red;") }}
                     {% else %}
-                        {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp }}
+                        {{ in_form.star_lum.label(type="autofill") }}{{ in_form.star_lum }}
                     {% endif %}
                 </div>
 
-                <div class="block">
-                    {% if in_form.star_dia_solar.errors %}
-                        {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar }}
-                    {% endif %}
-                </div>
 
                 <div class="spacer"></div>
 
@@ -455,7 +433,7 @@
                             if( presets[i][0] == document.getElementById('target').value ) { preset = presets[i][1]; }
                         }
                         // autofill
-                        document.getElementById('star_temp').value = preset[0];
+                        document.getElementById('star_lum').value = preset[0];
                     });
                 </script-->
             </section>
@@ -482,30 +460,25 @@
                         
 
                         // readonly
-                        document.getElementById("star_dist").value = "x";
-                        document.getElementById('star_dist').readOnly = true;
-
-                        // reset
-                        //document.getElementById("star_dist").value = "";
-                        //document.getElementById('star_dist').readOnly = false;
-                        document.getElementById("star_temp").value = "";
-                        document.getElementById('star_temp').readOnly = false;
-                        document.getElementById("star_dia_solar").value = "";
-                        document.getElementById('star_dia_solar').readOnly = false;
-                    }
-                    else {
-
-                        //readonly
-                        //document.getElementById("star_dist").value = "";
-                        //document.getElementById('star_dist').readOnly = true;
-                        document.getElementById("star_temp").value = "";
-                        document.getElementById('star_temp').readOnly = true;
-                        document.getElementById("star_dia_solar").value = "";
-                        document.getElementById('star_dia_solar').readOnly = true;
+                        
 
                         // reset
                         document.getElementById("star_dist").value = "";
                         document.getElementById('star_dist').readOnly = false;
+                        document.getElementById("star_lum").value = "";
+                        document.getElementById('star_lum').readOnly = false;
+
+
+                    }
+                    else {
+
+                        //readonly
+                        document.getElementById("star_dist").value = "000";
+                        document.getElementById('star_dist').readOnly = true;
+                        document.getElementById("star_lum").value = "000";
+                        document.getElementById('star_lum').readOnly = true;
+
+                        // reset
                     }
                 }
 

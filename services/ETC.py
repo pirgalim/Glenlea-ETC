@@ -39,36 +39,36 @@ class Calculator:
     
     
     def __init__(self, params):
-               
+        
         
         #--- camera parameters ---#
-        self.sensor_X = int(params[0])  # cast to int for simpler calculation
-        self.sensor_Y = int(params[1])  # ...
-        self.pixel_size = params[2] * 10**(-6)
-        self.Q_efficiency = params[3]
-        self.read_noise = params[4]
-        self.gain = params[5]
-        self.sensor_offset = params[6]
-        self.dark_noise = params[7]
-        self.full_well = params[8]
+        self.sensor_X = int( params["sensor_x"] )  # cast to int for simpler calculation
+        self.sensor_Y = int(params["sensor_y"])  # ...
+        self.pixel_size = params["px_size"] * 10**(-6)
+        self.Q_efficiency = params["q_efficiency"]
+        self.read_noise = params["read_noise"]
+        self.gain = params["gain"]
+        self.sensor_offset = params["offset"]
+        self.dark_noise = params["dark_noise"]
+        self.full_well = params["full_well"]
         
         self.sensor_width = self.sensor_X * self.pixel_size
         self.sensor_height = self.sensor_Y * self.pixel_size
         
         
         #--- telescope parameters ---#
-        self.scope_dia = params[9]
-        self.scope_focal = params[10]
-        self.plate_scale = params[11]
+        self.scope_dia = params["scope_dia"]
+        self.scope_focal = params["scope_focal"]
+        self.plate_scale = params["plate_scale"]
         
         self.mirror_area = np.pi * (self.scope_dia/2) ** 2
         self.f_ratio = self.scope_focal/self.scope_dia
         
         
         #--- filter parameters ---#
-        self.filter_low = params[12] * 10**(-9)  #TODO something else here, check with Ryan
-        self.filter_high = params[13]  * 10**(-9)
-        self.filter_zero = params[14]
+        self.filter_low = params["filter_low"] * 10**(-9)  #TODO something else here, check with Ryan
+        self.filter_high = params["filter_high"]  * 10**(-9)
+        self.filter_zero = params["filter_zero"]
         
         self.filter_low_freq = C/self.filter_low
         self.filter_high_freq = C/self.filter_high
@@ -76,23 +76,82 @@ class Calculator:
         
         
         #--- target parameters
-        self.star_dist = params[15]
-        self.star_temp = params[16]
-        self.star_dia_solar = params[17]
-        self.pickle = params[18]
+        
+        self.star_dist = params["star_dist"]
+        self.star_temp = 10000
+        self.star_dia_solar = 10000
+        self.pickle = params["point_src"]
         
         self.star_dist_m = self.star_dist * 9.461 * 10**15
         self.star_dia = 1.392 * 10**9*self.star_dia_solar
         
         
         #--- conditions ---#
-        self.seeing_cond = params[18+1]
-        self.sky_bright = params[19+1]
+        self.seeing_cond = params["seeing"]
+        self.sky_bright = params["sqm"]
         self.seeing_pixel = self.seeing_cond/self.plate_scale
         
         
         #--- signal to noise ---#
-        self.snr = params[20]
+        self.snr = params["desired_snr"]
+        
+        
+        
+        
+               
+        
+        # #--- camera parameters ---#
+        # self.sensor_X = int(params[0])  # cast to int for simpler calculation
+        # self.sensor_Y = int(params[1])  # ...
+        # self.pixel_size = params[2] * 10**(-6)
+        # self.Q_efficiency = params[3]
+        # self.read_noise = params[4]
+        # self.gain = params[5]
+        # self.sensor_offset = params[6]
+        # self.dark_noise = params[7]
+        # self.full_well = params[8]
+        
+        # self.sensor_width = self.sensor_X * self.pixel_size
+        # self.sensor_height = self.sensor_Y * self.pixel_size
+        
+        
+        # #--- telescope parameters ---#
+        # self.scope_dia = params[9]
+        # self.scope_focal = params[10]
+        # self.plate_scale = params[11]
+        
+        # self.mirror_area = np.pi * (self.scope_dia/2) ** 2
+        # self.f_ratio = self.scope_focal/self.scope_dia
+        
+        
+        # #--- filter parameters ---#
+        # self.filter_low = params[12] * 10**(-9)  #TODO something else here, check with Ryan
+        # self.filter_high = params[13]  * 10**(-9)
+        # self.filter_zero = params[14]
+        
+        # self.filter_low_freq = C/self.filter_low
+        # self.filter_high_freq = C/self.filter_high
+        # self.filter_freq_band = self.filter_low_freq - self.filter_high_freq
+        
+        
+        # #--- target parameters
+        # self.star_dist = params[15]
+        # self.star_temp = params[16]
+        # self.star_dia_solar = params[17]
+        # self.pickle = params[18]
+        
+        # self.star_dist_m = self.star_dist * 9.461 * 10**15
+        # self.star_dia = 1.392 * 10**9*self.star_dia_solar
+        
+        
+        # #--- conditions ---#
+        # self.seeing_cond = params[18+1]
+        # self.sky_bright = params[19+1]
+        # self.seeing_pixel = self.seeing_cond/self.plate_scale
+        
+        
+        # #--- signal to noise ---#
+        # self.snr = params[20]
         
     
         
