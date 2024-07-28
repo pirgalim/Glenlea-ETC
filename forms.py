@@ -37,7 +37,7 @@ def validate_filters():
 class InputForm(FlaskForm):
        
     
-    fields = { "camera": 9, "telescope": 3, "filter": 3, "target-point": 2, "conditions": 2, "snr": 1 }
+    fields = { "camera": 9, "telescope": 3, "filter": 3, "target-point": 3, "conditions": 2, "snr": 1 }
     total_fields = sum(fields.values())
     
     # total field count
@@ -67,6 +67,7 @@ class InputForm(FlaskForm):
     # point source parameters
     star_dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     star_lum = FloatField('Luminosity', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     # hidden field?
     
     #extended source parameters

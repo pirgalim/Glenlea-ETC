@@ -78,7 +78,7 @@ class Calculator:
         #--- target parameters
         
         self.star_dist = params["star_dist"]
-        self.star_temp = 10000
+        self.star_temp = params["star_temp"]
         self.star_dia_solar = 10000
         self.pickle = params["point_src"]
         

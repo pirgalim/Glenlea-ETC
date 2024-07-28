@@ -348,9 +348,17 @@
                     {% endif %}
                 </div>
 
+                <div class="block">
+                    {% if in_form.star_temp.errors %}
+                        {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp }}
+                    {% endif %}
+                </div>
+
                 
                 <script> 
-                    document.getElementById('target').addEventListener('change', function() {
+                    document.getElementById('point_src').addEventListener('change', function() {
 
                         var presets = {{ target_presets|tojson }};
                         var size = presets[0][1].length;
@@ -361,13 +369,13 @@
 
                         // match the selection with a preset
                         for( let i = 0; i < presets.length; i++ ) {
-                            if( presets[i][0] == document.getElementById('target').value ) { preset = presets[i][1]; }
+                            if( presets[i][0] == document.getElementById('point_src').value ) { preset = presets[i][1]; }
                         }
                         // autofill
-                        document.getElementById('star_lum').value = preset[0];
+                        document.getElementById('star_temp').value = preset[0];
 
                         // display source name
-                        var e = document.getElementById('target');
+                        var e = document.getElementById('point_src');
                         var text = e.options[e.selectedIndex].text;
                         document.getElementById('pickle').value = text;
                     });
