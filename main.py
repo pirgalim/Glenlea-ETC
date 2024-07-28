@@ -150,66 +150,18 @@ def readPresets(file_name: str) -> list:
 
 
 
-# def readInput(input: dict) -> list:
-#     """
-#     Copies dictionary data into a list while omitting 'csrf_token' and 'submit' keys
+# TODO: add validation
 
-#     Args:
-#         input (dict): dictionary of data to be copied
-
-#     Returns:
-#         list: data from dictionary
-#         None: length of parameters does not match what is expected
-#     """
-    
-    
-#     # print(input)
-    
-#     # data list
-#     data = []
-    
-#     # read dict to data list
-#     for val in input.values():
-        
-#         # ignore non-data parameters
-#         if val != input["csrf_token"] and  val != input["submit"]:
-
-#             try:
-#                 data.append( float(val) )
-#             except:
-#                 data.append(val)
-
-#     # validate length of data list
-#     if len(data) != InputForm.total_fields: #TODO update this
-#         return None
-    
-#     return data
-    
-    
-    
 def process_input(input: dict) -> dict:
-    
-    print(len(input))
-    
+        
     params = {}
     
-    for key in input:
-        
+    for key in input: 
         if key != "csrf_token" and key != "submit":
-            
             try:
-               
                 params[key] = float( input[key] )
-                
-                
             except:
-                params[key] = input[key]
-            
-            print(key, params[key])
-            
-    
-    print(params)
-    
+                params[key] = input[key]   
     return params
     
         

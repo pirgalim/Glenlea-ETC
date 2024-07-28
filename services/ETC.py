@@ -265,6 +265,10 @@ class Calculator:
             
             lib = "pickles"
             spectra = self.spectra
+            
+            
+            lib = "nebulae"
+            spectra = "orion"
 
             # NEEDS TO BE FORMATTED AS "[library]/[spectra]"
             retrieve = lib + "/" + spectra

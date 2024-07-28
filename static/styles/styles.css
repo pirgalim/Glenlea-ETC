@@ -6,7 +6,6 @@ body {
 
 
 section {
-
   margin-bottom: 1rem;
   margin-left: auto;
   margin-right: auto;
@@ -19,18 +18,48 @@ section {
   padding: 12.5px;
   max-width: 1000px;
 
-  /* border: 2px solid rgb(120, 120, 120); */
   border: 2px solid dimgray;
-
-
   box-shadow: 0 0 20px black;
+}
+.container  {
+  min-width: 300px;
+  max-width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  padding: 12.5px;
+}
+.block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 12.5px;
+  width: 300px;
+}
+.spacer {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  margin-left: 12.5px;
+  margin-right: 12.5px;
+}
+.spacer-break {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* height: 20px; */
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 12.5px;
+  margin-bottom: 12.5px;
+  border-top: 1px dotted gray;
 }
 
 
 
 .collapsible {
  
-  /* color: lightgray; */
   display: flex;
   flex-direction: row;
   margin-left: auto;
@@ -39,10 +68,8 @@ section {
   width: 300px;
   height: 40px;
   justify-content: center;
-  /* align-items: center; */
   margin: 12.5px;
 
-  /* font-size: x-large; */
   background-color: transparent;
   cursor: pointer;
 }
@@ -64,57 +91,7 @@ section {
 
   color: white;
   background-color: #555;
-  /* display: flex; */
 }
-p {
-  padding: 0 25px;
-  line-height: 1.8;
-}
-
-
-
-
-
-
-
-.block {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 12.5px;
-  width: 300px;
-
-}
-.container  {
-  min-width: 300px;
-  max-width: 1000px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content:center;
-  padding: 12.5px;
-}
-
-
-.spacer {
-  display: flex;
-  flex-direction: row;
-  width: 300px;
-  margin-left: 12.5px;
-  margin-right: 12.5px;
-}
-.spacer-break {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  /* height: 20px; */
-  margin-left: 25px;
-  margin-right: 25px;
-  margin-top: 12.5px;
-  margin-bottom: 12.5px;
-  border-top: 1px dotted gray;
-}
-
 
 .tab {
   margin-top: 2rem;
@@ -138,14 +115,13 @@ p {
   justify-content:center;
   padding: 12.5px;
   vertical-align: middle;
-  /* animation: fadeEffect 1s; */
+
 }
 /* Fade in tabs */
 @-webkit-keyframes fadeEffect {
   from {opacity: 0;}
   to {opacity: 1;}
 }
-
 @keyframes fadeEffect {
   from {opacity: 0;}
   to {opacity: 1;}
@@ -182,25 +158,12 @@ button.tablinks {
   transition: 0.3s;
 }
 
-/* Change background color of buttons on hover */
-/* .tablinks:hover {
-  background-color: #ddd;
-  text-align: center;
-} */
-
 /* Create an active/current tablink class */
 .tablinks.active {
   background-color: #ccc;
   text-align: center;
   justify-content: center;
-  background-color: darkgoldenrod;
-  /* background-color: rgb(0,163,224); */
-
-  /* background-color: rgb(242,169,0); */
-  /* color: rgb(79,44,29); */
-
-  /* background-color: rgb(10,132,255); */
-  
+  background-color: darkgoldenrod;  
 }
 
 img {
@@ -209,19 +172,19 @@ img {
 
 
 
-.small-section {
+/* .small-section {
   display: flex;
 
   border-radius: 10px;
   padding: 20px;
-  /* margin: 0.5%; */
+  margin: 0.5%;
   width: 40%;
   height: 80%;
 
   margin-left: auto;
   margin-right: auto;
 
-}
+} */
 
 
 
@@ -237,6 +200,10 @@ h2 {
   align-items: center;
   width: 300px;
   height: 2.5rem;
+}
+p {
+  padding: 0 25px;
+  line-height: 1.8;
 }
 /* p {
   margin-left: 12.5px;
@@ -260,11 +227,8 @@ select {
   text-align-last: center;
 
   font-size: small;
-
-
   background-color: lightgray;
   border: 2px solid lightgray;
-
   /* box-shadow: 0 0 5px black; */
 
    /* Arrow */
@@ -280,7 +244,7 @@ select:hover {
 }
 
 
-label:not([type]) {
+/* label:not([type]) {
 
   margin: 10px 0px 10px 25px;
   padding: 10px 10px;
@@ -291,11 +255,12 @@ label:not([type]) {
   text-align: center;
   background-color: gray;
   border: 2px;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
   
-}
+} */
+
 label[type="autofill"] {
 
   white-space:nowrap;
@@ -305,14 +270,6 @@ label[type="autofill"] {
   width: 160px;  
   height: 20px;
   display: inline-block;
-
-  /* background-color: rgb(35,95,160); */
-  /* background-color: rgb(56,94,157); */
-  /* background-color: rgb(242,169,0); */
-  /* color: rgb(79,44,29); */
-  /* background-color: rgb(56,94,157); */
-  /* background-color: rgb(50,80,140); */
-
   background-color: slategray;
 
 
@@ -332,7 +289,6 @@ input {
   border: 2px solid whitesmoke;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
-
   font-size: medium;
 }
 
@@ -343,25 +299,19 @@ input[type="submit"], button {
   margin: 5px 0px 5px 25px;
   padding: 10px 10px;
   text-align: center;
-
   color: whitesmoke;
   background-color: gray;
   border: 2px;
   border-radius: 5px;
-  
   font-size: large;
 }
-
-
 input[type="submit"]:hover {
   opacity: 90%;
 }
 
 input[type=radio] { 
-
   width: 20px;  
   height: 20px;  
-  /* margin-right: 10px; */
 }
 
 form {
