@@ -471,20 +471,47 @@
                         
 
                         // reset
+                        document.getElementById("seeing-label").style.background = "slategray";
+                        document.getElementById("seeing").style.background = "white";
+                        document.getElementById("seeing").style.border = "white";
+                        document.getElementById("seeing").style.color = "black";
+
+                        document.getElementById("seeing").value = document.getElementById("conditions").value;
+                        document.getElementById('seeing').readOnly = false;
+                        document.getElementById('conditions').disabled = false;
+
+
                         document.getElementById("star_dist").value = "";
                         document.getElementById('star_dist').readOnly = false;
                         document.getElementById("star_lum").value = "";
                         document.getElementById('star_lum').readOnly = false;
+                        document.getElementById("star_temp").value = "";
+                        document.getElementById('star_temp').readOnly = false;
 
 
                     }
                     else {
 
+
+
+                        document.getElementById("seeing-label").style.background = "lightgray";
+                        document.getElementById("seeing").style.background = "lightgray";
+                        document.getElementById("seeing").style.border = "lightgray";
+                        document.getElementById("seeing").style.color = "lightgray";
+
+                        document.getElementById("seeing").value = "000";
+                        document.getElementById('seeing').readOnly = true;
+                        document.getElementById('conditions').disabled = true;
+
+
                         //readonly
+
                         document.getElementById("star_dist").value = "000";
                         document.getElementById('star_dist').readOnly = true;
                         document.getElementById("star_lum").value = "000";
                         document.getElementById('star_lum').readOnly = true;
+                        document.getElementById("star_temp").value = "000";
+                        document.getElementById('star_temp').readOnly = true;
 
                         // reset
                     }
@@ -517,9 +544,9 @@
 
                 <div class="block">
                     {% if in_form.seeing.errors %}
-                        {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing(style="border-color: red;") }}
+                        {{ in_form.seeing.label(type="autofill", id="seeing-label") }}{{ in_form.seeing(style="border-color: red;") }}
                     {% else %}
-                        {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing }}
+                        {{ in_form.seeing.label(type="autofill", id="seeing-label") }}{{ in_form.seeing }}
                     {% endif %}
                 </div>
 

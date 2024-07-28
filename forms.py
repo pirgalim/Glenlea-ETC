@@ -106,7 +106,7 @@ class InputForm(FlaskForm):
     
     
     # weather conditions
-    seeing = FloatField('Conditions', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    seeing = FloatField('Seeing', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     sqm = FloatField('Sky Quality', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     # desired signal to noise ratio
