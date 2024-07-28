@@ -31,7 +31,6 @@ def pickles():
 
 
 def validate_filters():
-    
     pass 
 
 
