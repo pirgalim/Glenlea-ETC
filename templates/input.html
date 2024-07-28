@@ -407,26 +407,34 @@
                 <div class="spacer-break"></div>
                 
 
-                <!-- div class="block">
+                <div class="block">
                     {% if in_form.star_dist.errors %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
                     {% else %}
                         {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist }}
                     {% endif %}
-                </div -->
+                </div>
 
-                <!--div class="block">
-                    {% if in_form.star_lum.errors %}
-                        {{ in_form.star_lum.label(type="autofill") }}{{ in_form.star_lum(style="border-color: red;") }}
+                <div class="block">
+                    {% if in_form.surf_brightness.errors %}
+                        {{ in_form.surf_brightness.label(type="autofill") }}{{ in_form.surf_brightness(style="border-color: red;") }}
                     {% else %}
-                        {{ in_form.star_lum.label(type="autofill") }}{{ in_form.star_lum }}
+                        {{ in_form.surf_brightness.label(type="autofill") }}{{ in_form.surf_brightness }}
+                    {% endif %}
+                </div>
+
+                <div class="block">
+                    {% if in_form.magnitude.errors %}
+                        {{ in_form.magnitude.label(type="autofill") }}{{ in_form.magnitude(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.magnitude.label(type="autofill") }}{{ in_form.magnitude }}
                     {% endif %}
                 </div>
 
 
                 <div class="spacer"></div>
 
-                <script> 
+                <!-- script> 
                     document.getElementById('target').addEventListener('change', function() {
 
                         var presets = {{ target_presets|tojson }};

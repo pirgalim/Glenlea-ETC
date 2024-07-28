@@ -88,13 +88,18 @@ class InputForm(FlaskForm):
     filter_high = FloatField('Filter High', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     filter_zero = FloatField('Zero Point Flux', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
+    # target parameters (point & extended)
+    star_dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    
     # point source parameters
     star_dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     star_lum = FloatField('Luminosity', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    # hidden field?
     
     #extended source parameters
+    surf_brightness = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    magnitude = FloatField('Magnitude', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    
    
     # pickle = StringField('Source')
     
