@@ -333,10 +333,10 @@
                 <div class="spacer-break"></div>
                 
                 <div class="block">
-                    {% if in_form.star_dist.errors %}
-                        {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
+                    {% if in_form.star_dist_p.errors %}
+                        {{ in_form.star_dist_p.label(type="autofill") }}{{ in_form.star_dist_p(style="border-color: red;") }}
                     {% else %}
-                        {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist }}
+                        {{ in_form.star_dist_p.label(type="autofill") }}{{ in_form.star_dist_p }}
                     {% endif %}
                 </div>
 
@@ -408,10 +408,10 @@
                 
 
                 <div class="block">
-                    {% if in_form.star_dist.errors %}
-                        {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist(style="border-color: red;") }}
+                    {% if in_form.star_dist_e.errors %}
+                        {{ in_form.star_dist_e.label(type="autofill") }}{{ in_form.star_dist_e(style="border-color: red;") }}
                     {% else %}
-                        {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist }}
+                        {{ in_form.star_dist_e.label(type="autofill") }}{{ in_form.star_dist_e }}
                     {% endif %}
                 </div>
 
@@ -476,10 +476,18 @@
                         
 
                         // readonly
+
+                        document.getElementById("surf_brightness").value = "000";
+                        document.getElementById('surf_brightness').readOnly = true;
+                        document.getElementById("magnitude").value = "000";
+                        document.getElementById('magnitude').readOnly = true;
+                        document.getElementById("star_dist_e").value = "000";
+                        document.getElementById('star_dist_e').readOnly = true;
                         
 
                         // reset
                         document.getElementById("seeing-label").style.background = "slategray";
+                        document.getElementById("seeing-label").style.color = "white";
                         document.getElementById("seeing").style.background = "white";
                         document.getElementById("seeing").style.border = "white";
                         document.getElementById("seeing").style.color = "black";
@@ -489,20 +497,23 @@
                         document.getElementById('conditions').disabled = false;
 
 
-                        document.getElementById("star_dist").value = "";
-                        document.getElementById('star_dist').readOnly = false;
+                        document.getElementById("star_dist_p").value = "";
+                        document.getElementById('star_dist_p').readOnly = false;
                         document.getElementById("star_lum").value = "";
                         document.getElementById('star_lum').readOnly = false;
                         document.getElementById("star_temp").value = "";
                         document.getElementById('star_temp').readOnly = false;
 
+                        document.getElementById('point_src').disabled = false;
+
 
                     }
                     else {
 
-
+                        //readonly
 
                         document.getElementById("seeing-label").style.background = "lightgray";
+                        document.getElementById("seeing-label").style.color = "darkgray";
                         document.getElementById("seeing").style.background = "lightgray";
                         document.getElementById("seeing").style.border = "lightgray";
                         document.getElementById("seeing").style.color = "lightgray";
@@ -511,17 +522,26 @@
                         document.getElementById('seeing').readOnly = true;
                         document.getElementById('conditions').disabled = true;
 
+                        document.getElementById('point_src').disabled = true;
 
-                        //readonly
+                        document.getElementById("star_dist_p").value = "000";
+                        document.getElementById('star_dist_p').readOnly = true;
 
-                        document.getElementById("star_dist").value = "000";
-                        document.getElementById('star_dist').readOnly = true;
+
                         document.getElementById("star_lum").value = "000";
                         document.getElementById('star_lum').readOnly = true;
                         document.getElementById("star_temp").value = "000";
                         document.getElementById('star_temp').readOnly = true;
 
                         // reset
+                        document.getElementById("surf_brightness").value = "";
+                        document.getElementById('surf_brightness').readOnly = false;
+                        document.getElementById("magnitude").value = "";
+                        document.getElementById('magnitude').readOnly = false;
+
+                        document.getElementById("star_dist_e").value = "";
+                        document.getElementById('star_dist_e').readOnly = false;
+                        
                     }
                 }
 

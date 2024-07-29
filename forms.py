@@ -88,15 +88,15 @@ class InputForm(FlaskForm):
     filter_high = FloatField('Filter High', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     filter_zero = FloatField('Zero Point Flux', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
-    # target parameters (point & extended)
-    star_dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+
     
     # point source parameters
-    star_dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    star_dist_p = FloatField('Distance Pt.', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     star_lum = FloatField('Luminosity', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     #extended source parameters
+    star_dist_e = FloatField('Distance Ext.', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     surf_brightness = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     magnitude = FloatField('Magnitude', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
