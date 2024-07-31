@@ -15,7 +15,7 @@ def calculator():
     
     
     #pickles
-    pickles()
+    # pickles()
     
     #TODO remove file after generating
     
@@ -25,9 +25,11 @@ def calculator():
     if os.path.exists("static/spread_counts.png"):
                 os.remove("static/spread_counts.png")
     
+    
     # create forms
     in_form = InputForm()
     select_form = SelectForm()
+    
     # Used for input validation message
     valid = True
       
@@ -98,8 +100,8 @@ def calculator():
                 else: 
                     # display error in HTML
                     return render_template('input.html', valid=False, in_form=in_form, select_form=select_form,
-                           camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
-                           gao_sqm=gao_sqm, error=error)
+                                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
+                                            gao_sqm=gao_sqm, error=error)
                 
         # An error message will be displayed in the HTML
         else: valid = False
@@ -150,6 +152,8 @@ def readPresets(file_name: str) -> list:
 
 
 
+
+
 # TODO: add validation
 
 def process_input(input: dict) -> dict:
@@ -165,6 +169,23 @@ def process_input(input: dict) -> dict:
                     params[key] = float( input[key] )
             except:
                 params[key] = input[key]   
+           
+                
+    # post condition
+    omit_counts = {"point": 3, "extended": 3}
+    count = 0
+    
+    for val in params.values():
+        
+        if val == "omit":
+            count += 1
+    
+    if omit_counts[ params["source_type"] ] != count:
+        
+        print("counted omits: ", count)
+        print("expected omits: ", omit_counts[ params["source_type"] ])
+        return None
+    
                 
     print(params)
     return params

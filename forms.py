@@ -8,28 +8,28 @@ import numpy as np
 from spextra import SpecLibrary, Spextrum
 
 
-def picklesOLD(): 
+# def picklesOLD(): 
     
-    # file = open("./static/presets/pickles.csv")
-    presets = [('', 'Custom')]
+#     # file = open("./static/presets/pickles.csv")
+#     presets = [('', 'Custom')]
     
-    # for line in file:    
-    #     csvs = line.strip().split(",")
-    #     presets.append( (csvs[0], csvs[1]) )
+#     # for line in file:    
+#     #     csvs = line.strip().split(",")
+#     #     presets.append( (csvs[0], csvs[1]) )
         
-    # file.close()
+#     # file.close()
     
-    spec_lib = pyckles.SpectralLibrary("pickles")
-    preset = np.asarray(spec_lib.available_spectra)
-    
-    
-    for val in preset:
-        presets.append( (val, val) )
-    
-    presets 
+#     spec_lib = pyckles.SpectralLibrary("pickles")
+#     preset = np.asarray(spec_lib.available_spectra)
     
     
-    return presets
+#     for val in preset:
+#         presets.append( (val, val) )
+    
+#     presets 
+    
+    
+#     return presets
 
 
 
@@ -40,19 +40,27 @@ def pickles():
     lib = SpecLibrary("pickles")
     contents = list(lib)
     
-    
     for val in contents:
         presets.append( (val, val) )
-    
     
     return presets
     
     
     
-
-
-
-
+def preset(name):
+    
+    presets = [('', 'Custom')]
+    
+    lib = SpecLibrary(name)
+    contents = list(lib)
+    
+    for val in contents:
+        presets.append( (val, val) )
+    
+    return presets
+    
+    
+    
 
 def validate_filters():
     pass 
@@ -129,9 +137,11 @@ class SelectForm(FlaskForm):
     telescope = SelectField('Select Telescope', choices=[('', 'Custom'), ('cdk350', 'PlaneWave CDK350 - FIX'), ('c8', 'Celestron C8')])
     filter = SelectField('Select Filter', choices=[('', 'Custom'), ('test', 'Test - narrower'), ('test2', 'Test - wider')])
     # target = SelectField('Select Target', choices=[('', 'Custom'), ('test', 'Test')])
-    point_src = SelectField('Select Target', choices=pickles())
+    
     conditions = SelectField('Select Conditions', choices=[('', 'Custom'), ('1', '1 (Poor)'), ('2', '2'), ('3', '3 (Average)'), ('4', '4'), ('5', '5 (Excellent)')])
     sky_bright = SelectField('Select Target', choices=[('', 'Custom'), ('goa', 'Current Glenlea Conditions')])
     
+    point_src = SelectField('Select Target', choices=preset("pickles"))
+    extended_src = SelectField('Select Target', choices=preset("brown"))
     
     
