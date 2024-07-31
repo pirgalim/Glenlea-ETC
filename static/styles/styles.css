@@ -320,7 +320,7 @@ form {
 
 
 
-@media only screen and (max-device-width: 600px){
+/* @media only screen and (max-device-width: 600px){
 
   section {
     margin-top: 1rem;
@@ -332,4 +332,4 @@ form {
     background-color: rgb(70, 70, 70);
     border-radius: 10px; 
   }
-}
+} */

@@ -77,9 +77,11 @@ class Calculator:
         self.filter_freq_band = self.filter_low_freq - self.filter_high_freq
         
         
-        #--- target parameters
         
-        self.star_dist = params["star_dist"]
+        #--- determine target type ---#
+        
+        #--- point source parameters ---#
+        self.star_dist = params["star_dist_p"]
         self.star_temp = params["star_temp"]
         self.star_dia_solar = 10000
         self.spectra = params["point_src"]
@@ -87,13 +89,21 @@ class Calculator:
         self.star_dist_m = self.star_dist * 9.461 * 10**15
         self.star_dia = 1.392 * 10**9*self.star_dia_solar
         
+        #--- conditions for point source only ---#
+        self.seeing_cond = params["seeing"]
         
-        #--- conditions ---#
+        
+        #--- extended source parameters ---#
+        self.surf_brightness = params["surf_brightness"]
+        self.magnitude = params["magnitude"]
+        
+        
+        #--- conditions for all ---#
         self.seeing_cond = params["seeing"]
         self.sky_bright = params["sqm"]
         self.seeing_pixel = self.seeing_cond/self.plate_scale
-        
-        
+    
+            
         #--- signal to noise ---#
         self.snr = params["desired_snr"]
         

@@ -159,7 +159,7 @@ def process_input(input: dict) -> dict:
     for key in input: 
         if key != "csrf_token" and key != "submit":
             try:   
-                if(input[key] == "000"):   
+                if(input[key] == "   01.  "):   
                     params[key] = "omit"
                 else:
                     params[key] = float( input[key] )

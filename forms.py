@@ -106,6 +106,7 @@ class InputForm(FlaskForm):
     # extended source parameters
     
     
+    source_type = StringField('Source Type')
    
     
     
