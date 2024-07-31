@@ -254,9 +254,9 @@
 
                 <div class="block"> 
                     {% if in_form.filter_low.errors or error == "Low filter pass cannot be greater than high filter pass"%}
-                        {{ in_form.filter_low.label(type="autofill") }}{{ in_form.filter_low(style="border-color: red;") }}
+                        {{ in_form.filter_low.label(type="autofill", id="filter_l-label") }}{{ in_form.filter_low(style="border-color: red;") }}
                     {% else %}
-                        {{ in_form.filter_low.label(type="autofill") }}{{ in_form.filter_low }}
+                        {{ in_form.filter_low.label(type="autofill", id="filter_l-label") }}{{ in_form.filter_low }}
                     {% endif %}
                 </div>
 
@@ -285,7 +285,7 @@
                         var size = presets[0][1].length;
 
                         // I should check if there is actually anything here first
-                        var preset = [size]
+                        var preset = [size];
 
                         for(let i = 0; i < size; i++) { preset[i] = ''; }
 
@@ -297,6 +297,17 @@
                         document.getElementById('filter_low').value = preset[0];
                         document.getElementById('filter_high').value = preset[1];
                         document.getElementById('filter_zero').value = preset[2];
+
+                        
+
+                        if(preset[0] == "") {
+                            document.getElementById("filter_l-label").style.background = "lightgray";
+                            document.getElementById("filter_l-label").style.color = "darkgray";
+                            document.getElementById("filter_low").style.background = "lightgray";
+                            document.getElementById("filter_low").style.border = "lightgray";
+                            document.getElementById("filter_low").style.color = "lightgray";
+                        }
+                        
                     });
                 </script>
 
