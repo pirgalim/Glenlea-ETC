@@ -323,7 +323,7 @@
             <div class="tab">
                     <div class="block" style="margin:0;">
                         <button class="tablinks" type="button" onclick="Tab(event, 'target-point')" id="defaultOpen" style="border-top-left-radius:5px;">Point Source</button>
-                        <button class="tablinks" type="button" onclick="Tab(event, 'target-extended')" style="border-top-right-radius:5px;">Extended Source</button> 
+                        <button class="tablinks" type="button" onclick="Tab(event, 'target-extended')" id="defaultClose" style="border-top-right-radius:5px;">Extended Source</button> 
                         {{ in_form.source_type(readonly=true, style="display:none") }}
                     </div>
                     <div class="spacer"></div><div class="spacer"></div>
@@ -349,21 +349,7 @@
                 </div>
                 <div class="spacer-break"></div>
                 
-                <!--div class="block">
-                    {% if in_form.star_dist_p.errors %}
-                        {{ in_form.star_dist_p.label(type="autofill") }}{{ in_form.star_dist_p(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.star_dist_p.label(type="autofill") }}{{ in_form.star_dist_p }}
-                    {% endif %}
-                </div-->
-
-                <!--div class="block">
-                    {% if in_form.star_lum.errors %}
-                        {{ in_form.star_lum.label(type="autofill") }}{{ in_form.star_lum(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.star_lum.label(type="autofill") }}{{ in_form.star_lum }}
-                    {% endif %}
-                </div-->
+              
 
                 <div class="block">
                     {% if in_form.star_ab_mag.errors %}
@@ -378,11 +364,18 @@
                         {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp(style="border-color: red;") }}
                     {% else %}
                         {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp }}
-                    {% endif %}
+                    {% endif %}             
                 </div>
 
-                <div class="spacer"></div>
+                <!--div class="block">
+                    {% if in_form.display_point.errors %}
+                        {{ in_form.display_point.label(type="autofill", style="background-color:gray") }}{{ in_form.display_point(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.display_point.label(type="autofill", style="background-color:gray") }}{{ in_form.display_point }}
+                    {% endif %}
+                </div-->
 
+                <div class="spacer"></div>
                 
                 <script> 
                     document.getElementById('point_src').addEventListener('change', function() {
@@ -440,13 +433,6 @@
                     {% endif %}
                 </div>
 
-                <!--div class="block">
-                    {% if in_form.surf_brightness.errors %}
-                        {{ in_form.surf_brightness.label(type="autofill") }}{{ in_form.surf_brightness(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.surf_brightness.label(type="autofill") }}{{ in_form.surf_brightness }}
-                    {% endif %}
-                </div-->
 
                 <div class="block">
                     {% if in_form.ext_mag.errors %}
@@ -507,8 +493,7 @@
                         document.getElementById('source_type').value = "point";
 
                         // readonly
-                        //document.getElementById("surf_brightness").value = "   01.  "; 
-                        //document.getElementById('surf_brightness').readOnly = true;
+
                         document.getElementById("ext_mag").value = "   01.  ";
                         document.getElementById('ext_mag').readOnly = true;
                         document.getElementById("star_dist_e").value = "   01.  ";
@@ -527,10 +512,6 @@
                         document.getElementById('conditions').disabled = false;
 
 
-                        //document.getElementById("star_dist_p").value = "";
-                        //document.getElementById('star_dist_p').readOnly = false;
-                        //document.getElementById("star_lum").value = "";
-                        //document.getElementById('star_lum').readOnly = false;
                         document.getElementById("star_temp").value = "";
                         document.getElementById('star_temp').readOnly = false;
                         document.getElementById("star_ab_mag").value = "";
@@ -558,10 +539,7 @@
 
                         document.getElementById('point_src').disabled = true;
 
-                        //document.getElementById("star_dist_p").value = "   01.  ";
-                        //document.getElementById('star_dist_p').readOnly = true;
-                        //document.getElementById("star_lum").value = "   01.  ";
-                        //document.getElementById('star_lum').readOnly = true;
+             
                         document.getElementById("star_temp").value = "   01.  ";
                         document.getElementById('star_temp').readOnly = true;
                         document.getElementById("star_ab_mag").value = "   01.  ";
@@ -569,8 +547,7 @@
                         
 
                         // reset
-                        //document.getElementById("surf_brightness").value = "";
-                        //document.getElementById('surf_brightness').readOnly = false;
+    
                         document.getElementById("ext_mag").value = "";
                         document.getElementById('ext_mag').readOnly = false;
                         document.getElementById("star_dist_e").value = "";

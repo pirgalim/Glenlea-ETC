@@ -26,7 +26,7 @@ def preset(name):
 class InputForm(FlaskForm):
        
     
-    fields = { "camera": 9, "telescope": 3, "filter": 3, "target-point": 3, "conditions": 2, "snr": 1 }
+    fields = { "camera": 9, "telescope": 3, "filter": 3, "point": 2, "extended": 2, "conditions": 2, "snr": 1 }
     total_fields = sum(fields.values())
     
     # total field count
@@ -58,8 +58,8 @@ class InputForm(FlaskForm):
     # point source parameters
     
     #TODO remove
-    star_dist_p = FloatField('Distance Pt.', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    star_lum = FloatField('Luminosity', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    # star_dist_p = FloatField('Distance Pt.', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    # star_lum = FloatField('Luminosity', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     # keep
     star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
@@ -70,13 +70,14 @@ class InputForm(FlaskForm):
     #extended source parameters
     
    #TODO remove
-    surf_brightness = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    # surf_brightness = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=0, max=100000)])
 
     # keep
     star_dist_e = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     ext_mag = FloatField('Magnitude', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     
+    display_point = StringField('Source')
     
     
     

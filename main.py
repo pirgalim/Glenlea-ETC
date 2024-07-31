@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import os
-import services.ETC as ETC
+import testing.ETC as ETC
 import services.scrape_sqm as sqm
 from forms import InputForm, SelectForm
 
@@ -8,6 +8,11 @@ from forms import InputForm, SelectForm
 # Flask setup
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
+
+
+
+OMIT_KEY = "   01.  "
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -79,13 +84,17 @@ def calculator():
                 if error == None:
                 
                     # plot... TODO
-                    etc.plot_light_curve_SB()
+                    # etc.plot_light_curve_SB()
+                    
+                    
+                    # TODO
+                    etc.calc_counts()
                     
                     # output values displayed in HTML
-                    peak, minimum = etc.aperture()    
-                    fov = int( etc.computeFOV() )            
-                    counts = etc.countsPerSecond()
-                    exposure = etc.calculateReqTime(1) #TODO what is the 1???
+                    # peak, minimum = etc.aperture()    
+                    # fov = int( etc.computeFOV() )            
+                    # counts = etc.countsPerSecond()
+                    # exposure = etc.calculateReqTime(1) #TODO what is the 1???
                     
                     # use this for file output
                     # print(params) 
@@ -94,8 +103,8 @@ def calculator():
                     return render_template('output_v2.html', valid=valid, in_form=in_form, select_form=select_form,
                                             camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets, 
                                             gao_sqm=gao_sqm,
-                                            SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",
-                                            fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure, error=None)
+                                            SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",)
+                                            #fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure, error=None)
                 
                 else: 
                     # display error in HTML
@@ -163,7 +172,7 @@ def process_input(input: dict) -> dict:
     for key in input: 
         if key != "csrf_token" and key != "submit":
             try:   
-                if(input[key] == "   01.  "):   
+                if(input[key] == OMIT_KEY):   
                     params[key] = "omit"
                 else:
                     params[key] = float( input[key] )
@@ -172,7 +181,17 @@ def process_input(input: dict) -> dict:
            
                 
     # post condition
+    
+    source_name = params["source_type"]
+    
     omit_counts = {"point": 3, "extended": 3}
+    
+    
+    omit_count = InputForm.fields[source_name]
+    
+    # omit_counts[source_name]
+     
+    
     count = 0
     
     for val in params.values():
@@ -180,14 +199,17 @@ def process_input(input: dict) -> dict:
         if val == "omit":
             count += 1
     
-    if omit_counts[ params["source_type"] ] != count:
+    if omit_count != count:
         
         print("counted omits: ", count)
-        print("expected omits: ", omit_counts[ params["source_type"] ])
+        print("expected omits: ", omit_count)
         return None
     
                 
     print(params)
+    print("counted omits: ", count)
+    print("expected omits: ", omit_count)
+    
     return params
     
         
