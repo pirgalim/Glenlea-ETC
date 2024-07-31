@@ -7,44 +7,6 @@ import numpy as np
 
 from spextra import SpecLibrary, Spextrum
 
-
-# def picklesOLD(): 
-    
-#     # file = open("./static/presets/pickles.csv")
-#     presets = [('', 'Custom')]
-    
-#     # for line in file:    
-#     #     csvs = line.strip().split(",")
-#     #     presets.append( (csvs[0], csvs[1]) )
-        
-#     # file.close()
-    
-#     spec_lib = pyckles.SpectralLibrary("pickles")
-#     preset = np.asarray(spec_lib.available_spectra)
-    
-    
-#     for val in preset:
-#         presets.append( (val, val) )
-    
-#     presets 
-    
-    
-#     return presets
-
-
-
-def pickles():
-    
-    presets = [('', 'Custom')]
-    
-    lib = SpecLibrary("pickles")
-    contents = list(lib)
-    
-    for val in contents:
-        presets.append( (val, val) )
-    
-    return presets
-    
     
     
 def preset(name):
@@ -60,11 +22,6 @@ def preset(name):
     return presets
     
     
-    
-
-def validate_filters():
-    pass 
-
 
 class InputForm(FlaskForm):
        
@@ -99,26 +56,34 @@ class InputForm(FlaskForm):
 
     
     # point source parameters
+    
+    #TODO remove
     star_dist_p = FloatField('Distance Pt.', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     star_lum = FloatField('Luminosity', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    
+    # keep
     star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    star_ab_mag = FloatField('AB Magnitude', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    
+    
     
     #extended source parameters
-    star_dist_e = FloatField('Distance Ext.', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    
+   #TODO remove
     surf_brightness = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    magnitude = FloatField('Magnitude', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    
-   
-    # pickle = StringField('Source')
-    
-    # extended source parameters
+
+    # keep
+    star_dist_e = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    ext_mag = FloatField('Magnitude', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     
+    
+    
+    
+    # track type of source
     source_type = StringField('Source Type')
    
-    
-    
-    
+
     # weather conditions
     seeing = FloatField('Seeing', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     sqm = FloatField('Sky Quality', validators=[InputRequired(), NumberRange(min=0, max=100000)])
@@ -135,13 +100,13 @@ class SelectForm(FlaskForm):
     
     camera = SelectField('Select Camera', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM'), ('asi533mm', 'ASI533MM')])
     telescope = SelectField('Select Telescope', choices=[('', 'Custom'), ('cdk350', 'PlaneWave CDK350 - FIX'), ('c8', 'Celestron C8')])
-    filter = SelectField('Select Filter', choices=[('', 'Custom'), ('test', 'Test - narrower'), ('test2', 'Test - wider')])
-    # target = SelectField('Select Target', choices=[('', 'Custom'), ('test', 'Test')])
-    
+    filter = SelectField('Select Filter', choices=[('', 'Custom'), ('test', 'Test - narrower'), ('test2', 'Test - wider'), ('f', 'f - spextra')] )    
     conditions = SelectField('Select Conditions', choices=[('', 'Custom'), ('1', '1 (Poor)'), ('2', '2'), ('3', '3 (Average)'), ('4', '4'), ('5', '5 (Excellent)')])
     sky_bright = SelectField('Select Target', choices=[('', 'Custom'), ('goa', 'Current Glenlea Conditions')])
     
     point_src = SelectField('Select Target', choices=preset("pickles"))
     extended_src = SelectField('Select Target', choices=preset("brown"))
+    
+    
     
     
