@@ -1,11 +1,10 @@
 from spextra import Spextrum, SpecLibrary, Passband
 
 import matplotlib
-matplotlib.use('agg')   # very important for Flask, matplot does not work otherwise
+# matplotlib.use('agg')   # very important for Flask, matplot does not work otherwise
 import matplotlib.pyplot as plt
 
 import astropy.units as u
-
 
 
 def blackBody(starTemp,starMag,mirrorArea,filterName):
