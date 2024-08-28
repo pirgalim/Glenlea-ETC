@@ -1,11 +1,16 @@
 from spextra import Spextrum, SpecLibrary, Passband
 
 import matplotlib
-# matplotlib.use('agg')   # very important for Flask, matplot does not work otherwise
+matplotlib.use('agg')   # very important for Flask, matplot does not work otherwise
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 import numpy as np
 import astropy.units as u
+
+
+from testing.observation import Observation
+
 
 
 def blackBody(starTemp,starMag,mirrorArea,filterName):
@@ -25,6 +30,8 @@ def blackBody(starTemp,starMag,mirrorArea,filterName):
     # Plot filter transmission curve and black body spectrum
 
     fig, ax1 = plt.subplots()
+    
+    
 
     ax1.set_xlabel('Wavelength (Å)')
     ax1.set_ylabel('Flux (photons/sec/cm^2/Å)')
@@ -90,6 +97,7 @@ def stellarSpec(starClass,starMag,mirrorArea,filterName):
     plt.grid(True) 
     plt.show()
 
+    plt.savefig('static/plot_light_curve_SB.png')
 
     return starPhotons.value
 
@@ -208,3 +216,55 @@ def generateBG(sensorX, sensorY, skyMag, filterName, mirrorArea, sensorGain, sen
                 bgValues[x,y] = bgPhotons.value*sensorGain*sensorQE*pixelArea
 
         return bgValues
+    
+    
+    
+    
+
+
+
+
+
+
+
+def aperture(obs: Observation, final_sensor_array):
+        
+        x = int(obs.sensor_X)
+        y = int(obs.sensor_Y)
+        # counts = obs.countsPerSecond()
+        
+        # test_exposure = 1 
+        # signal_values = obs.spreadCounts(x,y,counts,obs.seeing_pixel,test_exposure)
+        # noise_values= obs.generateNoise(x,y,obs.dark_noise,obs.read_noise,obs.sensor_offset,test_exposure)
+        # bg_values = obs.generateBG(x,y,obs.sky_bright,obs.filter_zero,obs.mirror_area,obs.gain,obs.filter_low,obs.filter_high,obs.Q_efficiency,obs.filter_freq_band,test_exposure)
+        # final_sensor_array = obs.overfullCheck(signal_values+noise_values+bg_values,obs.full_well)
+        
+        # global bgValues
+        # bgValues = bg_values
+        
+        
+        
+        
+        #GENERATE APERTURE FOR MEASURING SNR
+        aperture_rad = obs.seeing_pixel*0.67
+        aperture_center = (x/2,y/2)
+        aperture_num_pixels = np.pi*aperture_rad**2
+        
+        global apertureNumPixels
+        apertureNumPixels = aperture_num_pixels
+        
+        aperture_circle = patches.Circle(aperture_center,radius=aperture_rad, edgecolor = 'red', facecolor = 'none', linewidth = 1)
+        plt.figure(figsize=(8, 6))
+        plt.text(aperture_center[0]+8,aperture_center[1]+8, 'Measurement Aperture', verticalalignment='center',color='red')
+        plt.imshow(final_sensor_array, cmap='gray', interpolation='nearest',vmin = 0)
+        plt.gca().add_patch(aperture_circle)
+        plt.colorbar(label='Counts')
+        plt.title('Spread of Counts over Sensor')
+        plt.xlabel('Number of pixels (X)')
+        plt.ylabel('Number of pixels (Y)')
+        plt.xlim(0,x)
+        plt.ylim(0,y)
+        plt.gca().set_aspect('equal')
+        plt.savefig('static/spread_counts.png')
+        
+        return ( int(np.max(final_sensor_array)), int(np.min(final_sensor_array)) )  

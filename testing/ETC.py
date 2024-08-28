@@ -1,7 +1,16 @@
-import counts as cts
-from observation import Observation
+import testing.counts as cts
+from testing.observation import Observation
 
 import numpy as np
+
+def validate(obs: Observation):
+        
+        if obs.filter_high < obs.filter_low:
+            
+            return "Low filter pass cannot be greater than high filter pass"
+        
+        else: return None
+
 
 
 def calc_counts(obs: Observation):
@@ -254,3 +263,9 @@ def generateBG_TEST(obs: Observation):
     #         return cts.extSpec(obs.source, obs.library, obs.ext_mag, obs.mirror_area, obs.filter_name)*obs.Q_efficiency*obs.pixel_area
             
     #     else: print("source error when finding counts")   
+    
+    
+    
+    
+    
+

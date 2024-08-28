@@ -3,9 +3,13 @@ import os
 import services.ETC as ETC
 
 import testing.etc as etc
+import testing.counts as cts
+import testing.observation as observation
 
 import services.scrape_sqm as sqm
 from forms import InputForm, SelectForm
+
+import numpy as np
 
 
 # Flask setup
@@ -79,9 +83,12 @@ def calculator():
             
             else:
                 # create instances of the calculator script classes
-                etc = ETC.Calculator(params)
-    
-                error = etc.validate()
+                # etc = ETC.Calculator(params)
+                # error = etc.validate()
+                
+                obs = observation.Observation(params)
+                
+                error = etc.validate(obs)
                 
                 # validate some parameters                
                 if error == None:
@@ -89,9 +96,27 @@ def calculator():
                     # plot... TODO
                     # etc.plot_light_curve_SB()
                     
+                    test_exposure = 1   # seconds
+         
+                    counts = etc.calc_counts(obs)
                     
-                    # TODO
-                    etc.calc_counts()
+                    signal_values = etc.spreadCounts(obs, counts, 1)
+                    noise_values = etc.generateNoise(obs ,test_exposure)
+                    bg_values = etc.generateBG_TEST(obs)
+                    
+                    final_sensor_array = etc.overfullCheck(signal_values+noise_values+bg_values, obs)
+                    peak_cts = np.max(final_sensor_array)
+                    min_cts = np.min(final_sensor_array)
+                    
+                    SNR_ref = etc.get_snr_ref(counts, test_exposure, bg_values, obs)
+                    print(SNR_ref)
+
+                    exposure_time = etc.calculateReqTime(1050, SNR_ref, test_exposure, counts, obs, bg_values)
+                    print(exposure_time)
+                    
+                    
+                    cts.aperture(obs, final_sensor_array)
+
                     
                     # output values displayed in HTML
                     # peak, minimum = etc.aperture()    
@@ -104,9 +129,10 @@ def calculator():
                     
                     # render output template
                     return render_template('output_v2.html', valid=valid, in_form=in_form, select_form=select_form,
-                                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets, 
-                                            gao_sqm=gao_sqm,
-                                            SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",)
+                                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets,
+                                            target_presets=target_presets, gao_sqm=gao_sqm,
+                                            SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png", 
+                                            counts=counts, exposure=exposure_time, peak=peak_cts, minimum=min_cts)
                                             #fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure, error=None)
                 
                 else: 
