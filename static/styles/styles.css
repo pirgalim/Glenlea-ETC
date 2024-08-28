@@ -73,11 +73,9 @@ section {
   background-color: transparent;
   cursor: pointer;
 }
-
 .active, .collapsible:hover {
   background-color: #555;
 }
-
 .col-content {
   margin-left: 25px;
   margin-right: 25px;

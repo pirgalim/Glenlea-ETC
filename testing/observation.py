@@ -6,10 +6,13 @@ KB = scipy.constants.Boltzmann
 H = scipy.constants.Planck
 C = scipy.constants.c
 
+import astropy.units as u
+
+
 
 class Observation:
     
-    # these should be manually adjusted if any changes to the number of input fields are made
+    # these should be manually adjusted if any changes are made to the number of input fields
     fields = { "camera": 9, "telescope": 3, "filter": 3, "point": 2, "extended": 2, "conditions": 2, "snr": 1 }
        
     @classmethod
@@ -23,14 +26,19 @@ class Observation:
         if param in self.fields: 
             return self.fields[param]
         
+        
     
-    def __init__(self, params):
+    
+        
+    
+    
+    def __init__(self, params: dict):
         
         
         #--- camera parameters ---#
         self.sensor_X = int( params["sensor_x"] )
         self.sensor_Y = int( params["sensor_y"] )
-        self.pixel_size = params["px_size"] * 10**(-6) #TODO: why?
+        self.pixel_size = params["px_size"] * 10**(-6)
         self.Q_efficiency = params["q_efficiency"]
         self.read_noise = params["read_noise"]
         self.gain = params["gain"]
@@ -44,7 +52,7 @@ class Observation:
         
         
         #--- telescope parameters ---#
-        self.scope_dia = params["scope_dia"]
+        self.scope_dia = params["scope_dia"]*u.m #telescope diameter in metres
         self.scope_focal = params["scope_focal"]
         self.plate_scale = params["plate_scale"]
         
@@ -55,10 +63,11 @@ class Observation:
         
         #--- filter parameters ---#
         
-        self.filter_name = 'g'
+        self.filter_name = 'g' 
+        # TODO:
         
-        self.filter_low = params["filter_low"] * 10**(-9)  #TODO something else here, check with Ryan
-        self.filter_high = params["filter_high"]  * 10**(-9)
+        self.filter_low = params["filter_low"] * 1*10**(-9)  #TODO something else here, check with Ryan
+        self.filter_high = params["filter_high"]  * 1*10**(-9)
         self.filter_zero = params["filter_zero"]
         
         self.filter_low_freq = C/self.filter_low
@@ -92,7 +101,9 @@ class Observation:
             self.ext_mag = params["ext_mag"]
         
         # invalid source
-        else: print("source error when determining target")
+        else: 
+            print("source error when determining target")
+            # TODO: default black body?
         
                
         
@@ -104,6 +115,13 @@ class Observation:
             
         #--- signal to noise ---#
         self.snr = params["desired_snr"]
+        
+  
+        
+        #GENERATE APERTURE FOR MEASURING SNR
+        self.aperture_rad = self.seeing_pixel*0.67
+        self.aperture_center = (self.sensor_X/2,self.sensor_Y/2)
+        self.aperture_num_pixels = np.pi*self.aperture_rad**2
         
         
         
@@ -119,19 +137,3 @@ class Observation:
         else: return None          
                 
                 
-            
-    # def calc_counts(self):
-                
-    #     if self.type == "point":
-                        
-    #         try:
-    #             return cts.stellarSpec(self.source, self.ab_mag, self.mirror_area, self.filter_name)*self.Q_efficiency
-    #         except:
-    #             print("Unable to find source. Defaulting to black body.")
-    #             return cts.blackBody(self.star_temp, self.ab_mag, self.mirror_area,self.filter_name)*self.Q_efficiency
-        
-    #     elif self.type == "extended":
-            
-    #         return cts.extSpec(self.source, self.library, self.ext_mag, self.mirror_area, self.filter_name)*self.Q_efficiency*self.pixel_area
-            
-    #     else: print("source error when finding counts")   

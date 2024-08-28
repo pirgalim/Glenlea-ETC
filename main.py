@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request
 import os
-import testing.ETC as ETC
+import services.ETC as ETC
+
+import testing.etc as etc
+
 import services.scrape_sqm as sqm
 from forms import InputForm, SelectForm
 
@@ -77,7 +80,7 @@ def calculator():
             else:
                 # create instances of the calculator script classes
                 etc = ETC.Calculator(params)
-                
+    
                 error = etc.validate()
                 
                 # validate some parameters                
