@@ -89,6 +89,7 @@ class Observation:
     
     
             self.seeing_cond = params["seeing"]
+            self.seeing_pixel = self.seeing_cond/self.plate_scale
         
         
         # extended sources
@@ -99,6 +100,10 @@ class Observation:
             
             self.dist = params["dist"]
             self.ext_mag = params["ext_mag"]
+            
+            
+            
+            self.seeing_pixel = 5/self.plate_scale
         
         # invalid source
         else: 
@@ -108,9 +113,9 @@ class Observation:
                
         
         #--- conditions ---#
-        self.seeing_cond = params["seeing"] # doesn't affect extended sources
+        # self.seeing_cond = params["seeing"] # doesn't affect extended sources
         self.sky_bright = params["sqm"]
-        self.seeing_pixel = self.seeing_cond/self.plate_scale
+        # self.seeing_pixel = self.seeing_cond/self.plate_scale
     
             
         #--- signal to noise ---#
@@ -137,3 +142,19 @@ class Observation:
         else: return None          
                 
                 
+
+
+    def computeFOV(self) -> float:
+        """
+        Compute FOV using focal length, pixel size and sensor dimensions
+
+        Returns:
+            float: FOV area in arcseconds
+        """
+        
+        # 206265 is the radian to arcsecond conversion factor
+        FOV_width = 206265 * self.sensor_width * (1/self.scope_focal) 
+        FOV_height = 206265 * self.sensor_height * (1/self.scope_focal)
+
+        return FOV_width * FOV_height
+    

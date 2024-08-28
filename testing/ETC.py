@@ -119,7 +119,7 @@ def overfullCheck(arrayTest, obs: Observation):
     
     elif obsType == "extended": # Extended Source
 
-        if arrayTest > fullWell:
+        if arrayTest.all() > fullWell:
             arrayTest = fullWell
 
         return arrayTest

@@ -71,6 +71,8 @@ def calculator():
             
             params = process_input(data)
             
+            print("----------\nmain section:\n-------------")
+            print(params)
             
             
             
@@ -109,45 +111,38 @@ def calculator():
                     min_cts = np.min(final_sensor_array)
                     
                     SNR_ref = etc.get_snr_ref(counts, test_exposure, bg_values, obs)
-                    print(SNR_ref)
-
+                    
                     exposure_time = etc.calculateReqTime(1050, SNR_ref, test_exposure, counts, obs, bg_values)
-                    print(exposure_time)
+
                     
                     
                     cts.aperture(obs, final_sensor_array)
-
+                    fov = obs.computeFOV()
                     
-                    # output values displayed in HTML
-                    # peak, minimum = etc.aperture()    
-                    # fov = int( etc.computeFOV() )            
-                    # counts = etc.countsPerSecond()
-                    # exposure = etc.calculateReqTime(1) #TODO what is the 1???
-                    
-                    # use this for file output
-                    # print(params) 
+                   
                     
                     # render output template
                     return render_template('output_v2.html', valid=valid, in_form=in_form, select_form=select_form,
                                             camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets,
                                             target_presets=target_presets, gao_sqm=gao_sqm,
                                             SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png", 
-                                            counts=counts, exposure=exposure_time, peak=peak_cts, minimum=min_cts)
+                                            counts=counts, exposure=exposure_time, peak=peak_cts, minimum=min_cts, fov=fov)
                                             #fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure, error=None)
                 
                 else: 
                     # display error in HTML
                     return render_template('input.html', valid=False, in_form=in_form, select_form=select_form,
-                                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
-                                            gao_sqm=gao_sqm, error=error)
+                                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets,
+                                            target_presets=target_presets, gao_sqm=gao_sqm, error=error)
                 
         # An error message will be displayed in the HTML
         else: valid = False
                 
     # render HTML to be displayed
     return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
-                           camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
-                           gao_sqm=gao_sqm, error="Invalid Parameter(s) Below - Must Be Numeric (0 - 100,000)")
+                           camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, 
+                           target_presets=target_presets,gao_sqm=gao_sqm, 
+                           error="Invalid Parameter(s) Below - Must Be Numeric (0 - 100,000)")
 
 
 
@@ -202,6 +197,8 @@ def process_input(input: dict) -> dict:
         if key != "csrf_token" and key != "submit":
             try:   
                 if(input[key] == OMIT_KEY):   
+                    print("omitted")
+                    print(key)
                     params[key] = "omit"
                 else:
                     params[key] = float( input[key] )

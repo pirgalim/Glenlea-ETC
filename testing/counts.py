@@ -52,6 +52,8 @@ def blackBody(starTemp,starMag,mirrorArea,filterName):
     ax1.legend(plots,labels,loc='best')
     plt.grid(True) 
     plt.show()
+    
+    plt.savefig('static/plot_light_curve_SB.png')
 
     return starPhotons.value
 
@@ -145,6 +147,7 @@ def extSpec(extClass,extLib,extMag,mirrorArea,filterName):
     plt.grid(True) 
     plt.show()
 
+    plt.savefig('static/plot_light_curve_SB.png')
 
     return extPhotons.value
 

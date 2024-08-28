@@ -377,7 +377,7 @@
 
                 <div class="spacer"></div>
                 
-                <script> 
+                <!--script> 
                     document.getElementById('point_src').addEventListener('change', function() {
 
                         var presets = {{ target_presets|tojson }};
@@ -399,7 +399,7 @@
                         var text = e.options[e.selectedIndex].text;
                         document.getElementById('pickle').value = text;
                     });
-                </script>
+                </script-->
             </section>
 
             <!-- target-extended section -->
@@ -426,10 +426,10 @@
                 
 
                 <div class="block">
-                    {% if in_form.star_dist_e.errors %}
-                        {{ in_form.star_dist_e.label(type="autofill") }}{{ in_form.star_dist_e(style="border-color: red;") }}
+                    {% if in_form.dist.errors %}
+                        {{ in_form.dist.label(type="autofill") }}{{ in_form.dist(style="border-color: red;") }}
                     {% else %}
-                        {{ in_form.star_dist_e.label(type="autofill") }}{{ in_form.star_dist_e }}
+                        {{ in_form.dist.label(type="autofill") }}{{ in_form.dist }}
                     {% endif %}
                 </div>
 
@@ -445,7 +445,7 @@
 
                 <div class="spacer"></div>
 
-                <script> 
+                <!--script> 
                     document.getElementById('extended_src').addEventListener('change', function() {
 
                         var presets = {{ target_presets|tojson }};
@@ -467,7 +467,7 @@
                         //var text = e.options[e.selectedIndex].text;
                         //document.getElementById('pickle').value = text;
                     });
-                </script>
+                </script-->
             </section>
 
 
@@ -496,8 +496,8 @@
 
                         document.getElementById("ext_mag").value = "   01.  ";
                         document.getElementById('ext_mag').readOnly = true;
-                        document.getElementById("star_dist_e").value = "   01.  ";
-                        document.getElementById('star_dist_e').readOnly = true;
+                        document.getElementById("dist").value = "   01.  ";
+                        document.getElementById('dist').readOnly = true;
                         
 
                         // reset
@@ -550,8 +550,8 @@
     
                         document.getElementById("ext_mag").value = "";
                         document.getElementById('ext_mag').readOnly = false;
-                        document.getElementById("star_dist_e").value = "";
-                        document.getElementById('star_dist_e').readOnly = false;
+                        document.getElementById("dist").value = "";
+                        document.getElementById('dist').readOnly = false;
                         
                     }
                 }

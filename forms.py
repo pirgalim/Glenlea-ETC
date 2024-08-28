@@ -26,7 +26,7 @@ def preset(name):
 class InputForm(FlaskForm):
        
     
-    fields = { "camera": 9, "telescope": 3, "filter": 3, "point": 2, "extended": 2, "conditions": 2, "snr": 1 }
+    fields = { "camera": 9, "telescope": 3, "filter": 3, "point": 2, "extended": 3, "conditions": 2, "snr": 1 }
     total_fields = sum(fields.values())
     
     # total field count
@@ -73,7 +73,7 @@ class InputForm(FlaskForm):
     # surf_brightness = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=0, max=100000)])
 
     # keep
-    star_dist_e = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     ext_mag = FloatField('Magnitude', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     
