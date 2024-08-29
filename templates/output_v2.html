@@ -11,24 +11,68 @@
 <section class="container">
     <h2>Plot Spectrum</h2>
     <img src={{SB_url}} style="left-margin:25px;">
-    <p> The field of view area is {{fov}} arcseconds</p>
-    <p> The sensor reports {{counts}} counts per second from the star *FIX*</p>
+
+    
     
 </section>
 
 <section class="container">
-    <h2>Aperture for Calculating SNR</h2>
-    <p> The peak number of counts in the simulated image is: {{peak}} </p>
-    <p> The minimum number of counts in the simulated image is: {{minimum}} </p>
+
+    <h2>More Details</h2>
+    <h3> The field of view area is {{fov}} arcseconds</h3>
+    <h3> The sensor reports {{counts}} counts per second from the source</h3>
+    <h3> The peak number of counts in the simulated image is: {{peak}} </h3>
+    <h3> The minimum number of counts in the simulated image is: {{minimum}} </h3>
     <!--img src={{counts_url}} style="left-margin:25px;"-->
 
-    <p>{{params}}</p>
+
+    <!--table>
+        
+        {%for key in params%}
+        <tr>
+            <td class="col-md-2">{{ key }}: {{ params[key] }}</td>
+        </tr>
+        {% endfor %}
+        
+    </table-->
+
+
+    
+
+
+
+
+
+</section>
+
+<section class="container">
+
+    <h2>Submitted Parameters</h2>
+    <table>
+        <thead>
+            <tr>
+                <th class="col-md-2">Parameter</th>
+                <th class="col-md-2">Value</th>
+            </tr>
+        </thead>
+
+
+        {% for key, value in params.items() %}
+
+            <tr>
+                <td class="col-md-2">{{ key }}</td>
+                <td class="col-md-2">{{ value }}</td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
 </section>
 
 
 <!-- download and reset buttons -->
 <section class="container">
-    <input type="submit" onclick="prepare()" value="Download" style="background-color:darkgoldenrod">
+    <input type="submit" onclick="print()" value="Download" style="background-color:darkgoldenrod">
 
     <script>
         function prepare() {
