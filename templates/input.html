@@ -424,6 +424,13 @@
 
                 <div class="spacer-break"></div>
                 
+                <div class="block">
+                    {% if in_form.ext_mag.errors %}
+                        {{ in_form.ext_mag.label(type="autofill") }}{{ in_form.ext_mag(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.ext_mag.label(type="autofill") }}{{ in_form.ext_mag }}
+                    {% endif %}
+                </div>
 
                 <div class="block">
                     {% if in_form.dist.errors %}
@@ -434,13 +441,7 @@
                 </div>
 
 
-                <div class="block">
-                    {% if in_form.ext_mag.errors %}
-                        {{ in_form.ext_mag.label(type="autofill") }}{{ in_form.ext_mag(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.ext_mag.label(type="autofill") }}{{ in_form.ext_mag }}
-                    {% endif %}
-                </div>
+                
 
 
                 <div class="spacer"></div>
@@ -520,6 +521,8 @@
 
                         document.getElementById('point_src').disabled = false;
 
+                        document.getElementById('extended_src').required = false;
+
 
                     }
                     else {
@@ -553,6 +556,8 @@
                         document.getElementById('ext_mag').readOnly = false;
                         document.getElementById("dist").value = "";
                         document.getElementById('dist').readOnly = false;
+
+                        document.getElementById('extended_src').required = true;
                         
                     }
                 }         
@@ -627,7 +632,14 @@
             <!-- SNR section -->
             <section name="snr" class="container">
 
-                <h2 class="block">Signal to Noise</h2><div class="spacer"></div>
+                <h2 class="block">Signal to Noise</h2>
+                <!--div class="spacer"></div-->
+
+                <div class="block">
+                    <!--form name="target" method="POST" action=""-->
+                        {{ select_form.csrf_token }}{{ select_form.suggested_snr }}
+                    <!--/form-->
+                </div>
 
                 <button type="button" class="collapsible">ⓘ info</button>
                 <div class="col-content">

@@ -108,8 +108,9 @@ class SelectForm(FlaskForm):
     sky_bright = SelectField('Select Target', choices=[('', 'Custom'), ('goa', 'Current Glenlea Conditions')])
     
     point_src = SelectField('Select Target', choices=preset("pickles"))
-    extended_src = SelectField('Select Target', choices=preset("brown"), validators=[InputRequired()])
+    extended_src = SelectField('Select Target', choices=preset("brown")) # validators=[InputRequired()]
     
-    
+    suggested_snr = SelectField('Select Camera', choices=[('', 'Custom'), ('A', '20'), ('B', '50'), ('C', '200')])
+
     
     
