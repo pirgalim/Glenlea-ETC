@@ -213,7 +213,12 @@ def calculateReqTime(desiredSNR, snrRef, expRef, counts, obs: Observation, bg_va
 
 
         print("The calculated exposure time is: ", currentTime)
-        return currentTime           
+        
+        
+        exposure_time = "The required exposure time is {:.4f} seconds".format(currentTime)
+        
+        
+        return exposure_time           
             
             
             

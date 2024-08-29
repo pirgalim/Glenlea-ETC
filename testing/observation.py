@@ -101,9 +101,7 @@ class Observation:
             self.dist = params["dist"]
             self.ext_mag = params["ext_mag"]
             
-            
-            
-            self.seeing_pixel = 5/self.plate_scale
+            self.seeing_pixel = 1
         
         # invalid source
         else: 
@@ -127,9 +125,7 @@ class Observation:
         self.aperture_rad = self.seeing_pixel*0.67
         self.aperture_center = (self.sensor_X/2,self.sensor_Y/2)
         self.aperture_num_pixels = np.pi*self.aperture_rad**2
-        
-        
-        
+        #TODO: change to 1 px for this ^
         
         
         

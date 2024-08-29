@@ -14,7 +14,7 @@
 
 
        
-
+        
 
 
 
@@ -507,8 +507,9 @@
                         document.getElementById("seeing").style.border = "white";
                         document.getElementById("seeing").style.color = "black";
 
-                        document.getElementById("seeing").value = document.getElementById("conditions").value;
+                        //document.getElementById("seeing").value = document.getElementById("conditions").value;
                         document.getElementById('seeing').readOnly = false;
+                        document.getElementById("seeing").value = "";
                         document.getElementById('conditions').disabled = false;
 
 
@@ -554,9 +555,10 @@
                         document.getElementById('dist').readOnly = false;
                         
                     }
-                }
+                }         
 
                 document.getElementById("defaultOpen").click();
+                
                 
             </script>
             
@@ -654,9 +656,15 @@
             <!-- submit form -->
             <section id="submission" class="container">
                 {{ in_form.submit(style="background-color: teal") }} 
+
+
+                
             </section>
+
+            
           
 
+            
 
 
             <script>
@@ -678,6 +686,16 @@
             
         </form>        
 
+
+
+        <section style="text-align: center">
+            <form class="button" id="clear_all" method = "GET", action="">
+                <input type="submit" value="Reset" style="background-color: maroon">
+            </form>
+        </section>
+
     </div>
+
+
 
 {% endblock input %}
