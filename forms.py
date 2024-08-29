@@ -17,7 +17,9 @@ def preset(name):
     contents = list(lib)
     
     for val in contents:
-        presets.append( (val, val) )
+        
+        if '-' not in val and '+' not in val:
+            presets.append( (val, val) )
     
     return presets
     
@@ -106,7 +108,7 @@ class SelectForm(FlaskForm):
     sky_bright = SelectField('Select Target', choices=[('', 'Custom'), ('goa', 'Current Glenlea Conditions')])
     
     point_src = SelectField('Select Target', choices=preset("pickles"))
-    extended_src = SelectField('Select Target', choices=preset("brown"))
+    extended_src = SelectField('Select Target', choices=preset("brown"), validators=[InputRequired()])
     
     
     
