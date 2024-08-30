@@ -90,7 +90,8 @@ def calculator():
                 
                 obs = observation.Observation(params)
                 
-                error = etc.validate(obs)
+                # error = etc.validate(obs)
+                error = None #TODO
                 
                 # validate some parameters                
                 if error == None:

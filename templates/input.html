@@ -173,9 +173,9 @@
                 <button type="button" class="collapsible">ⓘ info</button>
                 <div class="col-content">
                     <p>
-                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
-                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
-                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
+                        <b>Diameter (m)</b> - Telescope diameter<br>
+                        <b>Focal Length (m)</b> - Telescope focal length<br> 
+                        <b>Plate Scale (arcsecond/pixel)</b> -  Arcseconds covered per pixel in the detector<br>
                     </p>
                 </div>
                 <div class="spacer-break"></div>
@@ -245,71 +245,12 @@
                 <button type="button" class="collapsible">ⓘ info</button>
                 <div class="col-content">
                     <p>
-                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
-                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
-                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
+                        Follow the link for more details: <a href="https://spextra.readthedocs.io/en/latest/filters.html" style="color:white">Spextra docs</a><br>
                     </p>
+
+                   
                 </div>
                 <div class="spacer-break"></div>
-
-                <div class="block"> 
-                    {% if in_form.filter_low.errors or error == "Low filter pass cannot be greater than high filter pass"%}
-                        {{ in_form.filter_low.label(type="autofill", id="filter_l-label") }}{{ in_form.filter_low(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.filter_low.label(type="autofill", id="filter_l-label") }}{{ in_form.filter_low }}
-                    {% endif %}
-                </div>
-
-                <div class="block"> 
-                    {% if in_form.filter_high.errors or error == "Low filter pass cannot be greater than high filter pass" %}
-                        {{ in_form.filter_high.label(type="autofill") }}{{ in_form.filter_high(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.filter_high.label(type="autofill") }}{{ in_form.filter_high }}
-                    {% endif %}
-                </div>
-
-                <div class="block"> 
-                    {% if in_form.filter_zero.errors %}
-                        {{ in_form.filter_zero.label(type="autofill") }}{{ in_form.filter_zero(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.filter_zero.label(type="autofill") }}{{ in_form.filter_zero }}
-                    {% endif %}
-                </div>
-
-                <div class="spacer"></div>
-                
-                <script> 
-                    document.getElementById('filter').addEventListener('change', function() {
-
-                        var presets = {{ filter_presets|tojson }};
-                        var size = presets[0][1].length;
-
-                        // I should check if there is actually anything here first
-                        var preset = [size];
-
-                        for(let i = 0; i < size; i++) { preset[i] = ''; }
-
-                        // match the selection with a preset
-                        for( let i = 0; i < presets.length; i++ ) {
-                            if( presets[i][0] == document.getElementById('filter').value ) { preset = presets[i][1]; }
-                        }
-
-                        document.getElementById('filter_low').value = preset[0];
-                        document.getElementById('filter_high').value = preset[1];
-                        document.getElementById('filter_zero').value = preset[2];
-
-                        
-
-                        if(preset[0] == "") {
-                            document.getElementById("filter_l-label").style.background = "lightgray";
-                            document.getElementById("filter_l-label").style.color = "darkgray";
-                            document.getElementById("filter_low").style.background = "lightgray";
-                            document.getElementById("filter_low").style.border = "lightgray";
-                            document.getElementById("filter_low").style.color = "lightgray";
-                        }
-                        
-                    });
-                </script>
 
             </section>
 
@@ -418,7 +359,7 @@
                     <p>
                         <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
                         <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
-                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
+                        <b>Plate Scale (arcsecond/pixel)</b> -  size of an individual pixel of the camera sensor<br>
                     </p>
                 </div>
 
@@ -662,6 +603,15 @@
                     {% endif %}
 
                 </div><div class="spacer"></div><div class="spacer"></div>
+
+
+                <script> 
+                    document.getElementById('suggested_snr').addEventListener('change', function() {
+
+                        var selectedOption = this.value;
+                        document.getElementById('desired_snr').value = selectedOption;
+                    });
+                </script>
 
             </section>
 

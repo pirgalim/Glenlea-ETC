@@ -3,13 +3,13 @@ from testing.observation import Observation
 
 import numpy as np
 
-def validate(obs: Observation):
+# def validate(obs: Observation):
         
-        if obs.filter_high < obs.filter_low:
+#         if obs.filter_high < obs.filter_low:
             
-            return "Low filter pass cannot be greater than high filter pass"
+#             return "Low filter pass cannot be greater than high filter pass"
         
-        else: return None
+#         else: return None
 
 
 
@@ -135,17 +135,17 @@ def computeSNR(obs: Observation, exposureTime, counts, bg_values):
     
     # change this to accept obs later, then counts will do the assigning variables part
     
-    sensor_X = obs.sensor_X
-    sensor_Y = obs.sensor_Y
-    sky_bright = obs.sky_bright
-    filter_zero = obs.filter_zero
-    mirror_area = obs.mirror_area
-    gain = obs.gain
-    filter_low = obs.filter_low
-    filter_high = obs.filter_high
-    Q_efficiency = obs.Q_efficiency
-    filter_freq_band = obs.filter_freq_band
-    obs_type = obs.type
+    # sensor_X = obs.sensor_X
+    # sensor_Y = obs.sensor_Y
+    # sky_bright = obs.sky_bright
+    # filter_zero = obs.filter_zero
+    # mirror_area = obs.mirror_area
+    # gain = obs.gain
+    # filter_low = obs.filter_low
+    # filter_high = obs.filter_high
+    # Q_efficiency = obs.Q_efficiency
+    # filter_freq_band = obs.filter_freq_band
+    # obs_type = obs.type
     readNoise = obs.read_noise
     darkNoise = obs.dark_noise
     

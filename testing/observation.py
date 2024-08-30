@@ -63,16 +63,17 @@ class Observation:
         
         #--- filter parameters ---#
         
-        self.filter_name = 'g' 
+        # self.filter_name = 'g' 
+        self.filter_name = params['filter']
         # TODO:
         
-        self.filter_low = params["filter_low"] * 1*10**(-9)  #TODO something else here, check with Ryan
-        self.filter_high = params["filter_high"]  * 1*10**(-9)
-        self.filter_zero = params["filter_zero"]
+        # self.filter_low = params["filter_low"] * 1*10**(-9)  #TODO something else here, check with Ryan
+        # self.filter_high = params["filter_high"]  * 1*10**(-9)
+        # self.filter_zero = params["filter_zero"]
         
-        self.filter_low_freq = C/self.filter_low
-        self.filter_high_freq = C/self.filter_high
-        self.filter_freq_band = self.filter_low_freq - self.filter_high_freq
+        # self.filter_low_freq = C/self.filter_low
+        # self.filter_high_freq = C/self.filter_high
+        # self.filter_freq_band = self.filter_low_freq - self.filter_high_freq
         
         
         
@@ -129,13 +130,13 @@ class Observation:
         
         
         
-    def validate(self):
+    # def validate(self):
 
-        if self.filter_high < self.filter_low:
+    #     if self.filter_high < self.filter_low:
             
-            return "Low filter pass cannot be greater than high filter pass"
+    #         return "Low filter pass cannot be greater than high filter pass"
         
-        else: return None          
+    #     else: return None          
                 
                 
 

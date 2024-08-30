@@ -7,6 +7,7 @@ import numpy as np
 
 from spextra import SpecLibrary, Spextrum
 
+from spextra import DEFAULT_DATA
     
     
 def preset(name):
@@ -22,6 +23,22 @@ def preset(name):
             presets.append( (val, val) )
     
     return presets
+
+
+
+def filters():
+    
+    filters = [('', 'Required')]
+    
+    
+    contents = DEFAULT_DATA.filters
+    
+    for val in contents:
+        
+        if '-' not in val and '+' not in val:
+            filters.append( (val, val) )
+    
+    return filters
     
     
 
@@ -51,9 +68,9 @@ class InputForm(FlaskForm):
     plate_scale = FloatField('Plate Scale', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
     # filter parameters
-    filter_low = FloatField('Filter Low', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    filter_high = FloatField('Filter High', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    filter_zero = FloatField('Zero Point Flux', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    # filter_low = FloatField('Filter Low', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    # filter_high = FloatField('Filter High', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    # filter_zero = FloatField('Zero Point Flux', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
 
     
@@ -102,15 +119,15 @@ class InputForm(FlaskForm):
 class SelectForm(FlaskForm):
     
     camera = SelectField('Select Camera', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM'), ('asi533mm', 'ASI533MM')])
-    telescope = SelectField('Select Telescope', choices=[('', 'Custom'), ('cdk350', 'PlaneWave CDK350 - FIX'), ('c8', 'Celestron C8')])
-    filter = SelectField('Select Filter', choices=[('', 'Custom'), ('test', 'Test - narrower'), ('test2', 'Test - wider'), ('f', 'f - spextra')] )    
-    conditions = SelectField('Select Conditions', choices=[('', 'Custom'), ('1', '1 (Poor)'), ('2', '2'), ('3', '3 (Average)'), ('4', '4'), ('5', '5 (Excellent)')])
+    telescope = SelectField('Select Telescope', choices=[('', 'Custom'), ('cdk350', 'AG Optical FA12 12.5" Harmer Wynne - FIX'), ('c8', 'Celestron C8')])
+    filter = SelectField('Select Filter', choices=filters(), validators=[InputRequired()] )    
+    conditions = SelectField('Select Conditions', choices=[('', 'Custom'), ('0.5', '0.5 (Excellent)'), ('1', '1') , ('2', '2'), ('3', '3 (Average)'), ('4', '4'), ('5', '5'), ('6', '6 (Poor)')])
     sky_bright = SelectField('Select Target', choices=[('', 'Custom'), ('goa', 'Current Glenlea Conditions')])
     
     point_src = SelectField('Select Target', choices=preset("pickles"))
     extended_src = SelectField('Select Target', choices=preset("brown")) # validators=[InputRequired()]
     
-    suggested_snr = SelectField('Select Camera', choices=[('', 'Custom'), ('20', '20'), ('50', '50'), ('200', '200')])
+    suggested_snr = SelectField('Select SNR', choices=[('', 'Custom'), ('100', '100'), ('200', '200'), ('500', '500'), ('1000', '1000')])
 
     
     
