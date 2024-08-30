@@ -118,8 +118,9 @@ def calculator():
                     min_cts = np.min(final_sensor_array)
                     
                     SNR_ref = etc.get_snr_ref(counts, test_exposure, bg_values, obs)
+                    print("The SNR of the reference image is: ", SNR_ref)   
                     
-                    exposure_time = etc.calculateReqTime(1050, SNR_ref, test_exposure, counts, obs, bg_values)
+                    exposure_time = etc.calculateReqTime(obs.snr, SNR_ref, test_exposure, counts, obs, bg_values)
 
                     # exposure_time = "The exposure time is {x:.2f}".format(x=exposure_time)
                     

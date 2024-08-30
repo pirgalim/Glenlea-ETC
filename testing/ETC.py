@@ -208,7 +208,7 @@ def calculateReqTime(desiredSNR, snrRef, expRef, counts, obs: Observation, bg_va
             currentTime = expRef*(desiredSNR/currentSNR)**2
             currentSNR = computeSNR(obs, currentTime, counts, bg_values)
             expRef = currentTime
-            print("SNR is now: ",currentSNR)
+            print("SNR is now: ", currentSNR)
             
 
 
