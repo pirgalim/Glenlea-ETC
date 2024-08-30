@@ -107,9 +107,15 @@ def stellarSpec(starClass,starMag,mirrorArea,filterName):
 
 
 
-def extSpec(extClass,extLib,extMag,mirrorArea,filterName):
+def extSpec(extClass,extLib,extMag, dist, mirrorArea,filterName):
 
-    extSpec = Spextrum(extLib+"/"+extClass).scale_to_magnitude(amplitude = extMag*u.ABmag, filter_curve=filterName)
+
+    import math
+    mag = extMag + 5 * math.log10(dist/10)
+
+    # extSpec = Spextrum(extLib+"/"+extClass).scale_to_magnitude(amplitude = extMag*u.ABmag, filter_curve=filterName)
+    
+    extSpec = Spextrum(extLib+"/"+extClass).scale_to_magnitude(amplitude = mag*u.ABmag, filter_curve=filterName)
 
     extPhotons = extSpec.photons_in_range(area=mirrorArea,filter_curve=filterName)
 

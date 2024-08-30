@@ -29,7 +29,7 @@ def calc_counts(obs: Observation):
         
     elif obs.type == "extended":
         
-        return cts.extSpec(obs.source, obs.library, obs.ext_mag, obs.mirror_area, obs.filter_name)*obs.Q_efficiency*obs.pixel_area
+        return cts.extSpec(obs.source, obs.library, obs.ext_mag, obs.dist, obs.mirror_area, obs.filter_name)*obs.Q_efficiency*obs.pixel_area
         
     else: print("source error when finding counts")   
         
