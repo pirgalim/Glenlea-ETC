@@ -132,7 +132,7 @@ class InputForm(FlaskForm):
 class SelectForm(FlaskForm):
     
     camera = SelectField('Select Camera', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM'), ('asi533mm', 'ASI533MM')])
-    telescope = SelectField('Select Telescope', choices=[('', 'Custom'), ('cdk350', 'AG Optical FA12 12.5" Harmer Wynne - FIX'), ('c8', 'Celestron C8')])
+    telescope = SelectField('Select Telescope', choices=[('', 'Custom'), ('cdk350', 'AG Optical FA12 12.5" H. Wynne'), ('c8', 'Celestron C8')])
     filter = SelectField('Select Filter', choices=filtersNew(), validators=[InputRequired()] )    
     conditions = SelectField('Select Conditions', choices=[('', 'Custom'), ('0.5', '0.5 (Excellent)'), ('1', '1') , ('2', '2'), ('3', '3 (Average)'), ('4', '4'), ('5', '5'), ('6', '6 (Poor)')])
     sky_bright = SelectField('Select Target', choices=[('', 'Custom'), ('goa', 'Current Glenlea Conditions')])

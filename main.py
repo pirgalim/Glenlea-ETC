@@ -108,6 +108,12 @@ def calculator():
                     bg_values = etc.generateBG_TEST(obs)
                     
                     final_sensor_array = etc.overfullCheck(signal_values+noise_values+bg_values, obs)
+                    
+                    print("signal values array: ", signal_values)
+                    print("noise values array: ", noise_values)
+                    print("bg values array: ", bg_values)
+                    print("final sensor array: ", final_sensor_array)
+                    
                     peak_cts = np.max(final_sensor_array)
                     min_cts = np.min(final_sensor_array)
                     
@@ -122,6 +128,19 @@ def calculator():
                     fov = obs.computeFOV()
                     
                     
+                    # rounding
+                    
+                    try:
+                        counts = round(counts)
+                        peak_cts = round(peak_cts)
+                        min_cts = round(min_cts)
+                        fov = round(fov)
+                    except:
+                        pass
+                    
+                    
+                    
+                    # table formatting
                     table_1a = []
                     table_1b = []
                     table_2a = []
