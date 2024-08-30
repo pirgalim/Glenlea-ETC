@@ -99,7 +99,7 @@ def calculator():
                     # plot... TODO
                     # etc.plot_light_curve_SB()
                     
-                    test_exposure = 100000  # seconds
+                    test_exposure = 1  # seconds
          
                     counts = etc.calc_counts(obs)
                     

@@ -195,7 +195,7 @@ def calculateReqTime(desiredSNR, snrRef, expRef, counts, obs: Observation, bg_va
     
     # maxSNR = computeSNR(maxTime, counts, obs.aperture)
     
-    maxSNR = computeSNR(obs, expRef, counts, bg_values)
+    maxSNR = computeSNR(obs, maxTime, counts, bg_values)
     
     currentSNR = snrRef
 
