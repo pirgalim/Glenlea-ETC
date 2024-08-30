@@ -120,6 +120,22 @@ def calculator():
                     # cts.aperture(obs, final_sensor_array)
                     fov = obs.computeFOV()
                     
+                    
+                    table_1a = []
+                    table_1b = []
+                    table_2a = []
+                    table_2b = []
+                    
+                    i = 0
+                    for key in params:  
+                        if i % 2 == 0:
+                            table_1a.append(key)
+                            table_1b.append(params[key]) 
+                        else:
+                            table_2a.append(key)
+                            table_2b.append(params[key]) 
+                        i += 1
+                                                               
                    
                     
                     # render output template
@@ -127,7 +143,8 @@ def calculator():
                                             camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets,
                                             target_presets=target_presets, gao_sqm=gao_sqm,
                                             SB_url="static/plot_light_curve_SB.png", 
-                                            counts=counts, exposure=exposure_time, peak=peak_cts, minimum=min_cts, fov=fov, params=params)
+                                            counts=counts, exposure=exposure_time, peak=peak_cts, minimum=min_cts, fov=fov, 
+                                            col1a=table_1a, col1b=table_1b, col2a=table_2a, col2b=table_2b)
                                             #fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure, error=None)
                                             # counts_url="static/spread_counts.png"
                 

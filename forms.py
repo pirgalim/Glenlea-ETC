@@ -110,7 +110,7 @@ class SelectForm(FlaskForm):
     point_src = SelectField('Select Target', choices=preset("pickles"))
     extended_src = SelectField('Select Target', choices=preset("brown")) # validators=[InputRequired()]
     
-    suggested_snr = SelectField('Select Camera', choices=[('', 'Custom'), ('A', '20'), ('B', '50'), ('C', '200')])
+    suggested_snr = SelectField('Select Camera', choices=[('', 'Custom'), ('20', '20'), ('50', '50'), ('200', '200')])
 
     
     

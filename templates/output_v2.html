@@ -53,18 +53,26 @@
             <tr>
                 <th class="col-md-2">Parameter</th>
                 <th class="col-md-2">Value</th>
+                <th class="col-md-2">Parameter</th>
+                <th class="col-md-2">Value</th>
             </tr>
         </thead>
 
 
-        {% for key, value in params.items() %}
+      
+        {% for i in range( col1a|length ) %}
+           
+        <tr>
+            <td class="col-md-2">{{ col1a[i] }}</td>
+            <td class="col-md-2">{{ col1b[i] }}</td>
+            <td class="col-md-2">{{ col2a[i] }}</td>
+            <td class="col-md-2">{{ col2b[i] }}</td>
+        </tr>
 
-            <tr>
-                <td class="col-md-2">{{ key }}</td>
-                <td class="col-md-2">{{ value }}</td>
-            </tr>
 
         {% endfor %}
+
+    
     </table>
 
 </section>
@@ -72,7 +80,7 @@
 
 <!-- download and reset buttons -->
 <section class="container">
-    <input type="submit" onclick="print()" value="Download" style="background-color:darkgoldenrod">
+    <input type="submit" onclick="prepare()" value="Download" style="background-color:darkgoldenrod">
 
     <script>
         function prepare() {
