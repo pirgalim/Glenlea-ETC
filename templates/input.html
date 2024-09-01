@@ -344,7 +344,6 @@
                 </script-->
 
 
-                <script type="text/javascript" src="{{ url_for('static', filename='tempToggle.js') }}"></script>
             </section>
 
             <!-- target-extended section -->
@@ -474,27 +473,7 @@
 
                         // disable temperature
 
-                        document.getElementById('point_src').addEventListener('change', function() {
-
-                            var selectedOption = this.value;
-
-                            alert("ran");
-
-                            if(selectedOption != 'Blackbody') {
-
-                                alert("change");
-                                document.getElementById("star_temp-label").style.background = "lightgray";
-                                document.getElementById("star_temp-label").style.color = "darkgray";
-                                document.getElementById("star_temp").style.background = "lightgray";
-                                document.getElementById("star_temp").style.border = "lightgray";
-                                document.getElementById("star_temp").style.color = "lightgray";
-
-                                document.getElementById("star_temp").value = "   01.  ";
-                                document.getElementById('star_temp').readOnly = true;
-                                }
-                            
-                            
-                        });
+                        
 
 
                     }
@@ -691,6 +670,8 @@
 
 
         <!--script type="text/javascript" src="{{ url_for('static', filename='tablinks.js') }}"></script-->
+
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/tempToggle.js') }}"></script>
 
         
 

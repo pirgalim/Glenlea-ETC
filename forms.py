@@ -110,7 +110,7 @@ class InputForm(FlaskForm):
     
     # keep
     star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    star_ab_mag = FloatField('AB Magnitude', validators=[InputRequired(), NumberRange(min=-1000000, max=100000)])
+    star_ab_mag = FloatField('AB Magnitude', validators=[InputRequired(), NumberRange(min=-30, max=30)])
     
     
     
@@ -121,7 +121,7 @@ class InputForm(FlaskForm):
 
     # keep
     dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    ext_mag = FloatField('Magnitude', validators=[InputRequired(), NumberRange(min=-100000, max=100000)])
+    ext_mag = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=-100000, max=100000)])
     
     
     display_point = StringField('Source')
