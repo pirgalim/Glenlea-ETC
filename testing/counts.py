@@ -54,6 +54,8 @@ def blackBody(starTemp,starMag,mirrorArea,filterName):
     plt.show()
     
     plt.savefig('static/plot_light_curve_SB.png')
+    
+    # matplot.pyplot.close()
 
     return starPhotons.value
 

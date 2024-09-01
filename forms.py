@@ -12,6 +12,21 @@ from spextra import DEFAULT_DATA
     
 def preset(name):
     
+    presets = [('', 'Blackbody')]
+    
+    lib = SpecLibrary(name)
+    contents = list(lib)
+    
+    for val in contents:
+        
+        if '-' not in val and '+' not in val:
+            presets.append( (val, val) )
+    
+    return presets
+
+
+def presetExt(name):
+    
     presets = [('', 'Custom')]
     
     lib = SpecLibrary(name)
@@ -95,7 +110,7 @@ class InputForm(FlaskForm):
     
     # keep
     star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    star_ab_mag = FloatField('AB Magnitude', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    star_ab_mag = FloatField('AB Magnitude', validators=[InputRequired(), NumberRange(min=-1000000, max=100000)])
     
     
     
@@ -106,7 +121,7 @@ class InputForm(FlaskForm):
 
     # keep
     dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    ext_mag = FloatField('Magnitude', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    ext_mag = FloatField('Magnitude', validators=[InputRequired(), NumberRange(min=-100000, max=100000)])
     
     
     display_point = StringField('Source')
@@ -135,10 +150,10 @@ class SelectForm(FlaskForm):
     telescope = SelectField('Select Telescope', choices=[('', 'Custom'), ('cdk350', 'AG Optical FA12 12.5" H. Wynne'), ('c8', 'Celestron C8')])
     filter = SelectField('Select Filter', choices=filtersNew(), validators=[InputRequired()] )    
     conditions = SelectField('Select Conditions', choices=[('', 'Custom'), ('0.5', '0.5 (Excellent)'), ('1', '1') , ('2', '2'), ('3', '3 (Average)'), ('4', '4'), ('5', '5'), ('6', '6 (Poor)')])
-    sky_bright = SelectField('Select Target', choices=[('', 'Custom'), ('goa', 'Current Glenlea Conditions')])
+    sky_bright = SelectField('Select Sky Bright', choices=[('', 'Custom'), ('goa', 'Current Glenlea Conditions')])
     
     point_src = SelectField('Select Target', choices=preset("pickles"))
-    extended_src = SelectField('Select Target', choices=preset("brown")) # validators=[InputRequired()]
+    extended_src = SelectField('Select Target', choices=presetExt("brown")) # validators=[InputRequired()]
     
     suggested_snr = SelectField('Select SNR', choices=[('', 'Custom'), ('100', '100'), ('200', '200'), ('500', '500'), ('1000', '1000')])
 

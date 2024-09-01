@@ -303,9 +303,9 @@
 
                 <div class="block">
                     {% if in_form.star_temp.errors %}
-                        {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp(style="border-color: red;") }}
+                        {{ in_form.star_temp.label(type="autofill", id="star_temp_label") }}{{ in_form.star_temp(style="border-color: red;") }}
                     {% else %}
-                        {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp }}
+                        {{ in_form.star_temp.label(type="autofill", id="star_temp_label") }}{{ in_form.star_temp }}
                     {% endif %}             
                 </div>
 
@@ -342,6 +342,9 @@
                         document.getElementById('pickle').value = text;
                     });
                 </script-->
+
+
+                <script type="text/javascript" src="{{ url_for('static', filename='tempToggle.js') }}"></script>
             </section>
 
             <!-- target-extended section -->
@@ -464,6 +467,34 @@
                         document.getElementById('point_src').disabled = false;
 
                         document.getElementById('extended_src').required = false;
+
+
+
+
+
+                        // disable temperature
+
+                        document.getElementById('point_src').addEventListener('change', function() {
+
+                            var selectedOption = this.value;
+
+                            alert("ran");
+
+                            if(selectedOption != 'Blackbody') {
+
+                                alert("change");
+                                document.getElementById("star_temp-label").style.background = "lightgray";
+                                document.getElementById("star_temp-label").style.color = "darkgray";
+                                document.getElementById("star_temp").style.background = "lightgray";
+                                document.getElementById("star_temp").style.border = "lightgray";
+                                document.getElementById("star_temp").style.color = "lightgray";
+
+                                document.getElementById("star_temp").value = "   01.  ";
+                                document.getElementById('star_temp').readOnly = true;
+                                }
+                            
+                            
+                        });
 
 
                     }
@@ -656,6 +687,12 @@
                 <input type="submit" value="Reset" style="background-color: maroon">
             </form>
         </section>
+
+
+
+        <!--script type="text/javascript" src="{{ url_for('static', filename='tablinks.js') }}"></script-->
+
+        
 
     </div>
 
