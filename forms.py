@@ -12,7 +12,7 @@ from spextra import DEFAULT_DATA
     
 def preset(name):
     
-    presets = [('', 'Blackbody')]
+    presets = [('', 'Blackbody (default)')]
     
     lib = SpecLibrary(name)
     contents = list(lib)
@@ -27,7 +27,7 @@ def preset(name):
 
 def presetExt(name):
     
-    presets = [('', 'Custom')]
+    presets = [('', 'Required')]
     
     lib = SpecLibrary(name)
     contents = list(lib)
@@ -64,7 +64,7 @@ def filtersNew():
     test = libraries.FilterSystem(name="etc")
     contents = test.filters
     
-    contents.insert(0, ('', 'Custom'))
+    contents.insert(0, ('', 'Required'))
     
     return contents
     
@@ -149,13 +149,13 @@ class SelectForm(FlaskForm):
     camera = SelectField('Select Camera', choices=[('', 'Custom'), ('asi6200mm', 'ASI6200MM'), ('asi2600mm', 'ASI2600MM'), ('asi533mm', 'ASI533MM')])
     telescope = SelectField('Select Telescope', choices=[('', 'Custom'), ('cdk350', 'AG Optical FA12 12.5" H. Wynne'), ('c8', 'Celestron C8')])
     filter = SelectField('Select Filter', choices=filtersNew(), validators=[InputRequired()] )    
-    conditions = SelectField('Select Conditions', choices=[('', 'Custom'), ('0.5', '0.5 (Excellent)'), ('1', '1') , ('2', '2'), ('3', '3 (Average)'), ('4', '4'), ('5', '5'), ('6', '6 (Poor)')])
+    conditions = SelectField('Select Conditions', choices=[('', 'Custom'), ('0.4', '0.4 (Excellent)'), ('1', '1') , ('2', '2'), ('3', '3 (Average)'), ('4', '4'), ('5', '5'), ('6', '6 (Poor)')])
     sky_bright = SelectField('Select Sky Bright', choices=[('', 'Custom'), ('goa', 'Current Glenlea Conditions')])
     
     point_src = SelectField('Select Target', choices=preset("pickles"))
     extended_src = SelectField('Select Target', choices=presetExt("brown")) # validators=[InputRequired()]
     
-    suggested_snr = SelectField('Select SNR', choices=[('', 'Custom'), ('100', '100'), ('200', '200'), ('500', '500'), ('1000', '1000')])
+    suggested_snr = SelectField('Select SNR', choices=[('', 'Custom'), ('3', '3'), ('5', '5'), ('10', '10'), ('50', '50'), ('100', '100')])
 
     
     
