@@ -9,7 +9,7 @@ import numpy as np
 import astropy.units as u
 
 
-from testing.observation import Observation
+from services.observation import Observation
 
 
 

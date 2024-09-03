@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request
 import os
-import services.ETC as ETC
+# import services.ETC_old as ETC_old
 
-import testing.etc as etc
-import testing.counts as cts
-import testing.observation as observation
+import services.etc as etc
+# import services.counts as cts
+import services.observation as observation
 
 import services.scrape_sqm as sqm
 from forms import InputForm, SelectForm

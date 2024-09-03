@@ -1,8 +1,7 @@
-import observation
-import etc
-import math
+import services.observation
+import services.etc
 
-from observation import Observation
+from services.observation import Observation
 import numpy as np
 
 params = {'camera': 'asi6200mm', 'sensor_x': 40.0, 'sensor_y': 40.0, 'px_size': 3.76, 'q_efficiency': 0.475, 
@@ -39,9 +38,9 @@ params2 = {'camera': 'asi6200mm', 'sensor_x': 40.0, 'sensor_y': 40.0, 'px_size':
 
 
 
-obs = observation.Observation(params)
+obs = Observation(params)
 # obs1 = observation.Observation(params1)
-obs2 = observation.Observation(params2)
+obs2 = Observation(params2)
 # obs3 = observation.Observation(params3)
 
 
@@ -86,3 +85,28 @@ print(SNR_ref)
 
 exposure_time = etc.calculateReqTime(1050, SNR_ref, test_exposure, counts, obs, bg_values)
 print(exposure_time)
+
+
+
+
+
+
+
+
+
+
+
+
+
+def check(result, expected):
+    
+    assert result == expected
+    
+
+
+
+
+
+
+check(1,1)
+
