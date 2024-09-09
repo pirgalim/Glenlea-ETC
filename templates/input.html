@@ -376,19 +376,13 @@
                     {% endif %}
                 </div>
 
-                <div class="block">
-                    {% if in_form.dist.errors %}
-                        {{ in_form.dist.label(type="autofill") }}{{ in_form.dist(style="border-color: red;") }}
-                    {% else %}
-                        {{ in_form.dist.label(type="autofill") }}{{ in_form.dist }}
-                    {% endif %}
-                </div>
+                
 
 
                 
 
 
-                <div class="spacer"></div>
+                <div class="spacer"></div><div class="spacer"></div>
 
                 <!--script> 
                     document.getElementById('extended_src').addEventListener('change', function() {
@@ -441,8 +435,8 @@
 
                         document.getElementById("ext_mag").value = "   01.  ";
                         document.getElementById('ext_mag').readOnly = true;
-                        document.getElementById("dist").value = "   01.  ";
-                        document.getElementById('dist').readOnly = true;
+                        //document.getElementById("dist").value = "   01.  ";
+                        //document.getElementById('dist').readOnly = true;
                         
 
                         // reset
@@ -506,8 +500,8 @@
     
                         document.getElementById("ext_mag").value = "";
                         document.getElementById('ext_mag').readOnly = false;
-                        document.getElementById("dist").value = "";
-                        document.getElementById('dist').readOnly = false;
+                        //document.getElementById("dist").value = "";
+                        //document.getElementById('dist').readOnly = false;
 
                         document.getElementById('extended_src').required = true;
                         
@@ -624,7 +618,8 @@
                     });
                 </script>
 
-            </section>
+
+            </section>  
 
             <!-- submit form -->
             <section id="submission" class="container">

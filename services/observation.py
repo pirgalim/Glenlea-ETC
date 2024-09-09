@@ -99,7 +99,7 @@ class Observation:
             self.source = params["extended_src"]
             self.library = "brown"
             
-            self.dist = params["dist"]
+            # self.dist = params["dist"]
             self.ext_mag = params["ext_mag"]
             
             self.seeing_pixel = 1

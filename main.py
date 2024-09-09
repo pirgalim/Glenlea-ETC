@@ -248,33 +248,33 @@ def process_input(input: dict) -> dict:
                 
     # post condition
     
-    source_name = params["source_type"]
+    # source_name = params["source_type"]
     
-    omit_counts = {"point": 3, "extended": 3}
+    # omit_counts = {"point": 3, "extended": 3}
     
     
-    omit_count = InputForm.fields[source_name]
+    # omit_count = InputForm.fields[source_name]
     
-    # omit_counts[source_name]
+    # # omit_counts[source_name]
      
     
-    count = 0
+    # count = 0
     
-    for val in params.values():
+    # for val in params.values():
         
-        if val == "omit":
-            count += 1
+    #     if val == "omit":
+    #         count += 1
     
-    if omit_count != count:
+    # if omit_count != count:
         
-        print("counted omits: ", count)
-        print("expected omits: ", omit_count)
-        return None
+    #     print("counted omits: ", count)
+    #     print("expected omits: ", omit_count)
+    #     return None
     
                 
-    print(params)
-    print("counted omits: ", count)
-    print("expected omits: ", omit_count)
+    # print(params)
+    # print("counted omits: ", count)
+    # print("expected omits: ", omit_count)
     
     return params
     

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import FloatField, SubmitField, SelectField, StringField
-from wtforms.validators import NumberRange, InputRequired
+from wtforms.validators import NumberRange, InputRequired, DataRequired, ValidationError
 
 import pyckles
 import numpy as np
@@ -120,7 +120,7 @@ class InputForm(FlaskForm):
     # surf_brightness = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=0, max=100000)])
 
     # keep
-    dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    # dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     ext_mag = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=-100000, max=100000)])
     
     
@@ -141,6 +141,11 @@ class InputForm(FlaskForm):
     
     # submit data
     submit = SubmitField('Calculate')
+    
+    
+    
+
+
     
 
 
