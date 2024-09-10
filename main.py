@@ -125,10 +125,11 @@ def calculator():
                     # exposure_time = "The exposure time is {x:.2f}".format(x=exposure_time)
                     
                     
-                    # cts.aperture(obs, final_sensor_array)
+                    etc.aperturePlot(obs, final_sensor_array)
                     fov = obs.computeFOV()
                     
                     
+                
                     # rounding
                     
                     try:
@@ -163,7 +164,7 @@ def calculator():
                     return render_template('output_v2.html', valid=valid, in_form=in_form, select_form=select_form,
                                             camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets,
                                             target_presets=target_presets, gao_sqm=gao_sqm,
-                                            SB_url="static/plot_light_curve_SB.png", 
+                                            SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",
                                             counts=counts, exposure=exposure_time, peak=peak_cts, minimum=min_cts, fov=fov, 
                                             col1a=table_1a, col1b=table_1b, col2a=table_2a, col2b=table_2b)
                                             #fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure, error=None)

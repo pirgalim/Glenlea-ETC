@@ -60,8 +60,9 @@ def spreadCounts(obs: Observation, counts: float, exposureTime: float) -> float:
         for y in range(sensorX):
             signalValues[x,y] = (1/(2*np.pi*sigma**2))*np.exp((-((x-centerX)**2+(y-centerY)**2))/(2*sigma**2))
 
-        signalValues = signalValues*(totalCounts/signalValues.sum())*exposureTime
-        return signalValues
+# DO NOT INDENT !!!!!!
+    signalValues = signalValues*(totalCounts/signalValues.sum())*exposureTime
+    return signalValues
 
 
 
@@ -274,3 +275,6 @@ def generateBG_TEST(obs: Observation):
     
     
 
+def aperturePlot(obs, final_sensor_array):
+    
+   cts.aperture(obs, final_sensor_array)
