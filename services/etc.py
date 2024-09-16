@@ -1,4 +1,5 @@
 import services.counts as cts
+import services.plots as plots
 from services.observation import Observation
 
 import numpy as np
@@ -34,7 +35,27 @@ def calc_counts(obs: Observation):
     else: print("source error when finding counts")   
         
         
-
+        
+        
+def plot_bodies(obs: Observation):
+                
+    if obs.type == "point":
+        try:
+            return plots.stellarSpec(obs.source, obs.ab_mag, obs.filter_name)
+        except:
+            
+            try:
+                print("Unable to find source. Defaulting to black body.")
+                return plots.blackBody(obs.star_temp, obs.ab_mag,obs.filter_name)
+            
+            except:
+                print("Something else is wrong")
+        
+    elif obs.type == "extended":
+        
+        return plots.extSpec(obs.source, obs.library, obs.ext_mag, obs.filter_name)
+        
+    else: print("source error when finding counts")   
 
 
 
@@ -278,3 +299,11 @@ def generateBG_TEST(obs: Observation):
 def aperturePlot(obs, final_sensor_array):
     
    cts.aperture(obs, final_sensor_array)
+
+
+
+
+def plotTest(obs: Observation):
+    
+    print("here")
+    return cts.testPlot(obs.star_temp, obs.ab_mag, obs.mirror_area,obs.filter_name)

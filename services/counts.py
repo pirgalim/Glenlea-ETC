@@ -8,6 +8,7 @@ import matplotlib.patches as patches
 import numpy as np
 import astropy.units as u
 
+import io
 
 from services.observation import Observation
 
@@ -51,14 +52,64 @@ def blackBody(starTemp,starMag,mirrorArea,filterName):
 
     ax1.legend(plots,labels,loc='best')
     plt.grid(True) 
-    plt.show()
+    #plt.show()
     
-    plt.savefig('static/plot_light_curve_SB.png')
+    # plt.savefig('static/plot_light_curve_SB.png')
     
     # matplot.pyplot.close()
+    
+   
 
     return starPhotons.value
 
+
+
+
+
+def testPlot(starTemp,starMag,mirrorArea,filterName):
+    blackBodySpec = Spextrum.black_body_spectrum(temperature = starTemp, amplitude = starMag*u.ABmag, filter_curve=filterName)
+
+    starPhotons = blackBodySpec.photons_in_range(area=mirrorArea,filter_curve=filterName)
+
+    wavelengths = blackBodySpec.waveset
+    fluxes = blackBodySpec(wavelengths, flux_unit="PHOTLAM")
+
+    filter = Passband(filterName) 
+
+    filterWLS = filter.waveset
+    filterPass = filter(filterWLS)
+
+    # Plot filter transmission curve and black body spectrum
+
+    fig, ax1 = plt.subplots()
+    
+    
+
+    ax1.set_xlabel('Wavelength (Å)')
+    ax1.set_ylabel('Flux (photons/sec/cm^2/Å)')
+    stellarPlot, = ax1.plot(wavelengths, fluxes, label='Stellar Black Body Spectrum',color='y')
+
+    ax2 = ax1.twinx()
+    ax2.set_ylabel('Filter Transmission Coefficient')
+    filterPlot, = ax2.plot(filterWLS, filterPass, label= filterName + ' Filter Transmission',color='b')
+
+    plt.title('Filtered Black Body Spectrum')
+    plt.xlim(0,25000)
+    ax2.set_ylim(0)
+    ax1.set_ylim(0)
+
+    plots = [stellarPlot,filterPlot]
+    labels = [plot.get_label() for plot in plots]
+
+    ax1.legend(plots,labels,loc='best')
+    plt.grid(True) 
+    # #plt.show()
+    
+    img_buffer = io.BytesIO()
+    plt.savefig(img_buffer, format='png')
+    image_data = img_buffer.getvalue()
+     
+    return image_data
 
 
 
@@ -99,7 +150,7 @@ def stellarSpec(starClass,starMag,mirrorArea,filterName):
 
     ax1.legend(plots,labels,loc='best')
     plt.grid(True) 
-    plt.show()
+    #plt.show()
 
     plt.savefig('static/plot_light_curve_SB.png')
 
@@ -149,7 +200,7 @@ def extSpec(extClass,extLib,extMag, mirrorArea,filterName):
 
     ax1.legend(plots,labels,loc='best')
     plt.grid(True) 
-    plt.show()
+    #plt.show()
 
     plt.savefig('static/plot_light_curve_SB.png')
 
@@ -208,7 +259,7 @@ def generateBG(sensorX, sensorY, skyMag, filterName, mirrorArea, sensorGain, sen
 
     ax1.legend(plots,labels,loc='best')
     plt.grid(True) 
-    plt.show()
+    #plt.show()
 
     if obsType == "extended":
 
