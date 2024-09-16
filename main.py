@@ -11,6 +11,8 @@ from forms import InputForm, SelectForm
 
 import numpy as np
 
+import asyncio
+
 
 # Flask setup
 app = Flask(__name__)
@@ -25,9 +27,7 @@ OMIT_KEY = "   01.  "
 @app.route('/', methods=['GET', 'POST'])
 def calculator():
     
-    
-    #pickles
-    # pickles()
+
     
     #TODO remove file after generating
     
@@ -104,6 +104,8 @@ def calculator():
                     counts = etc.calc_counts(obs)
                     
                     signal_values = etc.spreadCounts(obs, counts, 1)
+                    
+                    # await asyncio.sleep(5)
                     noise_values = etc.generateNoise(obs ,test_exposure)
                     bg_values = etc.generateBG_TEST(obs)
                     
@@ -127,6 +129,8 @@ def calculator():
                     
                     etc.aperturePlot(obs, final_sensor_array)
                     fov = obs.computeFOV()
+                    
+                    
                     
                     
                 

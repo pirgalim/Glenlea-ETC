@@ -32,6 +32,8 @@ def presetExt(name):
     lib = SpecLibrary(name)
     contents = list(lib)
     
+    
+    
     for val in contents:
         
         if '-' not in val and '+' not in val:
@@ -48,15 +50,16 @@ def filters():
     
     contents = DEFAULT_DATA.filters
     
-    
-    
-    
     for val in contents:
         
         if '-' not in val and '+' not in val:
             filters.append( (val, val) )
+            print(val)
     
     return filters
+
+
+
 
 
 def filtersNew():
@@ -64,15 +67,23 @@ def filtersNew():
     test = libraries.FilterSystem(name="etc")
     contents = test.filters
     
+
+
+    banned = ['L', 'M', 'N', 'Q']
+
     contents.insert(0, ('', 'Required'))
-    
+
+    for val in contents:
+        if val[0] in banned:
+            contents.remove(val)
+
+    print(contents)
     return contents
-    
+         
     
 
-class InputForm(FlaskForm):
-       
-    
+class InputForm(FlaskForm):    
+     
     fields = { "camera": 9, "telescope": 3, "filter": 3, "point": 2, "extended": 3, "conditions": 2, "snr": 1 }
     total_fields = sum(fields.values())
     
@@ -80,8 +91,8 @@ class InputForm(FlaskForm):
     #total_fields = camera_fields + telescope_fields + filter_fields + target_fields + conditions_fields + snr_fields
     
     # camera parameters 
-    sensor_x = FloatField('Sensor Length', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    sensor_y = FloatField('Sensor Width', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    sensor_x = FloatField('Sample Length', validators=[InputRequired(), NumberRange(min=0, max=100000)], render_kw={"placeholder": 50})
+    sensor_y = FloatField('Sample Width', validators=[InputRequired(), NumberRange(min=0, max=100000)], render_kw={"placeholder": 50})
     px_size = FloatField('Pixel Size', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     q_efficiency = FloatField('Quantum Efficiency', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     read_noise = FloatField('Read Noise', validators=[InputRequired(), NumberRange(min=0, max=100000)])
@@ -95,46 +106,30 @@ class InputForm(FlaskForm):
     scope_focal = FloatField('Focal Length', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     plate_scale = FloatField('Plate Scale', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
-    # filter parameters
-    # filter_low = FloatField('Filter Low', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    # filter_high = FloatField('Filter High', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    # filter_zero = FloatField('Zero Point Flux', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    
-
-    
+        
     # point source parameters
-    
-    #TODO remove
-    # star_dist_p = FloatField('Distance Pt.', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    # star_lum = FloatField('Luminosity', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    
-    # keep
     star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     star_ab_mag = FloatField('AB Magnitude', validators=[InputRequired(), NumberRange(min=-30, max=30)])
     
     
+    # track type of source
+    source_type = StringField('Source Type')
+    
+    
     
     #extended source parameters
-    
-   #TODO remove
-    # surf_brightness = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-
-    # keep
-    # dist = FloatField('Distance', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     ext_mag = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=-100000, max=100000)])
     
-    
+    #TODO remove?
     display_point = StringField('Source')
     
     
     
-    # track type of source
-    source_type = StringField('Source Type')
    
 
     # weather conditions
-    seeing = FloatField('Seeing', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    sqm = FloatField('Sky Quality', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    seeing = FloatField('Seeing', validators=[InputRequired(), NumberRange(min=0, max=8)])
+    sqm = FloatField('Sky Quality', validators=[InputRequired(), NumberRange(min=0, max=22)])
     
     # desired signal to noise ratio
     desired_snr = FloatField('Desired SNR', validators=[InputRequired(), NumberRange(min=0, max=100000)])
@@ -143,6 +138,9 @@ class InputForm(FlaskForm):
     submit = SubmitField('Calculate')
     
     
+    
+    
+  
     
 
 
@@ -163,4 +161,4 @@ class SelectForm(FlaskForm):
     suggested_snr = SelectField('Select SNR', choices=[('', 'Custom'), ('3', '3'), ('5', '5'), ('10', '10'), ('50', '50'), ('100', '100')])
 
     
-    
+

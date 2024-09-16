@@ -13,7 +13,7 @@ document.getElementById('point_src').addEventListener('change', function() {
         tempField.style.background = "lightgray";
         tempField.style.border = "lightgray";
         tempField.style.color = "lightgray";
-        tempField.value = "   07.  ";
+        tempField.value = "   01.  ";
         tempField.readOnly = true;
         }
 
@@ -29,3 +29,7 @@ document.getElementById('point_src').addEventListener('change', function() {
     }
     
 });
+
+
+
+

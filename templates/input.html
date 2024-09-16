@@ -11,19 +11,12 @@
             </section>
         {% endif %}
 
-
-
-       
-        
-
-
-
         <!-- main form -->
         <form id="input-form" method="POST" action="">
         
             <!-- security tag? -->
             {{ in_form.hidden_tag() }}
-            {{ in_form.csrf_token}}          
+            {{ in_form.csrf_token }}          
 
             <!-- camera section -->
             <section name="camera" class="container">
@@ -39,15 +32,14 @@
                 <button type="button" class="collapsible">ⓘ info</button>
                 <div class="col-content">
                     <p>
-                        Select a preset from the menu or enter custom values<br><br>
-                        <b>Sensor Length (pixels)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
-                        <b>Sensor Width (pixels)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
-                        <b>Pixel Size (μm)</b> -  size of an individual pixel of the camera sensor<br>
-                        <b>Quantum Efficiency (%)</b>  -  efficiency of the camera sensor<br>
-                        <b>Read Noise (electrons)</b> - measurement... <br>
-                        <b>Gain (electrons/ADU)</b> - level... <br>
-                        <b>Offset (units)</b> - ... <br>
-                        <b>Dark Noise (units)</b> - ... <br>
+                        Sample Length - determines the length of the sample image; increase the value if it does not fit<br>
+                        Sample Width - determines the width of the sample image; increase the value if it does not fit<br> 
+                        Pixel Size (μm) -  size of an individual pixel of the camera sensor<br>
+                        Quantum Efficiency (%)  -  efficiency of the camera sensor<br>
+                        Read Noise (electrons)- measurement... <br>
+                        Gain (electrons/ADU)- level... <br>
+                        Offset (units) - ... <br>
+                        Dark Noise (units) - ... <br>
                     </p>
                 </div>
 
@@ -435,6 +427,8 @@
 
                         document.getElementById("ext_mag").value = "   01.  ";
                         document.getElementById('ext_mag').readOnly = true;
+
+    
                         //document.getElementById("dist").value = "   01.  ";
                         //document.getElementById('dist').readOnly = true;
                         
@@ -623,10 +617,55 @@
 
             <!-- submit form -->
             <section id="submission" class="container">
-                {{ in_form.submit(style="background-color: teal") }} 
+                {{ in_form.submit(id="go", style="background-color: teal") }} 
 
 
-                
+            
+
+                  <div class="spacer-break"></div>
+                  
+                  <progress id="progress-bar" style="display:none"></progress>
+
+
+                  <!--script type="text/javascript" src="{{ url_for('static', filename='scripts/resetPage.js') }}"></script-->
+                  
+
+                  <!--script>
+
+
+                    //document.getElementById('input-form').addEventListener("submit", (event) => {
+                        //document.getElementById('progress-bar').style.display = "block";
+                        //document.getElementById('progress-bar').value = "70";
+                    //});
+
+
+
+
+                    document.getElementById('go').addEventListener("click", show);
+
+                    function show() {
+
+                        
+                        document.getElementById('progress-bar').style.display = "block";
+
+                        let currentValue = 0;
+
+                        const incrementInterval = setInterval(() => {
+                            currentValue += 0.01;
+                            document.getElementById('progress-bar').value = currentValue;
+
+                            if (currentValue >= 100) {
+                                clearInterval(incrementInterval);
+                            }
+                        }, 100);
+                    }
+
+                  </script-->
+
+                <!--div id="myProgress">
+                    <div id="myBar"></div>
+                </div-->    
+
             </section>
 
             
@@ -662,12 +701,44 @@
             </form>
         </section>
 
+   
+
+        <!--script>
+
+            document.getElementById('go').addEventListener("click", move);
+
+            var i = 0;
+            function move() {
+              if (i == 0) {
+                i = 1;
+                var elem = document.getElementById("myBar");
+                var width = 1;
+                var id = setInterval(frame, 10);
+                function frame() {
+                  if (width >= 100) {
+                    clearInterval(id);
+                    i = 0;
+                  } else {
+                    width++;
+                    elem.style.width = width + "%";
+                  }
+                }
+              }
+              document.getElementById("myBar").style.width = 0 + "%";
+            }
+
+
+            </script-->
+
+
 
 
         <!--script type="text/javascript" src="{{ url_for('static', filename='tablinks.js') }}"></script-->
 
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/tempToggle.js') }}"></script>
 
+
+        
         
 
     </div>

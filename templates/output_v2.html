@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "index.html"%}
 {% block output_v2 %}
 
 <h1>Calculation Results</h1>
@@ -19,6 +19,8 @@
 <section class="container" style="text-align: center;">
 
     <h2>More Details</h2>
+    <img src="{{counts_url}}" style="left-margin:25px;">
+
     <h3 style="width: 100%; font-weight: 300"> The field of view area is {{fov}} arcseconds</h3>
     <h3 style="width: 100%; font-weight: 300"> The sensor reports {{counts}} counts per second from the source</h3>
     <h3 style="width: 100%; font-weight: 300"> The peak number of counts in the simulated image is: {{peak}} </h3>
@@ -97,8 +99,6 @@
         }
     </script>
 
-    <button onclick="history.back()">Back</button>
-
     <form class="button" id="clear_all" method = "GET", action="">
         <input type="submit" value="Reset" style="background-color: maroon">
     </form>
@@ -106,4 +106,3 @@
 </section>
 
 {% endblock output_v2 %}
-

@@ -155,3 +155,42 @@ class Observation:
 
         return FOV_width * FOV_height
     
+
+
+
+
+
+
+
+
+
+
+
+
+# from dataclasses import dataclass
+
+
+# @dataclass
+# class Observation:
+    
+#     # sensor_X: int
+#     # sensor_Y: int
+#     pixel_size: float # use post_init to scale it
+#     Q_efficiency: float
+#     read_noise: float
+#     gain: float
+#     sensor_offset: float
+#     dark_noise: float
+#     full_well: float
+    
+    
+    
+
+
+# class PointObservation(Observation):
+#     pass
+    
+
+# class ExtendedObservation(Observation):
+    
+#     pass

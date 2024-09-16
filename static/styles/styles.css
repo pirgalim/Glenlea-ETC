@@ -298,7 +298,7 @@ input {
 input[type="submit"], button {
   
   display: inline-block;
-  margin: 5px 0px 5px 25px;
+  margin: 5px;
   padding: 10px 10px;
   text-align: center;
   color: whitesmoke;
@@ -341,4 +341,16 @@ form {
   padding: 20px;
   width: 200px;
   border: 1px solid gray;
+}
+
+
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 0%;
+  height: 30px;
+  background-color: #04AA6D;
 }
