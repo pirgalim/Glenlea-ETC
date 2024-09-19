@@ -108,7 +108,7 @@ class InputForm(FlaskForm):
     
         
     # point source parameters
-    star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    star_temp = FloatField('Temperature', validators=[Optional(), NumberRange(min=0, max=100000)], render_kw={"required": "true"})
     star_ab_mag = FloatField('AB Magnitude', validators=[Optional(), NumberRange(min=-30, max=30)], render_kw={"required": "true"})
     
     
@@ -118,7 +118,7 @@ class InputForm(FlaskForm):
     
     
     #extended source parameters
-    ext_mag = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=-100000, max=100000)])
+    ext_mag = FloatField('Surface Brightness', validators=[Optional(), NumberRange(min=-100000, max=100000)], render_kw={"required": "false"})
     
     
     # TODO?
