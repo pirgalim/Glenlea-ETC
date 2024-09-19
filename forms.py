@@ -91,8 +91,9 @@ class InputForm(FlaskForm):
     #total_fields = camera_fields + telescope_fields + filter_fields + target_fields + conditions_fields + snr_fields
     
     # camera parameters 
-    sensor_x = FloatField('Sample Length', validators=[InputRequired(), NumberRange(min=0, max=100000)], render_kw={"placeholder": 50})
-    sensor_y = FloatField('Sample Width', validators=[InputRequired(), NumberRange(min=0, max=100000)], render_kw={"placeholder": 50})
+    sensor_x = FloatField('Sample Length', validators=[InputRequired(), NumberRange(min=0, max=1000)], render_kw={"placeholder": 50})
+    sensor_y = FloatField('Sample Width', validators=[InputRequired(), NumberRange(min=0, max=1000)], render_kw={"placeholder": 50})
+    
     px_size = FloatField('Pixel Size', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     q_efficiency = FloatField('Quantum Efficiency', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     read_noise = FloatField('Read Noise', validators=[InputRequired(), NumberRange(min=0, max=100000)])
@@ -108,7 +109,7 @@ class InputForm(FlaskForm):
     
         
     # point source parameters
-    star_temp = FloatField('Temperature', validators=[Optional(), NumberRange(min=0, max=100000)], render_kw={"required": "true"})
+    star_temp = FloatField('Temperature', validators=[Optional(), NumberRange(min=1000, max=100000)], render_kw={"required": "true"})
     star_ab_mag = FloatField('AB Magnitude', validators=[Optional(), NumberRange(min=-30, max=30)], render_kw={"required": "true"})
     
     
@@ -122,7 +123,7 @@ class InputForm(FlaskForm):
     
     
     # TODO?
-    display_point = StringField('Source')
+    # display_point = StringField('Source')
     
     
     

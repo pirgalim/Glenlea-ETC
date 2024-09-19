@@ -13,7 +13,7 @@ document.getElementById('point_src').addEventListener('change', function() {
         tempField.style.background = "lightgray";
         tempField.style.border = "lightgray";
         tempField.style.color = "lightgray";
-        tempField.value = "   01.  ";
+        tempField.required = false;
         tempField.readOnly = true;
         }
 
@@ -24,8 +24,9 @@ document.getElementById('point_src').addEventListener('change', function() {
         tempField.style.background = "white";
         tempField.style.border = "white";
         tempField.style.color = "black";
+        tempField.required = true;
         tempField.readOnly = false;
-        tempField.value = "";
+        
     }
     
 });

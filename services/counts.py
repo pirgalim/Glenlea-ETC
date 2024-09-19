@@ -152,7 +152,7 @@ def stellarSpec(starClass,starMag,mirrorArea,filterName):
     plt.grid(True) 
     #plt.show()
 
-    plt.savefig('static/plot_light_curve_SB.png')
+    # plt.savefig('static/plot_light_curve_SB.png')
 
     return starPhotons.value
 
@@ -202,7 +202,7 @@ def extSpec(extClass,extLib,extMag, mirrorArea,filterName):
     plt.grid(True) 
     #plt.show()
 
-    plt.savefig('static/plot_light_curve_SB.png')
+    # plt.savefig('static/plot_light_curve_SB.png')
 
     return extPhotons.value
 
