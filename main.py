@@ -32,11 +32,11 @@ def calculator():
     
     #TODO remove file after generating
     
-    if os.path.exists("static/plot_light_curve_SB.png"):
-                os.remove("static/plot_light_curve_SB.png")
+    # if os.path.exists("static/plot_light_curve_SB.png"):
+    #             os.remove("static/plot_light_curve_SB.png")
 
-    if os.path.exists("static/spread_counts.png"):
-                os.remove("static/spread_counts.png")
+    # if os.path.exists("static/spread_counts.png"):
+    #             os.remove("static/spread_counts.png")
     
     
     # create forms

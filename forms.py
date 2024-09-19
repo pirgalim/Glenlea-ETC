@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import FloatField, SubmitField, SelectField, StringField
-from wtforms.validators import NumberRange, InputRequired, DataRequired, ValidationError
+from wtforms.validators import NumberRange, InputRequired, DataRequired, ValidationError, Optional
 
 import pyckles
 import numpy as np
@@ -109,7 +109,7 @@ class InputForm(FlaskForm):
         
     # point source parameters
     star_temp = FloatField('Temperature', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    star_ab_mag = FloatField('AB Magnitude', validators=[InputRequired(), NumberRange(min=-30, max=30)])
+    star_ab_mag = FloatField('AB Magnitude', validators=[Optional(), NumberRange(min=-30, max=30)], render_kw={"required": "true"})
     
     
     # track type of source
@@ -120,7 +120,8 @@ class InputForm(FlaskForm):
     #extended source parameters
     ext_mag = FloatField('Surface Brightness', validators=[InputRequired(), NumberRange(min=-100000, max=100000)])
     
-    #TODO remove?
+    
+    # TODO?
     display_point = StringField('Source')
     
     

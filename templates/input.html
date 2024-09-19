@@ -448,8 +448,13 @@
 
                         document.getElementById("star_temp").value = "";
                         document.getElementById('star_temp').readOnly = false;
-                        document.getElementById("star_ab_mag").value = "";
+                        
+                        //document.getElementById("star_ab_mag").value = "";
+
+                        document.getElementById('star_ab_mag').required = true;
                         document.getElementById('star_ab_mag').readOnly = false;
+
+
 
                         document.getElementById('point_src').disabled = false;
 
@@ -465,7 +470,7 @@
 
 
                     }
-                    else {
+                    else {  // extended sources
 
                         document.getElementById('source_type').value = "extended";
 
@@ -486,7 +491,10 @@
              
                         document.getElementById("star_temp").value = "   01.  ";
                         document.getElementById('star_temp').readOnly = true;
-                        document.getElementById("star_ab_mag").value = "   01.  ";
+
+
+                        //document.getElementById("star_ab_mag").value = "   01.  ";
+                        document.getElementById('star_ab_mag').required = false;
                         document.getElementById('star_ab_mag').readOnly = true;
                         
 
