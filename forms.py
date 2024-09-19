@@ -73,7 +73,7 @@ def filtersNew():
 
     contents.insert(0, ('', 'Required'))
 
-    for val in contents:
+    for val in list(contents):
         if val[0] in banned:
             contents.remove(val)
 
