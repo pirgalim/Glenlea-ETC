@@ -15,7 +15,7 @@ document.getElementById('point_src').addEventListener('change', function() {
         tempField.style.color = "lightgray";
         tempField.required = false;
         tempField.readOnly = true;
-        }
+    }
 
     else {
 
@@ -26,11 +26,6 @@ document.getElementById('point_src').addEventListener('change', function() {
         tempField.style.color = "black";
         tempField.required = true;
         tempField.readOnly = false;
-        
     }
     
 });
-
-
-
-
