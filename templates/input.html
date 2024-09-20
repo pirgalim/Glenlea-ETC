@@ -263,6 +263,17 @@
                     <div class="spacer"></div><div class="spacer"></div>
             </div>
 
+
+            <!--div class="tab">
+                <div class="block" style="margin:0;">
+                    <button class="tablinks" type="button" id="defaultOpen" style="border-top-left-radius:5px;">Point Source</button>
+                    <button class="tablinks" type="button" id="defaultClose" style="border-top-right-radius:5px;">Extended Source</button> 
+                    {{ in_form.source_type(readonly=true, style="display:none") }}
+                </div>
+                <div class="spacer"></div><div class="spacer"></div>
+            </div-->
+
+
             <!-- target-point section -->
             <section id="target-point" class="tabcontent">
 
@@ -396,8 +407,31 @@
             </section>
 
 
-            <!-- script for target tabs -->
+    
+
             <script>
+                function Tab(e, name) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(name).style.display = "flex";
+                    e.currentTarget.className += " active";
+                }
+
+                    document.getElementById("defaultOpen").click();
+            </script>
+
+
+
+            <!-- script for target tabs -->
+
+            <!--script>
                 function Tab(e, name) {
                     var i, tabcontent, tablinks;
                     tabcontent = document.getElementsByClassName("tabcontent");
@@ -509,7 +543,7 @@
                 document.getElementById("defaultOpen").click();
                 
                 
-            </script>
+            </script-->
             
 
             <!-- conditions section -->
@@ -737,7 +771,7 @@
 
 
 
-        <!--script type="text/javascript" src="{{ url_for('static', filename='tablinks.js') }}"></script-->
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/tablinks.js') }}"></script>
 
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/tempToggle.js') }}"></script>
 
