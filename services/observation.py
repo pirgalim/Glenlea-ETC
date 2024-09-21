@@ -64,7 +64,9 @@ class Observation:
         #--- filter parameters ---#
         
         # self.filter_name = 'g' 
-        self.filter_name = "etc/" + params['filter']
+        # self.filter_name = "etc/" + params['filter']
+        self.filter_name = params['filter']
+
         # TODO:
         
         # self.filter_low = params["filter_low"] * 1*10**(-9)  #TODO something else here, check with Ryan

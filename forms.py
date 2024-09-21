@@ -64,20 +64,49 @@ def filters():
 
 def filtersNew():
     
-    test = libraries.FilterSystem(name="etc")
-    contents = test.filters
+    contents = [('', 'Required')]
     
-
-
+    # add specific filters
+    contents.append( ('u', 'SDSS u') )
+    contents.append( ('g', 'SDSS g') )
+    contents.append( ('r', 'SDSS r') )
+    contents.append( ('i', 'SDSS i') )
+    
+    # ESO filter set
+    test = libraries.FilterSystem(name="etc")
+    eso = test.filters
+    
+    # filters that currently cause issues
     banned = ['L', 'M', 'N', 'Q']
 
-    contents.insert(0, ('', 'Required'))
+    # insert default field
+    # contents.insert(0, ('', 'Required'))
 
-    for val in list(contents):
-        if val[0] in banned:
-            contents.remove(val)
+    # set filter path
+    for val in list(eso):
+        
+        
+        # remove banned filters
+        # if val[0] in banned:
+        #     eso.remove(val)
+        
+        if val[0] != '' and val[0] not in banned:
+            contents.append( ('etc/' + val[0], val[1]) )
+        
+        
 
-    print(contents)
+
+    # add default filters
+    # default_filters = DEFAULT_DATA.filters
+    # for val in default_filters:
+        
+    #     if '-' not in val and '+' not in val:
+    #         contents.append( (val, val) )
+
+    
+    
+    
+        
     return contents
          
     

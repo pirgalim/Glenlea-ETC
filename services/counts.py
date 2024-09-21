@@ -16,7 +16,7 @@ from services.observation import Observation
 
 def blackBody(starTemp,starMag,mirrorArea,filterName):
 
-    blackBodySpec = Spextrum.black_body_spectrum(temperature = starTemp, amplitude = starMag*u.ABmag, filter_curve=filterName)
+    blackBodySpec = Spextrum.black_body_spectrum(temperature = starTemp, amplitude = starMag*u.ABmag, filter_curve='V')
 
     starPhotons = blackBodySpec.photons_in_range(area=mirrorArea,filter_curve=filterName)
 
@@ -32,8 +32,6 @@ def blackBody(starTemp,starMag,mirrorArea,filterName):
 
     fig, ax1 = plt.subplots()
     
-    
-
     ax1.set_xlabel('Wavelength (Å)')
     ax1.set_ylabel('Flux (photons/sec/cm^2/Å)')
     stellarPlot, = ax1.plot(wavelengths, fluxes, label='Stellar Black Body Spectrum',color='y')
@@ -52,13 +50,6 @@ def blackBody(starTemp,starMag,mirrorArea,filterName):
 
     ax1.legend(plots,labels,loc='best')
     plt.grid(True) 
-    #plt.show()
-    
-    # plt.savefig('static/plot_light_curve_SB.png')
-    
-    # matplot.pyplot.close()
-    
-   
 
     return starPhotons.value
 
@@ -66,57 +57,57 @@ def blackBody(starTemp,starMag,mirrorArea,filterName):
 
 
 
-def testPlot(starTemp,starMag,mirrorArea,filterName):
-    blackBodySpec = Spextrum.black_body_spectrum(temperature = starTemp, amplitude = starMag*u.ABmag, filter_curve=filterName)
+# def testPlot(starTemp,starMag,mirrorArea,filterName):
+#     blackBodySpec = Spextrum.black_body_spectrum(temperature = starTemp, amplitude = starMag*u.ABmag, filter_curve='V')
 
-    starPhotons = blackBodySpec.photons_in_range(area=mirrorArea,filter_curve=filterName)
+#     starPhotons = blackBodySpec.photons_in_range(area=mirrorArea,filter_curve=filterName)
 
-    wavelengths = blackBodySpec.waveset
-    fluxes = blackBodySpec(wavelengths, flux_unit="PHOTLAM")
+#     wavelengths = blackBodySpec.waveset
+#     fluxes = blackBodySpec(wavelengths, flux_unit="PHOTLAM")
 
-    filter = Passband(filterName) 
+#     filter = Passband(filterName) 
 
-    filterWLS = filter.waveset
-    filterPass = filter(filterWLS)
+#     filterWLS = filter.waveset
+#     filterPass = filter(filterWLS)
 
-    # Plot filter transmission curve and black body spectrum
+#     # Plot filter transmission curve and black body spectrum
 
-    fig, ax1 = plt.subplots()
+#     fig, ax1 = plt.subplots()
     
     
 
-    ax1.set_xlabel('Wavelength (Å)')
-    ax1.set_ylabel('Flux (photons/sec/cm^2/Å)')
-    stellarPlot, = ax1.plot(wavelengths, fluxes, label='Stellar Black Body Spectrum',color='y')
+#     ax1.set_xlabel('Wavelength (Å)')
+#     ax1.set_ylabel('Flux (photons/sec/cm^2/Å)')
+#     stellarPlot, = ax1.plot(wavelengths, fluxes, label='Stellar Black Body Spectrum',color='y')
 
-    ax2 = ax1.twinx()
-    ax2.set_ylabel('Filter Transmission Coefficient')
-    filterPlot, = ax2.plot(filterWLS, filterPass, label= filterName + ' Filter Transmission',color='b')
+#     ax2 = ax1.twinx()
+#     ax2.set_ylabel('Filter Transmission Coefficient')
+#     filterPlot, = ax2.plot(filterWLS, filterPass, label= filterName + ' Filter Transmission',color='b')
 
-    plt.title('Filtered Black Body Spectrum')
-    plt.xlim(0,25000)
-    ax2.set_ylim(0)
-    ax1.set_ylim(0)
+#     plt.title('Filtered Black Body Spectrum')
+#     plt.xlim(0,25000)
+#     ax2.set_ylim(0)
+#     ax1.set_ylim(0)
 
-    plots = [stellarPlot,filterPlot]
-    labels = [plot.get_label() for plot in plots]
+#     plots = [stellarPlot,filterPlot]
+#     labels = [plot.get_label() for plot in plots]
 
-    ax1.legend(plots,labels,loc='best')
-    plt.grid(True) 
-    # #plt.show()
+#     ax1.legend(plots,labels,loc='best')
+#     plt.grid(True) 
+#     # #plt.show()
     
-    img_buffer = io.BytesIO()
-    plt.savefig(img_buffer, format='png')
-    image_data = img_buffer.getvalue()
+#     img_buffer = io.BytesIO()
+#     plt.savefig(img_buffer, format='png')
+#     image_data = img_buffer.getvalue()
      
-    return image_data
+#     return image_data
 
 
 
 
 def stellarSpec(starClass,starMag,mirrorArea,filterName):
 
-    starSpec = Spextrum("pickles/"+starClass).scale_to_magnitude(amplitude = starMag*u.ABmag, filter_curve=filterName)
+    starSpec = Spextrum("pickles/"+starClass).scale_to_magnitude(amplitude = starMag*u.ABmag, filter_curve='V')
 
     starPhotons = starSpec.photons_in_range(area=mirrorArea,filter_curve=filterName)
 
@@ -223,7 +214,7 @@ def generateBG(sensorX, sensorY, skyMag, filterName, mirrorArea, sensorGain, sen
     # Define Background as a black body plus an emission line corresponding to sulfur lamp emission
     # TO-DO: Update flux to correspond with real emision
 
-    bgSpec = Spextrum("sky/MR").scale_to_magnitude(amplitude = skyMag*u.ABmag, filter_curve=filterName)
+    bgSpec = Spextrum("sky/MR").scale_to_magnitude(amplitude = skyMag*u.ABmag, filter_curve='V')
 
     bgPhotons = bgSpec.photons_in_range(area=mirrorArea,filter_curve=filterName)
 
