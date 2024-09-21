@@ -10,10 +10,10 @@
                 <h3 style="margin-left:25px; color:white;"> {{ error }} </h3>
                 {% for field in in_form.errors %}
                 {% for error in in_form.errors[field]%}
-                    <p>- {{ error }} ({{ field }})</p>
+                    <p>> {{ error }} ({{ field }})</p>
                 {% endfor %}
                 {% endfor %}
-                <p>Click the <i>info</i> tabs under each section for more details</p>
+                <p><i>Click the info tabs under each section for more details</i></p>
             </section>
 
         {% endif %}

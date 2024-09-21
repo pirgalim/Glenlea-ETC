@@ -11,43 +11,25 @@
 <section class="container" style="text-align: center;">
     <h2>Plot Spectrum</h2>
     <img src="data:image/png;base64,{{ plot }}" alt="Scatter Plot Image">
-
-    
-    
 </section>
 
+
 <section class="container" style="text-align: center;">
-
-    <h2>More Details</h2>
-    <!--img src="{{counts_url}}" style="left-margin:25px;"-->
-
+    <h2>Sample Image</h2>
     <img src="data:image/png;base64,{{ aperture }}" alt="Aperture Plot Image">
+</section>
 
+
+
+<section class="container" style="text-align: center;">
+    <h2>More Details</h2>
     <h3 style="width: 100%; font-weight: 300"> The field of view area is {{fov}} arcseconds</h3>
     <h3 style="width: 100%; font-weight: 300"> The sensor reports {{counts}} counts per second from the source</h3>
     <h3 style="width: 100%; font-weight: 300"> The peak number of counts in the simulated image is {{peak}} </h3>
     <h3 style="width: 100%; font-weight: 300"> The minimum number of counts in the simulated image is {{minimum}} </h3>
-    <!--img src={{counts_url}} style="left-margin:25px;"-->
-
-
-    <!--table>
-        
-        {%for key in params%}
-        <tr>
-            <td class="col-md-2">{{ key }}: {{ params[key] }}</td>
-        </tr>
-        {% endfor %}
-        
-    </table-->
-
-
-    
-
-
-
-
-
 </section>
+
+
 
 <section class="container" style="text-align: center;">
 
