@@ -298,7 +298,7 @@ def generateBG_TEST(obs: Observation):
 
 def aperturePlot(obs, final_sensor_array):
     
-   cts.aperture(obs, final_sensor_array)
+   return cts.aperture(obs, final_sensor_array)
 
 
 

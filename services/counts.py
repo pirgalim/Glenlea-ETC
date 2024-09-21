@@ -323,6 +323,13 @@ def aperture(obs: Observation, final_sensor_array):
         plt.xlim(0,x)
         plt.ylim(0,y)
         plt.gca().set_aspect('equal')
-        plt.savefig('static/spread_counts.png')
         
-        return ( int(np.max(final_sensor_array)), int(np.min(final_sensor_array)) )  
+        
+        img_buffer = io.BytesIO()
+        plt.savefig(img_buffer, format='png')
+        image_data = img_buffer.getvalue()
+        
+        return image_data
+        # plt.savefig('static/spread_counts.png')
+        
+        # return ( int(np.max(final_sensor_array)), int(np.min(final_sensor_array)) )  
