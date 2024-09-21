@@ -64,25 +64,54 @@ def plot_bodies(obs: Observation):
 
 #SPREAD COUNTS OVER A 2D GAUSSIAN
 #Takes in sensor dimensions, total counts to spread, and fwhm (seeing condition)
-def spreadCounts(obs: Observation, counts: float, exposureTime: float) -> float: 
+# def spreadCounts(obs: Observation, counts: float, exposureTime: float) -> float: 
     
-    fwhm = obs.seeing_pixel
+#     fwhm = obs.seeing_pixel
+#     sensorX = obs.sensor_X
+#     sensorY = obs.sensor_Y
+#     totalCounts = counts
+    
+    
+#     sigma = fwhm/(2*np.sqrt(2*np.log(2)))
+#     signalValues = np.zeros([sensorY,sensorX])
+#     centerX = sensorY/2
+#     centerY = sensorX/2
+
+#     for x in range(sensorY):
+#         for y in range(sensorX):
+#             signalValues[x,y] = (1/(2*np.pi*sigma**2))*np.exp((-((x-centerX)**2+(y-centerY)**2))/(2*sigma**2))
+
+# # DO NOT INDENT !!!!!!
+#     signalValues = signalValues*(totalCounts/signalValues.sum())*exposureTime
+#     return signalValues
+
+def spreadCounts(obs: Observation, totalCounts: float, exposureTime: float) -> float:
+    
+    
     sensorX = obs.sensor_X
     sensorY = obs.sensor_Y
-    totalCounts = counts
+    fwhm = obs.seeing_cond
     
     
+    
+    x = np.linspace(0,sensorX-1,sensorX)
+    y = np.linspace(0,sensorY-1,sensorY)
+
+    X,Y = np.meshgrid(x,y)
+
+    x0 = sensorX/2
+    y0 = sensorY/2
+
     sigma = fwhm/(2*np.sqrt(2*np.log(2)))
-    signalValues = np.zeros([sensorY,sensorX])
-    centerX = sensorY/2
-    centerY = sensorX/2
 
-    for x in range(sensorY):
-        for y in range(sensorX):
-            signalValues[x,y] = (1/(2*np.pi*sigma**2))*np.exp((-((x-centerX)**2+(y-centerY)**2))/(2*sigma**2))
+    #for x in range(sensorY):
+     #   for y in range(sensorX):
+      #      signalValues[x,y] = (1/(2*np.pi*sigma**2))*np.exp((-((x-centerX)**2+(y-centerY)**2))/(2*sigma**2))
 
-# DO NOT INDENT !!!!!!
+    signalValues = np.exp(-(((X - x0) ** 2) / (2 * sigma ** 2) + ((Y - y0) ** 2) / (2 * sigma ** 2)))
+
     signalValues = signalValues*(totalCounts/signalValues.sum())*exposureTime
+        
     return signalValues
 
 

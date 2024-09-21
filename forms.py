@@ -79,33 +79,10 @@ def filtersNew():
     # filters that currently cause issues
     banned = ['L', 'M', 'N', 'Q']
 
-    # insert default field
-    # contents.insert(0, ('', 'Required'))
-
     # set filter path
     for val in list(eso):
-        
-        
-        # remove banned filters
-        # if val[0] in banned:
-        #     eso.remove(val)
-        
         if val[0] != '' and val[0] not in banned:
             contents.append( ('etc/' + val[0], val[1]) )
-        
-        
-
-
-    # add default filters
-    # default_filters = DEFAULT_DATA.filters
-    # for val in default_filters:
-        
-    #     if '-' not in val and '+' not in val:
-    #         contents.append( (val, val) )
-
-    
-    
-    
         
     return contents
          
