@@ -6,8 +6,17 @@
 
         <!-- input validation error message -->
         {% if not valid %}
-            <section style="background-color:maroon;">
+            <section id="error" style="background-color:maroon;">
                 <h3 style="margin-left:25px; color:white;"> {{ error }} </h3>
+
+                {% for field in in_form.errors %}
+                {% for error in in_form.errors[field]%}
+                    <p>- {{error}} ({{field}})</p>
+                {% endfor %}
+                {% endfor %}
+
+                <p>Click the <i>info</i> tabs under each section for more details</p>
+
             </section>
 
         {% endif %}
@@ -293,7 +302,11 @@
                         <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
                     </p>
                 </div>
+
+
                 <div class="spacer-break"></div>
+                
+                            
                 
               
 

@@ -199,7 +199,7 @@ def calculator():
                      #    SB_url="static/plot_light_curve_SB.png"
                     
                     # render output template
-                    return render_template('output_v2.html', valid=valid, in_form=in_form, select_form=select_form,
+                    return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
                                             camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets,
                                             target_presets=target_presets, gao_sqm=gao_sqm,
                                             plot=encoded_image, aperture=aperture_plot_encoded,
@@ -221,7 +221,7 @@ def calculator():
     return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, 
                            target_presets=target_presets,gao_sqm=gao_sqm, 
-                           error="Invalid Parameter(s) Below - Must Be Numeric (0 - 100,000)")
+                           error="Invalid Parameter(s) Below")
 
 
 

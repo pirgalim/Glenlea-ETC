@@ -45,7 +45,7 @@ function changeTemp() {
         tempLabel.style.background = "lightgray";
         tempLabel.style.color = "darkgray";
         tempField.style.background = "lightgray";
-        tempField.style.border = "lightgray";
+        // tempField.style.border = "lightgray";
         tempField.style.color = "lightgray";
         tempField.required = false;
         tempField.readOnly = true;
@@ -56,7 +56,7 @@ function changeTemp() {
         tempLabel.style.background = "slategray";
         tempLabel.style.color = "white";
         tempField.style.background = "white";
-        tempField.style.border = "white";
+        // tempField.style.border = "white";
         tempField.style.color = "black";
         tempField.required = true;
         tempField.readOnly = false;
