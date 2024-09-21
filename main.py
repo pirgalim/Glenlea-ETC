@@ -57,11 +57,22 @@ def calculator():
     # retrieve current GAO SQM value
     gao_sqm = sqm.get_sqm()   
     
+    
+    
     # detect if form has been submitted
     if in_form.submit.data:
             
+        
+        # import time
+        # time.sleep(5)
+            
+            
         # check for valid input fields
         if in_form.validate():
+            
+            
+            
+            
         
             # retrieve form data
             data = request.form

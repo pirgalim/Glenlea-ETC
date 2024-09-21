@@ -9,6 +9,7 @@
             <section style="background-color:maroon;">
                 <h3 style="margin-left:25px; color:white;"> {{ error }} </h3>
             </section>
+
         {% endif %}
 
         <!-- main form -->
@@ -657,53 +658,20 @@
             <section id="submission" class="container">
                 {{ in_form.submit(id="go", style="background-color: teal") }} 
 
-
-            
-
-                  <div class="spacer-break"></div>
-                  
-                  <progress id="progress-bar" style="display:none"></progress>
-
-
-                  <!--script type="text/javascript" src="{{ url_for('static', filename='scripts/resetPage.js') }}"></script-->
+                    <div class="spacer-break"></div>
                   
 
-                  <!--script>
+                    <!--h3 id="loading" style="display:none">Loading...</h3>
 
 
-                    //document.getElementById('input-form').addEventListener("submit", (event) => {
-                        //document.getElementById('progress-bar').style.display = "block";
-                        //document.getElementById('progress-bar').value = "70";
-                    //});
+                    <script>
+                        document.getElementById('go').addEventListener("click", function() {
 
+                            document.getElementById('loading').style.display = "block"
+                        })
+                    </script-->
 
-
-
-                    document.getElementById('go').addEventListener("click", show);
-
-                    function show() {
-
-                        
-                        document.getElementById('progress-bar').style.display = "block";
-
-                        let currentValue = 0;
-
-                        const incrementInterval = setInterval(() => {
-                            currentValue += 0.01;
-                            document.getElementById('progress-bar').value = currentValue;
-
-                            if (currentValue >= 100) {
-                                clearInterval(incrementInterval);
-                            }
-                        }, 100);
-                    }
-
-                  </script-->
-
-                <!--div id="myProgress">
-                    <div id="myBar"></div>
-                </div-->    
-
+    
             </section>
 
             
@@ -711,7 +679,7 @@
 
             
 
-
+            <!-- info script -->
             <script>
                 var coll = document.getElementsByClassName("collapsible");
                 var i;
@@ -740,36 +708,25 @@
         </section>
 
   
+        {% if not valid %}
+        <script>
 
-        <!--script>
+            var option = document.getElementById('point_src').value;
 
-            document.getElementById('go').addEventListener("click", move);
+            document.getElementById('point_src').value = '';
 
-            var i = 0;
-            function move() {
-              if (i == 0) {
-                i = 1;
-                var elem = document.getElementById("myBar");
-                var width = 1;
-                var id = setInterval(frame, 10);
-                function frame() {
-                  if (width >= 100) {
-                    clearInterval(id);
-                    i = 0;
-                  } else {
-                    width++;
-                    elem.style.width = width + "%";
-                  }
-                }
-              }
-              document.getElementById("myBar").style.width = 0 + "%";
-            }
+            
+            document.getElementById('point_src').value = option;
 
 
-            </script-->
+        </script>
 
 
 
+
+    {% endif %}
+
+        
 
         <!--script type="text/javascript" src="{{ url_for('static', filename='scripts/sourceToggle.js') }}"></script-->
 
