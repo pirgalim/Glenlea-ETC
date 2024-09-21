@@ -27,18 +27,7 @@ OMIT_KEY = "   01.  "
 
 @app.route('/', methods=['GET', 'POST'])
 def calculator():
-    
-
-    
-    #TODO remove file after generating
-    
-    # if os.path.exists("static/plot_light_curve_SB.png"):
-    #             os.remove("static/plot_light_curve_SB.png")
-
-    # if os.path.exists("static/spread_counts.png"):
-    #             os.remove("static/spread_counts.png")
-    
-    
+       
     # create forms
     in_form = InputForm()
     select_form = SelectForm()
@@ -48,6 +37,13 @@ def calculator():
       
     #load presets from templates
     camera_presets = readPresets("camera")
+    
+    import templates as tp
+    
+    print(tp.asi6200mm)
+    
+    camera_presets = [tp.asi6200mm, 0]
+    
     telescope_presets = readPresets("telescope")
     filter_presets = readPresets("filter")
     # target_presets = readPresets("target")
