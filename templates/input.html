@@ -8,15 +8,12 @@
         {% if not valid %}
             <section id="error" style="background-color:maroon;">
                 <h3 style="margin-left:25px; color:white;"> {{ error }} </h3>
-
                 {% for field in in_form.errors %}
                 {% for error in in_form.errors[field]%}
-                    <p>- {{error}} ({{field}})</p>
+                    <p>- {{ error }} ({{ field }})</p>
                 {% endfor %}
                 {% endfor %}
-
                 <p>Click the <i>info</i> tabs under each section for more details</p>
-
             </section>
 
         {% endif %}
@@ -42,12 +39,12 @@
                 <button type="button" class="collapsible">ⓘ info</button>
                 <div class="col-content">
                     <p>
-                        Sample Length - determines the length of the sample image; increase the value if it does not fit<br>
-                        Sample Width - determines the width of the sample image; increase the value if it does not fit<br> 
-                        Pixel Size (μm) -  size of an individual pixel of the camera sensor<br>
-                        Quantum Efficiency (%)  -  efficiency of the camera sensor<br>
-                        Read Noise (electrons)- measurement... <br>
-                        Gain (electrons/ADU)- level... <br>
+                        Sample Length - determines the length of the sample image; increase the value if it does not fit - [10, 1000]<br>
+                        Sample Width - determines the width of the sample image; increase the value if it does not fit - [10, 1000]<br> 
+                        Pixel Size (μm) - size of an individual pixel of the camera sensor<br>
+                        Quantum Efficiency (%) - percentage of photons captured that register a signal<br>
+                        Read Noise (electrons) - noise introduced by the detector circuitry<br>
+                        Gain (electrons/ADU) - signal amplification of the sensor<br>
                         Offset (units) - ... <br>
                         Dark Noise (units) - ... <br>
                     </p>
