@@ -649,20 +649,26 @@
             <!-- submit form -->
             <section id="submission" class="container">
                 {{ in_form.submit(id="go", style="background-color: teal") }} 
+              
 
-                    <div class="spacer-break"></div>
-                  
-
-                    <!--h3 id="loading" style="display:none">Loading...</h3>
+                    <h3 id="loading" style="display:none">Loading...</h3>
 
 
-                    <script>
+                    <!--script>
+
+                        document.addEventListener('DOMContentLoaded', function() {
+                            document.getElementById('loading').style.display = "none";
+                            document.getElementById('go').style.display = "block";
+                        });
+
+                        
                         document.getElementById('go').addEventListener("click", function() {
 
-                            document.getElementById('loading').style.display = "block"
-                        })
+                            document.getElementById('loading').style.display = "block";
+                            document.getElementById('go').style.display = "none";
+                        });
                     </script-->
-
+                    
     
             </section>
 
@@ -700,23 +706,15 @@
         </section>
 
   
+
+        <!--remove?-->
         {% if not valid %}
         <script>
-
             var option = document.getElementById('point_src').value;
-
             document.getElementById('point_src').value = '';
-
-            
             document.getElementById('point_src').value = option;
-
-
         </script>
-
-
-
-
-    {% endif %}
+        {% endif %}
 
         
 
