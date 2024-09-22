@@ -110,6 +110,7 @@ def calculator():
                     test_exposure = 1  # seconds
          
                     counts = etc.calc_counts(obs)
+                    print(counts, " counts per second from the star")
                     
                     plot = etc.plot_bodies(obs)
                     encoded_image = base64.b64encode(plot).decode('utf-8')
@@ -125,8 +126,12 @@ def calculator():
                     
                     # plot = etc.plot(obs)
                     
+           
+                                     
                     signal_values = etc.spreadCounts(obs, counts, 1)
-                    
+            
+                    print(signal_values)
+            
                     
                     # NEW FUNCTION
                     counts = etc.countsInRad(obs, signal_values)
@@ -134,10 +139,19 @@ def calculator():
                     print(np.sum(signal_values), "counts per second are recorded from the star in total.")
                     
                     
+                    
+                    
+                    
+                    
                     noise_values = etc.generateNoise(obs ,test_exposure)
+                    
+                    #TODO rename
                     bg_values = etc.generateBG_TEST(obs)
                     
                     final_sensor_array = etc.overfullCheck(signal_values+noise_values+bg_values, obs)
+                    
+                    print("The peak number of counts in the simulated image is: ",np.max(final_sensor_array))
+                    print("The minimum number of counts in the simulated image is: ",np.min(final_sensor_array))
                     
                     # print("signal values array: ", signal_values)
                     # print("noise values array: ", noise_values)

@@ -90,7 +90,7 @@ def spreadCounts(obs: Observation, totalCounts: float, exposureTime: float) -> f
     
     sensorX = obs.sensor_X
     sensorY = obs.sensor_Y
-    fwhm = obs.seeing_cond
+    fwhm = obs.seeing_pixel
     
     
     
@@ -247,7 +247,6 @@ def calculateReqTime(desiredSNR, snrRef, expRef, counts, obs: Observation, bg_va
     # maxSNR = computeSNR(maxTime, counts, obs.aperture)
     
     maxSNR = computeSNR(obs, maxTime, counts, bg_values)
-    
     currentSNR = snrRef
 
     if desiredSNR>maxSNR:
@@ -298,7 +297,7 @@ def generateBG_TEST(obs: Observation):
     result = cts.generateBG(sensor_X, sensor_Y, sky_bright, filter_name, mirror_area, gain, Q_efficiency, pixel_area, obs_type)*Q_efficiency*pixel_area
 
     
-    print("bg result: ", result)
+    # print("bg result: ", result)
     
     return result
             
@@ -359,5 +358,12 @@ def countsInRad(obs: Observation, signalGrid):
             if (np.sqrt((x-(sensorX//2))**2+(y-(sensorY//2))**2)) <= radius:
 
                 countsWithinRadius = countsWithinRadius + signalGrid[x][y]
+                print(countsWithinRadius)
+                
+
+    print(sensorX, sensorY, radius)
+    print(signalGrid)
+    
+
 
     return countsWithinRadius

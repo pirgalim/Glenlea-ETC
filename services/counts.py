@@ -214,7 +214,7 @@ def generateBG(sensorX, sensorY, skyMag, filterName, mirrorArea, sensorGain, sen
     # Define Background as a black body plus an emission line corresponding to sulfur lamp emission
     # TO-DO: Update flux to correspond with real emision
 
-    bgSpec = Spextrum("sky/MR").scale_to_magnitude(amplitude = skyMag*u.ABmag, filter_curve='V')
+    bgSpec = Spextrum("pickles/g2v").scale_to_magnitude(amplitude = skyMag*u.ABmag, filter_curve='V')
 
     bgPhotons = bgSpec.photons_in_range(area=mirrorArea,filter_curve=filterName)
 
