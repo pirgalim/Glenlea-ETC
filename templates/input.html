@@ -353,29 +353,7 @@
 
                 <div class="spacer"></div>
                 
-                <!--script> 
-                    document.getElementById('point_src').addEventListener('change', function() {
-
-                        var presets = {{ target_presets|tojson }};
-                        var size = presets[0][1].length;
-                        var preset = [size]
-
-                        // blank by default
-                        for(let i = 0; i < size; i++) { preset[i] = ''; }
-
-                        // match the selection with a preset
-                        for( let i = 0; i < presets.length; i++ ) {
-                            if( presets[i][0] == document.getElementById('point_src').value ) { preset = presets[i][1]; }
-                        }
-                        // autofill
-                        document.getElementById('star_temp').value = preset[0];
-
-                        // display source name
-                        var e = document.getElementById('point_src');
-                        var text = e.options[e.selectedIndex].text;
-                        document.getElementById('pickle').value = text;
-                    });
-                </script-->
+                
 
 
             </section>
@@ -418,29 +396,7 @@
 
                 <div class="spacer"></div><div class="spacer"></div>
 
-                <!--script> 
-                    document.getElementById('extended_src').addEventListener('change', function() {
-
-                        var presets = {{ target_presets|tojson }};
-                        var size = presets[0][1].length;
-                        var preset = [size]
-
-                        // blank by default
-                        for(let i = 0; i < size; i++) { preset[i] = ''; }
-
-                        // match the selection with a preset
-                        for( let i = 0; i < presets.length; i++ ) {
-                            if( presets[i][0] == document.getElementById('extended_src').value ) { preset = presets[i][1]; }
-                        }
-                        // autofill
-                        document.getElementById('star_temp').value = preset[0];
-
-                        // display source name
-                        //var e = document.getElementById('extended_src');
-                        //var text = e.options[e.selectedIndex].text;
-                        //document.getElementById('pickle').value = text;
-                    });
-                </script-->
+             
             </section>
 
 

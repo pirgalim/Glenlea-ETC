@@ -1,18 +1,14 @@
 from flask import Flask, render_template, request
-import os
-import base64
-# import services.ETC_old as ETC_old
 
-import services.etc as etc
-# import services.counts as cts
-import services.observation as observation
-
-import services.scrape_sqm as sqm
 from forms import InputForm, SelectForm
+import services.etc as etc
+import services.observation as observation
+import services.scrape_sqm as sqm
+import templates as tp
 
+import base64
 import numpy as np
 
-import asyncio
 
 
 # Flask setup
@@ -21,7 +17,7 @@ app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
 
 
 
-OMIT_KEY = "   01.  "
+# OMIT_KEY = "   01.  "
 
 
 
@@ -38,7 +34,7 @@ def calculator():
     #load presets from templates
     # camera_presets = readPresets("camera")
     
-    import templates as tp
+    
     
     # print(tp.asi6200mm)
     
@@ -46,10 +42,10 @@ def calculator():
     telescope_presets = tp.telescopes
     
     # telescope_presets = readPresets("telescope")
-    filter_presets = readPresets("filter")
+    # filter_presets = readPresets("filter")
     # target_presets = readPresets("target")
     
-    target_presets = pickles()
+    # target_presets = pickles()
         
     # retrieve current GAO SQM value
     gao_sqm = sqm.get_sqm()   
@@ -58,31 +54,18 @@ def calculator():
     
     # detect if form has been submitted
     if in_form.submit.data:
-            
-        
-        # import time
-        # time.sleep(5)
-            
-            
+                        
         # check for valid input fields
         if in_form.validate():
-            
-            
-            
-            
-        
+                    
             # retrieve form data
             data = request.form
             
-            
-            #TODO testing
-            # print(data)
             
             params = process_input(data)
             
             print("----------\nmain section:\n-------------")
             print(params)
-            
             
             
             # create parameter tuple to be sent to the calculator script
@@ -218,8 +201,8 @@ def calculator():
                     
                     # render output template
                     return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
-                                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets,
-                                            target_presets=target_presets, gao_sqm=gao_sqm,
+                                            camera_presets=camera_presets, telescope_presets=telescope_presets,
+                                            gao_sqm=gao_sqm,
                                             plot=encoded_image, aperture=aperture_plot_encoded,
                                             counts=counts, exposure=exposure_time, peak=peak_cts, minimum=min_cts, fov=fov, 
                                             col1a=table_1a, col1b=table_1b, col2a=table_2a, col2b=table_2b)
@@ -229,16 +212,16 @@ def calculator():
                 else: 
                     # display error in HTML
                     return render_template('input.html', valid=False, in_form=in_form, select_form=select_form,
-                                            camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets,
-                                            target_presets=target_presets, gao_sqm=gao_sqm, error=error)
+                                            camera_presets=camera_presets, telescope_presets=telescope_presets,
+                                            gao_sqm=gao_sqm, error=error)
                 
         # An error message will be displayed in the HTML
         else: valid = False
                 
     # render HTML to be displayed
     return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
-                           camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, 
-                           target_presets=target_presets,gao_sqm=gao_sqm, 
+                           camera_presets=camera_presets, telescope_presets=telescope_presets, 
+                           gao_sqm=gao_sqm, 
                            error="Invalid Parameter(s) Below")
 
 
@@ -293,46 +276,22 @@ def process_input(input: dict) -> dict:
     for key in input: 
         if key != "csrf_token" and key != "submit":
             try:   
-                if(input[key] == OMIT_KEY):   
-                    print("omitted")
-                    print(key)
-                    params[key] = "omit"
-                else:
-                    params[key] = float( input[key] )
+                # if(input[key] == OMIT_KEY):   
+                #     print("omitted")
+                #     print(key)
+                #     params[key] = "omit"
+                # else:
+                params[key] = float( input[key] )
             except:
                 params[key] = input[key]   
-           
                 
-    # post condition
-    
-    # source_name = params["source_type"]
-    
-    # omit_counts = {"point": 3, "extended": 3}
-    
-    
-    # omit_count = InputForm.fields[source_name]
-    
-    # # omit_counts[source_name]
-     
-    
-    # count = 0
-    
-    # for val in params.values():
-        
-    #     if val == "omit":
-    #         count += 1
-    
-    # if omit_count != count:
-        
-    #     print("counted omits: ", count)
-    #     print("expected omits: ", omit_count)
-    #     return None
-    
+                #TODO should switch to isnumeric, not try-except
                 
-    # print(params)
-    # print("counted omits: ", count)
-    # print("expected omits: ", omit_count)
-    
+            # if( input[key].isdigit()) :
+            #     params[key] = float( input[key] )
+            # else:
+            #     params[key] = input[key]
+
     return params
     
         
@@ -343,20 +302,20 @@ def process_input(input: dict) -> dict:
     
 
 
+#TODO move to etc script?
+# def pickles(): 
     
-def pickles(): 
+#     file = open("./static/presets/pickles.csv")
+#     presets = []
     
-    file = open("./static/presets/pickles.csv")
-    presets = []
-    
-    for line in file:    
-        csvs = line.strip().split(",")
+#     for line in file:    
+#         csvs = line.strip().split(",")
         
         
-        presets.append( (csvs[1], [csvs[2]]) )
+#         presets.append( (csvs[1], [csvs[2]]) )
         
-    file.close()
-    return presets
+#     file.close()
+#     return presets
         
     
 

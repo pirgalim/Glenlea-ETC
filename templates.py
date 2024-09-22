@@ -20,8 +20,18 @@ cdk14 = { 'name':"cdk14", 'scope_dia': 0.356, 'scope_focal': 2.563, 'plate_scale
 
 
 
-
-
+### FILTER PRESETS ###
+# def pickles(): 
+    
+#     file = open("./static/presets/pickles.csv")
+#     presets = []
+    
+#     for line in file:    
+#         csvs = line.strip().split(",")
+#         presets.append( (csvs[1], [csvs[2]]) )
+        
+#     file.close()
+#     return presets
 
 
 
