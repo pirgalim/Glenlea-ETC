@@ -265,7 +265,7 @@ def calculateReqTime(desiredSNR, snrRef, expRef, counts, obs: Observation, bg_va
 
         print("The calculated exposure time is: ", currentTime)
         
-        
+        #TODO
         exposure_time = "The required exposure time is {:.4f} seconds".format(currentTime)
         
         
@@ -336,3 +336,28 @@ def plotTest(obs: Observation):
     
     print("here")
     return cts.testPlot(obs.star_temp, obs.ab_mag, obs.mirror_area,obs.filter_name)
+
+
+
+
+
+
+
+
+#COMPUTE NUMBER OF COUNTS WITHIN APERTURE
+def countsInRad(obs: Observation, signalGrid):
+    
+    sensorX = obs.sensor_X
+    sensorY = obs.sensor_Y
+    radius = obs.aperture_rad
+
+    countsWithinRadius = 0
+
+    for x in range(len(signalGrid)):
+        for y in range(len(signalGrid[0])):
+
+            if (np.sqrt((x-(sensorX//2))**2+(y-(sensorY//2))**2)) <= radius:
+
+                countsWithinRadius = countsWithinRadius + signalGrid[x][y]
+
+    return countsWithinRadius

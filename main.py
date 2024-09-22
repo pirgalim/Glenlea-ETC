@@ -113,7 +113,7 @@ def calculator():
                     
                     plot = etc.plot_bodies(obs)
                     encoded_image = base64.b64encode(plot).decode('utf-8')
-                    print(encoded_image)
+                    # print(encoded_image)
                     
                     
                     # plot = etc.plotTest(obs)
@@ -127,16 +127,22 @@ def calculator():
                     
                     signal_values = etc.spreadCounts(obs, counts, 1)
                     
-                    # await asyncio.sleep(5)
+                    
+                    # NEW FUNCTION
+                    counts = etc.countsInRad(obs, signal_values)
+                    print(counts, "counts per second are recorded for signal to noise calculations.")
+                    print(np.sum(signal_values), "counts per second are recorded from the star in total.")
+                    
+                    
                     noise_values = etc.generateNoise(obs ,test_exposure)
                     bg_values = etc.generateBG_TEST(obs)
                     
                     final_sensor_array = etc.overfullCheck(signal_values+noise_values+bg_values, obs)
                     
-                    print("signal values array: ", signal_values)
-                    print("noise values array: ", noise_values)
-                    print("bg values array: ", bg_values)
-                    print("final sensor array: ", final_sensor_array)
+                    # print("signal values array: ", signal_values)
+                    # print("noise values array: ", noise_values)
+                    # print("bg values array: ", bg_values)
+                    # print("final sensor array: ", final_sensor_array)
                     
                     peak_cts = np.max(final_sensor_array)
                     min_cts = np.min(final_sensor_array)
