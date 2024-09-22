@@ -36,15 +36,16 @@ def calculator():
     valid = True
       
     #load presets from templates
-    camera_presets = readPresets("camera")
+    # camera_presets = readPresets("camera")
     
     import templates as tp
     
-    print(tp.asi6200mm)
+    # print(tp.asi6200mm)
     
-    camera_presets = [tp.asi6200mm, 0]
+    camera_presets = tp.cameras
+    telescope_presets = tp.telescopes
     
-    telescope_presets = readPresets("telescope")
+    # telescope_presets = readPresets("telescope")
     filter_presets = readPresets("filter")
     # target_presets = readPresets("target")
     
@@ -110,7 +111,7 @@ def calculator():
                     test_exposure = 1  # seconds
          
                     counts = etc.calc_counts(obs)
-                    print(counts, " counts per second from the star")
+
                     
                     plot = etc.plot_bodies(obs)
                     encoded_image = base64.b64encode(plot).decode('utf-8')
@@ -130,10 +131,11 @@ def calculator():
                                      
                     signal_values = etc.spreadCounts(obs, counts, 1)
             
-                    print(signal_values)
+
             
                     
                     # NEW FUNCTION
+                    # Adjust counts to what the detector will see (circle)
                     counts = etc.countsInRad(obs, signal_values)
                     print(counts, "counts per second are recorded for signal to noise calculations.")
                     print(np.sum(signal_values), "counts per second are recorded from the star in total.")
