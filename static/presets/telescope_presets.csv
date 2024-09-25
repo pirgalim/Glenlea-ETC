@@ -1,5 +1,0 @@
-*** MUST UPDATE 'forms.py' IN ORDER TO BE ABLE TO SELECT THE OPTION(S) ***
-*** TELESCOPE NAME: DIAMETER, FOCAL LENGTH, PLATE SCALE (NO SPACES BETWEEN COMMAS) ***
--------------------------------------------------------------------------------------------------------------------------------------
-cdk350:0.3175,1.570,0.488
-c8:0.2032,2.032,0.57
