@@ -455,20 +455,20 @@
                         
 
                         // reset
-                        document.getElementById("seeing-label").style.background = "slategray";
-                        document.getElementById("seeing-label").style.color = "white";
-                        document.getElementById("seeing").style.background = "white";
-                        document.getElementById("seeing").style.border = "white";
-                        document.getElementById("seeing").style.color = "black";
+                        //document.getElementById("seeing-label").style.background = "slategray";
+                        //document.getElementById("seeing-label").style.color = "white";
+                        //document.getElementById("seeing").style.background = "white";
+                        //document.getElementById("seeing").style.border = "white";
+                        //document.getElementById("seeing").style.color = "black";
 
                         //document.getElementById("seeing").value = document.getElementById("conditions").value;
-                        document.getElementById('seeing').readOnly = false;
-                        document.getElementById("seeing").value = "";
-                        document.getElementById('conditions').disabled = false;
+                        //document.getElementById('seeing').readOnly = false;
+                        //document.getElementById("seeing").value = "";
+                        //document.getElementById('conditions').disabled = false;
 
 
-                        document.getElementById("star_temp").required = true;
-                        document.getElementById('star_temp').readOnly = false;
+                        //document.getElementById("star_temp").required = true;
+                        //document.getElementById('star_temp').readOnly = false;
                         
                         //document.getElementById("star_ab_mag").value = "";
 
@@ -498,21 +498,21 @@
 
                         //readonly
 
-                        document.getElementById("seeing-label").style.background = "lightgray";
-                        document.getElementById("seeing-label").style.color = "darkgray";
-                        document.getElementById("seeing").style.background = "lightgray";
-                        document.getElementById("seeing").style.border = "lightgray";
-                        document.getElementById("seeing").style.color = "lightgray";
+                        //document.getElementById("seeing-label").style.background = "lightgray";
+                        //document.getElementById("seeing-label").style.color = "darkgray";
+                        //document.getElementById("seeing").style.background = "lightgray";
+                        //document.getElementById("seeing").style.border = "lightgray";
+                        //document.getElementById("seeing").style.color = "lightgray";
 
-                        document.getElementById("seeing").value = "   01.  ";
-                        document.getElementById('seeing').readOnly = true;
-                        document.getElementById('conditions').disabled = true;
+                       // document.getElementById("seeing").value = "   01.  ";
+                       // document.getElementById('seeing').readOnly = true;
+                       // document.getElementById('conditions').disabled = true;
 
                         document.getElementById('point_src').disabled = true;
 
              
-                        document.getElementById("star_temp").required = false;
-                        document.getElementById('star_temp').readOnly = true;
+                        //document.getElementById("star_temp").required = false;
+                        //document.getElementById('star_temp').readOnly = true;
 
 
                         //document.getElementById("star_ab_mag").value = "   01.  ";
@@ -721,6 +721,7 @@
         <!--script type="text/javascript" src="{{ url_for('static', filename='scripts/sourceToggle.js') }}"></script-->
 
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/tempToggle.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/seeingToggle.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/infoToggle.js') }}"></script>
 
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/autofill.js') }}"></script>

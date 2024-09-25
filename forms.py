@@ -114,7 +114,7 @@ class InputForm(FlaskForm):
     plate_scale = FloatField('Plate Scale', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     
         
-    # point source parameters
+    # point source parameters - required by default
     star_temp = FloatField('Temperature', validators=[Optional(), NumberRange(min=1000, max=100000)], render_kw={"required": "true"})
     star_ab_mag = FloatField('AB Magnitude', validators=[Optional(), NumberRange(min=-30, max=30)], render_kw={"required": "true"})
     
@@ -124,7 +124,7 @@ class InputForm(FlaskForm):
     
     
     
-    #extended source parameters
+    #extended source parameters - not required by default
     ext_mag = FloatField('Surface Brightness', validators=[Optional(), NumberRange(min=-100000, max=100000)], render_kw={"required": "false"})
     
     
@@ -136,7 +136,7 @@ class InputForm(FlaskForm):
    
 
     # weather conditions
-    seeing = FloatField('Seeing', validators=[InputRequired(), NumberRange(min=0, max=8)])
+    seeing = FloatField('Seeing', validators=[Optional(), NumberRange(min=0, max=8)], render_kw={"required": "true"})
     sqm = FloatField('Sky Quality', validators=[InputRequired(), NumberRange(min=0, max=22)])
     
     # desired signal to noise ratio
