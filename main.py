@@ -113,13 +113,17 @@ def calculator():
                     table_2b = []
                     
                     i = 0
-                    for key in params:  
+                    for key, value in params.items():  
+                        
+                        if params[key] == '':
+                            value = 'n/a'
+                        
                         if i % 2 == 0:
                             table_1a.append(key)
-                            table_1b.append(params[key]) 
+                            table_1b.append(value) 
                         else:
                             table_2a.append(key)
-                            table_2b.append(params[key]) 
+                            table_2b.append(value) 
                         i += 1
                                                                
                     
