@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const seeingLabel = document.getElementById('seeing-label');
     const seeingField = document.getElementById('seeing');
+    const selectMenu = document.getElementById('conditions');
 
     console.log(seeingField)
 
@@ -16,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
         seeingField.style.color = "black";
         seeingField.required = true;
         seeingField.readOnly = false;
+
+        selectMenu.disabled = false;
+
     })
 
     document.getElementById("defaultClose").addEventListener("click", function() {
@@ -28,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
         seeingField.style.color = "lightgray";
         seeingField.required = false;
         seeingField.readOnly = true;
+
+        selectMenu.disabled = true;
+
     })
 
 });

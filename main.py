@@ -1,11 +1,14 @@
+# flask modules
 from flask import Flask, render_template, request
-
 from forms import InputForm, SelectForm
+
+# calculator modules
 import services.etc as etc
 import services.observation as observation
 import services.scrape_sqm as sqm
 import templates as tp
 
+# other modules
 import base64
 import numpy as np
 
@@ -87,8 +90,7 @@ def calculator():
                     SNR_ref = etc.get_snr_ref(counts, test_exposure, bg_values, obs)
                     
                     exposure_time = etc.calculateReqTime(obs.snr, SNR_ref, test_exposure, counts, obs, bg_values)
-
-                    # exposure_time = "The exposure time is {x:.2f}".format(x=exposure_time)
+                    exposure_time = "{x:.4f}".format(x=exposure_time)   # format to 4 decimal places
                     
                     aperture_plot = etc.aperturePlot(obs, final_sensor_array)
                     aperture_plot_encoded = base64.b64encode(aperture_plot).decode('utf-8')
@@ -112,28 +114,20 @@ def calculator():
                         min_cts = round(min_cts)
                         fov = round(fov)
                     except:
-                        pass
+                        pass    # leave values as is if they cannot be rounded
                     
     
-                    # table formatting
-                    table_1a = []
-                    table_1b = []
-                    table_2a = []
-                    table_2b = []
+                    # table formatting                    
+                    table_1a, table_1b, table_2a, table_2b = [], [], [], []
                     
-                    i = 0
-                    for key, value in params.items():  
-                        
-                        if params[key] == '':
-                            value = 'n/a'
-                        
-                        if i % 2 == 0:
-                            table_1a.append(key)
-                            table_1b.append(value) 
-                        else:
-                            table_2a.append(key)
-                            table_2b.append(value) 
-                        i += 1
+                    for i, (key, value) in enumerate(params.items()):  
+                        if params[key] != '':
+                            if i % 2 == 0:
+                                table_1a.append(key)
+                                table_1b.append(value) 
+                            else:
+                                table_2a.append(key)
+                                table_2b.append(value) 
                                                                
                     
                     # render output template
@@ -168,25 +162,18 @@ def process_input(input: dict) -> dict:
         
     params = {}
     
+    
+    import datetime
+    params["date generated"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
     for key in input: 
         if key != "csrf_token" and key != "submit":
             try:   
-                # if(input[key] == OMIT_KEY):   
-                #     print("omitted")
-                #     print(key)
-                #     params[key] = "omit"
-                # else:
                 params[key] = float( input[key] )
             except:
                 params[key] = input[key]   
                 
                 #TODO should switch to isnumeric, not try-except
-                
-            # if( input[key].isdigit()) :
-            #     params[key] = float( input[key] )
-            # else:
-            #     params[key] = input[key]
-
     return params
     
             

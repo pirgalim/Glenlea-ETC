@@ -257,18 +257,9 @@ def calculateReqTime(desiredSNR, snrRef, expRef, counts, obs: Observation, bg_va
         while np.abs(desiredSNR-currentSNR)>tolerance:
             currentTime = expRef*(desiredSNR/currentSNR)**2
             currentSNR = computeSNR(obs, currentTime, counts, bg_values)
-            expRef = currentTime
-            print("SNR is now: ", currentSNR)
-            
-
-
-        print("The calculated exposure time is: ", currentTime)
+            expRef = currentTime        
         
-        #TODO
-        exposure_time = "The required exposure time is {:.4f} seconds".format(currentTime)
-        
-        
-        return exposure_time           
+        return currentTime           
             
             
             
