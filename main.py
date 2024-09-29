@@ -95,6 +95,15 @@ def calculator():
                      
                     fov = obs.computeFOV()
                     
+                    
+                    # single_length = 180
+                    # single_snr = etc.computeSNR(obs, single_length, counts, bg_values)
+                    
+                    # frames_req = (obs.snr / single_snr) ** 2
+                    # total_time = frames_req * single_length
+                    
+                    # print(f"{frames_req} is the number of frames of {single_length} seconds needed to acheive an snr of {obs.snr}. Each frame has an snr of {single_snr} and the total exposure time is {total_time}")
+                    
                 
                     # rounding
                     try:

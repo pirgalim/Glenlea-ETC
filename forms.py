@@ -111,7 +111,7 @@ class InputForm(FlaskForm):
     #telescope parameters
     scope_dia = FloatField('Diameter', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     scope_focal = FloatField('Focal Length', validators=[InputRequired(), NumberRange(min=0, max=100000)])
-    plate_scale = FloatField('Plate Scale', validators=[InputRequired(), NumberRange(min=0, max=100000)])
+    plate_scale = FloatField('Plate Scale', validators=[InputRequired(), NumberRange(min=0.01, max=100000)])
     
         
     # point source parameters - required by default

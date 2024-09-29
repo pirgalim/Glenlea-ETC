@@ -34,6 +34,18 @@ document.getElementById('camera').addEventListener('change', function() {
         document.getElementById('offset').value = preset['offset'];
         document.getElementById('dark_noise').value = preset['dark_noise'];
         document.getElementById('full_well').value = preset['full_well'];
+
+
+
+
+        const pixelSize = parseFloat( document.getElementById('px_size').value );
+        const focalLength = parseFloat( document.getElementById('scope_focal').value ) * 1000; // converting focalLength to mm
+        pixelScale = ( pixelSize/focalLength )  * 206.265;
+        if(pixelScale) {
+            document.getElementById('plate_scale').value =   Math.round(pixelScale * 100) / 100; // round to 2 decimal places
+
+            console.log("should change");
+        }
     }
     else {
         document.getElementById('sensor_x').value = '';
@@ -69,7 +81,17 @@ document.getElementById('telescope').addEventListener('change', function() {
     if(select.value != '') {
         document.getElementById('scope_dia').value = preset['scope_dia'];
         document.getElementById('scope_focal').value = preset['scope_focal'];
-        document.getElementById('plate_scale').value = preset['plate_scale'];
+
+
+        const pixelSize = parseFloat( document.getElementById('px_size').value );
+        const focalLength = parseFloat( document.getElementById('scope_focal').value ) * 1000; // converting focalLength to mm
+
+       
+        pixelScale = ( pixelSize/focalLength )  * 206.265;
+        if(pixelScale) {
+            document.getElementById('plate_scale').value =   Math.round(pixelScale * 100) / 100; // round to 2 decimal places
+        }
+        
     }
     else {
         document.getElementById('scope_dia').value = '';
