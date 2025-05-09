@@ -1,3 +1,8 @@
+/**
+ * THIS SCRIPT IS OBSOLETE
+ */
+
+
 const pointSource = document.getElementById("defaultOpen");
 const extendedSource = document.getElementById("defaultClose");
 
@@ -7,9 +12,17 @@ pointSource.addEventListener("click", point);
 extendedSource.addEventListener("click", extended);
 
 
+// let prev = document.getElementById('point_src').value;
+
 
 
 function point() {
+
+
+    console.log("point src selected");
+
+    // prev = document.getElementById('point_src').value = prev;
+
 
     document.getElementById('source_type').value = "point";
 
@@ -60,6 +73,10 @@ function point() {
 
 function extended() {
 
+    console.log("ext src selected");
+
+
+    // prev = document.getElementById('point_src').value;
 
     document.getElementById('source_type').value = "extended";
 

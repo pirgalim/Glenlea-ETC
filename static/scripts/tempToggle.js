@@ -1,6 +1,7 @@
 const tempLabel = document.getElementById('star_temp_label');
 const tempField = document.getElementById('star_temp');
 
+// let prev = document.getElementById('point_src').value;
 
 
 
@@ -35,11 +36,25 @@ document.getElementById('point_src').addEventListener('change', function() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
+
+
+    document.getElementById("defaultOpen").addEventListener("click", function() {
+
+
+        tempLabel.style.background = "slategray";
+        tempLabel.style.color = "white";
+        tempField.style.background = "white";
+        tempField.style.border = "white";
+        tempField.style.color = "black";
+        tempField.required = true;
+        tempField.readOnly = false;
+        
+    })
+
+
     
     document.getElementById("defaultClose").addEventListener("click", function() {
 
-
-        console.log("Hello")
         tempLabel.style.background = "lightgray";
         tempLabel.style.color = "darkgray";
         tempField.style.background = "lightgray";
@@ -51,11 +66,12 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
 
-
-
-
-
 });
+
+
+
+
+
 
 // window.onload = changeTemp;
 
