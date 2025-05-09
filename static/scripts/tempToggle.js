@@ -17,6 +17,7 @@ document.getElementById('point_src').addEventListener('change', function() {
         tempField.style.color = "lightgray";
         tempField.required = false;
         tempField.readOnly = true;
+        tempField.value = "";
     }
 
     else {
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tempField.style.color = "lightgray";
         tempField.required = false;
         tempField.readOnly = true;
+        
     })
 
 

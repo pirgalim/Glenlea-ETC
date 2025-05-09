@@ -97,8 +97,8 @@ class InputForm(FlaskForm):
     #total_fields = camera_fields + telescope_fields + filter_fields + target_fields + conditions_fields + snr_fields
     
     # camera parameters 
-    sensor_x = FloatField('Sample Length', validators=[InputRequired(), NumberRange(min=10, max=1000)], render_kw={"placeholder": 50})
-    sensor_y = FloatField('Sample Width', validators=[InputRequired(), NumberRange(min=10, max=1000)], render_kw={"placeholder": 50})
+    sensor_x = FloatField('Sample Length', validators=[InputRequired(), NumberRange(min=10, max=400)], render_kw={"placeholder": 50})
+    sensor_y = FloatField('Sample Width', validators=[InputRequired(), NumberRange(min=10, max=400)], render_kw={"placeholder": 50})
     
     px_size = FloatField('Pixel Size', validators=[InputRequired(), NumberRange(min=0, max=100000)])
     q_efficiency = FloatField('Quantum Efficiency', validators=[InputRequired(), NumberRange(min=0, max=100000)])
@@ -136,7 +136,7 @@ class InputForm(FlaskForm):
    
 
     # weather conditions
-    seeing = FloatField('Seeing', validators=[Optional(), NumberRange(min=0, max=8)], render_kw={"required": "true"})
+    seeing = FloatField('Seeing', validators=[Optional(), NumberRange(min=0.001, max=8)], render_kw={"required": "true"})
     sqm = FloatField('Sky Quality', validators=[InputRequired(), NumberRange(min=0, max=22)])
     
     # desired signal to noise ratio

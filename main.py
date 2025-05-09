@@ -6,7 +6,7 @@ from forms import InputForm, SelectForm
 import services.etc as etc
 import services.observation as observation
 import services.scrape_sqm as sqm
-import templates as tp
+import services.templates as tp
 
 # other modules
 import base64
