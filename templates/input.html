@@ -39,8 +39,8 @@
                 <button type="button" class="collapsible">ⓘ info</button>
                 <div class="col-content">
                     <p>
-                        Sample Length - determines the length of the sample image; increase the value if it does not fit - [10, 1000]<br>
-                        Sample Width - determines the width of the sample image; increase the value if it does not fit - [10, 1000]<br> 
+                        Sample Length (px) — determines the length of the sample image; increase the value if it does not fit — [10, 1000]<br>
+                        Sample Width (px) — determines the width of the sample image; increase the value if it does not fit — [10, 1000]<br> 
                         Pixel Size (μm) - size of an individual pixel of the camera sensor<br>
                         Quantum Efficiency (%) - percentage of photons captured that register a signal<br>
                         Read Noise (electrons) - noise introduced by the detector circuitry<br>
@@ -449,46 +449,12 @@
                         document.getElementById("ext_mag").required = false;
                         document.getElementById('ext_mag').readOnly = true;
 
-    
-                        //document.getElementById("dist").value = "   01.  ";
-                        //document.getElementById('dist').readOnly = true;
-                        
-
-                        // reset
-                        //document.getElementById("seeing-label").style.background = "slategray";
-                        //document.getElementById("seeing-label").style.color = "white";
-                        //document.getElementById("seeing").style.background = "white";
-                        //document.getElementById("seeing").style.border = "white";
-                        //document.getElementById("seeing").style.color = "black";
-
-                        //document.getElementById("seeing").value = document.getElementById("conditions").value;
-                        //document.getElementById('seeing').readOnly = false;
-                        //document.getElementById("seeing").value = "";
-                        //document.getElementById('conditions').disabled = false;
-
-
-                        //document.getElementById("star_temp").required = true;
-                        //document.getElementById('star_temp').readOnly = false;
-                        
-                        //document.getElementById("star_ab_mag").value = "";
-
                         document.getElementById('star_ab_mag').required = true;
                         document.getElementById('star_ab_mag').readOnly = false;
 
-
-
                         document.getElementById('point_src').disabled = false;
 
-
-                        document.getElementById('extended_src').required = false;
-
-
-
-
-
-                        // disable temperature
-
-                        
+                        document.getElementById('extended_src').required = false;                       
 
 
                     }
@@ -498,24 +464,8 @@
 
                         //readonly
 
-                        //document.getElementById("seeing-label").style.background = "lightgray";
-                        //document.getElementById("seeing-label").style.color = "darkgray";
-                        //document.getElementById("seeing").style.background = "lightgray";
-                        //document.getElementById("seeing").style.border = "lightgray";
-                        //document.getElementById("seeing").style.color = "lightgray";
-
-                       // document.getElementById("seeing").value = "   01.  ";
-                       // document.getElementById('seeing').readOnly = true;
-                       // document.getElementById('conditions').disabled = true;
 
                         document.getElementById('point_src').disabled = true;
-
-             
-                        //document.getElementById("star_temp").required = false;
-                        //document.getElementById('star_temp').readOnly = true;
-
-
-                        //document.getElementById("star_ab_mag").value = "   01.  ";
                         document.getElementById('star_ab_mag').required = false;
                         document.getElementById('star_ab_mag').readOnly = true;
                         
@@ -524,9 +474,6 @@
     
                         document.getElementById("ext_mag").required = true;
                         document.getElementById('ext_mag').readOnly = false;
-
-                        //document.getElementById("dist").value = "";
-                        //document.getElementById('dist').readOnly = false;
 
                         document.getElementById('extended_src').required = true;
                         
