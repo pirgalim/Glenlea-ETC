@@ -1,48 +1,25 @@
 const tempLabel = document.getElementById('star_temp_label');
 const tempField = document.getElementById('star_temp');
 
-// let prev = document.getElementById('point_src').value;
 
-
-
+/**
+ * Listen for a change in the point source menu
+ * If a non blackbody source is selected then disable the temperature field
+ * If a blackbody is selected then enable the tempertature field
+ */
 document.getElementById('point_src').addEventListener('change', function() {
 
-    let selectedOption = this.value;
-
-    if(selectedOption != '') {
-
+    if(this.value != '') {
         disable();
-
-        // tempLabel.style.background = "lightgray";
-        // tempLabel.style.color = "darkgray";
-        // tempField.style.background = "lightgray";
-        // tempField.style.border = "lightgray";
-        // tempField.style.color = "lightgray";
-        // tempField.required = false;
-        // tempField.readOnly = true;
-        // tempField.value = "";
     }
-
     else {
-
-        
         enable();
-
-        // this.value = selectedOption;
-        // tempLabel.style.background = "slategray";
-        // tempLabel.style.color = "white";
-        // tempField.style.background = "white";
-        // tempField.style.border = "white";
-        // tempField.style.color = "black";
-        // tempField.required = true;
-        // tempField.readOnly = false;
     }
     
 });
 
 
 document.addEventListener('DOMContentLoaded', function() {
-
 
     document.getElementById("defaultOpen").addEventListener("click", function() {
 
@@ -51,35 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if(selectedOption == '') {
             enable();
         }
-
-        
-        // tempLabel.style.background = "slategray";
-        // tempLabel.style.color = "white";
-        // tempField.style.background = "white";
-        // tempField.style.border = "white";
-        // tempField.style.color = "black";
-        // tempField.required = true;
-        // tempField.readOnly = false;
-        
     })
 
-
-    
     document.getElementById("defaultClose").addEventListener("click", function() {
-
-        disable();
-
-        // tempLabel.style.background = "lightgray";
-        // tempLabel.style.color = "darkgray";
-        // tempField.style.background = "lightgray";
-        // tempField.style.border = "lightgray";
-        // tempField.style.color = "lightgray";
-        // tempField.required = false;
-        // tempField.readOnly = true;
-        
+        disable();    
     })
-
-
 });
 
 
@@ -97,7 +50,6 @@ function enable() {
 }
 
 
-
 function disable() {
 
     tempLabel.style.background = "lightgray";
@@ -109,46 +61,3 @@ function disable() {
     tempField.readOnly = true;
     tempField.value = "";
 }
-
-
-
-
-
-
-
-
-// window.onload = changeTemp;
-
-
-
-
-
-
-// function changeTemp() {
-
-
-//     var selectedOption = document.getElementById('point_src').value;
-
-//     if(selectedOption != '') {
-
-//         tempLabel.style.background = "lightgray";
-//         tempLabel.style.color = "darkgray";
-//         tempField.style.background = "lightgray";
-//         // tempField.style.border = "lightgray";
-//         tempField.style.color = "lightgray";
-//         tempField.required = false;
-//         tempField.readOnly = true;
-//     }
-
-//     else {
-
-//         tempLabel.style.background = "slategray";
-//         tempLabel.style.color = "white";
-//         tempField.style.background = "white";
-//         // tempField.style.border = "white";
-//         tempField.style.color = "black";
-//         tempField.required = true;
-//         tempField.readOnly = false;
-//     }
-    
-// }
