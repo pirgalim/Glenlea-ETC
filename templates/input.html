@@ -125,7 +125,7 @@
                     {% endif %}
                 </div>
 
-                <div class="spacer"></div>
+                <div class="spacer"></div> <!--required for flex-->
 
                 <!--script> 
                     document.getElementById('camera').addEventListener('change', function() {
@@ -201,6 +201,7 @@
                         <b>Diameter (m)</b> - Telescope diameter<br>
                         <b>Focal Length (m)</b> - Telescope focal length<br> 
                         <b>Plate Scale (arcsecond/pixel)</b> -  Arcseconds covered per pixel in the detector<br>
+                        The plate scale will be automatically calculated if...
                     </p>
                 </div>
                 <div class="spacer-break"></div>
@@ -595,66 +596,25 @@
 
             <!-- submit form -->
             <section id="submission" class="container">
-                {{ in_form.submit(id="go", style="background-color: teal") }} 
+                {{ in_form.submit(id="go", style="background-color: darkgoldenrod") }} 
               
-
-                    <h3 id="loading" style="display:none">Loading...</h3>
-
-
-                    <!--script>
-
-                        document.addEventListener('DOMContentLoaded', function() {
-                            document.getElementById('loading').style.display = "none";
-                            document.getElementById('go').style.display = "block";
-                        });
-
-                        
-                        document.getElementById('go').addEventListener("click", function() {
-
-                            document.getElementById('loading').style.display = "block";
-                            document.getElementById('go').style.display = "none";
-                        });
-                    </script-->
-                    
-    
+                    <!--h3 id="loading" style="display:none">Loading...</h3-->
+                    <!--input type="reset" value="Reset" style="background-color: maroon"-->
             </section>
 
-            
-          
-
-            
-
-            <!-- info script -->
-            <!--script>
-                var coll = document.getElementsByClassName("collapsible");
-                var i;
-                
-                for (i = 0; i < coll.length; i++) {
-                  coll[i].addEventListener("click", function() {
-                    this.classList.toggle("active");
-                    var content = this.nextElementSibling;
-                    if (content.style.maxHeight){
-                      content.style.maxHeight = null;
-                    } else {
-                      content.style.maxHeight = content.scrollHeight + "px";
-                    } 
-                  });
-                }
-            </script-->
-            
+                        
         </form>        
-
 
 
         <section style="text-align: center">
             <form class="button" id="clear_all" method = "GET", action="">
-                <input type="submit" value="Reset" style="background-color: maroon">
+                <input type="submit" value="Reset" style="background-color: gray">
             </form>
         </section>
 
   
 
-        <!--remove?-->
+        <!--TODO: remove?-->
         {% if not valid %}
         <script>
             var option = document.getElementById('point_src').value;

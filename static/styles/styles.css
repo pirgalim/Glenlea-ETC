@@ -295,7 +295,7 @@ input {
 }
 
 
-input[type="submit"], button {
+input[type="submit"], input[type="reset"], button {
   
   display: inline-block;
   margin: 5px;
