@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    console.log(seeingField)
+    // console.log(seeingField)
 
 
     document.getElementById("defaultOpen").addEventListener("click", function() {
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById("defaultClose").addEventListener("click", function() {
 
-        console.log("test");
+        // console.log("test");
         seeingLabel.style.background = "lightgray";
         seeingLabel.style.color = "darkgray";
         seeingField.style.background = "lightgray";

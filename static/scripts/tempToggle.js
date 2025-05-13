@@ -7,7 +7,7 @@ const tempField = document.getElementById('star_temp');
 
 document.getElementById('point_src').addEventListener('change', function() {
 
-    var selectedOption = this.value;
+    let selectedOption = this.value;
 
     if(selectedOption != '') {
 
@@ -25,7 +25,10 @@ document.getElementById('point_src').addEventListener('change', function() {
 
     else {
 
+        
         enable();
+
+        // this.value = selectedOption;
         // tempLabel.style.background = "slategray";
         // tempLabel.style.color = "white";
         // tempField.style.background = "white";
@@ -43,8 +46,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById("defaultOpen").addEventListener("click", function() {
 
+        let selectedOption = document.getElementById('point_src').value;
 
-        enable();
+        if(selectedOption == '') {
+            enable();
+        }
+
+        
         // tempLabel.style.background = "slategray";
         // tempLabel.style.color = "white";
         // tempField.style.background = "white";
@@ -78,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function enable() {
 
+    
     tempLabel.style.background = "slategray";
     tempLabel.style.color = "white";
     tempField.style.background = "white";
