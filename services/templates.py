@@ -49,3 +49,8 @@ cameras = [asi6200mm, atik]
 
 ### LIST OF TELESCOPES ###
 telescopes = [cdk14]
+
+
+
+#TODO: add some test cases for template validation - maybe display an error when running?
+# I think I made it key-value so check those exceptions

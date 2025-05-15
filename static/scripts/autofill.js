@@ -7,6 +7,18 @@ function setup(cameras, telescopes) {
     telescopePresets = telescopes;
 }
 
+const sensor_x = document.getElementById('sensor_x').value;
+const sensor_y = document.getElementById('sensor_y').value
+
+const px_size = document.getElementById('px_size').value;
+const q_efficiency = document.getElementById('q_efficiency').value;
+const read_noise = document.getElementById('read_noise').value;
+const gain = document.getElementById('gain').value;
+const offset = document.getElementById('offset').value;
+const dark_noise = document.getElementById('dark_noise').value;
+const full_well = document.getElementById('full_well').value;
+
+
 
 
 
@@ -102,27 +114,4 @@ document.getElementById('telescope').addEventListener('change', function() {
 
 
 
-
-
-
-// document.getElementById('telescope').addEventListener('change', function() {
-
-//     var presets = telescopePresets;
-//     var size = presets[0][1].length;
-
-//     // I should check if there is actually anything here first
-//     var preset = [size]
-
-//     for(let i = 0; i < size; i++) { preset[i] = ''; }
-
-//     // match the selection with a preset
-//     for( let i = 0; i < presets.length; i++ ) {
-//         if( presets[i][0] == document.getElementById('telescope').value ) { preset = presets[i][1]; }
-//     }
-
-//     document.getElementById('scope_dia').value = preset[0];
-//     document.getElementById('scope_focal').value = preset[1];
-//     document.getElementById('plate_scale').value = preset[2];
-
-// });
-
+//TODO: run setup here instead
