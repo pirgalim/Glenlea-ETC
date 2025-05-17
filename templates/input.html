@@ -290,8 +290,8 @@
             <!--TODO: change to event listener-->
             <div class="tab">
                     <div class="block" style="margin:0;">
-                        <button class="tablinks" type="button" onclick="Tab(event, 'target-point')" id="defaultOpen" style="border-top-left-radius:5px;">Point Source</button>
-                        <button class="tablinks" type="button" onclick="Tab(event, 'target-extended')" id="defaultClose" style="border-top-right-radius:5px;">Extended Source</button> 
+                        <button class="tablinks" type="button"  id="defaultOpen" style="border-top-left-radius:5px;">Point Source</button>
+                        <button class="tablinks" type="button"  id="defaultClose" style="border-top-right-radius:5px;">Extended Source</button> 
                         {{ in_form.source_type(readonly=true, style="display:none") }}
                     </div>
                     <div class="spacer"></div><div class="spacer"></div>
@@ -425,7 +425,7 @@
 
             <!-- script for target tabs -->
 
-            <script>
+            <!--script>
                 function Tab(e, name) {
                     var i, tabcontent, tablinks;
                     tabcontent = document.getElementsByClassName("tabcontent");
@@ -484,7 +484,7 @@
                 document.getElementById("defaultOpen").click();
                 
                 
-            </script>
+            </script-->
             
 
             <!-- conditions section -->
@@ -632,6 +632,9 @@
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/infoToggle.js') }}"></script>
 
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/autofill.js') }}"></script>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/tabs.js') }}"></script>
+
         <script>
             document.addEventListener('DOMContentLoaded', () => setup( {{camera_presets|tojson}}, {{telescope_presets|tojson}} ));
         </script>
