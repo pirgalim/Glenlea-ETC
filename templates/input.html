@@ -234,27 +234,7 @@
 
                 <div class="spacer"></div>
 
-                <!--script> 
-                    document.getElementById('telescope').addEventListener('change', function() {
-
-                        var presets = {{ telescope_presets|tojson }};
-                        var size = presets[0][1].length;
-
-                        // I should check if there is actually anything here first
-                        var preset = [size]
-
-                        for(let i = 0; i < size; i++) { preset[i] = ''; }
-
-                        // match the selection with a preset
-                        for( let i = 0; i < presets.length; i++ ) {
-                            if( presets[i][0] == document.getElementById('telescope').value ) { preset = presets[i][1]; }
-                        }
-
-                        document.getElementById('scope_dia').value = preset[0];
-                        document.getElementById('scope_focal').value = preset[1];
-                        document.getElementById('plate_scale').value = preset[2];
-                    });
-                </script-->
+              
 
             </section>
 
