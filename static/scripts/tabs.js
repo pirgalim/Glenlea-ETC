@@ -20,10 +20,11 @@ document.getElementById("defaultClose").addEventListener("click", function() {
 
 function Tab(button, name) {
 
-
-    var i, tabcontent, tablinks;
+    let i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
 
+
+    // the for loop is here in case another tab is added in the future
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
@@ -32,7 +33,7 @@ function Tab(button, name) {
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    
+
     document.getElementById(name).style.display = "flex";
     button.classList.add("active");
 
