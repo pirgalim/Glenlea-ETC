@@ -4,7 +4,6 @@ body {
   color: whitesmoke;
 }
 
-
 section {
   margin-bottom: 1rem;
   margin-left: auto;
@@ -168,14 +167,10 @@ button.tablinks {
 
 img {
   width:100%;
-  margin-left: 25px;
-  margin-right: 25px;
+  /* margin-left: 25px;
+  margin-right: 25px; */
 }
-table {
-  width: 100%;
-  margin-left: 25px;
-  margin-right: 25px;
-}
+
 
 
 /* .small-section {
