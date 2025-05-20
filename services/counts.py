@@ -275,7 +275,7 @@ def generateBG(sensorX, sensorY, skyMag, filterName, mirrorArea, sensorGain, sen
 
 
 
-
+#TODO: move to plots?
 def aperture(obs: Observation, final_sensor_array):
         
         x = int(obs.sensor_X)
