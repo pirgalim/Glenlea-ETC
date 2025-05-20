@@ -17,6 +17,8 @@ def preset(name):
     lib = SpecLibrary(name)
     contents = list(lib)
     
+    
+    #FIXME: why does this cause problems?
     for val in contents:
         
         if '-' not in val and '+' not in val:
@@ -33,7 +35,7 @@ def presetExt(name):
     contents = list(lib)
     
     
-    
+    #FIXME: why does this cause problems?
     for val in contents:
         
         if '-' not in val and '+' not in val:
@@ -43,11 +45,13 @@ def presetExt(name):
 
 
 
+#TODO: is this used at all?
 def filters():
     
     filters = [('', 'Required')]
     
     
+    #FIXME: change to .items()
     contents = DEFAULT_DATA.filters
     
     for val in contents:
@@ -61,7 +65,7 @@ def filters():
 
 
 
-
+#TODO: can I just use PASSBAND.DEFAULT_FILTERS?
 def filtersNew():
     
     contents = [('', 'Required')]
@@ -154,10 +158,10 @@ class InputForm(FlaskForm):
 
     
 
-
+# TODO: add a constructor for templates?
 class SelectForm(FlaskForm):
     
-    camera = SelectField('Select Camera', choices=[('', 'Custom'), ('atik', 'ATIK 11000'), ('asi6200mm', 'ASI6200MM')])
+    camera = SelectField('Select Camera', choices=[('', 'Custom'), ('sbig', 'SBIG AC4040 BSI'), ('atik', 'ATIK 11000'), ('asi6200mm', 'ASI6200MM')])
     telescope = SelectField('Select Telescope', choices=[('', 'Custom'), ('cdk14', 'Planewave CDK14')])
     filter = SelectField('Select Filter', choices=filtersNew(), validators=[InputRequired()] )    
     conditions = SelectField('Select Conditions', choices=[('', 'Custom'), ('0.4', '0.4 (Excellent)'), ('1', '1') , ('2', '2'), ('3', '3 (Average)'), ('4', '4'), ('5', '5'), ('6', '6 (Poor)')])
