@@ -153,6 +153,7 @@ button.tablinks {
   margin: 0;
   border-radius: 0;
   background-color: gray;
+  border: 1px solid black;
 
   /* transition: 0.3s; */
 }
