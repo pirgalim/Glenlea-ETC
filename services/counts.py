@@ -13,6 +13,12 @@ import io
 from services.observation import Observation
 
 
+# TODO: functions should be cleaned up
+# TODO: standardize parameters
+# TODO: validate parameters
+# TODO: add error handling
+
+
 
 def blackBody(starTemp,starMag,mirrorArea,filterName):
 
