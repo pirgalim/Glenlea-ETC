@@ -1,3 +1,8 @@
+//TODO: clean up the file
+
+
+// const buttons = document.getElementsByClassName(tablinks);
+
 
 
 //  <button class="tablinks" type="button" onclick="Tab(event, 'target-point')" id="defaultOpen" style="border-top-left-radius:5px;">Point Source</button>
