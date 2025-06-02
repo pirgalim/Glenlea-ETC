@@ -1,35 +1,122 @@
-{% block content1 %}
+{% extends "index.html"%}
+{% block output_v2 %}
 
-<h1>Calculation Results</h1>
+<!--h1>Calculation Results</h1-->
 
 
-<section>
-    <h2>Exposure Time</h2>
-    <p>The calculated exposure time is {{exposure}} seconds </p>
+<section class="container" style="text-align: center;">
+    <h2 style="margin-bottom: 0px">Required Exposure Time</h2>
+    <div class="spacer-break"></div>
+    <h2 style="margin: 0px">{{exposure}} seconds</h2>
 </section>
 
-<section>
-    <h2>Plot Light Curve</h2>
-    <p> The field of view area is {{fov}} arcseconds</p>
-    <p> The sensor reports {{counts}} counts per second from the star *FIX*</p>
-    <img src={{SB_url}} style="left-margin:25px;">
+<section class="container" style="text-align: center;">
+    <h2 style="margin-bottom: 0px">Spectrum</h2>
+    <div class="spacer-break"></div>
+    <img src="data:image/png;base64,{{ plot }}" alt="Scatter Plot Image">
 </section>
 
-<section>
-    <h2>Aperture for Calculating SNR</h2>
-    <p> The peak number of counts in the simulated image is: {{peak}} </p>
-    <p> The minimum number of counts in the simulated image is: {{minimum}} </p>
-    <img src={{counts_url}} style="left-margin:25px;">
+<!-- page break for printing purposes -->
+<div style="break-after:page"></div>
+
+<section class="container" style="text-align: center;" >
+    <h2 style="margin-bottom: 0px">Sample Image</h2>
+    <div class="spacer-break"></div>
+    <img src="data:image/png;base64,{{ aperture }}" alt="Aperture Plot Image">
+<!--/section>
+
+
+
+<section class="container" style="text-align: center;">
+    <h2>More Details</h2-->
+
+    <div class="spacer-break" style="border:none"></div>
+
+    <table style="text-align: center; margin: auto;">
+        <thead>
+            <tr>
+                <th class="col-md-2">FOV (arcsec)</th>
+                <th class="col-md-2">Counts per second</th>
+                <th class="col-md-2">Peak counts</th>
+                <th class="col-md-2">Minimum counts</th>
+            </tr>
+
+            <tr>
+                <td class="col-md-2">{{fov}}</td>
+                <td class="col-md-2">{{counts}}</td>
+                <td class="col-md-2">{{peak}}</td>
+                <td class="col-md-2">{{minimum}}</td>
+            </tr>
+        </thead>
+    </table>
+
+    <!--h3 style="width: 100%; font-weight: 300"> The field of view area is {{fov}} arcseconds</h3>
+    <h3 style="width: 100%; font-weight: 300"> The sensor reports {{counts}} counts per second from the source</h3>
+    <h3 style="width: 100%; font-weight: 300"> The peak number of counts in the simulated image is {{peak}} </h3>
+    <h3 style="width: 100%; font-weight: 300"> The minimum number of counts in the simulated image is {{minimum}} </h3-->
 </section>
 
 
-<!-- reset button -->
-<section>
-    <form id="clear_all" method = "GET", action="">
-        <input type="submit" value="CLEAR ALL">
+<!-- page break for printing purposes -->
+<div style="break-after:page"></div>
+
+
+<section class="container" style="text-align: center;">
+
+    <h2>Submitted Parameters</h2>
+    <table style="text-align: center; margin: auto;">
+        <thead>
+            <tr>
+                <th class="col-md-2">Parameter</th>
+                <th class="col-md-2">Value</th>
+                <th class="col-md-2">Parameter</th>
+                <th class="col-md-2">Value</th>
+            </tr>
+        </thead>
+
+
+      
+        {% for i in range( col1a|length ) %}
+           
+        <tr>
+            <td class="col-md-2">{{ col1a[i] }}</td>
+            <td class="col-md-2">{{ col1b[i] }}</td>
+            <td class="col-md-2">{{ col2a[i] }}</td>
+            <td class="col-md-2">{{ col2b[i] }}</td>
+        </tr>
+
+
+        {% endfor %}
+
+    
+    </table>
+
+</section>
+
+
+<!-- download and reset buttons -->
+<section class="container" style="text-align: center;">
+    <input type="submit" onclick="prepare()" value="Download" style="background-color:darkgoldenrod">
+
+    <script>
+        function prepare() {
+            for (i = 0; i < document.styleSheets.length; i++) {
+                void(document.styleSheets.item(i).disabled=true);
+            }
+            setTimeout(() => {  window.print(); }, 500);               
+
+            setTimeout(() => {  
+                for (i = 0; i < document.styleSheets.length; i++) {
+                    void(document.styleSheets.item(i).disabled=false);
+                }
+             }, 500)
+        }
+    </script>
+
+    <form class="button" id="clear_all" method = "GET", action="">
+        <input type="submit" value="Reset" style="background-color: gray">
     </form>
+    
 </section>
 
-{% endblock content1 %}
-
-{% include "input.html" %}
+{% endblock output_v2 %}

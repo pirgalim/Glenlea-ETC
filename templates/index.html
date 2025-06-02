@@ -1,8 +1,10 @@
 <head>
 
     <title>Glenlea ETC</title>
+    <!--img class="logo" src="https://umanitoba.ca/themes/custom/umanitoba/images/logo.svg" alt="logo"-->
 
-    <meta charset="UTF-8">
+    
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- CSS config -->
     <link rel="stylesheet" href="{{url_for('static', filename='styles/styles.css')}}">
@@ -11,27 +13,43 @@
 
 <body>
 
+    
+
     <h1>Glenlea Exposure Time Calculator</h1>
   
 
     <!-- extend to 'input.html' -->
-    {% block content %}
+    {% block input %}
     {% endblock %}
 
 
+    <!--section class="container">
+        <input type="submit" onclick="prepare()" value="Download" style="background-color:darkgoldenrod">
+
+        <script>
+            function prepare() {
+                for (i = 0; i < document.styleSheets.length; i++) {
+                    void(document.styleSheets.item(i).disabled=true);
+                }
+                setTimeout(() => {  window.print(); }, 500);               
+
+                setTimeout(() => {  
+                    for (i = 0; i < document.styleSheets.length; i++) {
+                        void(document.styleSheets.item(i).disabled=false);
+                    }
+                 }, 500)
+            }
+        </script>
+
+        <form class="button" id="clear_all" method = "GET", action="">
+            <input type="submit" value="Reset" style="background-color: maroon">
+        </form>
+
+    </section-->
     
 
-
-    <section>
-        <form id="clear_all" method = "GET", action="">
-            <input type="submit" value="CLEAR ALL">
-        </form>
-    </section>
-
-
-
     <!-- extend to 'output.html' -->
-    {% block content1 %}
+    {% block output_v2 %}
     {% endblock %}
 
 

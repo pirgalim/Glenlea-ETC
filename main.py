@@ -1,7 +1,16 @@
-from flask import Flask, render_template, request, redirect, make_response, url_for
-import os
-import services.ETC as ETC
+# flask modules
+from flask import Flask, render_template, request
 from forms import InputForm, SelectForm
+
+# calculator modules
+import services.etc as etc
+import services.observation as observation
+import services.scrape_sqm as sqm
+import services.templates as tp
+
+# other modules
+import base64
+import numpy as np
 
 
 
@@ -10,242 +19,168 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
 
 
+#TODO set up PATH
+
+
 
 @app.route('/', methods=['GET', 'POST'])
 def calculator():
-    
-    #TODO remove file after generating
-    
-    if os.path.exists("static/plot_light_curve_SB.png"):
-                os.remove("static/plot_light_curve_SB.png")
-    else:
-        print("The file does not exist")
-        
-    if os.path.exists("static/spread_counts.png"):
-                os.remove("static/spread_counts.png")
-    else:
-        print("The file does not exist")
-    
-    
+       
     # create forms
     in_form = InputForm()
     select_form = SelectForm()
-  
     
-    #--- read preset data ---#
-    presets = readPresets()
-    
-    camera_presets = presets[0]
-    telescope_presets = presets[1]
-    filter_presets = presets[2]
-    target_presets = presets[3]
-    
-    
-    #--- fetch input data ---#
-
-    # Used for input validation
+    # Used for input validation message
     valid = True
+      
+    # fetch presets
+    camera_presets = tp.cameras
+    telescope_presets = tp.telescopes
+            
+    # retrieve current GAO SQM value
+    gao_sqm = sqm.get_sqm()   
     
     # detect if form has been submitted
     if in_form.submit.data:
-            
+                        
         # check for valid input fields
         if in_form.validate():
-        
+                    
             # retrieve form data
             data = request.form
-            
-            # create parameter tuple to be sent to the calculator script
-            params = loadInput(data)
-            
+            params = process_input(data)
+
+            #TODO for testing
+            print(params)
+    
+                        
+            # validate number of parameters
             if(params is None):
-                return render_template("error.html")
+                return render_template("error.html", message="There is a problem with the number of parameters being passed from the form to the script.")
             
             else:
-                        
-                # create instances of the calculator script classes
-                etc = ETC.Calculator(params)
-                etc.plot_light_curve_SB()
-                peak, minimum = etc.aperture()
-                                
-                fov = int( etc.computeFOV() )            
-                counts = etc.countsPerSecond()
                 
+                obs = observation.Observation(params)
                 
-                ref_SNR = etc.SNR_ref()
-                print(ref_SNR)
+                # error = etc.validate(obs)
+                error = None #TODO
                 
-                
-                #TODO change this later, could be dangerous
-                desired_SNR = params[5]
-                
-                exposure = "{:.5f}".format(etc.calculateReqTime(desired_SNR, ref_SNR, 1))
-                
-                
-                
-                #return(render_template('output.html', plot_url="static/my_plot.png"))
-                return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
-                                        camera_presets=presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets,
-                                        SB_url="static/plot_light_curve_SB.png", counts_url="static/spread_counts.png",
-                                        fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure)
-                
+                # validate some parameters                
+                if error == None:
+                                    
+                    test_exposure = 1  # seconds
+         
+                    counts = etc.calc_counts(obs)
+                    
+                    plot = etc.plot_bodies(obs)
+                    encoded_image = base64.b64encode(plot).decode('utf-8')                   
+                                     
+                    signal_values = etc.spreadCounts(obs, counts, 1)
             
+                    # Adjust counts to what the detector will see (circle)
+                    counts = etc.countsInRad(obs, signal_values)
+                   
+                    noise_values = etc.generateNoise(obs ,test_exposure)
+                    
+                    #TODO rename
+                    bg_values = etc.generateBG_TEST(obs)
+                    
+                    final_sensor_array = etc.overfullCheck(signal_values+noise_values+bg_values, obs)
+                    
+                    peak_cts = np.max(final_sensor_array)
+                    min_cts = np.min(final_sensor_array)
+                    
+                    SNR_ref = etc.get_snr_ref(counts, test_exposure, bg_values, obs)
+                    
+                    exposure_time = etc.calculateReqTime(obs.snr, SNR_ref, test_exposure, counts, obs, bg_values)
+                    exposure_time = "{x:.4f}".format(x=exposure_time)   # format to 4 decimal places
+                    
+                    aperture_plot = etc.aperturePlot(obs, final_sensor_array)
+                    aperture_plot_encoded = base64.b64encode(aperture_plot).decode('utf-8')
+                     
+                    fov = obs.computeFOV()
+                    
+                    
+                    # single_length = 180
+                    # single_snr = etc.computeSNR(obs, single_length, counts, bg_values)
+                    
+                    # frames_req = (obs.snr / single_snr) ** 2
+                    # total_time = frames_req * single_length
+                    
+                    # print(f"{frames_req} is the number of frames of {single_length} seconds needed to acheive an snr of {obs.snr}. Each frame has an snr of {single_snr} and the total exposure time is {total_time}")
+                    
+                
+                    # rounding
+                    try:
+                        counts = round(counts)
+                        peak_cts = round(peak_cts)
+                        min_cts = round(min_cts)
+                        fov = round(fov)
+                    except:
+                        pass    # leave values as is if they cannot be rounded
+                    
+    
+                    # table formatting                    
+                    table_1a, table_1b, table_2a, table_2b = [], [], [], []
+                    
+                    for i, (key, value) in enumerate(params.items()):  
+                        if params[key] != '':
+                            if i % 2 == 0:
+                                table_1a.append(key)
+                                table_1b.append(value) 
+                            else:
+                                table_2a.append(key)
+                                table_2b.append(value) 
+                                                               
+                    
+                    # render output template
+                    return render_template('output.html', valid=valid, in_form=in_form, select_form=select_form,
+                                            camera_presets=camera_presets, telescope_presets=telescope_presets,
+                                            gao_sqm=gao_sqm, plot=encoded_image, aperture=aperture_plot_encoded,
+                                            counts=counts, exposure=exposure_time, peak=peak_cts, minimum=min_cts, fov=fov, 
+                                            col1a=table_1a, col1b=table_1b, col2a=table_2a, col2b=table_2b)
+                                            #fov=fov, counts=counts, peak=peak, minimum=minimum, exposure=exposure, error=None)
+                                            # counts_url="static/spread_counts.png"
+                
+                else: 
+                    # display error in HTML
+                    return render_template('input.html', valid=False, in_form=in_form, select_form=select_form,
+                                            camera_presets=camera_presets, telescope_presets=telescope_presets,
+                                            gao_sqm=gao_sqm, error=error)
+                
         # An error message will be displayed in the HTML
         else: valid = False
-            
-        
-
-    
-    # returns HTML to be displayed
+                
+    # render HTML to be displayed
     return render_template('input.html', valid=valid, in_form=in_form, select_form=select_form,
-                           camera_presets=camera_presets, telescope_presets=telescope_presets, filter_presets=filter_presets, target_presets=target_presets)
+                           camera_presets=camera_presets, telescope_presets=telescope_presets, 
+                           gao_sqm=gao_sqm, 
+                           error="Invalid Parameter(s) Below")
 
 
 
+# TODO: add validation
 
-
-def readPresets() -> tuple:
-
-    #--- read camera preset data ---#
-    camera_csv = open("./static/presets/camera_presets.csv", "+r")
-    camera_presets = []
-    
-    # skip the instructions
-    camera_csv.readline()
-    camera_csv.readline()
-    camera_csv.readline()
-    
-    for line in camera_csv:
+def process_input(input: dict) -> dict:
         
-        line = line.strip().split(":")
-        name = line[0]
-        values = line[1].split(',')
-        
-        if( len(values) == InputForm.camera_fields ):
-            camera_presets.append( (name, values) )
-    
-    camera_csv.close()
+    params = {}
     
     
-    #--- read telescope preset data ---#
-    telescope_csv = open("./static/presets/telescope_presets.csv", "+r")
-    telescope_presets = []
+    import datetime
+    params["date generated"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-    # skip the instructions
-    telescope_csv.readline()
-    telescope_csv.readline()
-    telescope_csv.readline()
+    for key in input: 
+        if key != "csrf_token" and key != "submit":
+            try:   
+                params[key] = float( input[key] )
+            except:
+                params[key] = input[key]   
+                
+                #TODO should switch to isnumeric, not try-except
+    return params
     
-    for line in telescope_csv:
-        
-        line = line.strip().split(":")
-        name = line[0]
-        values = line[1].split(',')
-        
-        if( len(values) == InputForm.telescope_fields ):
-            telescope_presets.append( (name, values) )
-    
-    telescope_csv.close()
-    
-    
-    #--- read filter preset data ---#
-    filter_csv = open("./static/presets/filter_presets.csv", "+r")
-    filter_presets = []
-    
-    # skip the instructions
-    filter_csv.readline()
-    filter_csv.readline()
-    filter_csv.readline()
-    
-    for line in filter_csv:
-        
-        line = line.strip().split(":")
-        name = line[0]
-        values = line[1].split(',')
-        
-        if( len(values) == InputForm.filter_fields ):
-            filter_presets.append( (name, values) )
-    
-    filter_csv.close()
-    
-    
-    #--- read target preset data ---#
-    target_csv = open("./static/presets/target_presets.csv", "+r")
-    target_presets = []
-    
-    # skip the instructions
-    target_csv.readline()
-    target_csv.readline()
-    target_csv.readline()
-    
-    for line in target_csv:
-        
-        line = line.strip().split(":")
-        name = line[0]
-        values = line[1].split(',')
-        
-        if( len(values) == InputForm.target_fields ):
-            target_presets.append( (name, values) )
-    
-    target_csv.close()    
-    
-
-    return (camera_presets, telescope_presets, filter_presets, target_presets)
-
-
-
-
-
-def loadInput(data: dict) -> tuple:
-
-
-    camera_params = []
-    telescope_params = []
-    filter_params = []
-    target_params = []
-    conditions_params = []
-        
-    field = 0
-    cam_fields = InputForm.camera_fields
-    tel_fields = InputForm.telescope_fields
-    fil_fields = InputForm.filter_fields
-    tar_fields = InputForm.target_fields
-    con_fields = InputForm.conditions_fields
-    snr_fields = InputForm.snr_fields
-    
-    
-    
-    
-    for key in data:
-        
-        # skip first key, this is the 'csrf_token' and is not used for calculation
-        
-        if field > 0 and field <= cam_fields:
-            camera_params.append( float(data[key]) )
             
-        elif field > cam_fields and field <= (cam_fields + tel_fields):
-            telescope_params.append( float(data[key]) )
-            
-        elif field > (cam_fields + tel_fields) and field <= (cam_fields + tel_fields + fil_fields):
-            filter_params.append( float(data[key]) )
-            
-        elif field > (cam_fields + tel_fields + fil_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields):
-            target_params.append( float(data[key]) )
-            
-        elif field > (cam_fields + tel_fields + fil_fields + tar_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields):
-            conditions_params.append( float(data[key]) )
-        
-        elif field > (cam_fields + tel_fields + fil_fields + tar_fields+ con_fields) and field <= (cam_fields + tel_fields + fil_fields + tar_fields + con_fields + snr_fields):
-            snr_param = float(data[key])
-            
-        field +=1
-        
-    return (camera_params, telescope_params, filter_params, target_params, conditions_params, snr_param)
-   
-        
-
-
-
 
 if __name__ == '__main__':
+
     app.run(host='0.0.0.0', port=3000)

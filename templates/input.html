@@ -1,103 +1,139 @@
 {% extends "index.html" %}
-{% block content %}
+{% block input %}
 
-
+    <!-- main -->
     <div class="content-section">
-
-        
-        
-        <!-- display plot 
-        {% if plot_url != NULL %}
-        <section>
-            <img src={{plot_url}} style="left-margin:25px;">
-        </section>
-
-        reset button 
-        <section>
-            <form id="clear_all" method = "GET", action="">
-                <input type="submit" value="CLEAR ALL">
-            </form>
-
-       
-       
-        </section>
-        {% endif %} -->
-
-
-        <section class="preset-selection">
-
-            <h2>Load Presets</h2>
-
-            <form name="camera" method="POST" action="">
-                {{ select_form.csrf_token }}
-                {{ select_form.camera.label }} {{ select_form.camera }}
-            </form>
-
-            <form name="telescope" method="POST" action="">
-                {{ select_form.csrf_token }}
-                {{ select_form.telescope.label }} {{ select_form.telescope }}
-            </form>
-
-            <form name="filter" method="POST" action="">
-                {{ select_form.csrf_token }}
-                {{ select_form.filter.label }} {{ select_form.filter }}
-            </form>
-
-            <form name="target" method="POST" action="">
-                {{ select_form.csrf_token }}
-                {{ select_form.target.label }} {{ select_form.target }}
-            </form>
-
-            <form name="conditions" method="POST" action="">
-                {{ select_form.csrf_token }}
-                {{ select_form.conditions.label }} {{ select_form.conditions }}
-            </form>
-
-        </section>
-
 
         <!-- input validation error message -->
         {% if not valid %}
-            <section style="background-color:maroon;">
-                <h3 style="margin-left:25px; color:white;">Parameter(s) Invalid - Must Be Numeric</h3>
+            <section id="error" style="background-color:maroon;">
+                <h3 style="margin-left:25px; color:white;"> {{ error }} </h3>
+                {% for field in in_form.errors %}
+                {% for error in in_form.errors[field]%}
+                    <p>> {{ error }} ({{ field }})</p>
+                {% endfor %}
+                {% endfor %}
+                <p><i>Click the info tabs under each section for more details</i></p>
             </section>
+
         {% endif %}
 
-
-        <form method="POST" action="">
+        <!-- main form -->
+        <form id="input-form" method="POST" action="">
         
-            {{ in_form.hidden_tag() }}
-
             <!-- security tag? -->
-             
-            
-                
-            <section id="camera">
+            {{ in_form.hidden_tag() }}
+            {{ in_form.csrf_token }}          
 
-                <h2>Camera Parameters</h2> 
-                
-                <!--div class="tooltip">info 
-                    <span class="tooltiptext">Text goes here</span>
-                </div><br-->
+            <!-- camera section -->
+            <section name="camera" class="container">
 
-                {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x(placeholder="pixels") }} {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y(placeholder="pixels") }}
-                {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size }}<br>
+                <h2 class="block">Camera Parameters</h2> 
         
-                {{ in_form.q_efficiency.label(type="autofill") }}{{ in_form.q_efficiency }}
-                {{ in_form.read_noise.label(type="autofill") }}{{ in_form.read_noise }}
-                {{ in_form.gain.label(type="autofill") }}{{ in_form.gain }}<br>
+                <div class="block">
+                    <!--form name="camera" method="POST" action=""-->
+                        {{ select_form.csrf_token }}{{ select_form.camera }}
+                    <!--/form-->
+                </div>
 
-                {{ in_form.offset.label(type="autofill") }}{{ in_form.offset }}
-                {{ in_form.dark_noise.label(type="autofill") }}{{ in_form.dark_noise }}
-                {{ in_form.full_well.label(type="autofill") }}{{ in_form.full_well }}<br>
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        Sample Length (px) — determines the length of the sample image; increase the value if it does not fit — [10, 1000]<br>
+                        Sample Width (px) — determines the width of the sample image; increase the value if it does not fit — [10, 1000]<br> 
+                        Pixel Size (μm) - size of an individual pixel of the camera sensor<br>
+                        Quantum Efficiency (%) - percentage of photons captured that register a signal<br>
+                        Read Noise (electrons) - noise introduced by the detector circuitry<br>
+                        Gain (electrons/ADU) - signal amplification of the sensor<br>
+                        Offset (units) - ... <br>
+                        Dark Noise (units) - ... <br>
+                    </p>
+                </div>
+
+                <div class="spacer-break"></div>
+
+                <div class="block">
+                    {% if in_form.sensor_x.errors %}
+                    {{ in_form.sensor_x.label(type="autofill", class="myDiv") }}{{ in_form.sensor_x(style="border-color: red;") }}
+                     {% else %}
+                         {{ in_form.sensor_x.label(type="autofill") }}{{ in_form.sensor_x }}
+                     {% endif %}
+                </div>
+
+                <div class="block">
+                    {% if in_form.sensor_y.errors %}
+                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.sensor_y.label(type="autofill") }}{{ in_form.sensor_y }}
+                    {% endif %}
+                </div>
         
-                <script> 
+                <div class="block">
+                    {% if in_form.px_size.errors %}
+                        {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.px_size.label(type="autofill") }}{{ in_form.px_size }}
+                    {% endif %}
+                </div>         
+                    
+                <div class="block"> 
+                    {% if in_form.q_efficiency.errors %}
+                        {{ in_form.q_efficiency.label(type="autofill") }}{{ in_form.q_efficiency(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.q_efficiency.label(type="autofill") }}{{ in_form.q_efficiency }}
+                    {% endif %}
+                </div>
+                 
+                <div class="block">
+                    {% if in_form.read_noise.errors %}
+                        {{ in_form.read_noise.label(type="autofill") }}{{ in_form.read_noise(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.read_noise.label(type="autofill") }}{{ in_form.read_noise }}
+                    {% endif %}
+                </div>
+
+                <div class="block">
+                    {% if in_form.gain.errors %}
+                        {{ in_form.gain.label(type="autofill") }}{{ in_form.gain(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.gain.label(type="autofill") }}{{ in_form.gain }}
+                    {% endif %}
+                </div>
+
+                <div class="block">
+                    
+                    {% if in_form.offset.errors %}
+                        {{ in_form.offset.label(type="autofill") }}{{ in_form.offset(style="border-color: red;")}}
+                    {% else %}
+                        {{ in_form.offset.label(type="autofill") }}{{ in_form.offset }}
+                    {% endif %}
+                </div>  
+
+                <div class="block">
+                    {% if in_form.dark_noise.errors %}
+                        {{ in_form.dark_noise.label(type="autofill") }}{{ in_form.dark_noise(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.dark_noise.label(type="autofill") }}{{ in_form.dark_noise }}
+                    {% endif %}
+                </div>
+
+                <div class="block">
+                    {% if in_form.full_well.errors %}
+                        {{ in_form.full_well.label(type="autofill") }}{{ in_form.full_well(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.full_well.label(type="autofill") }}{{ in_form.full_well }}
+                    {% endif %}
+                </div>
+
+                <div class="spacer"></div> <!--required for flex-->
+
+                <!--script> 
                     document.getElementById('camera').addEventListener('change', function() {
 
                         var presets = {{ camera_presets|tojson }};
                         var size = presets[0][1].length;
 
-                        // I should check if there is actaully anything here first
+                        // I should check if there is actually anything here first
                         var preset = [size]
 
                         for(let i = 0; i < size; i++) { preset[i] = ''; }
@@ -118,116 +154,367 @@
                         document.getElementById('dark_noise').value = preset[7];
                         document.getElementById('full_well').value = preset[8];
                     });
-                </script>
+                </script-->
 
-            </section>               
+                <!--script> 
+                    document.getElementById('camera').addEventListener('change', function() {
 
-
-            <section id="telescope">
-
-                <h2>Telescope Parameters</h2>
-                
-                {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia }}
-                {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal }}
-                {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale }}<br>
-
-                <script> 
-                    document.getElementById('telescope').addEventListener('change', function() {
-
-                        var presets = {{ telescope_presets|tojson }};
-                        var size = presets[0][1].length;
-
-                        // I should check if there is actaully anything here first
-                        var preset = [size]
-
-                        for(let i = 0; i < size; i++) { preset[i] = ''; }
+                        var presets = {{ camera_presets|tojson }};
+                        var preset;
 
                         // match the selection with a preset
                         for( let i = 0; i < presets.length; i++ ) {
-                            if( presets[i][0] == document.getElementById('telescope').value ) { preset = presets[i][1]; }
+                            if( presets[i]['name'] == document.getElementById('camera').value ) { preset = presets[i]; }
                         }
-
-                        document.getElementById('scope_dia').value = preset[0];
-                        document.getElementById('scope_focal').value = preset[1];
-                        document.getElementById('plate_scale').value = preset[2];
+                       
+                        // autofill the values
+                        document.getElementById('sensor_x').value = preset['sensor_x'];
+                        document.getElementById('sensor_y').value = preset['sensor_y'];
+                        document.getElementById('px_size').value = preset['px_size'];
+                        document.getElementById('q_efficiency').value = preset['q_efficiency'];
+                        document.getElementById('read_noise').value = preset['read_noise'];
+                        document.getElementById('gain').value = preset['gain'];
+                        document.getElementById('offset').value = preset['offset'];
+                        document.getElementById('dark_noise').value = preset['dark_noise'];
+                        document.getElementById('full_well').value = preset['full_well'];
                     });
-                </script>
+                </script-->
+
+                
+
+            </section>
+
+            <!-- telescope section -->
+            <section name="telescope" class="container">
+
+                <h2 class="block">Telescope Parameters</h2> 
+        
+                <div class="block">
+                    <!--form name="telescope" method="POST" action=""-->
+                        {{ select_form.csrf_token }}{{ select_form.telescope }}
+                    <!--/form-->
+                </div>
+
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        <b>Diameter (m)</b> - Telescope diameter<br>
+                        <b>Focal Length (m)</b> - Telescope focal length<br> 
+                        <b>Plate Scale (arcsecond/pixel)</b> -  Arcseconds covered per pixel in the detector<br>
+                        The plate scale will be automatically calculated if...
+                    </p>
+                </div>
+                <div class="spacer-break"></div>
+
+
+                <div class="block">
+                    {% if in_form.scope_dia.errors %}
+                        {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.scope_dia.label(type="autofill") }}{{ in_form.scope_dia }}
+                    {% endif %}
+                </div>
+
+                <div class="block">
+                    {% if in_form.scope_focal.errors %}
+                        {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.scope_focal.label(type="autofill") }}{{ in_form.scope_focal }}
+                    {% endif %}
+                </div>
+
+                <div class="block">
+                    {% if in_form.plate_scale.errors %}
+                        {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.plate_scale.label(type="autofill") }}{{ in_form.plate_scale }}
+                    {% endif %}
+                </div>
+
+
+                <div class="spacer"></div>
+
+              
+
+            </section>
+
+            <!-- filter section -->
+            <section name="filter" class="container">
+
+                <h2 class="block">Filter Parameters</h2> 
+        
+                <div class="block">
+                    <!--form name="filter" method="POST" action=""-->
+                        {{ select_form.csrf_token }}{{ select_form.filter }}
+                    <!--/form-->
+                </div>
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        The current filters avaiable are the ones used by the ESO ETC<br>
+                        Follow the link for more details: <a href="https://www.eso.org/observing/etc/doc/skycalc/helpskycalc.html#mags" style="color:white">ESO Website</a><br>
+                    </p>
+
+                   
+                </div>
+                <div class="spacer-break"></div>
 
             </section>
 
 
-            <section id="filter">
+            
 
-                <h2>Filter Parameters</h2>
+
+            <!-- source type -->
+
+            <!--TODO: change to event listener-->
+            <div class="tab">
+                    <!--div class="block" style="margin:0; width:auto;"-->
+                        <button class="tablinks" type="button"  id="defaultOpen" style="border-top-left-radius:5px;">Point Source</button>
+                        <button class="tablinks" type="button"  id="defaultClose">Extended Source</button> 
+                        <!--button class="tablinks" type="button"  id="tab-galaxy">Galaxy Spectra</button>
+                        <button class="tablinks" type="button"  id="tav-emission">Emission Line</button>
+                        <button class="tablinks" type="button"  id="tab-agn">AGN</button>
+                        <button class="tablinks" type="button"  id="tab-supernova" style="border-top-right-radius:5px;">Supernova</button-->
+                        
+                        {{ in_form.source_type(readonly=true, style="display:none") }}
+                    <!--/div-->
+                    
+            </div>
+
+
+            <!--div class="tab">
+                <div class="block" style="margin:0;">
+                    <button class="tablinks" type="button" id="defaultOpen" style="border-top-left-radius:5px;">Point Source</button>
+                    <button class="tablinks" type="button" id="defaultClose" style="border-top-right-radius:5px;">Extended Source</button> 
+                    {{ in_form.source_type(readonly=true, style="display:none") }}
+                </div>
+                <div class="spacer"></div><div class="spacer"></div>
+            </div-->
+
+
+            <!-- target-point section -->
+            <section id="target-point" class="tabcontent">
+
+                <h2 class="block">Target Parameters</h2> 
+
+                <div class="block">
+                    <!--form name="target" method="POST" action=""-->
+                        {{ select_form.csrf_token }}{{ select_form.point_src }}
+                    <!--/form-->
+                </div>
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
+                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
+                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
+                    </p>
+                </div>
+
+
+                <div class="spacer-break"></div>
                 
-                {{ in_form.filter_low.label(type="autofill") }}{{ in_form.filter_low }}
-                {{ in_form.filter_high.label(type="autofill") }}{{ in_form.filter_high }}
-                {{ in_form.filter_zero.label(type="autofill") }}{{ in_form.filter_zero }}<br>
+                            
+                
+              
 
-                <script> 
-                    document.getElementById('filter').addEventListener('change', function() {
+                <div class="block">
+                    {% if in_form.star_ab_mag.errors %}
+                        {{ in_form.star_ab_mag.label(type="autofill") }}{{ in_form.star_ab_mag(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.star_ab_mag.label(type="autofill") }}{{ in_form.star_ab_mag }}
+                    {% endif %}
+                </div>
 
-                        var presets = {{ filter_presets|tojson }};
-                        var size = presets[0][1].length;
+                <div class="block">
+                    {% if in_form.star_temp.errors %}
+                        {{ in_form.star_temp.label(type="autofill", id="star_temp_label") }}{{ in_form.star_temp(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.star_temp.label(type="autofill", id="star_temp_label") }}{{ in_form.star_temp }}
+                    {% endif %}             
+                </div>
 
-                        // I should check if there is actaully anything here first
-                        var preset = [size]
+               
 
-                        for(let i = 0; i < size; i++) { preset[i] = ''; }
+                <div class="spacer"></div>
+                
+                
 
-                        // match the selection with a preset
-                        for( let i = 0; i < presets.length; i++ ) {
-                            if( presets[i][0] == document.getElementById('filter').value ) { preset = presets[i][1]; }
-                        }
-
-                        document.getElementById('filter_low').value = preset[0];
-                        document.getElementById('filter_high').value = preset[1];
-                        document.getElementById('filter_zero').value = preset[2];
-                    });
-                </script>
 
             </section>
 
+            <!-- target-extended section -->
+            <section id="target-extended" class="tabcontent">
 
-            <section id="target">
+                <h2 class="block">Target Parameters</h2> 
 
-                <h2>Target Parameters</h2>
+                <div class="block">
+                    <!--form name="target" method="POST" action=""-->
+                        {{ select_form.csrf_token }}{{ select_form.extended_src }}
+                    <!--/form-->
+                </div>
                 
-                {{ in_form.star_dist.label(type="autofill") }}{{ in_form.star_dist }}
-                {{ in_form.star_temp.label(type="autofill") }}{{ in_form.star_temp }}
-                {{ in_form.star_dia_solar.label(type="autofill") }}{{ in_form.star_dia_solar }}<br>
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
+                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
+                        <b>Plate Scale (arcsecond/pixel)</b> -  size of an individual pixel of the camera sensor<br>
+                    </p>
+                </div>
 
-                <script> 
-                    document.getElementById('target').addEventListener('change', function() {
+                <div class="spacer-break"></div>
+                
+                <div class="block">
+                    {% if in_form.ext_mag.errors %}
+                        {{ in_form.ext_mag.label(type="autofill") }}{{ in_form.ext_mag(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.ext_mag.label(type="autofill") }}{{ in_form.ext_mag }}
+                    {% endif %}
+                </div>
 
-                        var presets = {{ target_presets|tojson }};
-                        var size = presets[0][1].length;
+                
 
-                        // I should check if there is actaully anything here first
-                        var preset = [size]
 
-                        for(let i = 0; i < size; i++) { preset[i] = ''; }
+                
 
-                        // match the selection with a preset
-                        for( let i = 0; i < presets.length; i++ ) {
-                            if( presets[i][0] == document.getElementById('target').value ) { preset = presets[i][1]; }
-                        }
 
-                        document.getElementById('star_dist').value = preset[0];
-                        document.getElementById('star_temp').value = preset[1];
-                        document.getElementById('star_dia_solar').value = preset[2];
-                    });
-                </script>
+                <div class="spacer"></div><div class="spacer"></div>
 
+             
             </section>
 
 
-            <section id="conditions">
+    
 
-                <h2>Conditions</h2>
+            <!--script>
+                function Tab(e, name) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(name).style.display = "flex";
+                    e.currentTarget.className += " active";
+                }
+
+                    document.getElementById("defaultOpen").click();
+            </script-->
+
+
+
+            <!-- script for target tabs -->
+
+            <!--script>
+                function Tab(e, name) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(name).style.display = "flex";
+                    e.currentTarget.className += " active";
+
+
+
+                    if(name == "target-point") {
+
+                        document.getElementById('source_type').value = "point";
+
+                        // readonly
+
+                        document.getElementById("ext_mag").required = false;
+                        document.getElementById('ext_mag').readOnly = true;
+
+                        document.getElementById('star_ab_mag').required = true;
+                        document.getElementById('star_ab_mag').readOnly = false;
+
+                        document.getElementById('point_src').disabled = false;
+
+                        document.getElementById('extended_src').required = false;                       
+
+
+                    }
+                    else {  // extended sources
+
+                        document.getElementById('source_type').value = "extended";
+
+                        //readonly
+
+
+                        document.getElementById('point_src').disabled = true;
+                        document.getElementById('star_ab_mag').required = false;
+                        document.getElementById('star_ab_mag').readOnly = true;
+                        
+
+                        // reset
+    
+                        document.getElementById("ext_mag").required = true;
+                        document.getElementById('ext_mag').readOnly = false;
+
+                        document.getElementById('extended_src').required = true;
+                        
+                    }
+                }         
+
+                document.getElementById("defaultOpen").click();
                 
-                {{ in_form.seeing.label(type="autofill") }}{{ in_form.seeing }}<br>
+                
+            </script-->
+            
 
+            <!-- conditions section -->
+            <section name="conditions" class="container">
+
+                <h2 class="block">Condition Parameters</h2> 
+        
+                <div class="block">
+                    <!--form name="conditions" method="POST" action=""-->
+                        {{ select_form.csrf_token }}{{ select_form.conditions }}
+                    <!--/form-->
+                </div>
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
+                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
+                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
+                    </p>
+                </div>
+                <div class="spacer-break"></div>
+
+                <div class="block">
+                    {% if in_form.seeing.errors %}
+                        {{ in_form.seeing.label(type="autofill", id="seeing-label") }}{{ in_form.seeing(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.seeing.label(type="autofill", id="seeing-label") }}{{ in_form.seeing }}
+                    {% endif %}
+                </div>
+
+
+                <div class="block">
+                    {% if in_form.sqm.errors %}
+                        {{ in_form.sqm.label(type="autofill") }}{{ in_form.sqm(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.sqm.label(type="autofill") }}{{ in_form.sqm }}
+                    {% endif %}
+                </div>
+        
+                <div class="block">
+                    <!-- GAO autofill button -->
+                    <input type="radio" id="sky_bright">Fill from GAO<br>
+                </div>
+                <div class="spacer"></div>
+           
                 <script> 
                     document.getElementById('conditions').addEventListener('change', function() {
 
@@ -236,26 +523,110 @@
                     });
                 </script>
 
+                <script> 
+                    document.getElementById('sky_bright').addEventListener('change', function() {
+
+                        var option = {{ gao_sqm|tojson }}
+                        document.getElementById('sqm').value = option;
+                    });
+                </script>
+
             </section>
 
+            <!-- SNR section -->
+            <section name="snr" class="container">
 
-            <section id="snr">
+                <h2 class="block">Signal to Noise</h2>
+                <!--div class="spacer"></div-->
 
-                <h2>Signal to Noise</h2>
-                {{ in_form.desired_snr.label(type="autofill") }}{{ in_form.desired_snr }}<br>
+                <div class="block">
+                    <!--form name="target" method="POST" action=""-->
+                        {{ select_form.csrf_token }}{{ select_form.suggested_snr }}
+                    <!--/form-->
+                </div>
 
-            </section>
+                <button type="button" class="collapsible">ⓘ info</button>
+                <div class="col-content">
+                    <p>
+                        <b>Diameter (m)</b> - dimension of the camera sensor, interchangeable with sensor width<br>
+                        <b>Focal Length (m)</b> - dimension of the camera sensor, interchangeable with sensor length<br> 
+                        <b>Plate Scale (?)</b> -  size of an individual pixel of the camera sensor<br>
+                    </p>
+                </div>
+                <div class="spacer-break"></div>
+
+                
+
+                <div class="block">
+
+                    {% if in_form.desired_snr.errors %}
+                        {{ in_form.desired_snr.label(type="autofill") }}{{ in_form.desired_snr(style="border-color: red;") }}
+                    {% else %}
+                        {{ in_form.desired_snr.label(type="autofill") }}{{ in_form.desired_snr }}
+                    {% endif %}
+
+                </div><div class="spacer"></div><div class="spacer"></div>
 
 
+                <script> 
+                    document.getElementById('suggested_snr').addEventListener('change', function() {
 
+                        var selectedOption = this.value;
+                        document.getElementById('desired_snr').value = selectedOption;
+                    });
+                </script>
+
+
+            </section>  
 
             <!-- submit form -->
-            <section id="submission">
-                {{ in_form.submit(class="btn btn-outline-info") }} 
-          </section>
-            
+            <section id="submission" class="container">
+                {{ in_form.submit(id="go", style="background-color: darkgoldenrod") }} 
+              
+                    <!--h3 id="loading" style="display:none">Loading...</h3-->
+                    <!--input type="reset" value="Reset" style="background-color: maroon"-->
+            </section>
+
+                        
         </form>        
+
+
+        <section style="text-align: center">
+            <form class="button" id="clear_all" method = "GET", action="">
+                <input type="submit" value="Reset" style="background-color: gray">
+            </form>
+        </section>
+
+  
+
+        <!--TODO: remove?-->
+        {% if not valid %}
+        <script>
+            var option = document.getElementById('point_src').value;
+            document.getElementById('point_src').value = '';
+            document.getElementById('point_src').value = option;
+        </script>
+        {% endif %}
+
+        
+
+        <!--script type="text/javascript" src="{{ url_for('static', filename='scripts/sourceToggle.js') }}"></script-->
+
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/tempToggle.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/seeingToggle.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/infoToggle.js') }}"></script>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/autofill.js') }}"></script>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/tabs.js') }}"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => setup( {{camera_presets|tojson}}, {{telescope_presets|tojson}} ));
+        </script>
+        
 
     </div>
 
-{% endblock content %}
+
+
+{% endblock input %}

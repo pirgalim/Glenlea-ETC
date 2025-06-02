@@ -1,89 +1,259 @@
 body {
-  background-color: rgb(34, 34, 34);
+  background-color: rgb(35, 35, 35);
   font-family: helvetica;
+  color: whitesmoke;
 }
+
 section {
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  padding: 1rem 0.5rem;
+
   background-color: rgb(70, 70, 70);
-  margin: 25px 200px;
-  padding: 10px 5px;
-  border: 2px slategray;
+  border-radius: 10px; 
+
+  padding: 12.5px;
+  max-width: 1000px;
+
+  border: 2px solid dimgray;
+  box-shadow: 0 0 20px black;
+}
+.container  {
+  min-width: 300px;
+  max-width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  padding: 12.5px;
+}
+.block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 12.5px;
+  width: 300px;
+}
+.spacer {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  margin-left: 12.5px;
+  margin-right: 12.5px;
+}
+.spacer-break {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* height: 20px; */
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 12.5px;
+  margin-bottom: 12.5px;
+  border-top: 1px dotted gray;
+}
+
+
+
+.collapsible {
+ 
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 300px;
+  height: 40px;
+  justify-content: center;
+  margin: 12.5px;
+
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* TODO: I should probably change .active to be specific to the info tabs to prevent confusion later */
+.active, .collapsible:hover {
+  background-color: #555; 
+}
+.col-content {
+  margin-left: 25px;
+  margin-right: 25px;
+
+  width: 100%;
   border-radius: 5px;
-}
-form {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  align-items: center;
+
   color: white;
+  background-color: #555;
 }
+
+.tab {
+  margin-top: 2rem;
+  /* margin-bottom: -10px; */
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+
+  /* height: 40px; */
+  min-width: 300px;
+  max-width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* justify-content: left; */
+  /* padding-left: 40px; */
+}
+.tabcontent {
+  min-width: 300px;
+  max-width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  padding: 12.5px;
+  vertical-align: middle;
+
+}
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+button {
+  
+  display: inline-block;
+  margin: 5px 0px 5px 25px;
+  padding: 10px 10px;
+  text-align: center;
+
+  color: whitesmoke;
+  background-color: gray;
+  border: 2px;
+  border-radius: 5px;
+  
+  font-size: large;
+} 
+button:hover {
+  opacity: 90%;
+}
+
+
+button.tablinks {
+  height: 2.5rem;
+  padding: 10px 10px;
+  text-align: center;
+  font-size: large;
+  margin: 0;
+  border-radius: 0;
+  background-color: gray;
+  border: 1px solid black;
+
+  /* transition: 0.3s; */
+}
+
+/* Create an active/current tablink class */
+.tablinks.active {
+  background-color: #ccc;
+  text-align: center;
+  justify-content: center;
+  background-color: darkgoldenrod;  
+}
+
+img {
+  width:100%;
+  /* margin-left: 25px;
+  margin-right: 25px; */
+}
+
+
+
+/* .small-section {
+  display: flex;
+
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0.5%;
+  width: 40%;
+  height: 80%;
+
+  margin-left: auto;
+  margin-right: auto;
+
+} */
+
+
+
 
 h1 {
-  margin-top: 75px;
-  margin-left: 200px;
-  color: white;
-  /* font: helvetica; */
-
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  text-align: center;
+  align-content: center;
 }
 h2 {
-  margin-left: 25px;
-  margin-right: 25px;
-  color: white;
+  /* margin-left: 2rem; */
+  align-items: center;
+  width: 100%;
+  height: 2.5rem;
+  align-content: center;
+  text-align: center;
+
 }
 p {
-  margin-left: 25px;
-  margin-right: 25px;
-  color: white;
+  padding: 0 25px;
+  line-height: 1.8;
 }
+/* p {
+  margin-left: 12.5px;
+  margin-right: 12.5px;
+  padding: 12.5px;
+  margin-bottom: 25px;
+} */
 
-
-
+/* .button {
+  display:inline-block;
+} */
 
 select {
-  margin-left: 25px;
-  margin-right: 25px;
-  width:300px;
-  height:200px;
-  /* display: inline-block; */
-  color: black;
+
+  -webkit-appearance: none;  /* for webkit (safari, chrome) compatibility */
+  -moz-appearance: none; /* for firefox compatibility */
+  appearance: none;
+
+  width: 250px;
+  height: 30px;
+  text-align-last: center;
+
+  font-size: small;
+  background-color: lightgray;
+  border: 2px solid lightgray;
+  /* box-shadow: 0 0 5px black; */
+
+   /* Arrow */
+   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+   background-repeat: no-repeat;
+   background-position: right 0.7rem top 50%;
+   background-size: 0.65rem auto;
 }
-option {
-  color:black;
-}
-
-span {
-
-  /* align-self: middle; */
-
-  /* width: 0px; */
-
-  display: block; 
-  width: 100px;  
-  height: 10px;  
-  display: inline-block; 
-  
-  
-
-  background-color: slategray;
-  margin: 5px 0px 0px 25px;
-  padding: 10px 50px;
-  border: 2px slategray;
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
+select:hover {
+  /* background-color: darkgray;
+  border-color: darkgray; */
+  opacity: 90%;
 }
 
 
+/* label:not([type]) {
 
-label:not([type]) {
-  margin: 5px 0px 0px 25px;
-  padding: 10px 10px;
-  width: 150px;  
-  height: 20px;
-  display: inline-block;
-
-  text-align: center;
-  background-color: slategray;
-  border: 2px slategray;
-  border-radius: 5px;
-  color: white;
-}
-label[type="autofill"] {
-  
   margin: 10px 0px 10px 25px;
   padding: 10px 10px;
   width: 160px;  
@@ -91,81 +261,109 @@ label[type="autofill"] {
   display: inline-block;
 
   text-align: center;
-  /* font-size: large; */
-
-  
-  background-color: slategray;
-  border: 2px slategray;
+  background-color: gray;
+  border: 2px;
+  border-radius: 5px;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
-  color: white;
+  
+} */
+
+label[type="autofill"] {
+
+  white-space:nowrap;
+  align-content: center;
+  text-align: center;
+  padding: 10px 10px;
+  width: 160px;  
+  height: 20px;
+  display: inline-block;
+  background-color: slategray;
+
+
+  border: 2px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
 }
 
 input {
-  margin: 10px 0px;
+
+  white-space:nowrap;
+  display: inline-block;  
   width: 120px;
   height: 40px;
-  border: 2px solid white;
+  text-align: center;
+  background-color: whitesmoke;
+  border: 2px solid whitesmoke;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
-
-  text-align: center;
-
-  color: black;
+  font-size: medium;
 }
-input[type="submit"] {
+
+
+input[type="submit"], input[type="reset"], button {
   
-  margin: 5px 0px 0px 25px;
+  display: inline-block;
+  margin: 5px;
   padding: 10px 10px;
   text-align: center;
-  background-color: darkorange;
-  border: 2px orange;
+  color: whitesmoke;
+  background-color: gray;
+  border: 2px;
   border-radius: 5px;
-  color: white;
   font-size: large;
 }
+input[type="submit"]:hover {
+  opacity: 90%;
+}
 
-select {
+input[type=radio] { 
+  width: 20px;  
+  height: 20px;  
+}
 
-  /* width: 150px;  
-  height: 200px; */
-  padding: 100px 100px;
-  /* display: inline-block; */
+form {
+  margin: 0;
+}
+
+
+
+/* @media only screen and (max-device-width: 600px){
+
+  section {
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 0;
+    padding: 1rem 0.5rem;
+  
+    background-color: rgb(70, 70, 70);
+    border-radius: 10px; 
+  }
+} */
+
+
+.col-md-2 {
+  padding: 20px;
+  width: 200px;
+  border: 1px solid gray;
+}
+
+
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 0%;
+  height: 30px;
+  background-color: #04AA6D;
 }
 
 
 
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  top: -5px;
-  left: 110%;
-}
 
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 100%;
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent black transparent transparent;
-}
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
+
