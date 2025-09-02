@@ -93,7 +93,11 @@ def calculator():
                     SNR_ref = etc.get_snr_ref(counts, test_exposure, bg_values, obs)
                     
                     exposure_time = etc.calculateReqTime(obs.snr, SNR_ref, test_exposure, counts, obs, bg_values)
-                    exposure_time = "{x:.4f}".format(x=exposure_time)   # format to 4 decimal places
+                    
+                    if(exposure_time == -1):
+                        exposure_time = "SNR not achievable."
+                    else:
+                        exposure_time = "{x:.4f}".format(x=exposure_time)   # format to 4 decimal places
                     
                     aperture_plot = etc.aperturePlot(obs, final_sensor_array)
                     aperture_plot_encoded = base64.b64encode(aperture_plot).decode('utf-8')
