@@ -248,18 +248,16 @@ def calculateReqTime(desiredSNR, snrRef, expRef, counts, obs: Observation, bg_va
     # maxSNR = computeSNR(maxTime, counts, obs.aperture)
     
     maxSNR = computeSNR(obs, maxTime, counts, bg_values)
+    
+    print("MAX SNR: ", maxSNR)
     currentSNR = snrRef
 
     if desiredSNR>maxSNR:
-        
 
-      
-        return "SNR not achievable"
+        return -1
 
 
     else:
-        
-        print("here")
         
         currentTime = -1
 
