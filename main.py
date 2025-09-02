@@ -97,7 +97,7 @@ def calculator():
                     if(exposure_time == -1):
                         exposure_time = "SNR not achievable."
                     else:
-                        exposure_time = "{x:.4f}".format(x=exposure_time)   # format to 4 decimal places
+                        exposure_time = "{x:.4f} seconds".format(x=exposure_time)   # format to 4 decimal places
                     
                     aperture_plot = etc.aperturePlot(obs, final_sensor_array)
                     aperture_plot_encoded = base64.b64encode(aperture_plot).decode('utf-8')

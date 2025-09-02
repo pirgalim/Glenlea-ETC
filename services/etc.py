@@ -253,7 +253,6 @@ def calculateReqTime(desiredSNR, snrRef, expRef, counts, obs: Observation, bg_va
     currentSNR = snrRef
 
     if desiredSNR>maxSNR:
-
         return -1
 
 
