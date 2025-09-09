@@ -1,6 +1,6 @@
 # flask modules
 from flask import Flask, render_template, request
-from forms import InputForm, SelectForm
+from services.forms import InputForm, SelectForm
 
 # calculator modules
 import services.etc as etc
@@ -16,10 +16,7 @@ import numpy as np
 
 # Flask setup
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
-
-
-#TODO set up PATH
+app.config['SECRET_KEY'] = 'PLACEHOLDER'
 
 
 
@@ -78,7 +75,7 @@ def calculator():
                     signal_values = etc.spreadCounts(obs, counts, 1)
             
                     # Adjust counts to what the detector will see (circle)
-                    counts = etc.countsInRad(obs, signal_values)
+                    counts = etc.countsInRad(obs, signal_values)    #TODO: check
                    
                     noise_values = etc.generateNoise(obs ,test_exposure)
                     
@@ -93,7 +90,11 @@ def calculator():
                     SNR_ref = etc.get_snr_ref(counts, test_exposure, bg_values, obs)
                     
                     exposure_time = etc.calculateReqTime(obs.snr, SNR_ref, test_exposure, counts, obs, bg_values)
-                    exposure_time = "{x:.4f}".format(x=exposure_time)   # format to 4 decimal places
+                    
+                    if(exposure_time == -1):
+                        exposure_time = "SNR not achievable."
+                    else:
+                        exposure_time = "{x:.4f} seconds".format(x=exposure_time)   # format to 4 decimal places
                     
                     aperture_plot = etc.aperturePlot(obs, final_sensor_array)
                     aperture_plot_encoded = base64.b64encode(aperture_plot).decode('utf-8')
@@ -182,5 +183,4 @@ def process_input(input: dict) -> dict:
             
 
 if __name__ == '__main__':
-
     app.run(host='0.0.0.0', port=3000)

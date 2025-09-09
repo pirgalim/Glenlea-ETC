@@ -99,14 +99,16 @@ section {
   margin-left: auto;
   margin-right: auto;
 
+  max-width: 1000px;
   /* height: 40px; */
-  min-width: 300px;
-  max-width: 80%;
+  /* min-width: 300px; */
+  /* max-width: 80%; */
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  /* justify-content: center; */
   /* justify-content: left; */
-  /* padding-left: 40px; */
+  padding-left: 40px;
 }
 .tabcontent {
   min-width: 300px;
@@ -155,7 +157,7 @@ button.tablinks {
   margin: 0;
   border-radius: 0;
   background-color: gray;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 
   /* transition: 0.3s; */
 }

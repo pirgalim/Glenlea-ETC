@@ -21,7 +21,7 @@ def calc_counts(obs: Observation):
             return cts.stellarSpec(obs.source, obs.ab_mag, obs.mirror_area, obs.filter_name)*obs.Q_efficiency
         except:
             
-            try:
+            try: 
                 print("Unable to find source. Defaulting to black body.")
                 return cts.blackBody(obs.star_temp, obs.ab_mag, obs.mirror_area,obs.filter_name)*obs.Q_efficiency
             
@@ -244,20 +244,30 @@ def get_snr_ref( counts_per_second, test_exposure, bg_values, obs: Observation):
 #This function iterates over SNR calculations until the desired SNR is achieved within a tolerance, default Tolerance = 1          
 def calculateReqTime(desiredSNR, snrRef, expRef, counts, obs: Observation, bg_values, tolerance = 1, maxTime = 1080000):
     
+    
     # maxSNR = computeSNR(maxTime, counts, obs.aperture)
     
     maxSNR = computeSNR(obs, maxTime, counts, bg_values)
+    
+    print("MAX SNR: ", maxSNR)
     currentSNR = snrRef
 
     if desiredSNR>maxSNR:
-        return "SNR not achievable"
+        return -1
 
 
     else:
+        
+        currentTime = -1
+
         while np.abs(desiredSNR-currentSNR)>tolerance:
             currentTime = expRef*(desiredSNR/currentSNR)**2
             currentSNR = computeSNR(obs, currentTime, counts, bg_values)
             expRef = currentTime        
+            
+        
+        
+        
         
         return currentTime           
             
