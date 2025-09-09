@@ -19,9 +19,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'PLACEHOLDER'
 
 
-#TODO set up PATH
-
-
 
 @app.route('/', methods=['GET', 'POST'])
 def calculator():
@@ -186,5 +183,4 @@ def process_input(input: dict) -> dict:
             
 
 if __name__ == '__main__':
-
     app.run(host='0.0.0.0', port=3000)
