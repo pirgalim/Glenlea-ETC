@@ -1,6 +1,6 @@
 # flask modules
 from flask import Flask, render_template, request
-from forms import InputForm, SelectForm
+from services.forms import InputForm, SelectForm
 
 # calculator modules
 import services.etc as etc
@@ -16,7 +16,7 @@ import numpy as np
 
 # Flask setup
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'd42c51f24733b869a5916a8c09043624'
+app.config['SECRET_KEY'] = 'PLACEHOLDER'
 
 
 #TODO set up PATH
@@ -78,7 +78,7 @@ def calculator():
                     signal_values = etc.spreadCounts(obs, counts, 1)
             
                     # Adjust counts to what the detector will see (circle)
-                    counts = etc.countsInRad(obs, signal_values)
+                    counts = etc.countsInRad(obs, signal_values)    #TODO: check
                    
                     noise_values = etc.generateNoise(obs ,test_exposure)
                     
