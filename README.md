@@ -1,5 +1,4 @@
-This is a web-based Exposure Time Calculator (ETC) intended for deployment to the [Lockhart Planetarium](http://www.physics.umanitoba.ca/astro/?page_id=8) website. The current version only supports calculations for point sources, support for extended sources is to be added in the future. This application was made in collaboration with GitHub user RJWeir. 
-
+This is a web-based [Exposure Time Calculator (ETC)](http://etcglenlea.umanitoba.ca) intended for use with the Glenlea Remote Observatory at the University of Manitoba.
 ### Local Usage
 ##### Installation Requirements
 
