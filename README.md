@@ -1,4 +1,4 @@
-This is a web-based [Exposure Time Calculator (ETC)](http://etcglenlea.umanitoba.ca) intended for use with the Glenlea Remote Observatory at the University of Manitoba.
+This is a web-based [Exposure Time Calculator (ETC)](http://etcglenlea.physics.umanitoba.ca) intended for use with the Glenlea Remote Observatory at the University of Manitoba.
 ### Local Usage
 ##### Installation Requirements
 
