@@ -1,27 +1,26 @@
-name: Pylint
+name: Pylint (per file)
 
 on:
   push:
-    branches: [testing]  # only run on testing branch
+    branches: [testing]
+  pull_request:
+    branches: [testing]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        file:
+          # - main.py
+          # - services/counts.py
+          - services/etc.py
+          # add more as you’re ready
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install Pylint
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install pylint
+      - name: Lint ${{ matrix.file }}
         run: |
-          python -m pip install --upgrade pip
-          pip install pylint
-
-      # Run Pylint on your ETC code
-      - name: Run Pylint
-        run: |
-          pylint main.py services/*.py -d import-error,no-name-in-module --exit-zero
+          pylint "${{ matrix.file }}" -d import-error,no-name-in-module --exit-zero
