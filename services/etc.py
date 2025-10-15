@@ -332,10 +332,10 @@ def aperturePlot(obs, final_sensor_array):
 
 
 
-def plotTest(obs: Observation):
+# def plotTest(obs: Observation):
     
-    print("here")
-    return cts.testPlot(obs.star_temp, obs.ab_mag, obs.mirror_area,obs.filter_name)
+#     print("here")
+#     return cts.testPlot(obs.star_temp, obs.ab_mag, obs.mirror_area,obs.filter_name)
 
 
 
