@@ -5,7 +5,6 @@ from services.observation import Observation
 
 
 
-
 def calc_counts(obs: Observation):
                 
     if obs.type == "point":
@@ -26,8 +25,7 @@ def calc_counts(obs: Observation):
         
     else: print("source error when finding counts")   
         
-        
-        
+            
         
 def plot_bodies(obs: Observation):
                 
@@ -51,40 +49,11 @@ def plot_bodies(obs: Observation):
 
 
 
-
-
-
-#SPREAD COUNTS OVER A 2D GAUSSIAN
-#Takes in sensor dimensions, total counts to spread, and fwhm (seeing condition)
-# def spreadCounts(obs: Observation, counts: float, exposureTime: float) -> float: 
-    
-#     fwhm = obs.seeing_pixel
-#     sensorX = obs.sensor_X
-#     sensorY = obs.sensor_Y
-#     totalCounts = counts
-    
-    
-#     sigma = fwhm/(2*np.sqrt(2*np.log(2)))
-#     signalValues = np.zeros([sensorY,sensorX])
-#     centerX = sensorY/2
-#     centerY = sensorX/2
-
-#     for x in range(sensorY):
-#         for y in range(sensorX):
-#             signalValues[x,y] = (1/(2*np.pi*sigma**2))*np.exp((-((x-centerX)**2+(y-centerY)**2))/(2*sigma**2))
-
-# # DO NOT INDENT !!!!!!
-#     signalValues = signalValues*(totalCounts/signalValues.sum())*exposureTime
-#     return signalValues
-
 def spreadCounts(obs: Observation, totalCounts: float, exposureTime: float) -> float:
-    
-    
+      
     sensorX = obs.sensor_X
     sensorY = obs.sensor_Y
     fwhm = obs.seeing_pixel
-    
-    
     
     x = np.linspace(0,sensorX-1,sensorX)
     y = np.linspace(0,sensorY-1,sensorY)
@@ -105,7 +74,6 @@ def spreadCounts(obs: Observation, totalCounts: float, exposureTime: float) -> f
     signalValues = signalValues*(totalCounts/signalValues.sum())*exposureTime
         
     return signalValues
-
 
 
 
@@ -136,11 +104,6 @@ def generateNoise(obs: Observation, exposureTime):
 
         noiseValues = readNoise + (darkCurrent*exposureTime) + offset
         return noiseValues
-
-
-
-
-
 
 
 
@@ -192,9 +155,6 @@ def computeSNR(obs: Observation, exposureTime, counts, bg_values):
     readNoise = obs.read_noise
     darkNoise = obs.dark_noise
     
-    
-
-
     if obsType == "point": # Point source
 
         return (signalCountsPerSec*exposureTime)/(np.sqrt(signalCountsPerSec*exposureTime+apertureNumPixels*(exposureTime*bg_values[0][0]+readNoise**2+exposureTime*darkNoise)))
@@ -208,12 +168,10 @@ def computeSNR(obs: Observation, exposureTime, counts, bg_values):
     
 def get_snr_ref( counts_per_second, test_exposure, bg_values, obs: Observation):
     
-    
     obs_type = obs.type
     aperture_num_pixels = obs.aperture_num_pixels
     read_noise = obs.read_noise
     dark_noise = obs.dark_noise
-    
     
     if obs_type == "point": # Point Source
 
@@ -226,10 +184,6 @@ def get_snr_ref( counts_per_second, test_exposure, bg_values, obs: Observation):
        
         
 
-            
-            
-            
-            
 #CHECK FOG LIMIT AND CALCULATE EXPOSURE TIME
 #If a star is too dim or the sky too bright, SNR will plateau. This code checks to see if the desired SNR is above this limit. Assumes maximum exposure time of 300 hours.
 #If Desired SNR is above the fog limit, a lower SNR must be input or better conditions observed.
@@ -247,31 +201,19 @@ def calculateReqTime(desiredSNR, snrRef, expRef, counts, obs: Observation, bg_va
     if desiredSNR>maxSNR:
         return -1
 
-
     else:
-        
         currentTime = -1
 
         while np.abs(desiredSNR-currentSNR)>tolerance:
             currentTime = expRef*(desiredSNR/currentSNR)**2
             currentSNR = computeSNR(obs, currentTime, counts, bg_values)
             expRef = currentTime        
-            
-        
-        
-        
-        
+
         return currentTime           
             
-            
-            
-            
-            
-            
-            
+
+       
 def generateBG_TEST(obs: Observation):
-    
-    
     sensor_X = obs.sensor_X
     sensor_Y = obs.sensor_Y
     sky_bright = obs.sky_bright
@@ -283,56 +225,16 @@ def generateBG_TEST(obs: Observation):
     filter_name = obs.filter_name
     
     # result = cts.generateBG(sensor_X, sensor_Y, sky_bright, filter_name, mirror_area, gain, Q_efficiency, pixel_area, obs_type)
-    
-    # result1 = cts.generateBG(sky_bright, filter_name, mirror_area, gain, Q_efficiency).value*Q_efficiency*pixel_area
-    
-    
+    # result1 = cts.generateBG(sky_bright, filter_name, mirror_area, gain, Q_efficiency).value*Q_efficiency*pixel_area    
     result = cts.generateBG(sensor_X, sensor_Y, sky_bright, filter_name, mirror_area, gain, Q_efficiency, pixel_area, obs_type)*Q_efficiency*pixel_area
-
-    
-    # print("bg result: ", result)
     
     return result
             
-            
-            
-    # def calc_counts(obs):
-                
-    #     if obs.type == "point":
-                        
-    #         try:
-    #             return cts.stellarSpec(obs.source, obs.ab_mag, obs.mirror_area, obs.filter_name)*obs.Q_efficiency
-    #         except:
-    #             print("Unable to find source. Defaulting to black body.")
-    #             return cts.blackBody(obs.star_temp, obs.ab_mag, obs.mirror_area,obs.filter_name)*obs.Q_efficiency
-        
-    #     elif obs.type == "extended":
-            
-    #         return cts.extSpec(obs.source, obs.library, obs.ext_mag, obs.mirror_area, obs.filter_name)*obs.Q_efficiency*obs.pixel_area
-            
-    #     else: print("source error when finding counts")   
-    
-    
-    
-    
-    
+             
 
 def aperturePlot(obs, final_sensor_array):
     
-   return cts.aperture(obs, final_sensor_array)
-
-
-
-
-# def plotTest(obs: Observation):
-    
-#     print("here")
-#     return cts.testPlot(obs.star_temp, obs.ab_mag, obs.mirror_area,obs.filter_name)
-
-
-
-
-
+    return cts.aperture(obs, final_sensor_array)
 
 
 
@@ -353,10 +255,6 @@ def countsInRad(obs: Observation, signalGrid):
                 countsWithinRadius = countsWithinRadius + signalGrid[x][y]
                 print(countsWithinRadius)
                 
-
     print(sensorX, sensorY, radius)
     print(signalGrid)
-    
-
-
     return countsWithinRadius
