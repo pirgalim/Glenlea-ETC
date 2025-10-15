@@ -24,4 +24,4 @@ jobs:
       # Run Pylint on your ETC code
       - name: Run Pylint
         run: |
-          pylint main.py services/*.py --exit-zero
+          pylint main.py services/*.py -d import-error,no-name-in-module --exit-zero
