@@ -1,16 +1,8 @@
+import numpy as np
 import services.counts as cts
-import services.plots as plots
+from services import plots
 from services.observation import Observation
 
-import numpy as np
-
-# def validate(obs: Observation):
-        
-#         if obs.filter_high < obs.filter_low:
-            
-#             return "Low filter pass cannot be greater than high filter pass"
-        
-#         else: return None
 
 
 
