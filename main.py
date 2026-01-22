@@ -12,11 +12,17 @@ import services.templates as tp
 import base64
 import numpy as np
 
-
+# enviroment loading
+import os
+from dotenv import load_dotenv
+load_dotenv()
+if os.getenv("SECRET_KEY") is None:
+    raise RuntimeError("SECRET_KEY is not set in the environment. Add it to a .env file in the base directory.")
 
 # Flask setup
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'PLACEHOLDER'
+# app.config['SECRET_KEY'] = 'PLACEHOLDER'
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
 
 
