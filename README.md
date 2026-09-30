@@ -14,3 +14,9 @@ To use the ETC without deployment, simply run *main.py* from a terminal window a
 
 ### Website
 This feature will be supported in a future release. 
+
+
+
+
+# NOTICE
+This branch is being used as the source to refactor the project.
